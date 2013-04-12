@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) SCCustomer *customer;
 
-
++ (void)loadAddressDataFromLines:(NSArray *)lines toLabels:(NSArray *)labels;
 
 @end
 

@@ -16,6 +16,7 @@
 #import "SCAddress.h"
 #import "SCLine.h"
 #import "SCItem.h"
+#import "SCCustomerDetailVC.h"
 
 
 //PDF constants
@@ -194,17 +195,24 @@ static CGFloat const klineHeight = 14;
 {
     //User Company Info
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *companyInfo = [defaults objectForKey:@"CompanyInfo"];
-    self.userCompanyName.text = [companyInfo objectForKey:@"Name"];
-    self.userAddress1.text = [companyInfo objectForKey:@"Address1"];
-    self.userAddress2.text = [companyInfo objectForKey:@"Address2"];
-    self.userAddress3.text = [companyInfo objectForKey:@"Address3"];
-    self.userAddress4.text = [companyInfo objectForKey:@"Address4"];
-    self.userAddress5.text = [companyInfo objectForKey:@"Address5"];
-    self.userPhone.text = [NSString stringWithFormat:@"Phone: %@", [companyInfo objectForKey:@"Phone"]];
-    self.userFax.text = [NSString stringWithFormat:@"Fax: %@", [companyInfo objectForKey:@"Fax"]];
-    self.userEmail.text = [companyInfo objectForKey:@"Email"];
-    self.userWebsite.text = [companyInfo objectForKey:@"Website"];
+    NSDictionary *companyInfo = [defaults objectForKey:USER_COMPANY_INFO];
+    self.userCompanyName.text = companyInfo[USER_COMPANY_NAME];
+    self.userAddress1.text = companyInfo[USER_COMPANY_ADDRESS1];
+    self.userAddress2.text = companyInfo[USER_COMPANY_ADDRESS2];
+    self.userAddress3.text = companyInfo[USER_COMPANY_ADDRESS3];
+    self.userAddress4.text = companyInfo[USER_COMPANY_ADDRESS4];
+    self.userAddress5.text = companyInfo[USER_COMPANY_ADDRESS5];
+    
+    if (companyInfo[USER_COMPANY_PHONE]) {
+        self.userPhone.text = [NSString stringWithFormat:@"Phone: %@", companyInfo[USER_COMPANY_PHONE]];
+    }
+
+    if (companyInfo[USER_COMPANY_FAX]) {
+        self.userFax.text = [NSString stringWithFormat:@"Fax: %@", companyInfo[USER_COMPANY_FAX]];
+    }
+
+    self.userEmail.text = companyInfo[USER_COMPANY_EMAIL];
+    self.userWebsite.text = companyInfo[USER_COMPANY_WEBSITE];
 
     //Order Header
     self.status.text = [self.order fullStatus];    
@@ -218,7 +226,17 @@ static CGFloat const klineHeight = 14;
     self.terms.text = self.order.salesTerm.name;
     
     //Bill to and Ship to
-    self.companyName.text = self.order.customer.dbaName;
+    self.billToTitle.text = self.order.customer.dbaName;
+    
+    NSArray *billingLines = [self.order.customer.primaryBillingAddress addressBlock];
+    NSArray *billingLabels = [NSArray arrayWithObjects:self.address1, self.address2, self.address3, self.address4, self.address5, nil];
+    [SCCustomerDetailVC loadAddressDataFromLines:billingLines toLabels:billingLabels];
+    
+    NSArray *shippingLines = [self.order.customer.primaryShippingAddress addressBlock];
+    NSArray *shippingLabels = [NSArray arrayWithObjects:self.shipTo1, self.shipTo2, self.shipTo3, self.shipTo4, self.shipTo5, nil];
+    [SCCustomerDetailVC loadAddressDataFromLines:shippingLines toLabels:shippingLabels];
+    
+    
     self.address1.text = self.order.customer.primaryBillingAddress.line1;
     self.address2.text = self.order.customer.primaryBillingAddress.line2;
     self.address3.text = self.order.customer.primaryBillingAddress.line3;

@@ -11,8 +11,6 @@
 #import "SCOrderMasterVC.h"
 #import "SCCustomer.h"
 #import "SCAddress.h"
-#import "SCPhone.h"
-#import "SCEmail.h"
 #import "SCSalesRep.h"
 #import "SCSalesTerm.h"
 #import "SCCustomersVC.h"
@@ -149,106 +147,6 @@
 }
 
 #pragma mark - Custom Methods
--(NSString *)stringForAddressLineNumber:(int)lineNumber fromAddress:(SCAddress *)address
-{
-    NSString *returnString = @"";
-    switch (lineNumber) {
-        case 1: {
-            if (address.line1) {
-                returnString = [NSString stringWithFormat:@"%@", address.line1];
-            }
-            break;
-        }
-        case 2: {
-            if (address.line2) {
-                returnString = [NSString stringWithFormat:@"%@", address.line2];
-            }
-            break;
-        }
-        case 3: {
-            if (address.line3) {
-                returnString = [NSString stringWithFormat:@"%@", address.line3];
-            }
-            break;
-        }
-        case 4: {
-            if (address.line4) {
-                returnString = [NSString stringWithFormat:@"%@", address.line4];
-            }
-            // Line 4 seems to be reserved for the ZIP + PROVINCE + COUNTRY,
-            if (address.city) {
-                BOOL foundCity = '\0';
-                BOOL foundProvince;
-                BOOL foundZip;
-                
-                if (address.city) {
-                    NSRange cityRange = [returnString rangeOfString:address.city options:NSCaseInsensitiveSearch];
-                    foundCity = cityRange.location != NSNotFound;
-                }
-                if (address.countrySubDivisionCode) {
-                    NSRange provinceRange = [returnString rangeOfString:address.countrySubDivisionCode options:NSCaseInsensitiveSearch];
-                    foundProvince = provinceRange.location != NSNotFound;
-                }
-                if (address.postalCode) {
-                    NSRange zipRange = [returnString rangeOfString:address.postalCode options:NSCaseInsensitiveSearch];
-                    foundZip = zipRange.location != NSNotFound;
-                }
-                if( !foundCity || !foundProvince || !foundZip ) {
-                    NSString *cityLine = @"";
-                    if (address.city) {
-                        cityLine = [NSString stringWithFormat:@"%@%@, ", cityLine, address.city];
-                    }
-                    if (address.countrySubDivisionCode) {
-                        cityLine = [NSString stringWithFormat:@"%@%@ ", cityLine, address.countrySubDivisionCode];
-                    }
-                    if (address.postalCode) {
-                        cityLine = [NSString stringWithFormat:@"%@%@ ", cityLine, address.postalCode];
-                    }
-                    if (address.country) {
-                        cityLine = [NSString stringWithFormat:@"%@%@", cityLine, address.country];
-                    }
-                    returnString = [NSString stringWithFormat:@"%@%@", returnString, cityLine];
-                }
-            }
-            
-            break;
-        }
-        case 5: {
-            if (address.line5) {
-                returnString = [NSString stringWithFormat:@"%@", address.line5];
-            }
-            break;
-        }
-        default:
-            break;
-    }
-    return returnString;
-}
-
--(NSString *)stringForPhoneTag:(NSString *)phoneTag fromPhoneList:(NSSet *)phoneList
-{
-    NSString *returnString = @"";
-    for (SCPhone *phone in phoneList)
-    {
-        if ([phone.tag isEqualToString:phoneTag])
-            returnString = [NSString stringWithFormat:@"%@%@", returnString, phone.freeFormNumber];
-    }
-    return returnString;
-}
-
-//Moved this to SCCustomer class
-//-(NSString *)stringForEmail:(NSSet *)emailList
-//{
-//    NSString *returnString = @"";
-//    // For now only show Business = Mail email
-//    for (SCEmail *email in emailList)
-//    {
-//        if ([email.tag isEqualToString:@"Business"])
-//            returnString = [NSString stringWithFormat:@"%@%@", returnString, email.address];
-//    }
-//    return returnString;
-//}
-
 -(NSString *)formatString:(NSString *)stringToFormat
 {
     if (stringToFormat)
@@ -267,22 +165,35 @@
     self.companyNameLabel.text = [self formatString:self.customer.dbaName ];
     self.contactNameLabel.text = [NSString stringWithFormat:@"%@ %@ %@%@", [self formatString:self.customer.title], [self formatString:self.customer.givenName ], self.customer.middleName ? [NSString stringWithFormat:@"%@ ", self.customer.middleName] : @"", [self formatString:self.customer.familyName]];
     self.contactTitleLabel.text = [self formatString:self.customer.title];
-    self.address1Label.text = [self stringForAddressLineNumber:1 fromAddress:self.customer.primaryBillingAddress ];
-    self.address2Label.text = [self stringForAddressLineNumber:2 fromAddress:self.customer.primaryBillingAddress ];
-    self.address3Label.text = [self stringForAddressLineNumber:3 fromAddress:self.customer.primaryBillingAddress ];
-    self.address4Label.text = [self stringForAddressLineNumber:4 fromAddress:self.customer.primaryBillingAddress ];
-    self.address5Label.text = [self stringForAddressLineNumber:5 fromAddress:self.customer.primaryBillingAddress ];
-    self.mainPhoneLabel.text = [self stringForPhoneTag:@"Business" fromPhoneList:self.customer.phoneList];
-    self.mobilePhoneLabel.text = [self stringForPhoneTag:@"Mobile" fromPhoneList:self.customer.phoneList];
-    self.faxLabel.text = [self stringForPhoneTag:@"Fax" fromPhoneList:self.customer.phoneList];
+    
+    NSArray *billingLines = [self.customer.primaryBillingAddress addressBlock];
+    NSArray *billingLabels = [NSArray arrayWithObjects:self.address1Label, self.address2Label, self.address3Label, self.address4Label, self.address5Label, nil];
+    [SCCustomerDetailVC loadAddressDataFromLines:billingLines toLabels:billingLabels];
+    
+    NSArray *shippingLines = [self.customer.primaryShippingAddress addressBlock];
+    NSArray *shippingLabels = [NSArray arrayWithObjects:self.shipTo1Label, self.shipTo2Label, self.shipTo3Label, self.shipTo4Label, self.shipTo5Label, nil];
+    [SCCustomerDetailVC loadAddressDataFromLines:shippingLines toLabels:shippingLabels];
+    
+    self.mainPhoneLabel.text = [self.customer phoneForTag:MAIN_PHONE_TAG];
+    self.mobilePhoneLabel.text = [self.customer phoneForTag:MOBILE_PHONE_TAG];
+    self.faxLabel.text = [self.customer phoneForTag:FAX_PHONE_TAG];
     self.emailLabel.text = [self.customer mainEmail];
     self.repLabel.text = [NSString stringWithFormat:@"%@", self.customer.salesRep.name ?self.customer.salesRep.name :@""];
     self.termsLabel.text = [NSString stringWithFormat:@"%@", [self formatString:self.customer.salesTerms.name]];
-    self.shipTo1Label.text = [self stringForAddressLineNumber:1 fromAddress:self.customer.primaryShippingAddress ];
-    self.shipTo2Label.text = [self stringForAddressLineNumber:2 fromAddress:self.customer.primaryShippingAddress ];
-    self.shipTo3Label.text = [self stringForAddressLineNumber:3 fromAddress:self.customer.primaryShippingAddress ];
-    self.shipTo4Label.text = [self stringForAddressLineNumber:4 fromAddress:self.customer.primaryShippingAddress ];
-    self.shipTo5Label.text = [self stringForAddressLineNumber:5 fromAddress:self.customer.primaryShippingAddress ];
+    
+    
+}
+
++ (void)loadAddressDataFromLines:(NSArray *)lines toLabels:(NSArray *)labels
+{
+    for (NSInteger i = 0; i < 5; i++) {
+        UILabel *label = labels[i];
+        if (i < lines.count) {
+            label.text = lines[i];
+        } else {
+            label.text = @"";
+        }
+    }
 }
 
 - (void)presentCustomerList

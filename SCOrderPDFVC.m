@@ -76,6 +76,15 @@
     [self viewPDFDocumentNamed:PDF_FILENAME];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (self.global.dataObject.openOrder) {
+        UINavigationController *masterNC = self.splitViewController.viewControllers[0];
+        SCOrderMasterVC *masterVC = (SCOrderMasterVC *)masterNC.topViewController;
+        [masterVC processAppearedDetailVC:self];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -108,8 +117,16 @@
     MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
     mailer.mailComposeDelegate = self;
     
-    NSString *subject = [NSString stringWithFormat:@"SalesCase Order #%@ from %@", self.order.scOrderId, self.order.customer.dbaName];
-    NSString *fileName = [NSString stringWithFormat:@"SalesCase Order %@", self.order.scOrderId];
+    //Get the user's company name
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *companyInfo = [defaults objectForKey:USER_COMPANY_INFO];
+    NSString *userCompanyName = companyInfo[USER_COMPANY_NAME];
+    
+    
+    
+    NSString *subject = [NSString stringWithFormat:@"Order #%@ from %@", self.order.scOrderId, userCompanyName];
+    NSString *fileName = [NSString stringWithFormat:@"Order %@", self.order.scOrderId];
+    NSString *body = [NSString stringWithFormat:@"Dear %@,\n\nA copy of your order is attached to this email. We appreciate your business, thank you.\n\n", self.order.customer.dbaName];
     
     NSString *pdfPath = [self pathForFileName:PDF_FILENAME withFileNameExtension:PDF_FILENAME_EXTENSION];
     if (pdfPath) {
@@ -122,6 +139,7 @@
     [mailer setToRecipients:toRecipients];
     [mailer setCcRecipients:cCRecipients];
     [mailer setBccRecipients:bCCRecipients];
+    [mailer setMessageBody:body isHTML:NO];
     [self presentViewController:mailer animated:YES completion:nil];
 }
 

@@ -429,9 +429,9 @@
             postString = (NSMutableString *) [NSString stringWithFormat:@"customerid=%@",order.customer.customerId]; 
             
             //TODO - BUG IN DEVKIT OR IPP?  Dates in teh past cause orders not to sync.
-            //    NSString *createDate = [SCGlobal stringFromDate:order.createDate];
-            //    postString = [NSString stringWithFormat:@"%@&txndate=%@", postString, createDate];
-            //        postString = [NSString stringWithFormat:@"%@&txndate=2012-06-25", postString];
+//            NSString *createDate = [SCGlobal stringFromDate:order.createDate];
+//            postString = [NSString stringWithFormat:@"%@&txndate=%@", postString, createDate];
+            postString = [NSString stringWithFormat:@"%@&txndate=2013-06-25", postString];
             
 //            SCAddress *billingAddress = order.customer.primaryBillingAddress;
 //            postString = (NSMutableString *)[NSString stringWithFormat:@"%@&%@", postString, [self addressAsRequestString:billingAddress withPrefix:@"billing"]];
@@ -481,6 +481,9 @@
             
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
             [request setHTTPMethod:@"POST"];
+            
+            //DEBUG
+            NSLog(@"request: %@\npost string: %@", request, postString);
             
             //NSData *postData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
             NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];

@@ -36,7 +36,7 @@
     #pragma clang diagnostic pop
     
 #endif
-    [TestFlight takeOff:@"need new string"];
+    [TestFlight takeOff:@"409d3982-166f-4f37-943b-4d13ad78cb9d"];
     
     self.global = [SCGlobal sharedGlobal];
     self.global.dataObject.managedObjectContext = self.managedObjectContext;

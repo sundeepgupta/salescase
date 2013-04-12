@@ -28,4 +28,6 @@
 @property (nonatomic, strong) NSString * line5;
 @property (nonatomic, strong) SCCustomer *owningCustomer;
 
+- (NSArray *)addressBlock;
+
 @end

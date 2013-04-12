@@ -54,5 +54,6 @@
 - (void)removePhoneList:(NSSet *)values;
 
 -(NSString *)mainEmail;
+-(NSString *)phoneForTag:(NSString *)tag;
 
 @end

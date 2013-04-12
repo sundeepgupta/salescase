@@ -115,19 +115,22 @@
     
     //don't need to alloc init the labels since they're built in IB and have outlets to the class.
     cell.companyLabel.text = customer.dbaName;
+    cell.customerLabel.text = customer.name;
+    cell.phoneLabel.text = [customer phoneForTag:MAIN_PHONE_TAG]; 
     
-    NSMutableString *locationString = (NSMutableString *) @"";
-    SCAddress *address = customer.primaryBillingAddress;
-    if ([address.city isKindOfClass:[NSString class]] ) {
-        locationString = (NSMutableString *) address.city;
-    }
-    cell.cityLabel.text = locationString;
-    
-    NSMutableString *zipString = (NSMutableString *) @"";
-    if ([address.postalCode isKindOfClass:[NSString class]]) {
-        zipString = (NSMutableString *) address.postalCode;
-    }
-    cell.zipLabel.text = zipString;
+    //UNTIL FIGURE OUT QB CRAZY ADDRESS ALOGORITHM, DON'T USE THESE
+//    NSMutableString *locationString = (NSMutableString *) @"";
+//    SCAddress *address = customer.primaryBillingAddress;
+//    if ([address.city isKindOfClass:[NSString class]] ) {
+//        locationString = (NSMutableString *) address.city;
+//    }
+//    cell.cityLabel.text = locationString;
+//    
+//    NSMutableString *zipString = (NSMutableString *) @"";
+//    if ([address.postalCode isKindOfClass:[NSString class]]) {
+//        zipString = (NSMutableString *) address.postalCode;
+//    }
+//    cell.zipLabel.text = zipString;
     
     return cell;
 }

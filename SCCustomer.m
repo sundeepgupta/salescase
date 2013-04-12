@@ -12,6 +12,7 @@
 #import "SCOrder.h"
 #import "SCSalesRep.h"
 #import "SCSalesTerm.h"
+#import "SCPhone.h"
 
 
 @implementation SCCustomer
@@ -49,9 +50,16 @@
 
 
 
-
-
-
+-(NSString *)phoneForTag:(NSString *)tag
+{
+    NSString *returnString = @"";
+    for (SCPhone *phone in self.phoneList)
+    {
+        if ([phone.tag isEqualToString:tag])
+            returnString = [NSString stringWithFormat:@"%@%@", returnString, phone.freeFormNumber];
+    }
+    return returnString;
+}
 
 
 

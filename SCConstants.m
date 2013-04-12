@@ -47,6 +47,10 @@ NSString *const USER_COMPANY_FAX = @"Fax";
 NSString *const USER_COMPANY_EMAIL = @"Email";
 NSString *const USER_COMPANY_WEBSITE = @"Website";
 
+//Tags
+NSString *const MAIN_PHONE_TAG = @"Business";
+NSString *const MOBILE_PHONE_TAG = @"Mobile";
+NSString *const FAX_PHONE_TAG = @"Fax";
 
 //PDF
 NSString *const PDF_FILENAME = @"ThePDF";
