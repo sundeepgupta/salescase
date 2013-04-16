@@ -7,6 +7,7 @@
 //
 
 #import "SCNewCustomerVC.h"
+#import "SCCustomer.h"
 
 @interface SCNewCustomerVC ()
 
@@ -56,8 +57,14 @@
 #pragma mark - Image Picker Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    //get and save the image
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     [self.captureImageButton setImage:image forState:UIControlStateNormal];
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
+    self.customer.image = image;
+    
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -32,7 +32,11 @@
 @property (nonatomic, strong) SCAddress *primaryShippingAddress;
 @property (nonatomic, strong) SCSalesRep *salesRep;
 @property (nonatomic, strong) SCSalesTerm *salesTerms;
+
+@property (nonatomic, strong) NSNumber * new;
+@property (nonatomic, strong) id image;
 @end
+
 
 @interface SCCustomer (CoreDataGeneratedAccessors)
 
@@ -56,4 +60,8 @@
 -(NSString *)mainEmail;
 -(NSString *)phoneForTag:(NSString *)tag;
 
+@end
+
+@interface ImageToDataTransformer : NSValueTransformer {
+}
 @end

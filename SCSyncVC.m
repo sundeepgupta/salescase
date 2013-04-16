@@ -520,6 +520,11 @@
     return YES;
 }
 
+- (void)emailNewCustomerImages
+{
+    
+}
+
 -(NSString *)addressAsRequestString:(SCAddress *)address withPrefix:(NSString *)prefix
 {
     NSMutableString *postString = (NSMutableString *) @"";

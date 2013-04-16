@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class SCCustomer;
+
 @interface SCNewCustomerVC : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property (strong, nonatomic) SCCustomer *customer;
 
 @end

@@ -13,6 +13,7 @@
 #import "SCDataObject.h"
 #import "SCCustomer.h"
 #import "SCLookMasterVC.h"
+#import "SCNewCustomerVC.h"
 
 @interface SCCustomersVC ()
 
@@ -198,7 +199,10 @@
 }
 
 - (IBAction)newCustomerButtonPress:(UIBarButtonItem *)sender {
-    UIViewController *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCNewCustomerVC"];
+    SCNewCustomerVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCNewCustomerVC"];
+    SCCustomer *customer = [self.global.dataObject createCustomerInContext];
+    customer.new = @YES;
+    vC.customer = customer;
     [self.navigationController pushViewController:vC animated:YES];
 }
 @end

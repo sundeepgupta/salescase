@@ -28,8 +28,10 @@
         <attribute name="dbaName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="familyName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="givenName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Transformable" storedInTruthFile="YES" syncable="YES"/>
         <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="new" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="qbId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shipVia" optional="YES" attributeType="String" syncable="YES"/>
@@ -120,12 +122,12 @@
     <elements>
         <element name="Event" positionX="160" positionY="192" width="128" height="60"/>
         <element name="SCAddress" positionX="160" positionY="192" width="128" height="255"/>
-        <element name="SCCustomer" positionX="160" positionY="192" width="128" height="345"/>
+        <element name="SCCustomer" positionX="160" positionY="192" width="128" height="360"/>
         <element name="SCEmail" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SCEmailToSend" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SCItem" positionX="160" positionY="192" width="128" height="210"/>
         <element name="SCLine" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="SCOrder" positionX="160" positionY="192" width="128" height="255"/>
+        <element name="SCOrder" positionX="160" positionY="192" width="128" height="270"/>
         <element name="SCPhone" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SCSalesRep" positionX="160" positionY="192" width="128" height="120"/>
         <element name="SCSalesTerm" positionX="160" positionY="192" width="128" height="150"/>
