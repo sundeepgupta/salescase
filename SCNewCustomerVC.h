@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SCNewCustomerVC : UIViewController <UIImagePickerControllerDelegate>
+@interface SCNewCustomerVC : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end

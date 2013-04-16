@@ -10,6 +10,7 @@
 
 @interface SCNewCustomerVC ()
 
+@property (strong, nonatomic) IBOutlet UIButton *captureImageButton;
 @end
 
 @implementation SCNewCustomerVC
@@ -39,20 +40,33 @@
 - (void)captureImage
 {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        
-      
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        imagePicker.allowsEditing = YES;
+        imagePicker.delegate = self;
+//        imagePicker.allowsEditing = YES; 
         
         
         [self presentViewController:imagePicker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Camera Unavailable" message:@"You're camera seems to be unavailable." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 
+#pragma mark - Image Picker Delegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [self.captureImageButton setImage:image forState:UIControlStateNormal];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - IB Methods
 - (IBAction)captureButtonPress:(UIButton *)sender {
     [self captureImage];
+}
+- (void)viewDidUnload {
+    [self setCaptureImageButton:nil];
+    [super viewDidUnload];
 }
 @end

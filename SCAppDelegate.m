@@ -41,6 +41,13 @@
     self.global = [SCGlobal sharedGlobal];
     self.global.dataObject.managedObjectContext = self.managedObjectContext;
     
+    
+    
+    
+    
+    
+    
+    
     //    [webApp verifyOAuthRegistration];  need to connect to IPP
     
     //if you need to reset the store:

@@ -120,7 +120,7 @@
     <elements>
         <element name="Event" positionX="160" positionY="192" width="128" height="60"/>
         <element name="SCAddress" positionX="160" positionY="192" width="128" height="255"/>
-        <element name="SCCustomer" positionX="160" positionY="192" width="128" height="330"/>
+        <element name="SCCustomer" positionX="160" positionY="192" width="128" height="345"/>
         <element name="SCEmail" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SCEmailToSend" positionX="160" positionY="192" width="128" height="105"/>
         <element name="SCItem" positionX="160" positionY="192" width="128" height="210"/>
