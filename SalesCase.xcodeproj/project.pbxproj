@@ -132,6 +132,9 @@
 		AE2928871715059B0094BE0F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928861715059B0094BE0F /* libz.dylib */; };
 		AE2928891715060C0094BE0F /* Case-only-in-square-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = AE2928881715060C0094BE0F /* Case-only-in-square-72x72.png */; };
 		AE29288B171506150094BE0F /* Case-only-in-square.png in Resources */ = {isa = PBXBuildFile; fileRef = AE29288A171506150094BE0F /* Case-only-in-square.png */; };
+		AE349682171CF1FF0017AD6E /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = AE349681171CF1FF0017AD6E /* capture.png */; };
+		AE349685171CF2FE0017AD6E /* SCNewCustomerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCNewCustomerVC.m */; };
+		AE349686171CF2FE0017AD6E /* SCNewCustomerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCNewCustomerVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -277,6 +280,9 @@
 		AE2928861715059B0094BE0F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AE2928881715060C0094BE0F /* Case-only-in-square-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Case-only-in-square-72x72.png"; sourceTree = "<group>"; };
 		AE29288A171506150094BE0F /* Case-only-in-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Case-only-in-square.png"; sourceTree = "<group>"; };
+		AE349681171CF1FF0017AD6E /* capture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture.png; path = SalesCase/capture.png; sourceTree = "<group>"; };
+		AE349683171CF2FE0017AD6E /* SCNewCustomerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNewCustomerVC.h; sourceTree = "<group>"; };
+		AE349684171CF2FE0017AD6E /* SCNewCustomerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNewCustomerVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +462,7 @@
 		AE292873171500EE0094BE0F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AE349681171CF1FF0017AD6E /* capture.png */,
 				AE29288A171506150094BE0F /* Case-only-in-square.png */,
 				AE2928881715060C0094BE0F /* Case-only-in-square-72x72.png */,
 				AE29273A1714DCF00094BE0F /* Supporting Files */,
@@ -529,6 +536,8 @@
 		AE29287F1715029D0094BE0F /* Customers */ = {
 			isa = PBXGroup;
 			children = (
+				AE349683171CF2FE0017AD6E /* SCNewCustomerVC.h */,
+				AE349684171CF2FE0017AD6E /* SCNewCustomerVC.m */,
 				AE2927D61714FF6D0094BE0F /* SCCustomerDetailVC.h */,
 				AE2927D71714FF6D0094BE0F /* SCCustomerDetailVC.m */,
 				AE2927D81714FF6D0094BE0F /* SCCustomersVC.h */,
@@ -666,6 +675,7 @@
 				AE2928701714FFBB0094BE0F /* release_notes.md in Resources */,
 				AE2928891715060C0094BE0F /* Case-only-in-square-72x72.png in Resources */,
 				AE29288B171506150094BE0F /* Case-only-in-square.png in Resources */,
+				AE349682171CF1FF0017AD6E /* capture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +763,7 @@
 				AE2928661714FFBB0094BE0F /* SCOrdersVC.m in Sources */,
 				AE2928681714FFBB0094BE0F /* SCOrderTableCell.m in Sources */,
 				AE29286A1714FFBB0094BE0F /* SCSyncVC.m in Sources */,
+				AE349685171CF2FE0017AD6E /* SCNewCustomerVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,6 +820,7 @@
 				AE2928671714FFBB0094BE0F /* SCOrdersVC.m in Sources */,
 				AE2928691714FFBB0094BE0F /* SCOrderTableCell.m in Sources */,
 				AE29286B1714FFBB0094BE0F /* SCSyncVC.m in Sources */,
+				AE349686171CF2FE0017AD6E /* SCNewCustomerVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

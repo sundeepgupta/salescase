@@ -197,4 +197,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)newCustomerButtonPress:(UIBarButtonItem *)sender {
+    UIViewController *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCNewCustomerVC"];
+    [self.navigationController pushViewController:vC animated:YES];
+}
 @end
