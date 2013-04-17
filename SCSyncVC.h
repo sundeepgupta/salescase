@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SCSyncVCDelegate.h"
+#import <MessageUI/MessageUI.h>
 
-@interface SCSyncVC : UIViewController
+@interface SCSyncVC : UIViewController <MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) id <SCSyncVCDelegate> delegate;
 

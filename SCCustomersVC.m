@@ -202,6 +202,7 @@
     SCNewCustomerVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCNewCustomerVC"];
     SCCustomer *customer = [self.global.dataObject createCustomerInContext];
     customer.new = @YES;
+//    customer.name = [NSDate date];
     vC.customer = customer;
     [self.navigationController pushViewController:vC animated:YES];
 }

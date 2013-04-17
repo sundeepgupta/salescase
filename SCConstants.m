@@ -47,6 +47,9 @@ NSString *const USER_COMPANY_FAX = @"Fax";
 NSString *const USER_COMPANY_EMAIL = @"Email";
 NSString *const USER_COMPANY_WEBSITE = @"Website";
 
+//MISC
+NSString *const EMPTY_SELECTION_STRING = @"-";
+
 //Tags
 NSString *const MAIN_PHONE_TAG = @"Business";
 NSString *const MOBILE_PHONE_TAG = @"Mobile";

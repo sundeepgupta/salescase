@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCPopoverTableDelegate.h"
 
 @class SCCustomer;
 
-@interface SCNewCustomerVC : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface SCNewCustomerVC : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, SCPopoverTableDelegate>
 
 @property (strong, nonatomic) SCCustomer *customer;
 
