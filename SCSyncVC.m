@@ -95,9 +95,9 @@
     NSError *ordersError = nil;
     NSDictionary *oAuthResponseError;
 //    NSDictionary *companyInfoResponseError = nil;
-//    NSDictionary *repsResponseError = nil;
-//    NSDictionary *termsResponseError = nil;
-//    NSDictionary *shipViasResponseError = nil;
+    NSDictionary *repsResponseError = nil;
+    NSDictionary *termsResponseError = nil;
+    NSDictionary *shipViasResponseError = nil;
 //    NSDictionary *customersResponseError = nil;
 //    NSDictionary *itemsResponseError = nil;
     NSDictionary *ordersResponseError;
@@ -111,35 +111,30 @@
                 [syncErrorString appendString:@"\n\n"];
             }
             [syncErrorString appendFormat:@"Failed to sync company info. Error: \n%@", companyInfoError];
-
-//            self.textView.text = [NSString stringWithFormat:@"Failed to sync company info. Error: \n%@", companyInfoError];
             hadSyncError = YES;
         }      
         
-        if (![self downloadReps:&repsError]) {
+        if (![self downloadReps:&repsError responseError:&repsResponseError]) {
             if (syncErrorString.length != 0) {
                 [syncErrorString appendString:@"\n\n"];
             }
-            [syncErrorString appendFormat:@"Failed to sync reps.  Error: \n%@", repsError];
-//            self.textView.text = [self.textView.text stringByAppendingString:errorString];
+            [syncErrorString appendFormat:@"Failed to sync reps.\nError: %@\nResponse Error: %@", repsError, repsResponseError[@"error"]];
             hadSyncError = YES;
         }
         
-        if (![self downloadTerms:&termsError]) {
+        if (![self downloadTerms:&termsError responseError:&termsResponseError]) {
             if (syncErrorString.length != 0) {
                 [syncErrorString appendString:@"\n\n"];
             }
             [syncErrorString appendFormat:@"Failed to sync terms.  Error: \n%@", termsError];
-//            self.textView.text = [self.textView.text stringByAppendingString:errorString];
             hadSyncError = YES;
         }
         
-        if (![self downloadShipVias:&shipViasError]) {
+        if (![self downloadShipVias:&shipViasError responseError:&shipViasResponseError]) {
             if (syncErrorString.length != 0) {
                 [syncErrorString appendString:@"\n\n"];
             }
             [syncErrorString appendFormat:@"Failed to sync ship vias.  Error: \n%@", shipViasError];
-//            self.textView.text = [self.textView.text stringByAppendingString:errorString];
             hadSyncError = YES;
         }
         
@@ -148,7 +143,6 @@
                 [syncErrorString appendString:@"\n\n"];
             }
             [syncErrorString appendFormat:@"Failed to sync customers.  Error: \n%@", customersError];
-//            self.textView.text = [self.textView.text stringByAppendingString:errorString];
             hadSyncError = YES;
         }
         
@@ -157,7 +151,6 @@
                 [syncErrorString appendString:@"\n\n"];
             }
             [syncErrorString appendFormat:@"Failed to sync items.  Error: \n%@", itemsError];
-//            self.textView.text = [self.textView.text stringByAppendingString:errorString];
             hadSyncError = YES;
         }
         
@@ -166,7 +159,6 @@
                 [syncErrorString appendString:@"\n\n"];
             }
             [syncErrorString appendFormat:@"Failed to sync orders. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nSCOrderID: %@", ordersError, ordersResponseError[@"error"], ordersResponseError[@"msg"], ordersResponseError[@"errorDetail"], ordersResponseError[@"SCOrderID"]];
-//            self.textView.text = [self.textView.text stringByAppendingString:errorString];
             hadSyncError = YES;
         }
         
@@ -208,18 +200,18 @@
     return YES;
 }
 
-- (BOOL)downloadReps:(NSError **)error {
-    NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_SALES_REPS_URL_EXT withPageNumber:-1 error:error];
+- (BOOL)downloadReps:(NSError **)error responseError:(NSDictionary **)responseError {
+    NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_SALES_REPS_URL_EXT withPageNumber:-1 error:error responseError:responseError];  
     if (!responseArray) {
         return NO;
+    }
+    if (responseArray.count == 0) {
+        return YES;
     }
     
     for (NSDictionary *newRepDict in responseArray) {
         SCSalesRep *newRep;
-        SCSalesRep *oldRep = (SCSalesRep *) [self.dataObject getEntityType:ENTITY_SCSALESREP
-                                                                   byIdentifier:@"repId"
-                                                                        idValue:[newRepDict valueForKey:@"Id"]
-                                                  ];
+        SCSalesRep *oldRep = (SCSalesRep *) [self.dataObject getEntityType:ENTITY_SCSALESREP byIdentifier:@"repId" idValue:[newRepDict valueForKey:@"Id"]];
         if(oldRep) {
             newRep = oldRep;
         }
@@ -227,19 +219,21 @@
             newRep = (SCSalesRep *) [self.dataObject newEntityIntoContext:ENTITY_SCSALESREP];
         }
         newRep.repId = [newRepDict valueForKey:@"Id"];
-        newRep.name = (NSString *)[self.dataObject dictionaryData:newRepDict forKey:@"OtherName"];
-        newRep.initials = (NSString *)[self.dataObject dictionaryData:newRepDict forKey:@"Initials"];
+        newRep.name = (NSString *)[self.dataObject dictionaryData:newRepDict forKey:@"Name"];
+//        newRep.initials = (NSString *)[self.dataObject dictionaryData:newRepDict forKey:@"Initials"];
     }
     return [self.dataObject.managedObjectContext save:error];
 }
 
-- (BOOL)downloadTerms:(NSError **)error
+- (BOOL)downloadTerms:(NSError **)error responseError:(NSDictionary **)responseError
 {
-    NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_SALES_TERMS_URL_EXT withPageNumber:-1 error:error];
+    NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_SALES_TERMS_URL_EXT withPageNumber:-1 error:error responseError:responseError];
     if (!responseArray) {
         return NO;
     }
-    
+    if (responseArray.count == 0) {
+        return YES;
+    }
     for (NSDictionary *newTermDict in responseArray)
     {
         SCSalesTerm *newTerm;
@@ -257,19 +251,22 @@
             newTerm  = (SCSalesTerm *) [self.dataObject newEntityIntoContext:ENTITY_SCSALESTERM];
         }
         newTerm.termId = [self.dataObject dictionaryData:newTermDict forKey:@"Id"];
-        newTerm.dueDays = [self.dataObject dictionaryData:newTermDict forKey:@"DueDays"];
-        newTerm.discountDays = [self.dataObject dictionaryData:newTermDict forKey:@"DiscountDays"];
+//        newTerm.dueDays = [self.dataObject dictionaryData:newTermDict forKey:@"DueDays"];
+//        newTerm.discountDays = [self.dataObject dictionaryData:newTermDict forKey:@"DiscountDays"];
         newTerm.name = [self.dataObject dictionaryData:newTermDict forKey:@"Name"];
-        newTerm.type = [self.dataObject dictionaryData:newTermDict forKey:@"Type"];
+//        newTerm.type = [self.dataObject dictionaryData:newTermDict forKey:@"Type"];
     }
     return [self.dataObject.managedObjectContext save:error];
 }
 
-- (BOOL)downloadShipVias:(NSError **)error
+- (BOOL)downloadShipVias:(NSError **)error responseError:(NSDictionary **)responseError
 {
-    NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_SHIP_METHODS_URL_EXT withPageNumber:-1 error:error];
+    NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_SHIP_METHODS_URL_EXT withPageNumber:-1 error:error responseError:responseError];
     if (!responseArray) {
         return NO;
+    }
+    if (responseArray.count == 0) {
+        return YES;
     }
     for (NSDictionary *newShipViaDict in responseArray)
     {
@@ -292,7 +289,7 @@
     return [self.dataObject.managedObjectContext save:error];
 }
 
-- (BOOL)downloadCustomers:(NSError **)error
+- (BOOL)downloadCustomers:(NSError **)error 
 {
     NSInteger page = 1;
     BOOL done = NO;
@@ -348,7 +345,7 @@
     return YES;
 }
 
-- (BOOL)downloadItems:(NSError **)error
+- (BOOL)downloadItems:(NSError **)error 
 {
     NSInteger page = 1;
     BOOL done = NO;

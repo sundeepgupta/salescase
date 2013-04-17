@@ -21,8 +21,8 @@
 
 - (NSURLRequest *)requestFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber;
 - (NSDictionary *)dictionaryFromUrlExtension:(NSString *)urlExtension error:(NSError **)error;
-- (NSArray *)arrayFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber error:(NSError **)error; 
-
+- (NSArray *)arrayFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber error:(NSError **)error responseError:(NSDictionary **)responseError;
+- (NSArray *)arrayFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber error:(NSError **)error;
 
 
 -(void)setSynced;

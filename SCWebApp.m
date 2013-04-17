@@ -81,6 +81,26 @@
     return dict;
 }
 
+- (NSArray *)arrayFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber error:(NSError **)error responseError:(NSDictionary **)responseError
+{
+    NSURLRequest *request = [self requestFromUrlExtension:urlExtension withPageNumber:pageNumber];
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
+    if (!responseData) {
+        return nil;
+    }
+    
+    NSArray *array = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:error];
+    if (!array) {
+        return nil;
+    }
+    if ([array isKindOfClass:[NSDictionary class]]) {
+        *responseError = (NSDictionary *)array;
+        return nil;
+    }
+    
+    return array;
+}
+
 - (NSArray *)arrayFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber error:(NSError **)error
 {
     NSURLRequest *request = [self requestFromUrlExtension:urlExtension withPageNumber:pageNumber];
@@ -88,6 +108,10 @@
     if (!responseData) {
         return nil;
     }
+    if ([responseData isKindOfClass:[NSDictionary class]]) {
+        
+    }
+    
     NSArray *array = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:error];
     if (!array) {
         return nil;
