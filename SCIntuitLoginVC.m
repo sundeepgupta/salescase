@@ -15,7 +15,7 @@
 @interface SCIntuitLoginVC ()
 
 @property (strong, nonatomic) SCGlobal *global;
-@property (strong, nonatomic) UIPopoverController *errorConnectingPopoverController;
+@property (strong, nonatomic) UIPopoverController *pc;
 
 //IB Stuff
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
@@ -89,7 +89,7 @@
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    self.errorConnectingPopoverController = nil;
+    self.pc = nil;
 }
 
 #pragma mark - IB Methods
@@ -97,24 +97,25 @@
     NSError *error = nil;
     NSMutableDictionary *responseError = nil;
     
-    BOOL oAuthIsValid = [self.global.webApp oAuthTokenIsValid:&error responseError:&responseError];
-    
     //TESTING
     //    oAuthIsValid = NO;
     
-    if  (oAuthIsValid) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        [self.global.webApp setSynced];
-        
+    if (self.pc) {
+        [self.pc dismissPopoverAnimated:YES];
+        self.pc = nil;
     } else {
-        if (self.errorConnectingPopoverController) {
-            [self.errorConnectingPopoverController dismissPopoverAnimated:YES];
-            self.errorConnectingPopoverController = nil;
+        BOOL oAuthIsValid = [self.global.webApp oAuthTokenIsValid:&error responseError:&responseError];
+        //TESTING
+        //    oAuthIsValid = NO
+        
+        if  (oAuthIsValid) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.global.webApp setSynced];
         } else {
             UIViewController *intuitLoginPopoverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCIntuitLoginPopoverVC"];
-            self.errorConnectingPopoverController = [[UIPopoverController alloc] initWithContentViewController:intuitLoginPopoverVC];
-            self.errorConnectingPopoverController.delegate = self;
-            [self.errorConnectingPopoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            self.pc = [[UIPopoverController alloc] initWithContentViewController:intuitLoginPopoverVC];
+            self.pc.delegate = self;
+            [self.pc presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
     }
 }

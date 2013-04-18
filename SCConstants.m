@@ -83,6 +83,7 @@ NSString *const EMAIL_ORDER_URL_EXT = @"sendEmail.php";
 NSString *const LIST_COMPANY_INFO_URL_EXT = @"listCompanyInfo.php";
 int const WEB_APP_MAX_PAGES = 200;
 NSString *const VALIDATE_TENANT_URL_EXT = @"validateTenant.php";
+NSString *const DISCONNECT_OAUTH_URL_EXT = @"OAuthDisconnect.php";
 
 // Core Data managed object entity type names
 NSString *const ENTITY_SCCUSTOMER = @"SCCustomer";

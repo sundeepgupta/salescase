@@ -367,24 +367,9 @@
     [self emailSupport];
 }
 
-- (IBAction)deleteStoreButtonPress:(UIBarButtonItem *)sender {
-    //TESTING ONLY
-    //FROM http://stackoverflow.com/questions/1077810/delete-reset-all-entries-in-core-data Note it does not delete external storage files.
-    NSManagedObjectContext *moc = self.global.dataObject.managedObjectContext;
-    NSPersistentStoreCoordinator *psc = moc.persistentStoreCoordinator;
-    NSPersistentStore *store = psc.persistentStores.lastObject;
-    NSError *error = nil;
-    NSURL *storeURL = store.URL;
-    [moc lock];
-    [moc reset]; //drop pending changes
-    if ([psc removePersistentStore:store error:&error]) {
-        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
-        [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
-    }
-    [moc unlock];
+- (IBAction)devButtonPress:(UIBarButtonItem *)sender {
+    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SCDevVC"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
-- (IBAction)oAuthButtonPress:(UIBarButtonItem *)sender {
-    UINavigationController *loginNC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginNC"];
-    [self presentViewController:loginNC animated:NO completion:nil];
-}
+
 @end

@@ -46,6 +46,18 @@
     NSString *resultString = [responseDict valueForKey:@"result"];
     if (![resultString isEqualToString:@"Success"]) {
         *responseError = responseDict;
+        NSLog(@"Error disconnecting OAuth: %@, \n%@", *error, *responseError);
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)disconnectOAuth:(NSError **)error responseError:(NSDictionary **)responseError
+{
+    NSDictionary *responseDict = [self dictionaryFromUrlExtension:DISCONNECT_OAUTH_URL_EXT error:error];
+    NSString *resultString = [responseDict valueForKey:@"result"];
+    if (![resultString isEqualToString:@"Success"]) {
+        *responseError = responseDict;
         NSLog(@"Error validating OAuth token: %@, \n%@", *error, *responseError);
         return NO;
     }

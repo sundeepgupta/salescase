@@ -18,6 +18,7 @@
 - (BOOL)isOnline:(NSError **)error;
 - (BOOL)canConnectToSalesCaseWebApp:(NSError **)error;
 - (BOOL)oAuthTokenIsValid:(NSError **)error responseError:(NSDictionary **)responseError;
+- (BOOL)disconnectOAuth:(NSError **)error responseError:(NSDictionary **)responseError;
 
 - (NSURLRequest *)requestFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber;
 - (NSDictionary *)dictionaryFromUrlExtension:(NSString *)urlExtension error:(NSError **)error;

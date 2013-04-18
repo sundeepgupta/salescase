@@ -143,6 +143,7 @@
 		AE3496FF171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496FD171E51CA0017AD6E /* SCPopoverTableVC.m */; };
 		AE349703171E524D0017AD6E /* SCPopoverTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349702171E524D0017AD6E /* SCPopoverTableCell.m */; };
 		AE349704171E524D0017AD6E /* SCPopoverTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349702171E524D0017AD6E /* SCPopoverTableCell.m */; };
+		AEE8B56B172059CC0046A34A /* SCDevVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE8B56A172059CB0046A34A /* SCDevVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -300,6 +301,8 @@
 		AE349700171E52230017AD6E /* SCPopoverTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopoverTableDelegate.h; sourceTree = "<group>"; };
 		AE349701171E524D0017AD6E /* SCPopoverTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopoverTableCell.h; sourceTree = "<group>"; };
 		AE349702171E524D0017AD6E /* SCPopoverTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPopoverTableCell.m; sourceTree = "<group>"; };
+		AEE8B569172059CB0046A34A /* SCDevVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDevVC.h; sourceTree = "<group>"; };
+		AEE8B56A172059CB0046A34A /* SCDevVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDevVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -480,6 +483,8 @@
 				AE2927D11714FF3C0094BE0F /* SCAppDelegate.m */,
 				AE2927D41714FF6D0094BE0F /* SCConstants.h */,
 				AE2927D51714FF6D0094BE0F /* SCConstants.m */,
+				AEE8B569172059CB0046A34A /* SCDevVC.h */,
+				AEE8B56A172059CB0046A34A /* SCDevVC.m */,
 				AE2927E81714FF6D0094BE0F /* SCGlobal.h */,
 				AE2927E91714FF6D0094BE0F /* SCGlobal.m */,
 				AE2928571714FFBB0094BE0F /* TestFlightSDK1.2.4 */,
@@ -794,6 +799,7 @@
 				AE3496FA171E499C0017AD6E /* SCButtonCell.m in Sources */,
 				AE3496FE171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */,
 				AE349703171E524D0017AD6E /* SCPopoverTableCell.m in Sources */,
+				AEE8B56B172059CC0046A34A /* SCDevVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
