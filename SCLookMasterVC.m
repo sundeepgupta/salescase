@@ -383,4 +383,8 @@
     }
     [moc unlock];
 }
+- (IBAction)oAuthButtonPress:(UIBarButtonItem *)sender {
+    UINavigationController *loginNC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginNC"];
+    [self presentViewController:loginNC animated:NO completion:nil];
+}
 @end

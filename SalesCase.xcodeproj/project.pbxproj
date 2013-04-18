@@ -61,8 +61,6 @@
 		AE2927D31714FF3C0094BE0F /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927D11714FF3C0094BE0F /* SCAppDelegate.m */; };
 		AE29280F1714FF6D0094BE0F /* SCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927D51714FF6D0094BE0F /* SCConstants.m */; };
 		AE2928101714FF6D0094BE0F /* SCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927D51714FF6D0094BE0F /* SCConstants.m */; };
-		AE2928111714FF6D0094BE0F /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927D71714FF6D0094BE0F /* SCCustomerDetailVC.m */; };
-		AE2928121714FF6D0094BE0F /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927D71714FF6D0094BE0F /* SCCustomerDetailVC.m */; };
 		AE2928131714FF6D0094BE0F /* SCCustomersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927D91714FF6D0094BE0F /* SCCustomersVC.m */; };
 		AE2928141714FF6D0094BE0F /* SCCustomersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927D91714FF6D0094BE0F /* SCCustomersVC.m */; };
 		AE2928151714FF6D0094BE0F /* SCCustomerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927DC1714FF6D0094BE0F /* SCCustomerTableCell.m */; };
@@ -133,8 +131,8 @@
 		AE2928891715060C0094BE0F /* Case-only-in-square-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = AE2928881715060C0094BE0F /* Case-only-in-square-72x72.png */; };
 		AE29288B171506150094BE0F /* Case-only-in-square.png in Resources */ = {isa = PBXBuildFile; fileRef = AE29288A171506150094BE0F /* Case-only-in-square.png */; };
 		AE349682171CF1FF0017AD6E /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = AE349681171CF1FF0017AD6E /* capture.png */; };
-		AE349685171CF2FE0017AD6E /* SCNewCustomerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCNewCustomerVC.m */; };
-		AE349686171CF2FE0017AD6E /* SCNewCustomerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCNewCustomerVC.m */; };
+		AE349685171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
+		AE349686171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
 		AE3496F2171E3C490017AD6E /* SCPopoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F1171E3C480017AD6E /* SCPopoverCell.m */; };
 		AE3496F3171E3C490017AD6E /* SCPopoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F1171E3C480017AD6E /* SCPopoverCell.m */; };
 		AE3496F6171E3C940017AD6E /* SCTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F5171E3C940017AD6E /* SCTextCell.m */; };
@@ -214,8 +212,6 @@
 		AE2927D11714FF3C0094BE0F /* SCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAppDelegate.m; sourceTree = "<group>"; };
 		AE2927D41714FF6D0094BE0F /* SCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCConstants.h; sourceTree = "<group>"; };
 		AE2927D51714FF6D0094BE0F /* SCConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCConstants.m; sourceTree = "<group>"; };
-		AE2927D61714FF6D0094BE0F /* SCCustomerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCustomerDetailVC.h; sourceTree = "<group>"; };
-		AE2927D71714FF6D0094BE0F /* SCCustomerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCustomerDetailVC.m; sourceTree = "<group>"; };
 		AE2927D81714FF6D0094BE0F /* SCCustomersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCustomersVC.h; sourceTree = "<group>"; };
 		AE2927D91714FF6D0094BE0F /* SCCustomersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCustomersVC.m; sourceTree = "<group>"; };
 		AE2927DA1714FF6D0094BE0F /* SCCustomersVCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCustomersVCDelegate.h; sourceTree = "<group>"; };
@@ -291,8 +287,8 @@
 		AE2928881715060C0094BE0F /* Case-only-in-square-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Case-only-in-square-72x72.png"; sourceTree = "<group>"; };
 		AE29288A171506150094BE0F /* Case-only-in-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Case-only-in-square.png"; sourceTree = "<group>"; };
 		AE349681171CF1FF0017AD6E /* capture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture.png; path = SalesCase/capture.png; sourceTree = "<group>"; };
-		AE349683171CF2FE0017AD6E /* SCNewCustomerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNewCustomerVC.h; sourceTree = "<group>"; };
-		AE349684171CF2FE0017AD6E /* SCNewCustomerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNewCustomerVC.m; sourceTree = "<group>"; };
+		AE349683171CF2FE0017AD6E /* SCCustomerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCustomerDetailVC.h; sourceTree = "<group>"; };
+		AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCustomerDetailVC.m; sourceTree = "<group>"; };
 		AE3496F0171E3C480017AD6E /* SCPopoverCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopoverCell.h; sourceTree = "<group>"; };
 		AE3496F1171E3C480017AD6E /* SCPopoverCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPopoverCell.m; sourceTree = "<group>"; };
 		AE3496F4171E3C940017AD6E /* SCTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTextCell.h; sourceTree = "<group>"; };
@@ -568,10 +564,8 @@
 		AE29287F1715029D0094BE0F /* Customers */ = {
 			isa = PBXGroup;
 			children = (
-				AE349683171CF2FE0017AD6E /* SCNewCustomerVC.h */,
-				AE349684171CF2FE0017AD6E /* SCNewCustomerVC.m */,
-				AE2927D61714FF6D0094BE0F /* SCCustomerDetailVC.h */,
-				AE2927D71714FF6D0094BE0F /* SCCustomerDetailVC.m */,
+				AE349683171CF2FE0017AD6E /* SCCustomerDetailVC.h */,
+				AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */,
 				AE2927D81714FF6D0094BE0F /* SCCustomersVC.h */,
 				AE2927D91714FF6D0094BE0F /* SCCustomersVC.m */,
 				AE2927DA1714FF6D0094BE0F /* SCCustomersVCDelegate.h */,
@@ -765,7 +759,6 @@
 				AE2927CE1714FF2C0094BE0F /* NSString+URLEncoding.m in Sources */,
 				AE2927D21714FF3C0094BE0F /* SCAppDelegate.m in Sources */,
 				AE29280F1714FF6D0094BE0F /* SCConstants.m in Sources */,
-				AE2928111714FF6D0094BE0F /* SCCustomerDetailVC.m in Sources */,
 				AE2928131714FF6D0094BE0F /* SCCustomersVC.m in Sources */,
 				AE2928151714FF6D0094BE0F /* SCCustomerTableCell.m in Sources */,
 				AE2928171714FF6D0094BE0F /* SCDatePicker.m in Sources */,
@@ -795,7 +788,7 @@
 				AE2928661714FFBB0094BE0F /* SCOrdersVC.m in Sources */,
 				AE2928681714FFBB0094BE0F /* SCOrderTableCell.m in Sources */,
 				AE29286A1714FFBB0094BE0F /* SCSyncVC.m in Sources */,
-				AE349685171CF2FE0017AD6E /* SCNewCustomerVC.m in Sources */,
+				AE349685171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */,
 				AE3496F2171E3C490017AD6E /* SCPopoverCell.m in Sources */,
 				AE3496F6171E3C940017AD6E /* SCTextCell.m in Sources */,
 				AE3496FA171E499C0017AD6E /* SCButtonCell.m in Sources */,
@@ -827,7 +820,6 @@
 				AE2927CF1714FF2C0094BE0F /* NSString+URLEncoding.m in Sources */,
 				AE2927D31714FF3C0094BE0F /* SCAppDelegate.m in Sources */,
 				AE2928101714FF6D0094BE0F /* SCConstants.m in Sources */,
-				AE2928121714FF6D0094BE0F /* SCCustomerDetailVC.m in Sources */,
 				AE2928141714FF6D0094BE0F /* SCCustomersVC.m in Sources */,
 				AE2928161714FF6D0094BE0F /* SCCustomerTableCell.m in Sources */,
 				AE2928181714FF6D0094BE0F /* SCDatePicker.m in Sources */,
@@ -857,7 +849,7 @@
 				AE2928671714FFBB0094BE0F /* SCOrdersVC.m in Sources */,
 				AE2928691714FFBB0094BE0F /* SCOrderTableCell.m in Sources */,
 				AE29286B1714FFBB0094BE0F /* SCSyncVC.m in Sources */,
-				AE349686171CF2FE0017AD6E /* SCNewCustomerVC.m in Sources */,
+				AE349686171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */,
 				AE3496F3171E3C490017AD6E /* SCPopoverCell.m in Sources */,
 				AE3496F7171E3C940017AD6E /* SCTextCell.m in Sources */,
 				AE3496FB171E499C0017AD6E /* SCButtonCell.m in Sources */,

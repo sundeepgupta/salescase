@@ -110,6 +110,11 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="e4Q-9a-3dD"/>
+                        <barButtonItem title="OAuth" id="1Kg-JD-A8b">
+                            <connections>
+                                <action selector="oAuthButtonPress:" destination="Iql-ub-0gb" id="Hhe-ek-Tnj"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem title="Bug?" id="ShL-4B-k4a">
                             <connections>
                                 <action selector="bugButtonPress:" destination="Iql-ub-0gb" id="fUC-Nk-J6t"/>
@@ -249,10 +254,10 @@
             </objects>
             <point key="canvasLocation" x="1136" y="-4075"/>
         </scene>
-        <!--Customer DetailVC-->
+        <!--View Controller-->
         <scene sceneID="Aso-of-Zdd">
             <objects>
-                <viewController storyboardIdentifier="SCCustomerDetailVC" id="ejH-tG-Uap" customClass="SCCustomerDetailVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" id="ejH-tG-Uap" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QfK-A8-LyT">
                         <rect key="frame" x="0.0" y="64" width="703" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -529,175 +534,111 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HWM-Vj-E6W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1924" y="-4075"/>
+            <point key="canvasLocation" x="3276" y="-4083"/>
         </scene>
-        <!--New CustomerVC-->
+        <!--Customer DetailVC-->
         <scene sceneID="By6-7h-c08">
             <objects>
-                <viewController storyboardIdentifier="SCNewCustomerVC" id="rcX-om-0Bj" customClass="SCNewCustomerVC" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Bgl-JC-CSg">
-                        <rect key="frame" x="0.0" y="20" width="703" height="748"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="tQF-n0-cge">
-                                <rect key="frame" x="20" y="82" width="683" height="595"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SCPopoverCell" id="Ofm-b2-p5a" customClass="SCPopoverCell">
-                                        <rect key="frame" x="0.0" y="54" width="683" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="42" y="1" width="599" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Popover Cell" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lg5-g5-1co">
-                                                    <rect key="frame" x="20" y="14" width="102" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                                    <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nY3-5o-TwO">
-                                                    <rect key="frame" x="130" y="11" width="449" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <connections>
-                                            <outlet property="title" destination="Lg5-g5-1co" id="tIx-T8-svE"/>
-                                            <outlet property="value" destination="nY3-5o-TwO" id="PGO-un-PVR"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SCTextCell" id="Djx-cU-O4Z" customClass="SCTextCell">
-                                        <rect key="frame" x="0.0" y="99" width="683" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="42" y="0.0" width="599" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Text Cell" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qcq-kB-yxh">
-                                                    <rect key="frame" x="20" y="14" width="102" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                                    <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="wYC-mI-jDO">
-                                                    <rect key="frame" x="130" y="7" width="449" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <connections>
-                                            <outlet property="title" destination="qcq-kB-yxh" id="R0o-qI-Sib"/>
-                                            <outlet property="value" destination="wYC-mI-jDO" id="aLV-sW-tst"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SCButtonCell" id="5Ek-Bs-5c3" customClass="SCButtonCell">
-                                        <rect key="frame" x="0.0" y="143" width="683" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="42" y="0.0" width="599" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Text Cell" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qfh-FA-jCu">
-                                                    <rect key="frame" x="20" y="14" width="102" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                                    <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4Bt-9D-ySW" customClass="SCButtonCell">
-                                                    <rect key="frame" x="130" y="0.0" width="469" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <connections>
-                                            <outlet property="title" destination="qfh-FA-jCu" id="RWl-xy-PQ9"/>
-                                            <outlet property="value" destination="4Bt-9D-ySW" id="gBi-Bg-Ez0"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="rcX-om-0Bj" id="QY0-OI-u5L"/>
-                                    <outlet property="delegate" destination="rcX-om-0Bj" id="F90-M6-LkW"/>
-                                </connections>
-                            </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wTx-Zl-qFc">
-                                <rect key="frame" x="570" y="685" width="113" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Add Ship To">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xDM-CO-R5A">
-                                <rect key="frame" x="20" y="685" width="86" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Finished">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OB6-x6-Gsn">
-                                <rect key="frame" x="0.0" y="0.0" width="99" height="75"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <gestureRecognizers/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="capture.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="captureButtonPress:" destination="rcX-om-0Bj" eventType="touchUpInside" id="Yp9-dy-Yik"/>
-                                    <outletCollection property="gestureRecognizers" destination="FBt-Yy-Sfc" appends="YES" id="ezl-Cu-JUC"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hSO-rH-l6l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="SCCustomerDetailVC" id="rcX-om-0Bj" customClass="SCCustomerDetailVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="tQF-n0-cge">
+                        <rect key="frame" x="0.0" y="64" width="703" height="660"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
+                        <prototypes>
+                            <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SCPopoverCell" id="Ofm-b2-p5a" customClass="SCPopoverCell">
+                                <rect key="frame" x="0.0" y="54" width="703" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="43" y="1" width="617" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Popover Cell" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lg5-g5-1co">
+                                            <rect key="frame" x="20" y="14" width="102" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nY3-5o-TwO">
+                                            <rect key="frame" x="130" y="11" width="467" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="title" destination="Lg5-g5-1co" id="tIx-T8-svE"/>
+                                    <outlet property="value" destination="nY3-5o-TwO" id="PGO-un-PVR"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SCTextCell" id="Djx-cU-O4Z" customClass="SCTextCell">
+                                <rect key="frame" x="0.0" y="99" width="703" height="45"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="43" y="0.0" width="617" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Text Cell" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qcq-kB-yxh">
+                                            <rect key="frame" x="20" y="14" width="102" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                            <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="wYC-mI-jDO">
+                                            <rect key="frame" x="130" y="7" width="467" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="rcX-om-0Bj" id="cTg-l0-5aQ"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="title" destination="qcq-kB-yxh" id="R0o-qI-Sib"/>
+                                    <outlet property="value" destination="wYC-mI-jDO" id="aLV-sW-tst"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="rcX-om-0Bj" id="1V2-Hj-qKs"/>
+                            <outlet property="delegate" destination="rcX-om-0Bj" id="oCC-ou-9IP"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Change" id="g4Z-xQ-4s4">
+                            <connections>
+                                <action selector="changeCustomerButtonPress:" destination="rcX-om-0Bj" id="Sjf-Dp-EV8"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="LEs-ps-t7E"/>
+                        <barButtonItem title="New Order" id="h5l-4p-8wn">
+                            <connections>
+                                <action selector="nextButtonPress:" destination="rcX-om-0Bj" id="haF-vd-F2J"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="captureImageButton" destination="OB6-x6-Gsn" id="mYS-aw-U1J"/>
-                        <outlet property="tableView" destination="tQF-n0-cge" id="HOJ-nx-k84"/>
+                        <outlet property="changeCustomerButton" destination="g4Z-xQ-4s4" id="ciw-PY-qA8"/>
+                        <outlet property="nextButton" destination="h5l-4p-8wn" id="0q1-V9-rRj"/>
+                        <outlet property="spacer1" destination="LEs-ps-t7E" id="nXU-ZF-6iA"/>
+                        <outlet property="tableView" destination="tQF-n0-cge" id="6zZ-Jf-9rn"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hSO-rH-l6l" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="FBt-Yy-Sfc"/>
             </objects>
-            <point key="canvasLocation" x="2657" y="-4075"/>
+            <point key="canvasLocation" x="1912" y="-4097"/>
         </scene>
         <!--OrderPDFVC-->
         <scene sceneID="bjY-WW-hhB">
@@ -2898,339 +2839,9 @@ TURN INTO POPUP AFTER</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9tX-c3-g52" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3398" y="-4066"/>
+            <point key="canvasLocation" x="2662" y="-4090"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="capture.png" width="364" height="167"/>
-    </resources>
-    <classes>
-        <class className="SCButtonCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCButtonCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="value" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SCCustomerDetailVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerDetailVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="address1Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address2Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address3Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address4Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address5Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="changeCustomerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="companyNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="contactNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="contactTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="customerNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="faxLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mainPhoneLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mobilePhoneLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo1Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo2Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo3Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo4Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo5Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCCustomerTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cityLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="companyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="customerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="phoneLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="zipLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCCustomersVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomersVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCDatePicker" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDatePicker.h"/>
-            <relationships>
-                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
-            </relationships>
-        </class>
-        <class className="SCDeleteOrderVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDeleteOrderVC.h"/>
-        </class>
-        <class className="SCEmailOrderVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCEmailOrderVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="sendToCustomer" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sendToMe" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sendToOffice" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="SCFirstLaunchVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCFirstLaunchVC.h"/>
-        </class>
-        <class className="SCIntuitLoginPopoverVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginPopoverVC.h"/>
-        </class>
-        <class className="SCIntuitLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="finishedIntuitLoginButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="SCItemCartTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCartTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCItemCartVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCartVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="orderTotalLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCItemDetailVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemDetailVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnSalesOrderLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOrderedTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="quantityOrderedTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="saveToOrderButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="startOrderButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SCItemTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCItemsVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemsVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCKeepOrderVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCKeepOrderVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="SCLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLoginVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="SCLookMasterVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLookMasterVC.h"/>
-        </class>
-        <class className="SCNewCustomerVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCNewCustomerVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="captureImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCNoDataVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCNoDataVC.h"/>
-        </class>
-        <class className="SCOrderDetailTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderDetailTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderDetailVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderDetailVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="companyNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="contactNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="customerNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="orderDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderTotalLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumberLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipViaLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderMasterVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderMasterVC.h"/>
-        </class>
-        <class className="SCOrderOptionsSelectTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsSelectTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderOptionsSelectTableVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsSelectTableVC.h"/>
-        </class>
-        <class className="SCOrderOptionsVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="poNumberTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="repButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="shipDateButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="shipViaButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="statusControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="termsButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SCOrderPDFRenderer" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFRenderer.h"/>
-            <relationships>
-                <relationship kind="outlet" name="address1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="billToTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemAmount" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemAmountHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemDescription" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemDescriptionHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemNameHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemPrice" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemPriceHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemQuantity" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemQuantityHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notes" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="orderDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="pageNumber" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumber" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumberTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="printDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="printDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="rep" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="repTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipToTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipVia" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipViaTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="terms" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="termsTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="total" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userCompanyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userFax" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userPhone" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userWebsite" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderPDFVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="SCOrderTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="total" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrdersVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrdersVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCPopoverCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="value" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCPopoverTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCPopoverTableVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverTableVC.h"/>
-        </class>
-        <class className="SCSyncVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSyncVC.h"/>
-            <relationships>
-                <relationship kind="action" name="closeButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCTextCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCTextCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="value" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -13,7 +13,7 @@
 #import "SCDataObject.h"
 #import "SCCustomer.h"
 #import "SCLookMasterVC.h"
-#import "SCNewCustomerVC.h"
+#import "SCCustomerDetailVC.h"
 
 @interface SCCustomersVC ()
 
@@ -199,7 +199,7 @@
 }
 
 - (IBAction)newCustomerButtonPress:(UIBarButtonItem *)sender {
-    SCNewCustomerVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCNewCustomerVC"];
+    SCCustomerDetailVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCNewCustomerVC"];
     SCCustomer *customer = [self.global.dataObject createCustomerInContext];
     customer.new = @YES;
 //    customer.name = [NSDate date];

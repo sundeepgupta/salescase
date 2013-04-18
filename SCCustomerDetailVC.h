@@ -1,23 +1,21 @@
 //
-//  SCCustomerDetailVC.h
-//  SalesCaseAlpha
+//  SCNewCustomerVC.h
+//  SalesCase
 //
-//  Created by Sundeep Gupta on 13-03-07.
-//  Copyright (c) 2013 Sundeep Gupta. All rights reserved.
+//  Created by Sundeep Gupta on 13-04-15.
+//  Copyright (c) 2013 EnhanceTrade. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "SCPopoverTableDelegate.h"
 #import "SCCustomersVCDelegate.h"
 
-@class SCCustomer, SCAddress, SCOpenOrderC, SCOrder;
+@class SCCustomer, SCAddress, SCOrder;
 
-@interface SCCustomerDetailVC : UIViewController <SCCustomersVCDelegate>
+@interface SCCustomerDetailVC : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, SCPopoverTableDelegate, SCCustomersVCDelegate, UIPopoverControllerDelegate> //UIImagePickerControllerDelegate, UINavigationControllerDelegate are for capturing a photo via camera
 
-@property (nonatomic, strong) SCCustomer *customer;
+@property (strong, nonatomic) SCCustomer *customer;
 
 + (void)loadAddressDataFromLines:(NSArray *)lines toLabels:(NSArray *)labels;
 
 @end
-
-
-
