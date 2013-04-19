@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SCCustomersVCDelegate.h"
+#import "SCCustomerDetailVCDelegate.h"
 
 
-@interface SCCustomersVC : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+@interface SCCustomersVC : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SCCustomerDetailVCDelegate>
 
 @property (weak, nonatomic) id <SCCustomersVCDelegate> delegate;
 

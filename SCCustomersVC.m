@@ -193,6 +193,12 @@
     return customer;
 }
 
+#pragma mark - Protocol methods
+- (void)passSavedCustomer
+{
+    
+}
+
 #pragma mark - IB methods
 - (IBAction)closeModalButtonPress:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -204,7 +210,8 @@
     self.global.dataObject.openCustomer = customer;
     
     UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomerDetailNC"];
-//    SCCustomerDetailVC *vc = (SCCustomerDetailVC *)nc.topViewController;
+    SCCustomerDetailVC *vc = (SCCustomerDetailVC *)nc.topViewController;
+    vc.delegate = self;
     [self presentViewController:nc animated:YES completion:nil];
 }
 @end

@@ -37,12 +37,16 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 @property (strong, nonatomic) UITableViewCell *activeCell;
 
 //IB
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *addOrderButton;
 @property (strong, nonatomic) IBOutlet UIButton *captureImageButton;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *nextButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *changeCustomerButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *editCustomerButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *selectCustomerButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *spacer1;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *spacer2;
 
 @end
 
@@ -69,11 +73,13 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-//    [super viewWillAppear:NO];
+//    NSMutableArray *topBarItems = [[NSMutableArray alloc] init];
+    NSMutableArray *toolbarItems = [[NSMutableArray alloc] init];
     
     if (self.dataObject.openOrder) {
-        self.nextButton.title = @"Next";
-        self.navigationItem.hidesBackButton = YES;
+        
+        self.navigationItem.rightBarButtonItem = nil;
+        toolbarItems.array = [NSArray arrayWithObjects:self.editButton, self.spacer1, self.selectCustomerButton, self.spacer2, self.nextButton, nil]; 
         
         //get titles
         UINavigationController *masterNC = self.splitViewController.viewControllers[0];
@@ -88,18 +94,18 @@ static NSString *const TEXT_CELL = @"SCTextCell";
         if (self.dataObject.openCustomer) {
             self.title = @"New Customer";
             self.customer = self.dataObject.openCustomer;
-            self.navigationItem.hidesBackButton = YES;
+            
+            self.navigationItem.rightBarButtonItem = nil;
+            toolbarItems.array = [NSArray arrayWithObjects:self.cancelButton, self.spacer1, self.saveButton, nil];
             
         } else {
             self.title = self.customer.dbaName;
+            toolbarItems.array = [NSArray arrayWithObjects:self.editButton, nil];
+            
         }
-
-        //set the toolbar buttons
-        NSArray *toolbarItems = [NSArray arrayWithObjects:self.spacer1, self.nextButton, nil];
-        self.toolbarItems = toolbarItems;
-        
     }
     
+    self.toolbarItems = toolbarItems;
     [self loadData];
 }
 
@@ -128,9 +134,14 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 - (void)viewDidUnload {
     [self setCaptureImageButton:nil];
     [self setNextButton:nil];
-    [self setChangeCustomerButton:nil];
-    [self setEditCustomerButton:nil];
+    [self setSelectCustomerButton:nil];
+    [self setEditButton:nil];
     [self setSpacer1:nil];
+    [self setSaveButton:nil];
+    [self setCancelButton:nil];
+    [self setAddOrderButton:nil];
+    [self setNextButton:nil];
+    [self setSpacer2:nil];
     [super viewDidUnload];
 }
 
@@ -485,18 +496,37 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 }
 
 - (IBAction)nextButtonPress:(UIBarButtonItem *)sender {
-    if (self.global.dataObject.openOrder) { //save & continue to item cart
-        UIViewController *nextVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCItemCartVC"];
-        [self.navigationController pushViewController:nextVC animated:YES];
-    } else { //start order with current customer
-        UINavigationController *masterNC = self.splitViewController.viewControllers[0];
-        SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
-        [masterVC startOrderModeWithCustomer:self.customer];
-    }
+    UIViewController *nextVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCItemCartVC"];
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
-- (IBAction)changeCustomerButtonPress:(UIBarButtonItem *)sender {
+- (IBAction)addOrderButtonPress:(UIBarButtonItem *)sender {
+    UINavigationController *masterNC = self.splitViewController.viewControllers[0];
+    SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
+    [masterVC startOrderModeWithCustomer:self.customer];
+}
+
+- (IBAction)selectCustomerButtonPress:(UIBarButtonItem *)sender {
     [self presentCustomerList];
 }
 
+- (IBAction)cancelButtonPress:(UIBarButtonItem *)sender {
+    self.dataObject.openCustomer = nil;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)saveButtonPress:(UIBarButtonItem *)sender {
+
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+- (IBAction)editButtonPress:(UIBarButtonItem *)sender {
+}
 @end

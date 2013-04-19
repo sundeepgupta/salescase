@@ -608,27 +608,54 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Change" id="g4Z-xQ-4s4">
+                        <barButtonItem title="Cancel" id="uJq-j0-ajW">
                             <connections>
-                                <action selector="changeCustomerButtonPress:" destination="rcX-om-0Bj" id="Sjf-Dp-EV8"/>
+                                <action selector="cancelButtonPress:" destination="rcX-om-0Bj" id="3Uy-Ej-dah"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem enabled="NO" title="Edit" id="uwd-vr-Dbv">
+                            <connections>
+                                <action selector="editButtonPress:" destination="rcX-om-0Bj" id="ejX-0Q-qHT"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="LEs-ps-t7E"/>
-                        <barButtonItem title="New Order" id="h5l-4p-8wn">
+                        <barButtonItem title="Select Customer" id="g4Z-xQ-4s4">
                             <connections>
-                                <action selector="nextButtonPress:" destination="rcX-om-0Bj" id="haF-vd-F2J"/>
+                                <action selector="selectCustomerButtonPress:" destination="rcX-om-0Bj" id="Y05-8q-eKu"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="fVZ-bi-oKW"/>
+                        <barButtonItem title="Save" id="WyM-ug-sRB">
+                            <connections>
+                                <action selector="saveButtonPress:" destination="rcX-om-0Bj" id="D6n-KY-IVq"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Next" id="LSq-Rp-moO">
+                            <connections>
+                                <action selector="nextButtonPress:" destination="rcX-om-0Bj" id="UR9-58-Eba"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="3HV-sA-E0f"/>
+                    <navigationItem key="navigationItem" id="3HV-sA-E0f">
+                        <barButtonItem key="rightBarButtonItem" title="New Order" id="h5l-4p-8wn">
+                            <connections>
+                                <action selector="addOrderButtonPress:" destination="rcX-om-0Bj" id="bP5-zo-lRq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="changeCustomerButton" destination="g4Z-xQ-4s4" id="ciw-PY-qA8"/>
-                        <outlet property="nextButton" destination="h5l-4p-8wn" id="0q1-V9-rRj"/>
+                        <outlet property="addOrderButton" destination="h5l-4p-8wn" id="wCS-w5-3LK"/>
+                        <outlet property="cancelButton" destination="uJq-j0-ajW" id="S9h-12-hsQ"/>
+                        <outlet property="editButton" destination="uwd-vr-Dbv" id="wCN-pt-2Vu"/>
+                        <outlet property="nextButton" destination="LSq-Rp-moO" id="mlN-wV-jiM"/>
+                        <outlet property="saveButton" destination="WyM-ug-sRB" id="hVU-jp-D2T"/>
+                        <outlet property="selectCustomerButton" destination="g4Z-xQ-4s4" id="MAe-g8-LXV"/>
                         <outlet property="spacer1" destination="LEs-ps-t7E" id="nXU-ZF-6iA"/>
+                        <outlet property="spacer2" destination="fVZ-bi-oKW" id="D86-U9-Lsc"/>
                         <outlet property="tableView" destination="tQF-n0-cge" id="6zZ-Jf-9rn"/>
                     </connections>
                 </viewController>

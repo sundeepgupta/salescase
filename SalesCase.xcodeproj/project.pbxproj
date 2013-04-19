@@ -301,6 +301,7 @@
 		AE349700171E52230017AD6E /* SCPopoverTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopoverTableDelegate.h; sourceTree = "<group>"; };
 		AE349701171E524D0017AD6E /* SCPopoverTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopoverTableCell.h; sourceTree = "<group>"; };
 		AE349702171E524D0017AD6E /* SCPopoverTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPopoverTableCell.m; sourceTree = "<group>"; };
+		AED8D3E41721AC8200005B91 /* SCCustomerDetailVCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCustomerDetailVCDelegate.h; sourceTree = "<group>"; };
 		AEE8B569172059CB0046A34A /* SCDevVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDevVC.h; sourceTree = "<group>"; };
 		AEE8B56A172059CB0046A34A /* SCDevVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDevVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -339,6 +340,7 @@
 		AE2927251714DCF00094BE0F = {
 			isa = PBXGroup;
 			children = (
+				AED8D3E41721AC8200005B91 /* SCCustomerDetailVCDelegate.h */,
 				AE3496F4171E3C940017AD6E /* SCTextCell.h */,
 				AE3496F5171E3C940017AD6E /* SCTextCell.m */,
 				AE3496F8171E499C0017AD6E /* SCButtonCell.h */,
