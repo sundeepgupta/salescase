@@ -241,7 +241,19 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+//    NSIndexPath *indexPath = [self.tableView indexPathForCell:self.activeCell];
+//    NSInteger sectionNumber = indexPath.section;
+//    NSInteger rowNumber = indexPath.row;
+//    
+//    NSArray *rows = self.sections[sectionNumber][SECTION_ROWS];
+//    NSDictionary *row = rows[rowNumber];
+
+    
+    
+    
+    
     self.activeCell = nil;
+    
 }
 
 #pragma mark - Protocol methods
@@ -354,29 +366,29 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 {
     self.sections = [[NSMutableArray alloc] init];
     //Build the sections array
-    //Section 0
-    NSMutableDictionary *row00 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Customer Name", ROW_TITLE, self.customer.name, ROW_OBJECT, nil];
-    NSMutableDictionary *row01 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Company Name", ROW_TITLE, self.customer.dbaName, ROW_OBJECT, nil];
-    NSMutableDictionary *row02 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"First Name", ROW_TITLE, self.customer.givenName, ROW_OBJECT, nil];
-    NSMutableDictionary *row03 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Last Name", ROW_TITLE, self.customer.familyName, ROW_OBJECT, nil];
-    NSArray *rows0 = [NSArray arrayWithObjects:row00, row01, row02, row03, nil];
-    NSMutableDictionary *section0 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rows0, SECTION_ROWS, nil];
-    [self.sections addObject:section0];
+    //Section Names
+    NSMutableDictionary *rowName = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Customer Name", ROW_TITLE, self.customer.name, ROW_OBJECT, nil];
+    NSMutableDictionary *rowDbaName = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Company Name", ROW_TITLE, self.customer.dbaName, ROW_OBJECT, nil];
+    NSMutableDictionary *rowGivenName = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"First Name", ROW_TITLE, self.customer.givenName, ROW_OBJECT, nil];
+    NSMutableDictionary *rowFamilyName = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Last Name", ROW_TITLE, self.customer.familyName, ROW_OBJECT, nil];
+    NSArray *rowsNames = [NSArray arrayWithObjects:rowName, rowDbaName, rowGivenName, rowFamilyName, nil];
+    NSMutableDictionary *sectionNames = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rowsNames, SECTION_ROWS, nil];
+    [self.sections addObject:sectionNames];
     
-    //Section 1
-    NSMutableDictionary *row10 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Phone", ROW_TITLE, [self.customer phoneForTag:MAIN_PHONE_TAG] , ROW_OBJECT, nil];
-    NSMutableDictionary *row11 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Fax", ROW_TITLE, [self.customer phoneForTag:FAX_PHONE_TAG], ROW_OBJECT, nil];
-    NSMutableDictionary *row12 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Email", ROW_TITLE, [self.customer mainEmail], ROW_OBJECT, nil];
-    NSArray *rows1 = [NSArray arrayWithObjects:row10, row11, row12, nil];
-    NSMutableDictionary *section1 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rows1, SECTION_ROWS, nil];
-    [self.sections addObject:section1];
+    //Section Contact INfo
+    NSMutableDictionary *rowBusinessPhone = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Phone", ROW_TITLE, [self.customer phoneForTag:MAIN_PHONE_TAG] , ROW_OBJECT, nil];
+    NSMutableDictionary *rowFaxPhone = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Fax", ROW_TITLE, [self.customer phoneForTag:FAX_PHONE_TAG], ROW_OBJECT, nil];
+    NSMutableDictionary *rowBusinessEmail = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Email", ROW_TITLE, [self.customer mainEmail], ROW_OBJECT, nil];
+    NSArray *rowsContactInfo = [NSArray arrayWithObjects:rowBusinessPhone, rowFaxPhone, rowBusinessEmail, nil];
+    NSMutableDictionary *sectionContactInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rowsContactInfo, SECTION_ROWS, nil];
+    [self.sections addObject:sectionContactInfo];
     
-    //Secion 2
-    NSMutableDictionary *row20 = [NSMutableDictionary dictionaryWithObjectsAndKeys:POPOVER_CELL, CELL_ID, @"Rep", ROW_TITLE, self.customer.salesRep, ROW_OBJECT, nil];
-    NSMutableDictionary *row21 = [NSMutableDictionary dictionaryWithObjectsAndKeys:POPOVER_CELL, CELL_ID, @"Terms", ROW_TITLE, self.customer.salesTerms, ROW_OBJECT, nil];
-    NSArray *rows2 = [NSArray arrayWithObjects:row20, row21, nil];
-    NSMutableDictionary *section2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rows2, SECTION_ROWS, nil];
-    [self.sections addObject:section2];
+    //Secion Defaults
+    NSMutableDictionary *rowSalesRep = [NSMutableDictionary dictionaryWithObjectsAndKeys:POPOVER_CELL, CELL_ID, @"Rep", ROW_TITLE, self.customer.salesRep, ROW_OBJECT, nil];
+    NSMutableDictionary *rowSalesTerm = [NSMutableDictionary dictionaryWithObjectsAndKeys:POPOVER_CELL, CELL_ID, @"Terms", ROW_TITLE, self.customer.salesTerms, ROW_OBJECT, nil];
+    NSArray *rowsDefaults = [NSArray arrayWithObjects:rowSalesRep, rowSalesTerm, nil];
+    NSMutableDictionary *sectionDefaults = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rowsDefaults, SECTION_ROWS, nil];
+    [self.sections addObject:sectionDefaults];
     
     //Section 3
     if (self.dataObject.openCustomer) {
@@ -428,8 +440,6 @@ static NSString *const TEXT_CELL = @"SCTextCell";
     
     [self.tableView reloadData];
 }
-
-
 
 - (void)showPopoverTableWithArray:(NSArray *)dataArray withObjectType:(NSString *)objectType fromIndexPath:(NSIndexPath *)indexPath
 {
@@ -511,12 +521,28 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 }
 
 - (IBAction)cancelButtonPress:(UIBarButtonItem *)sender {
+    [self.dataObject deleteObject:self.dataObject.openCustomer];
     self.dataObject.openCustomer = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)saveButtonPress:(UIBarButtonItem *)sender {
 
+    //2 ways to do this.  1. Build the cell and put it right into self.sections.  Then loop through self.sections to read and write from the object.  2. Loop through self.sections using indexes to build an index path.  Use the index path to get the value from the table cell.  Seems like 1 is more elegant, but I don't want to recode, so I'm going with 2. 
+    
+    for (NSInteger sectionNumber = 0; sectionNumber < self.sections.count; sectionNumber++) {
+        NSArray *sectionRows = self.sections[sectionNumber][SECTION_ROWS];
+        for (NSInteger rowNumber = 0; rowNumber < sectionRows.count; rowNumber++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowNumber inSection:sectionNumber];
+            
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            if ([cell isKindOfClass:[SCPopoverCell class]]) {
+                SCPopoverCell *castedCell = (SCPopoverCell *)cell;
+//                sectionRows[rowNumber]
+            }
+                
+        }
+    }
     
     
     

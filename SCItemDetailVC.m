@@ -210,7 +210,7 @@
         [self.dataObject saveOrder:self.dataObject.openOrder];
         [self.delegate dismissModal];
     } else {
-        SCLine *line = [self.dataObject newLine];
+        SCLine *line = (SCLine *)[self.dataObject newObject:@"SCLine"];
         line.item = self.item;
         line.quantity = [NSNumber numberWithInt:[self.quantityOrderedTextField.text intValue]];
         line.order = self.dataObject.openOrder;
@@ -221,7 +221,7 @@
 
 - (void)deleteLine
 {
-    [self.dataObject deleteLine:self.line]; //self.line set in isEditLineMode
+    [self.dataObject deleteObject:self.line]; //self.line set in isEditLineMode
     [self.delegate dismissModal];
 
     //handle the order status if no more lines and change title of masterVC

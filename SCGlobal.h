@@ -9,14 +9,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class SCDataObject, SCWebApp, SCOpenOrderC;
+@class SCDataObject, SCWebApp;
 
 @interface SCGlobal : NSObject
 
 @property (strong, nonatomic) SCDataObject *dataObject;
 @property (strong, nonatomic) SCWebApp *webApp;
-@property (strong, nonatomic) SCOpenOrderC *openOrderC;
-//@property BOOL isOrderMode;
+
+
 
 + (id)sharedGlobal;
 

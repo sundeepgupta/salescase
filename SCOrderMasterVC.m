@@ -152,7 +152,7 @@
 #pragma mark - SCDeleteOrderVCDelegate Methods
 - (void)passConfirmDeleteButtonPress
 {
-    [self.dataObject deleteOrder:self.dataObject.openOrder];
+    [self.dataObject deleteObject:self.dataObject.openOrder];
     [self.keepOrderPC dismissPopoverAnimated:YES];
     [self closeOrderMode];
 }

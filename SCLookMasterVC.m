@@ -226,7 +226,7 @@
     self.global.dataObject.openOrder = [self.global.dataObject newOrder];
     
     //create a line with 0 quantity
-    SCLine *line = [self.global.dataObject newLine];
+    SCLine *line = (SCLine *)[self.global.dataObject newObject:@"SCLine"];
     line.item = item;
     line.quantity = 0;
     line.order = self.global.dataObject.openOrder;

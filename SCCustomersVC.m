@@ -205,7 +205,7 @@
 }
 
 - (IBAction)newCustomerButtonPress:(UIBarButtonItem *)sender {
-    SCCustomer *customer = (SCCustomer *)[self.global.dataObject newEntityIntoContext:@"SCCustomer"];
+    SCCustomer *customer = (SCCustomer *)[self.global.dataObject newObject:@"SCCustomer"];
     customer.status = @"New";
     self.global.dataObject.openCustomer = customer;
     

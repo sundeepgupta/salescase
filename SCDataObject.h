@@ -41,13 +41,13 @@
 @property (strong, nonatomic) SCOrder *openOrder;
 @property (strong, nonatomic) SCCustomer *openCustomer;
 
+-(NSManagedObject *)newObject:(NSString *)entityName;
 - (SCOrder *)newOrder;
-- (void)saveOrder:(SCOrder *)order;
--(void) deleteOrder:(SCOrder *)order;
-- (SCLine *)newLine;
--(void) deleteLine:(SCLine *)line;
+-(SCCustomer *)newCustomer;
 
--(SCItem *)newItem;
+- (void)saveOrder:(SCOrder *)order;
+-(void) deleteObject:(NSManagedObject *)order;
+
 
 
 
@@ -59,7 +59,7 @@
 
 // Managed Object Context Operations
 -(void) saveContext;
--(NSManagedObject *)newEntityIntoContext:(NSString *)entityName;
+
 -(SCItem *)createItemInContext;
 -(SCCustomer *)createCustomerInContext;
 

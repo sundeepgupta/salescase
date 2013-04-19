@@ -203,7 +203,7 @@
 #pragma mark - DeleteOrder delegate
 - (void)passConfirmDeleteButtonPress
 {
-    [self.dataObject deleteOrder:self.order];
+    [self.dataObject deleteObject:self.order];
     //Go back to Look Mode, or pop back to OrdersVC
     if (self.global.dataObject.openOrder) {        
         UINavigationController *masterNC = self.splitViewController.viewControllers[0];

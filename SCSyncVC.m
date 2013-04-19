@@ -216,7 +216,7 @@
             newRep = oldRep;
         }
         else {
-            newRep = (SCSalesRep *) [self.dataObject newEntityIntoContext:ENTITY_SCSALESREP];
+            newRep = (SCSalesRep *) [self.dataObject newObject:ENTITY_SCSALESREP];
         }
         newRep.repId = [newRepDict valueForKey:@"Id"];
         newRep.name = (NSString *)[self.dataObject dictionaryData:newRepDict forKey:@"Name"];
@@ -248,7 +248,7 @@
         }
         else
         {
-            newTerm  = (SCSalesTerm *) [self.dataObject newEntityIntoContext:ENTITY_SCSALESTERM];
+            newTerm  = (SCSalesTerm *) [self.dataObject newObject:ENTITY_SCSALESTERM];
         }
         newTerm.termId = [self.dataObject dictionaryData:newTermDict forKey:@"Id"];
 //        newTerm.dueDays = [self.dataObject dictionaryData:newTermDict forKey:@"DueDays"];
@@ -281,7 +281,7 @@
         }
         else
         {
-            newShipVia = (SCShipMethod *) [self.dataObject newEntityIntoContext:ENTITY_SCSHIPMETHOD];
+            newShipVia = (SCShipMethod *) [self.dataObject newObject:ENTITY_SCSHIPMETHOD];
         }
         newShipVia.id = [self.dataObject dictionaryData:newShipViaDict forKey:@"Id"];
         newShipVia.name = [self.dataObject dictionaryData:newShipViaDict forKey:@"Name"];
@@ -315,7 +315,7 @@
                     newCustomer = oldCustomer;
                 }
                 else {
-                    newCustomer = (SCCustomer *) [self.dataObject newEntityIntoContext:ENTITY_SCCUSTOMER];
+                    newCustomer = (SCCustomer *) [self.dataObject newObject:ENTITY_SCCUSTOMER];
                     newCustomer.orderList = nil;
                 }
                 newCustomer.name = [self.dataObject dictionaryData:newCustomerDict forKey:@"Name"];
@@ -375,7 +375,7 @@
                 }
                 else
                 {
-                    newItem = [self.dataObject newItem];
+                    newItem = (SCItem *)[self.dataObject newObject:@"SCItem"];
                 }
                 newItem.itemId = [newItemDict valueForKey:@"Id"];
                 newItem.name = [newItemDict valueForKey:@"Name"];

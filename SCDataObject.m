@@ -17,18 +17,29 @@
 @end
 
 @implementation SCDataObject
-//@synthesize self.managedObjectContext;
 
 //SKG's methods
+-(NSManagedObject *)newObject:(NSString *)entityName
+{
+    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self.managedObjectContext];
+    return object;
+}
 
 - (SCOrder *)newOrder
 {
     NSDate *currentDate = [NSDate date];
-    SCOrder *order = [NSEntityDescription insertNewObjectForEntityForName:@"SCOrder" inManagedObjectContext:self.managedObjectContext];
+    SCOrder *order = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([SCOrder class]) inManagedObjectContext:self.managedObjectContext];
     order.createDate = currentDate;
     order.scOrderId = [self newScOrderIdWithDate:currentDate];
     [self saveOrder:order];
     return order;
+}
+
+-(SCCustomer *)newCustomer
+{
+    SCCustomer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"SCCustomer" inManagedObjectContext:self.managedObjectContext];
+    customer.status = @"Synced";
+    return customer;
 }
 
 - (void)saveOrder:(SCOrder *)order
@@ -40,30 +51,12 @@
     }
 }
 
--(void) deleteOrder:(SCOrder *)order
+- (void)deleteObject:(NSManagedObject *)object
 {
     NSError *error;
-    [self.managedObjectContext deleteObject:order];
-    if (![self.managedObjectContext save:&error]) NSLog(@"Error deleting order: %@", [error localizedDescription]);
+    [self.managedObjectContext deleteObject:object];
+    if (![self.managedObjectContext save:&error]) NSLog(@"Error deleting object: %@", [error localizedDescription]);
 }
-
-- (SCLine *)newLine
-{
-    return [NSEntityDescription insertNewObjectForEntityForName:@"SCLine" inManagedObjectContext:self.managedObjectContext];
-}
-
--(void) deleteLine:(SCLine *)line
-{
-    NSError *error;
-    [self.managedObjectContext deleteObject:line];
-    if (![self.managedObjectContext save:&error]) NSLog(@"Error deleting line: %@", [error localizedDescription]);
-}
-
--(SCItem *)newItem
-{
-    return [NSEntityDescription insertNewObjectForEntityForName:@"SCItem" inManagedObjectContext:self.managedObjectContext];
-}
-
 
 
 
@@ -147,11 +140,7 @@
     return customer;
 }
 
--(NSManagedObject *)newEntityIntoContext:(NSString *)entityName
-{
-    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self.managedObjectContext];
-    return object;
-}
+
 
 // READ
 -(NSArray *) fetchCustomersInContext
@@ -263,7 +252,7 @@
                         withShipDate:(NSDate *)selectedShipDate
 {
     NSError *error;
-    SCOrder *order = (SCOrder *) [self newEntityIntoContext:@"SCOrder"];
+    SCOrder *order = (SCOrder *) [self newObject:@"SCOrder"];
     //Predetermined properties
     order.scOrderId = [self newScOrderIdWithDate:[NSDate date]];
     //NSLog(@"Order ID: %@", order.scOrderId);
@@ -277,7 +266,7 @@
     for (NSDictionary *lineData in selectedLinesData)
     {
         //        SCLine *line = [SCLine createInContext:self.managedObjectContext];
-        SCLine *line = (SCLine *) [self newEntityIntoContext:@"SCLine"];
+        SCLine *line = (SCLine *) [self newObject:@"SCLine"];
         line.item = lineData[@"item"];
         line.quantity = lineData[@"lineQuantity"];
         line.order = order;
@@ -311,7 +300,7 @@
     [order removeLines:order.lines];
     for (NSDictionary *lineData in selectedLinesData)
     {
-        SCLine *line = (SCLine *) [self newEntityIntoContext:@"SCLine"];
+        SCLine *line = (SCLine *) [self newObject:@"SCLine"];
         line.item = lineData[@"item"];
         //[line.item addOwningLinesObject:line];
         line.quantity = lineData[@"lineQuantity"];
@@ -410,7 +399,7 @@
     NSDictionary *shippingAddressData = [addresses valueForKey:@"Shipping"];
     if (billingAddressData)
     {
-        SCAddress *billingAddress = (SCAddress *) [self newEntityIntoContext:@"SCAddress"];
+        SCAddress *billingAddress = (SCAddress *) [self newObject:@"SCAddress"];
         billingAddress.qbId = [self dictionaryData:billingAddressData forKey:@"Id"];
         billingAddress.line1 = [self dictionaryData:billingAddressData forKey:@"Line1"]; 
         billingAddress.line2 = [self dictionaryData:billingAddressData forKey:@"Line2"]; 
@@ -430,7 +419,7 @@
 
     if (shippingAddressData)
     {
-        SCAddress *shippingAddress  = (SCAddress *) [self newEntityIntoContext:@"SCAddress"];
+        SCAddress *shippingAddress  = (SCAddress *) [self newObject:@"SCAddress"];
         shippingAddress.city = [self dictionaryData:shippingAddressData forKey:@"City"]; 
         shippingAddress.line1 = [self dictionaryData:shippingAddressData forKey:@"Line1"]; 
         shippingAddress.line2 = [self dictionaryData:shippingAddressData forKey:@"Line2"]; 
@@ -498,7 +487,7 @@
 -(SCOrder *) placeOrderWithItemsData:(NSArray *)selectedLinesData withCustomer:(SCCustomer *)customer isConfirmed:(NSNumber *)isConfirmed
 {
     NSError *error;
-    SCOrder *order = (SCOrder *) [self newEntityIntoContext:@"SCOrder"];
+    SCOrder *order = (SCOrder *) [self newObject:@"SCOrder"];
     //Predetermined properties
     order.createDate = [NSDate date];
     order.lastActivityDate = order.createDate;
@@ -510,7 +499,7 @@
     for (NSDictionary *lineData in selectedLinesData)
     {
         //        SCLine *line = [SCLine createInContext:self.managedObjectContext];
-        SCLine *line = (SCLine *) [self newEntityIntoContext:@"SCLine"];
+        SCLine *line = (SCLine *) [self newObject:@"SCLine"];
         line.item = lineData[@"item"];
         line.quantity = lineData[@"lineQuantity"];
         line.order = order;
@@ -534,7 +523,7 @@
     for (NSDictionary *lineData in selectedLinesData)
     {
         //        SCLine *line = [SCLine createInContext:moc];
-        SCLine *line = (SCLine *) [self newEntityIntoContext:@"SCLine"];
+        SCLine *line = (SCLine *) [self newObject:@"SCLine"];
         line.item = lineData[@"item"];
         //[line.item addOwningLinesObject:line];
         line.quantity = lineData[@"lineQuantity"];
