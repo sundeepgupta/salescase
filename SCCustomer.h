@@ -33,7 +33,7 @@
 @property (nonatomic, strong) SCSalesRep *salesRep;
 @property (nonatomic, strong) SCSalesTerm *salesTerms;
 
-@property (nonatomic, strong) NSNumber * new;
+@property (nonatomic, strong) NSString * status;
 @property (nonatomic, strong) id image;
 @end
 

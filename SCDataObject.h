@@ -39,6 +39,7 @@
 //SKG's stuff
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCOrder *openOrder;
+@property (strong, nonatomic) SCCustomer *openCustomer;
 
 - (SCOrder *)newOrder;
 - (void)saveOrder:(SCOrder *)order;

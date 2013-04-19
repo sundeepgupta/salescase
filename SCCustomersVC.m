@@ -199,11 +199,12 @@
 }
 
 - (IBAction)newCustomerButtonPress:(UIBarButtonItem *)sender {
-    SCCustomerDetailVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCNewCustomerVC"];
-    SCCustomer *customer = [self.global.dataObject createCustomerInContext];
-    customer.new = @YES;
-//    customer.name = [NSDate date];
-    vC.customer = customer;
-    [self.navigationController pushViewController:vC animated:YES];
+    SCCustomer *customer = (SCCustomer *)[self.global.dataObject newEntityIntoContext:@"SCCustomer"];
+    customer.status = @"New";
+    self.global.dataObject.openCustomer = customer;
+    
+    UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomerDetailNC"];
+//    SCCustomerDetailVC *vc = (SCCustomerDetailVC *)nc.topViewController;
+    [self presentViewController:nc animated:YES completion:nil];
 }
 @end

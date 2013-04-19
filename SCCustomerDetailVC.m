@@ -85,8 +85,15 @@ static NSString *const TEXT_CELL = @"SCTextCell";
             [self presentCustomerList];
         }
     } else {
-        self.title = self.customer.dbaName;    
-        
+        if (self.dataObject.openCustomer) {
+            self.title = @"New Customer";
+            self.customer = self.dataObject.openCustomer;
+            self.navigationItem.hidesBackButton = YES;
+            
+        } else {
+            self.title = self.customer.dbaName;
+        }
+
         //set the toolbar buttons
         NSArray *toolbarItems = [NSArray arrayWithObjects:self.spacer1, self.nextButton, nil];
         self.toolbarItems = toolbarItems;
@@ -166,17 +173,20 @@ static NSString *const TEXT_CELL = @"SCTextCell";
             SCSalesTerm *castedRowObject = (SCSalesTerm *)rowObject;
             cell.value.text = castedRowObject.name;
         }
+        
+        if (self.dataObject.openCustomer) {
+            cell.userInteractionEnabled = YES;
+        }
+        
         return cell;
     } else { //must be a text cell
         SCTextCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         cell.title.text = row[ROW_TITLE];
         cell.value.text = row[ROW_OBJECT];
         
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CustomerDetailCell"];
-//        cell.textLabel.text = row[ROW_TITLE];
-//        cell.detailTextLabel.text = row[ROW_OBJECT];
-        
-        
+        if (self.dataObject.openCustomer) {
+            cell.userInteractionEnabled = YES;
+        }
         return cell;
     }
 }
@@ -358,29 +368,57 @@ static NSString *const TEXT_CELL = @"SCTextCell";
     [self.sections addObject:section2];
     
     //Section 3
-    NSArray *billToLines = [self.customer.primaryBillingAddress addressBlock];
-    NSMutableArray *rows3 = [[NSMutableArray alloc] init];
-    for (NSInteger i = 0; i < billToLines.count; i++) {
-        NSMutableDictionary *line = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"", ROW_TITLE, billToLines[i], ROW_OBJECT, nil];
-        [rows3 addObject:line];
+    if (self.dataObject.openCustomer) {
+        NSMutableDictionary *rowBillTo1 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 1", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.line1, ROW_OBJECT, nil];
+        NSMutableDictionary *rowBillTo2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 2", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.line2, ROW_OBJECT, nil];
+        NSMutableDictionary *rowBillTo3 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 3", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.line3, ROW_OBJECT, nil];
+        NSMutableDictionary *rowBillToCity = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"City", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.city, ROW_OBJECT, nil];
+        NSMutableDictionary *rowBillToState = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"State/Province", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.countrySubDivisionCode, ROW_OBJECT, nil];
+        NSMutableDictionary *rowBillToPostal = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Zip/Postal Code", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.postalCode, ROW_OBJECT, nil];
+        NSMutableDictionary *rowBillToCountry = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Country", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.country, ROW_OBJECT, nil];
+        NSArray *rowsBillTo = [NSArray arrayWithObjects:rowBillTo1, rowBillTo2, rowBillTo3, rowBillToCity, rowBillToState, rowBillToPostal, rowBillToCountry, nil];
+        NSMutableDictionary *sectionBillTo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Bill To", SECTION_TITLE, rowsBillTo, SECTION_ROWS, nil];
+        [self.sections addObject:sectionBillTo];
+    } else {
+        NSArray *billToLines = [self.customer.primaryBillingAddress addressBlock];
+        NSMutableArray *rows3 = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < billToLines.count; i++) {
+            NSMutableDictionary *line = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"", ROW_TITLE, billToLines[i], ROW_OBJECT, nil];
+            [rows3 addObject:line];
+        }
+        NSMutableDictionary *section3 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Bill To", SECTION_TITLE, rows3, SECTION_ROWS, nil];
+        [self.sections addObject:section3];
     }
-    NSMutableDictionary *section3 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Bill To", SECTION_TITLE, rows3, SECTION_ROWS, nil];
-    [self.sections addObject:section3];
     
     //Section 4
-    NSArray *shipToLines = [self.customer.primaryShippingAddress addressBlock];
-    if (shipToLines.count != 0) {
-        NSMutableArray *rows4 = [[NSMutableArray alloc] init];
-        for (NSInteger i = 0; i < shipToLines.count; i++) {
-            NSMutableDictionary *line = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"", ROW_TITLE, shipToLines[i], ROW_OBJECT, nil];
-            [rows4 addObject:line];
+    if (self.dataObject.openCustomer) {
+        NSMutableDictionary *rowShipTo1 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 1", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.line1, ROW_OBJECT, nil];
+        NSMutableDictionary *rowShipTo2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 2", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.line2, ROW_OBJECT, nil];
+        NSMutableDictionary *rowShipTo3 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 3", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.line3, ROW_OBJECT, nil];
+        NSMutableDictionary *rowShipToCity = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"City", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.city, ROW_OBJECT, nil];
+        NSMutableDictionary *rowShipToState = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"State/Province", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.countrySubDivisionCode, ROW_OBJECT, nil];
+        NSMutableDictionary *rowShipToPostal = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Zip/Postal Code", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.postalCode, ROW_OBJECT, nil];
+        NSMutableDictionary *rowShipToCountry = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Country", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.country, ROW_OBJECT, nil];
+        NSArray *rowsShipTo = [NSArray arrayWithObjects:rowShipTo1, rowShipTo2, rowShipTo3, rowShipToCity, rowShipToState, rowShipToPostal, rowShipToCountry, nil];
+        NSMutableDictionary *sectionShipTo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Ship To", SECTION_TITLE, rowsShipTo, SECTION_ROWS, nil];
+        [self.sections addObject:sectionShipTo];
+    } else {
+        NSArray *shipToLines = [self.customer.primaryShippingAddress addressBlock];
+        if (shipToLines.count != 0) {
+            NSMutableArray *rows4 = [[NSMutableArray alloc] init];
+            for (NSInteger i = 0; i < shipToLines.count; i++) {
+                NSMutableDictionary *line = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"", ROW_TITLE, shipToLines[i], ROW_OBJECT, nil];
+                [rows4 addObject:line];
+            }
+            NSMutableDictionary *section4 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Ship To", SECTION_TITLE, rows4, SECTION_ROWS, nil];
+            [self.sections addObject:section4];
         }
-        NSMutableDictionary *section4 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Ship To", SECTION_TITLE, rows4, SECTION_ROWS, nil];
-        [self.sections addObject:section4];
     }
     
     [self.tableView reloadData];
 }
+
+
 
 - (void)showPopoverTableWithArray:(NSArray *)dataArray withObjectType:(NSString *)objectType fromIndexPath:(NSIndexPath *)indexPath
 {

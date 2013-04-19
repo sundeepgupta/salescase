@@ -8,32 +8,6 @@
 
 #import "SCConstants.h"
 
-////Storyboard IDs
-////Detail VCs
-//NSString *const @"SCCustomerDetailVC" = @"SCCustomerDetailVC";
-//NSString *const @"SCCustomersVC" = @"SCCustomersVC"
-//NSString *const @"SCItemCartVC" = @"SCItemCartVC"
-//NSString *const @"SCItemDetailVC" = @"SCItemDetailVC"
-//NSString *const ITEMS_VC = @"SCItemsVC"
-//NSString *const ORDER_ACTIONS_VC = @"SCOrderActionsVC"
-//NSString *const @"SCOrderDetailVC" = @"SCOrderDetailVC"
-//NSString *const @"SCOrderOptionsVC" = @"SCOrderOptionsVC"
-//NSString *const ORDERS_VC = @"SCOrdersVC"
-////Master VCs
-//NSString *const ORDER_MASTER_VC = @"SCOrderMasterVC"
-////NCs
-//NSString *const @"CustomersNC" = @"CustomersNC"
-//NSString *const @"ItemsNC" = @"ItemsNC"
-//NSString *const LOGIN_NC = @"LoginNC"
-//
-//NSString *const SYNC_NC = @"SyncNC"
-//NSString *const NO_DATA_NC = @"NoDataNC"
-//
-//
-////Login VCs
-//NSString *const @"SCLoginVC" = @"SCLoginVC"
-//NSString *const INTUIT_@"SCLoginVC" = @"SCIntuitLoginVC"
-
 //User Defaults
 NSString *const USER_COMPANY_INFO = @"CompanyInfo";
 NSString *const USER_COMPANY_NAME = @"Name";

@@ -36,7 +36,7 @@
 @dynamic primaryShippingAddress;
 @dynamic salesRep;
 @dynamic salesTerms;
-@dynamic new;
+@dynamic status;
 @dynamic image;
 
 -(NSString *)mainEmail
