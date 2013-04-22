@@ -191,6 +191,10 @@
 {
     //only one textField so no need to check
 //    [self.notesTextView becomeFirstResponder];
+    
+    //don't allow ":"
+    
+    
     return YES;
 }
 
@@ -202,7 +206,11 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if ([textField isEqual:self.nameTextField]) self.customer.name = textField.text;
+    if ([textField isEqual:self.nameTextField]) {
+        //validate uniqueness, and if empty
+        
+        self.customer.name = textField.text;
+    }
     if ([textField isEqual:self.dbaNameTextField]) self.customer.dbaName = textField.text;
     if ([textField isEqual:self.firstNameTextField]) self.customer.givenName = textField.text;
     if ([textField isEqual:self.lastNameTextField]) self.customer.familyName = textField.text;

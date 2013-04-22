@@ -38,7 +38,7 @@
 -(SCCustomer *)newCustomer
 {
     SCCustomer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"SCCustomer" inManagedObjectContext:self.managedObjectContext];
-    customer.status = @"New";    
+    customer.status = CUSTOMER_STATUS_NEW;
     return customer;
 }
 
@@ -146,6 +146,15 @@
     [customer addPhoneListObject:newPhone];
 }
 
+-(NSArray *)fetchCustomersWithStatus:(NSString *)status withError:(NSError **)error
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:ENTITY_SCCUSTOMER inManagedObjectContext:self.managedObjectContext];
+    request.entity = entity;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status = %@", status];
+    request.predicate = predicate;
+    return [self.managedObjectContext executeFetchRequest:request error:error];
+}
 
 
 

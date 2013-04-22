@@ -64,6 +64,14 @@
     return YES;
 }
 
+- (NSURL *)urlFromUrlExtension:(NSString *)urlExtension
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@%@", WEB_APP_URL, urlExtension];
+    NSString *urlTenantQuery = [NSString stringWithFormat:@"tenant=%@", [self getTenant] ];
+    urlString = [NSString stringWithFormat:@"%@?%@",urlString,urlTenantQuery];
+    return [NSURL URLWithString:urlString];
+}
+
 - (NSURLRequest *)requestFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber
 {
     NSString *tenant = [self getTenant];
@@ -76,6 +84,18 @@
     NSURL *url = [NSURL URLWithString:urlstring ];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:240];
     [request setHTTPMethod:@"POST"];
+    return request;
+}
+
+- (NSURLRequest *)requestFromUrl:(NSURL *)url withPostString:(NSString *)postString
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
     return request;
 }
 
@@ -92,6 +112,21 @@
     }
     return dict;
 }
+
+- (NSDictionary *)dictionaryFromRequest:(NSURLRequest *)request error:(NSError **)error
+{
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
+    if (!responseData) {
+        return nil;
+    }
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:error];
+    if (!dict) {
+        return nil;
+    }
+    return dict;
+}
+
+
 
 - (NSArray *)arrayFromUrlExtension:(NSString *)urlExtension withPageNumber:(NSInteger)pageNumber error:(NSError **)error responseError:(NSDictionary **)responseError
 {

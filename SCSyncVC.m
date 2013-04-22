@@ -93,6 +93,8 @@
     NSError *customersError = nil;
     NSError *itemsError = nil;
     NSError *ordersError = nil;
+    NSError *newCustomersError = nil;
+    
     NSDictionary *oAuthResponseError;
 //    NSDictionary *companyInfoResponseError = nil;
     NSDictionary *repsResponseError = nil;
@@ -101,10 +103,25 @@
 //    NSDictionary *customersResponseError = nil;
 //    NSDictionary *itemsResponseError = nil;
     NSDictionary *ordersResponseError;
+    NSDictionary *newCustomersResponseError;
     BOOL hadSyncError = NO;
     NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
     
     if ([self.webApp oAuthTokenIsValid:&connectionError responseError:&oAuthResponseError]) {
+        
+        
+        if (![self uploadNewCustomers:&newCustomersError responseError:&newCustomersResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to upload new customers. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nCustomer Name: %@", newCustomersError, newCustomersResponseError[@"error"], newCustomersResponseError[@"msg"], newCustomersResponseError[@"errorDetail"], newCustomersResponseError[@"name"]];
+            hadSyncError = YES;
+        }
+        
+
+        
+        
+        
         
         if (![self downloadCompanyInfo:&companyInfoError]) {
             if (syncErrorString.length != 0) {
@@ -154,7 +171,7 @@
             hadSyncError = YES;
         }
         
-        if (![self uploadOrders:&ordersError responseError:&ordersResponseError]) {
+                if (![self uploadOrders:&ordersError responseError:&ordersResponseError]) {
             if (syncErrorString.length != 0) {
                 [syncErrorString appendString:@"\n\n"];
             }
@@ -406,6 +423,71 @@
     return YES;
 }
 
+- (BOOL)uploadNewCustomers:(NSError **)error responseError:(NSDictionary **)responseError
+{
+    NSArray *customers = [self.dataObject fetchCustomersWithStatus:CUSTOMER_STATUS_NEW withError:error];
+    if (!customers) {
+        return NO;
+    }
+    
+    NSURL *url = [self.webApp urlFromUrlExtension:SEND_CUSTOMER_URL_EXT];
+    
+    for (SCCustomer *customer in customers) {
+        //Handle required fields first (which are validated during user input)
+        NSMutableString *postString = [NSMutableString stringWithFormat:@"Name=%@", [customer.name urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        [postString appendFormat:@"&BillTo1=%@", [customer.primaryBillingAddress.line1 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        
+        //OPtional fields        
+        if (customer.dbaName) [postString appendFormat:@"&DBAName=%@", [customer.dbaName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.givenName) [postString appendFormat:@"&GivenName=%@", [customer.givenName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.familyName) [postString appendFormat:@"&FamilyName=%@", [customer.familyName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        
+        if ([customer phoneForTag:MAIN_PHONE_TAG].length != 0) [postString appendFormat:@"&BusinessPhone=%@", [[customer phoneForTag:MAIN_PHONE_TAG] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if ([customer phoneForTag:FAX_PHONE_TAG].length != 0) [postString appendFormat:@"&FaxPhone=%@", [[customer phoneForTag:FAX_PHONE_TAG] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if ([customer mainEmail].length != 0) [postString appendFormat:@"&BusinessEmail=%@", [[customer mainEmail] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+
+        if (customer.primaryBillingAddress.line2) [postString appendFormat:@"&BillTo2=%@", [customer.primaryBillingAddress.line2 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryBillingAddress.line3) [postString appendFormat:@"&BillTo3=%@", [customer.primaryBillingAddress.line3 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryBillingAddress.city) [postString appendFormat:@"&BillToCity=%@", [customer.primaryBillingAddress.city urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryBillingAddress.country) [postString appendFormat:@"&BillToCountry=%@", [customer.primaryBillingAddress.country urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryBillingAddress.countrySubDivisionCode) [postString appendFormat:@"&BillToCountrySubDivisionCode=%@", [customer.primaryBillingAddress.countrySubDivisionCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryBillingAddress.postalCode) [postString appendFormat:@"&BillToPostalCode=%@", [customer.primaryBillingAddress.postalCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        
+        if (customer.primaryShippingAddress.line1) [postString appendFormat:@"&ShipTo1=%@", [customer.primaryShippingAddress.line1 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryShippingAddress.line2) [postString appendFormat:@"&ShipTo2=%@", [customer.primaryShippingAddress.line2 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryShippingAddress.line3) [postString appendFormat:@"&ShipTo3=%@", [customer.primaryShippingAddress.line3 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryShippingAddress.city) [postString appendFormat:@"&ShipToCity=%@", [customer.primaryShippingAddress.city urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryShippingAddress.country) [postString appendFormat:@"&ShipToCountry=%@", [customer.primaryShippingAddress.country urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryShippingAddress.countrySubDivisionCode) [postString appendFormat:@"&ShipToCountrySubDivisionCode=%@", [customer.primaryShippingAddress.countrySubDivisionCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        if (customer.primaryShippingAddress.postalCode) [postString appendFormat:@"&ShipToPostalCode=%@", [customer.primaryShippingAddress.postalCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        
+        if (customer.salesRep.repId) [postString appendFormat:@"&SalesRepId=%@", customer.salesRep.repId];
+        if (customer.salesTerms.termId) [postString appendFormat:@"&SalesTermId=%@", customer.salesTerms.termId];
+        
+        NSURLRequest *request = [self.webApp requestFromUrl:url withPostString:postString];
+        
+        //DEBUG
+        NSLog(@"request: %@\npost string: %@", request, postString);
+        
+        NSDictionary *responseDictionary = [self.webApp dictionaryFromRequest:request error:error];
+        if (!responseDictionary) {
+            [*responseError setValue:customer.name forKey:@"name"];
+            return NO;
+        }
+        
+        if ([(NSString *)responseDictionary[@"result"] isEqualToString:@"Success"] ) {
+            customer.status = nil;
+            // Consider moving this outside the loop if performance appears bad
+            [self.dataObject saveContext];
+        } else {
+            *responseError = responseDictionary.mutableCopy;
+            [*responseError setValue:customer.name forKey:@"name"];
+            return NO;
+        }
+    }
+    return YES;
+}
+
 - (BOOL)uploadOrders:(NSError **)error responseError:(NSDictionary **)responseError
 {
     NSArray *orders = [self.dataObject fetchOrdersInContext:error];
@@ -413,92 +495,48 @@
         return NO;
     }
     
-    NSURL *url;
-    NSString *urlString;
-    
-    urlString = [NSString stringWithFormat:@"%@%@", WEB_APP_URL, SEND_ORDER_URL_EXT];
-    NSString *urlTenantQuery = [NSString stringWithFormat:@"tenant=%@", [self.webApp getTenant] ];
-    urlString = [NSString stringWithFormat:@"%@?%@",urlString,urlTenantQuery];
-    url = [NSURL URLWithString:urlString];
+    NSURL *url = [self.webApp urlFromUrlExtension:SEND_ORDER_URL_EXT];
     
     for (SCOrder *order in orders)
     {
         // Only sync orders with status "confirmed"
         if (order.confirmed && !order.synced) //don't need to check for customer here or 0 line items because not allowing these orders to be changed to confirmed status.
         {
-            NSMutableString *postString;
-            postString = (NSMutableString *) [NSString stringWithFormat:@"customerid=%@",order.customer.customerId]; 
+            //Required fields
+            NSMutableString *postString = [NSMutableString stringWithFormat:@"customerid=%@",order.customer.customerId];
+            [postString appendFormat:@"&scorderid=%@", order.scOrderId];
             
+            //Optional fields
             //TODO - BUG IN DEVKIT OR IPP?  Dates in teh past cause orders not to sync.
-//            NSString *createDate = [SCGlobal stringFromDate:order.createDate];
-//            postString = [NSString stringWithFormat:@"%@&txndate=%@", postString, createDate];
-            postString = [NSString stringWithFormat:@"%@&txndate=2013-06-25", postString];
+            NSString *createDate = [SCGlobal stringFromDate:order.createDate];
+            [postString appendFormat:@"&txndate=%@", createDate];
+//            [postString appendFormat:@"&txndate=2013-06-25"];
             
-//            SCAddress *billingAddress = order.customer.primaryBillingAddress;
-//            postString = (NSMutableString *)[NSString stringWithFormat:@"%@&%@", postString, [self addressAsRequestString:billingAddress withPrefix:@"billing"]];
-//            
-//            SCAddress *shippingAddress = order.customer.primaryShippingAddress;
-//            postString = (NSMutableString *)[NSString stringWithFormat:@"%@&%@", postString, [self addressAsRequestString:shippingAddress withPrefix:@"shipping"]];
-            
-            if(order.scOrderId) //set scorderid, which determines the docnumber
-            {
-                postString = [NSString stringWithFormat:@"%@&scorderid=%@", postString, [NSString stringWithFormat:@"%@", order.scOrderId]];
+            if (order.salesRep) [postString appendFormat:@"&salesrepid=%@", order.salesRep.repId];
+            if (order.salesTerm) {
+                [postString appendFormat:@"&salestermid=%@", order.salesTerm.termId];
+                [postString appendFormat:@"&salestermname=%@", [order.salesTerm.name urlEncodeUsingEncoding:NSUTF8StringEncoding]];
             }
-            if (order.salesRep)
-            {
-                postString = [NSString stringWithFormat:@"%@&salesrepid=%@", postString, order.salesRep.repId];
-//                postString = [NSString stringWithFormat:@"%@&salesrepinitials=%@", postString, order.salesRep.initials];
-//                postString = [NSString stringWithFormat:@"%@&salesrepname=%@", postString, order.salesRep.name];
-            }
-            if (order.salesTerm)
-            {
-//                postString = [NSString stringWithFormat:@"%@&salestermname=%@", postString, order.salesTerm.name];
-                postString = [NSString stringWithFormat:@"%@&salestermid=%@", postString, order.salesTerm.termId];
-            }
-            if (order.shipDate)
-            {
+            if (order.shipDate) {
                 NSString *dateString = [SCGlobal stringFromDate:order.shipDate];
-                postString = [NSString stringWithFormat:@"%@&shipdate=%@", postString, dateString];
+                [postString appendFormat:@"&shipdate=%@", dateString];
             }
-            if (order.shipMethod)
-            {
-                postString = [NSString stringWithFormat:@"%@&shipmethodid=%@", postString, order.shipMethod.id];
-//                postString = [NSString stringWithFormat:@"%@&shipmethodname=%@", postString, [order.shipMethod.name urlEncodeUsingEncoding:NSUTF8StringEncoding]];  
-            }
-            if (order.orderDescription)
-            {
-                postString = [NSString stringWithFormat:@"%@&notes=%@", postString, [order.orderDescription urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-            }
-            if (order.poNumber)
-            {
-                postString = [NSString stringWithFormat:@"%@&ponumber=%@", postString, [order.poNumber urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-                
-            }
+            if (order.shipMethod) [postString appendFormat:@"&shipmethodid=%@", order.shipMethod.id];
+            if (order.orderDescription) [postString appendFormat:@"&notes=%@", [order.orderDescription urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+            if (order.poNumber) [postString appendFormat:@"&ponumber=%@", [order.poNumber urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+            
+            //Line items (at least 1 is required)
             NSArray *lines = (NSArray *) order.lines;
-            for (SCLine *line in lines)
-            {
-                postString = [NSString stringWithFormat:@"%@&line[%@][id]=%@&line[%@][quantity]=%@",postString, line.item.itemId, line.item.itemId, line.item.itemId, line.quantity];
+            for (SCLine *line in lines) {
+                [postString appendFormat:@"&line[%@][id]=%@&line[%@][quantity]=%@", line.item.itemId, line.item.itemId, line.item.itemId, line.quantity];
             }
             
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-            [request setHTTPMethod:@"POST"];
+            NSURLRequest *request = [self.webApp requestFromUrl:url withPostString:postString];
             
             //DEBUG
             NSLog(@"request: %@\npost string: %@", request, postString);
             
-            //NSData *postData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-            NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-            NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
-            [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-            [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-            [request setHTTPBody:postData];
-            NSData *responseData = [NSURLConnection  sendSynchronousRequest:request returningResponse:NULL error:error];
-            if (!responseData) {
-                [*responseError setValue:order.scOrderId forKey:@"SCOrderID"];
-                return NO;
-            }
-            
-            NSMutableDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:error];
+            NSDictionary *responseDictionary = [self.webApp dictionaryFromRequest:request error:error];
             if (!responseDictionary) {
                 [*responseError setValue:order.scOrderId forKey:@"SCOrderID"];
                 return NO;
@@ -512,7 +550,7 @@
             }
             else
             {
-                *responseError = responseDictionary;
+                *responseError = responseDictionary.mutableCopy;
                 [*responseError setValue:order.scOrderId forKey:@"SCOrderID"];
                 return NO;
             }

@@ -40,6 +40,7 @@
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCOrder *openOrder;
 @property (strong, nonatomic) SCCustomer *openCustomer;
+@property (strong) NSManagedObjectContext *managedObjectContext;
 
 -(NSManagedObject *)newObject:(NSString *)entityName;
 - (SCOrder *)newOrder;
@@ -50,12 +51,12 @@
 
 -(void) savePhoneNumber:(NSString *)phoneNumber withTag:(NSString *)tag forCustomer:(SCCustomer *)customer;
 
+-(NSArray *)fetchCustomersWithStatus:(NSString *)status withError:(NSError **)error;
 
 
 
 
 
-@property (strong) NSManagedObjectContext *managedObjectContext;
 
 // Managed Object Context Operations
 -(void) saveContext;
