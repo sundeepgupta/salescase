@@ -38,7 +38,7 @@
 -(SCCustomer *)newCustomer
 {
     SCCustomer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"SCCustomer" inManagedObjectContext:self.managedObjectContext];
-    customer.status = @"Synced";
+    customer.status = @"New";    
     return customer;
 }
 
@@ -58,26 +58,98 @@
     if (![self.managedObjectContext save:&error]) NSLog(@"Error deleting object: %@", [error localizedDescription]);
 }
 
+-(void) saveAddressList:(NSDictionary *)addresses forCustomer:(SCCustomer *)customer
+{
+    [customer removeAddressList:customer.addressList];
+    NSDictionary *billingAddressData = [addresses valueForKey:@"Billing"];
+    NSDictionary *shippingAddressData = [addresses valueForKey:@"Shipping"];
+    if (billingAddressData)
+    {
+        SCAddress *billingAddress = (SCAddress *) [self newObject:@"SCAddress"];
+        billingAddress.qbId = [self dictionaryData:billingAddressData forKey:@"Id"];
+        billingAddress.line1 = [self dictionaryData:billingAddressData forKey:@"Line1"];
+        billingAddress.line2 = [self dictionaryData:billingAddressData forKey:@"Line2"];
+        billingAddress.line3 = [self dictionaryData:billingAddressData forKey:@"Line3"];
+        billingAddress.line4 = [self dictionaryData:billingAddressData forKey:@"Line4"];
+        billingAddress.line5 = [self dictionaryData:billingAddressData forKey:@"Line5"];
+        billingAddress.city = [self dictionaryData:billingAddressData forKey:@"City"];
+        billingAddress.postalCode = [self dictionaryData:billingAddressData forKey:@"PostalCode"];
+        billingAddress.country = [self dictionaryData:billingAddressData forKey:@"Country"];
+        billingAddress.countrySubDivisionCode = [self dictionaryData:billingAddressData forKey:@"CountrySubDivisionCode"];
+        billingAddress.tag = @"Billing";
+        //billingAddress.owningCustomer = customer;
+        customer.primaryBillingAddress = billingAddress;
+        [customer addAddressListObject:billingAddress];
+        
+    }
+    
+    if (shippingAddressData)
+    {
+        SCAddress *shippingAddress  = (SCAddress *) [self newObject:@"SCAddress"];
+        shippingAddress.city = [self dictionaryData:shippingAddressData forKey:@"City"];
+        shippingAddress.line1 = [self dictionaryData:shippingAddressData forKey:@"Line1"];
+        shippingAddress.line2 = [self dictionaryData:shippingAddressData forKey:@"Line2"];
+        shippingAddress.line3 = [self dictionaryData:shippingAddressData forKey:@"Line3"];
+        shippingAddress.line4 = [self dictionaryData:shippingAddressData forKey:@"Line4"];
+        shippingAddress.line5 = [self dictionaryData:shippingAddressData forKey:@"Line5"];
+        shippingAddress.city = [self dictionaryData:shippingAddressData forKey:@"City"];
+        shippingAddress.postalCode = [self dictionaryData:shippingAddressData forKey:@"PostalCode"];
+        shippingAddress.country = [self dictionaryData:shippingAddressData forKey:@"Country"];
+        shippingAddress.countrySubDivisionCode = [self dictionaryData:shippingAddressData forKey:@"CountrySubDivisionCode"];
+        shippingAddress.tag = @"Shipping";
+        //shippingAddress.owningCustomer = customer;
+        customer.primaryShippingAddress = shippingAddress;
+        [customer addAddressListObject:shippingAddress];
+    }
+}
+
+-(void) savePhoneList:(NSDictionary *)phones forCustomer:(SCCustomer *)customer
+{
+    [customer removePhoneList:customer.phoneList];
+    for (NSString *phoneTag in phones)
+    {
+        SCPhone *phone = [NSEntityDescription insertNewObjectForEntityForName:@"SCPhone"  inManagedObjectContext:self.managedObjectContext];
+        phone.tag = phoneTag;
+        phone.freeFormNumber = [self dictionaryData:[phones valueForKey:phoneTag] forKey:@"FreeFormNumber"];
+        [customer addPhoneListObject:phone];
+        //phone.owningCustomer = customer;
+    }
+}
+
+-(void) saveEmailList:(NSDictionary *)emails forCustomer:(SCCustomer *)customer
+{
+    [customer removeEmailList:customer.emailList];
+    for (NSString *emailTag in emails)
+    {
+        SCEmail *email = [NSEntityDescription insertNewObjectForEntityForName:@"SCEmail"  inManagedObjectContext:self.managedObjectContext];
+        email.tag = emailTag;
+        email.address = [self dictionaryData:[emails valueForKey:emailTag] forKey:@"Address"];
+        [customer addEmailListObject:email];
+        //email.owningCustomer = customer;
+    }
+}
+
+-(void) savePhoneNumber:(NSString *)phoneNumber withTag:(NSString *)tag forCustomer:(SCCustomer *)customer
+{ //looks like when a new customer is created, it also creates the phonelist too, so no need to check for it.
+
+    if (customer.phoneList.count > 0) {
+        for (SCPhone *phone in customer.phoneList) {
+            if ([tag isEqualToString:phone.tag]) {
+                phone.freeFormNumber = phoneNumber;
+                return;
+            }
+        }
+    }  
+    SCPhone *newPhone = (SCPhone *)[self newObject:NSStringFromClass([SCPhone class])];
+    newPhone.tag = tag;
+    newPhone.freeFormNumber = phoneNumber;
+    [customer addPhoneListObject:newPhone];
+}
 
 
-//- (SCOrder *)updateOrder:(SCOrder *)order withCustomer:(SCCustomer *)customer
-//{//set the order's Rep and Terms based on the customer - but check to see if they already exist since user has the option of adding the customer after setting order options.  If they do exist and are different, we should ask the user which values they want to keep.  We can save this for later, but for now, just overwrite the order options based on the customer.
-//    
-//    order.customer = customer;
-//    if (customer.salesRep) {
-//      order.salesRep = customer.salesRep;
-//    }
-//    if (customer.salesTerms) {
-//        order.salesTerm = customer.salesTerms;
-//    }
-////    [self saveContextWithOrder:order];
-//    return order;
-//}
 
 
-
-
-
+#pragma mark Al's methods
 -(NSNumber *)incrementMaxSCOrderId
 {
     NSNumber *result;
@@ -392,76 +464,7 @@
 
 
 
--(void) getAddressList:(NSDictionary *)addresses forCustomer:(SCCustomer *)customer
-{
-    [customer removeAddressList:customer.addressList];
-    NSDictionary *billingAddressData = [addresses valueForKey:@"Billing"];
-    NSDictionary *shippingAddressData = [addresses valueForKey:@"Shipping"];
-    if (billingAddressData)
-    {
-        SCAddress *billingAddress = (SCAddress *) [self newObject:@"SCAddress"];
-        billingAddress.qbId = [self dictionaryData:billingAddressData forKey:@"Id"];
-        billingAddress.line1 = [self dictionaryData:billingAddressData forKey:@"Line1"]; 
-        billingAddress.line2 = [self dictionaryData:billingAddressData forKey:@"Line2"]; 
-        billingAddress.line3 = [self dictionaryData:billingAddressData forKey:@"Line3"];
-        billingAddress.line4 = [self dictionaryData:billingAddressData forKey:@"Line4"];
-        billingAddress.line5 = [self dictionaryData:billingAddressData forKey:@"Line5"];
-        billingAddress.city = [self dictionaryData:billingAddressData forKey:@"City"];
-        billingAddress.postalCode = [self dictionaryData:billingAddressData forKey:@"PostalCode"];
-        billingAddress.country = [self dictionaryData:billingAddressData forKey:@"Country"];
-        billingAddress.countrySubDivisionCode = [self dictionaryData:billingAddressData forKey:@"CountrySubDivisionCode"];
-        billingAddress.tag = @"Billing";
-        //billingAddress.owningCustomer = customer;
-        customer.primaryBillingAddress = billingAddress;
-        [customer addAddressListObject:billingAddress];
-        
-    }
 
-    if (shippingAddressData)
-    {
-        SCAddress *shippingAddress  = (SCAddress *) [self newObject:@"SCAddress"];
-        shippingAddress.city = [self dictionaryData:shippingAddressData forKey:@"City"]; 
-        shippingAddress.line1 = [self dictionaryData:shippingAddressData forKey:@"Line1"]; 
-        shippingAddress.line2 = [self dictionaryData:shippingAddressData forKey:@"Line2"]; 
-        shippingAddress.line3 = [self dictionaryData:shippingAddressData forKey:@"Line3"];
-        shippingAddress.line4 = [self dictionaryData:shippingAddressData forKey:@"Line4"];
-        shippingAddress.line5 = [self dictionaryData:shippingAddressData forKey:@"Line5"];
-        shippingAddress.city = [self dictionaryData:shippingAddressData forKey:@"City"];
-        shippingAddress.postalCode = [self dictionaryData:shippingAddressData forKey:@"PostalCode"];
-        shippingAddress.country = [self dictionaryData:shippingAddressData forKey:@"Country"];
-        shippingAddress.countrySubDivisionCode = [self dictionaryData:shippingAddressData forKey:@"CountrySubDivisionCode"];
-        shippingAddress.tag = @"Shipping"; 
-        //shippingAddress.owningCustomer = customer;
-        customer.primaryShippingAddress = shippingAddress;
-        [customer addAddressListObject:shippingAddress];
-    }
-}
-
--(void) getPhoneList:(NSDictionary *)phones forCustomer:(SCCustomer *)customer
-{
-    [customer removePhoneList:customer.phoneList];
-    for (NSString *phoneTag in phones)
-    {
-        SCPhone *phone = [NSEntityDescription insertNewObjectForEntityForName:@"SCPhone"  inManagedObjectContext:self.managedObjectContext];
-        phone.tag = phoneTag;
-        phone.freeFormNumber = [self dictionaryData:[phones valueForKey:phoneTag] forKey:@"FreeFormNumber"];
-        [customer addPhoneListObject:phone];
-        //phone.owningCustomer = customer;
-    }
-}
-
--(void) getEmailList:(NSDictionary *)emails forCustomer:(SCCustomer *)customer
-{
-    [customer removeEmailList:customer.emailList];
-    for (NSString *emailTag in emails)
-    {
-        SCEmail *email = [NSEntityDescription insertNewObjectForEntityForName:@"SCEmail"  inManagedObjectContext:self.managedObjectContext];
-        email.tag = emailTag;
-        email.address = [self dictionaryData:[emails valueForKey:emailTag] forKey:@"Address"];
-        [customer addEmailListObject:email];
-        //email.owningCustomer = customer;
-    }
-}
 
 
 /* SOME OLD TESTING FUNCTIONS, meant to be deleted */

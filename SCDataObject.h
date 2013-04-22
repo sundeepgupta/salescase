@@ -48,7 +48,7 @@
 - (void)saveOrder:(SCOrder *)order;
 -(void) deleteObject:(NSManagedObject *)order;
 
-
+-(void) savePhoneNumber:(NSString *)phoneNumber withTag:(NSString *)tag forCustomer:(SCCustomer *)customer;
 
 
 
@@ -108,9 +108,9 @@
 -(void) removeQueuedEmailFromContext:(SCEmailToSend *)email;
 
 // Helpers
--(void) getAddressList:(NSDictionary *)addresses forCustomer:(SCCustomer *)customer;
--(void) getPhoneList:(NSDictionary *)phones forCustomer:(SCCustomer *)customer;
--(void) getEmailList:(NSDictionary *)emails forCustomer:(SCCustomer *)customer;
+-(void) saveAddressList:(NSDictionary *)addresses forCustomer:(SCCustomer *)customer;
+-(void) savePhoneList:(NSDictionary *)phones forCustomer:(SCCustomer *)customer;
+-(void) saveEmailList:(NSDictionary *)emails forCustomer:(SCCustomer *)customer;
 // returns dictionary data - to handle null cases
 -(NSString *) dictionaryData:(NSDictionary *)dictionaryData forKey:(NSString *)forKey;
 

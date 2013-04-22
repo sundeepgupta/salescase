@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) NSArray *dataArray;
 @property (strong, nonatomic) NSString *objectType;
-@property (strong, nonatomic) NSIndexPath *parentIndexPath;
+@property (strong, nonatomic) UITableViewCell *parentCell;
 
 @property (weak, nonatomic) id <SCPopoverTableDelegate> delegate;
 

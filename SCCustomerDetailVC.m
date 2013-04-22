@@ -1,5 +1,5 @@
 //
-//  SCCustomerDetailVC.h
+//  SCCustomerDetailVC.m
 //  SalesCase
 //
 //  Created by Sundeep Gupta on 13-04-15.
@@ -21,25 +21,44 @@
 #import "SCCustomersVC.h"
 #import "SCLookMasterVC.h"
 
-static NSString *const ROW_TITLE = @"FieldTitle";
-static NSString *const ROW_OBJECT = @"FieldValue";
-static NSString *const SECTION_TITLE = @"SectionTitle";
-static NSString *const SECTION_ROWS = @"SectionRows";
-static NSString *const CELL_ID = @"CellId";
-static NSString *const POPOVER_CELL = @"SCPopoverCell";
-static NSString *const TEXT_CELL = @"SCTextCell";
 
 @interface SCCustomerDetailVC ()
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCDataObject *dataObject;
-@property (strong, nonatomic) NSMutableArray *sections;
 @property (strong, nonatomic) UIPopoverController *popoverTablePC;
 @property (strong, nonatomic) UITableViewCell *activeCell;
 
 //IB
+@property (strong, nonatomic) IBOutlet UITextField *nameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *dbaNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *lastNameTextField;
+
+@property (strong, nonatomic) IBOutlet UITextField *phoneTextField;
+@property (strong, nonatomic) IBOutlet UITextField *faxTextField;
+@property (strong, nonatomic) IBOutlet UITextField *emailTextField;
+
+@property (strong, nonatomic) IBOutlet UITextField *billTo1TextField;
+@property (strong, nonatomic) IBOutlet UITextField *billTo2TextField;
+@property (strong, nonatomic) IBOutlet UITextField *billTo3TextField;
+@property (strong, nonatomic) IBOutlet UITextField *billToCountryTextField;
+@property (strong, nonatomic) IBOutlet UITextField *billToStateTextField;
+@property (strong, nonatomic) IBOutlet UITextField *billToCityTextField;
+@property (strong, nonatomic) IBOutlet UITextField *billToPostalTextField;
+
+@property (strong, nonatomic) IBOutlet UITextField *shipTo1TextField;
+@property (strong, nonatomic) IBOutlet UITextField *shipTo2TextField;
+@property (strong, nonatomic) IBOutlet UITextField *shipTo3TextField;
+@property (strong, nonatomic) IBOutlet UITextField *shipToCountryTextField;
+@property (strong, nonatomic) IBOutlet UITextField *shipToStateTextField;
+@property (strong, nonatomic) IBOutlet UITextField *shipToCityTextField;
+@property (strong, nonatomic) IBOutlet UITextField *shipToPostalTextField;
+
+@property (strong, nonatomic) IBOutlet UILabel *repLabel;
+@property (strong, nonatomic) IBOutlet UILabel *termsLabel;
+
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addOrderButton;
 @property (strong, nonatomic) IBOutlet UIButton *captureImageButton;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *selectCustomerButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
@@ -47,6 +66,9 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *spacer2;
+
+@property (strong, nonatomic) IBOutlet UITableViewCell *repCell;
+@property (strong, nonatomic) IBOutlet UITableViewCell *termsCell;
 
 @end
 
@@ -95,7 +117,7 @@ static NSString *const TEXT_CELL = @"SCTextCell";
             self.title = @"New Customer";
             self.customer = self.dataObject.openCustomer;
             
-            self.navigationItem.rightBarButtonItem = nil;
+//            self.navigationItem.rightBarButtonItem = nil;
             toolbarItems.array = [NSArray arrayWithObjects:self.cancelButton, self.spacer1, self.saveButton, nil];
             
         } else {
@@ -142,87 +164,26 @@ static NSString *const TEXT_CELL = @"SCTextCell";
     [self setAddOrderButton:nil];
     [self setNextButton:nil];
     [self setSpacer2:nil];
+    [self setNameTextField:nil];
+    [self setRepCell:nil];
+    [self setTermsCell:nil];
     [super viewDidUnload];
 }
 
-#pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.sections.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSDictionary *theSection = self.sections[section];
-    NSArray *theRows = theSection[SECTION_ROWS];
-    return theRows.count;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSDictionary *theSection = self.sections[section];
-    if ([theSection[SECTION_TITLE] length] != 0)
-        return theSection[SECTION_TITLE];
-    else
-        return nil;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *row = [self rowAtIndexPath:indexPath];
-    NSString *CellIdentifier = row[CELL_ID];
-    
-    if ([CellIdentifier isEqualToString:POPOVER_CELL]) {
-        SCPopoverCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell.title.text = row[ROW_TITLE];
-        id rowObject = row[ROW_OBJECT];
-        
-        if ([rowObject isKindOfClass:[SCSalesRep class]]) {
-            SCSalesRep *castedRowObject = (SCSalesRep *)rowObject;
-            cell.value.text = castedRowObject.name;
-        } else if ([rowObject isKindOfClass:[SCSalesTerm class]]) {
-            SCSalesTerm *castedRowObject = (SCSalesTerm *)rowObject;
-            cell.value.text = castedRowObject.name;
-        }
-        
-        if (self.dataObject.openCustomer) {
-            cell.userInteractionEnabled = YES;
-        }
-        
-        return cell;
-    } else { //must be a text cell
-        SCTextCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        cell.title.text = row[ROW_TITLE];
-        cell.value.text = row[ROW_OBJECT];
-        
-        if (self.dataObject.openCustomer) {
-            cell.userInteractionEnabled = YES;
-        }
-        return cell;
-    }
-}
-
-
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *row = [self rowAtIndexPath:indexPath];
+{    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    if ([row[CELL_ID] isEqualToString:POPOVER_CELL]) {
-        NSString *objectType = nil;
-        NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-        if ([row[ROW_OBJECT] isKindOfClass:[SCSalesRep class]]) {
-            dataArray.array = [self.dataObject fetchAllObjectsOfType:ENTITY_SCSALESREP];
-            objectType = ENTITY_SCSALESREP;
-        } else { //it must be SalesTerm
-            dataArray.array = [self.dataObject fetchAllObjectsOfType:ENTITY_SCSALESTERM];
-            objectType = ENTITY_SCSALESTERM;
-        }
-        [self showPopoverTableWithArray:dataArray withObjectType:objectType fromIndexPath:indexPath];
-    } else { //must be a text cell
+    if ([cell isEqual:self.repCell] || [cell isEqual:self.termsCell]) {
+        NSString *objectType;
         
+        if ([cell isEqual:self.repCell]) objectType = ENTITY_SCSALESREP;
+        else objectType = ENTITY_SCSALESTERM;
+
+        NSArray *dataArray = [self.dataObject fetchAllObjectsOfType:objectType];
+        [self showPopoverTableWithArray:dataArray withObjectType:objectType fromCell:cell];
     }
-//    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - TextField Delegates
@@ -241,49 +202,50 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-//    NSIndexPath *indexPath = [self.tableView indexPathForCell:self.activeCell];
-//    NSInteger sectionNumber = indexPath.section;
-//    NSInteger rowNumber = indexPath.row;
-//    
-//    NSArray *rows = self.sections[sectionNumber][SECTION_ROWS];
-//    NSDictionary *row = rows[rowNumber];
+    if ([textField isEqual:self.nameTextField]) self.customer.name = textField.text;
+    if ([textField isEqual:self.dbaNameTextField]) self.customer.dbaName = textField.text;
+    if ([textField isEqual:self.firstNameTextField]) self.customer.givenName = textField.text;
+    if ([textField isEqual:self.lastNameTextField]) self.customer.familyName = textField.text;
+    
+    if ([textField isEqual:self.phoneTextField]) [self.dataObject savePhoneNumber:textField.text withTag:MAIN_PHONE_TAG forCustomer:self.customer];
+    if ([textField isEqual:self.faxTextField]) [self.dataObject savePhoneNumber:textField.text withTag:FAX_PHONE_TAG forCustomer:self.customer];
+    
+    if ([textField isEqual:self.billTo1TextField]) self.customer.primaryBillingAddress.line1 = textField.text;
 
     
     
-    
-    
+    [self.dataObject saveContext];
     self.activeCell = nil;
+    
     
 }
 
 #pragma mark - Protocol methods
-- (void)passObject:(id)object withObjectType:(NSString *)objectType withIndexPath:(NSIndexPath *)indexPath
-{
-    SCPopoverCell *cell = (SCPopoverCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    
+- (void)passObject:(id)object withObjectType:(NSString *)objectType
+{    
     if ([objectType isEqualToString:ENTITY_SCSALESREP]) {
         if ([object isKindOfClass:[NSString class]]) { //means the "empty" rep selected
-            cell.value.text = object;
+            self.repLabel.text = object;
             self.customer.salesRep = nil;
         } else {
             SCSalesRep *castedObject = (SCSalesRep *)object;
-            cell.value.text = castedObject.name;
+            self.repLabel.text = castedObject.name;
             self.customer.salesRep = object;
         }
     } else if ([objectType isEqualToString:ENTITY_SCSALESTERM]) {
         if ([object isKindOfClass:[NSString class]]) { //means the "empty" rep selected
-            cell.value.text = object;
+            self.termsLabel.text = object;
             self.customer.salesTerms = nil;
         } else {
             SCSalesTerm *castedObject = (SCSalesTerm *)object;
-            cell.value.text = castedObject.name;
+            self.termsLabel.text = castedObject.name;
             self.customer.salesTerms = object;
         }
     } else {
         NSLog(@"Object type passed back from the table is not being handled for in passObject method.");
     }
     [self.popoverTablePC dismissPopoverAnimated:YES];
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.dataObject saveContext];
 }
 
 - (void)passCustomer:(SCCustomer *)customer
@@ -307,13 +269,13 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    for (NSInteger sectionNumber = 0; sectionNumber < self.sections.count; sectionNumber++) {
-        NSArray *sectionRows = self.sections[sectionNumber][SECTION_ROWS];
-        for (NSInteger rowNumber = 0; rowNumber < sectionRows.count; rowNumber++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowNumber inSection:sectionNumber];
-            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-        }
-    }
+//    for (NSInteger sectionNumber = 0; sectionNumber < self.sections.count; sectionNumber++) {
+//        NSArray *sectionRows = self.sections[sectionNumber][SECTION_ROWS];
+//        for (NSInteger rowNumber = 0; rowNumber < sectionRows.count; rowNumber++) {
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowNumber inSection:sectionNumber];
+//            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//        }
+//    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -364,103 +326,37 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 
 - (void)loadData
 {
-    self.sections = [[NSMutableArray alloc] init];
-    //Build the sections array
-    //Section Names
-    NSMutableDictionary *rowName = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Customer Name", ROW_TITLE, self.customer.name, ROW_OBJECT, nil];
-    NSMutableDictionary *rowDbaName = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Company Name", ROW_TITLE, self.customer.dbaName, ROW_OBJECT, nil];
-    NSMutableDictionary *rowGivenName = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"First Name", ROW_TITLE, self.customer.givenName, ROW_OBJECT, nil];
-    NSMutableDictionary *rowFamilyName = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Last Name", ROW_TITLE, self.customer.familyName, ROW_OBJECT, nil];
-    NSArray *rowsNames = [NSArray arrayWithObjects:rowName, rowDbaName, rowGivenName, rowFamilyName, nil];
-    NSMutableDictionary *sectionNames = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rowsNames, SECTION_ROWS, nil];
-    [self.sections addObject:sectionNames];
+    self.nameTextField.text = self.customer.name;
+    self.dbaNameTextField.text = self.customer.dbaName;
+    self.firstNameTextField.text = self.customer.givenName;
+    self.lastNameTextField.text = self.customer.familyName;
+
+    self.phoneTextField.text = [self.customer phoneForTag:MAIN_PHONE_TAG];
+    self.faxTextField.text = [self.customer phoneForTag:FAX_PHONE_TAG];
+    self.emailTextField.text = [self.customer mainEmail];
     
-    //Section Contact INfo
-    NSMutableDictionary *rowBusinessPhone = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Phone", ROW_TITLE, [self.customer phoneForTag:MAIN_PHONE_TAG] , ROW_OBJECT, nil];
-    NSMutableDictionary *rowFaxPhone = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Fax", ROW_TITLE, [self.customer phoneForTag:FAX_PHONE_TAG], ROW_OBJECT, nil];
-    NSMutableDictionary *rowBusinessEmail = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Email", ROW_TITLE, [self.customer mainEmail], ROW_OBJECT, nil];
-    NSArray *rowsContactInfo = [NSArray arrayWithObjects:rowBusinessPhone, rowFaxPhone, rowBusinessEmail, nil];
-    NSMutableDictionary *sectionContactInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rowsContactInfo, SECTION_ROWS, nil];
-    [self.sections addObject:sectionContactInfo];
+    self.repLabel.text = self.customer.salesRep.name;
+    self.termsLabel.text = self.customer.salesTerms.name;
     
-    //Secion Defaults
-    NSMutableDictionary *rowSalesRep = [NSMutableDictionary dictionaryWithObjectsAndKeys:POPOVER_CELL, CELL_ID, @"Rep", ROW_TITLE, self.customer.salesRep, ROW_OBJECT, nil];
-    NSMutableDictionary *rowSalesTerm = [NSMutableDictionary dictionaryWithObjectsAndKeys:POPOVER_CELL, CELL_ID, @"Terms", ROW_TITLE, self.customer.salesTerms, ROW_OBJECT, nil];
-    NSArray *rowsDefaults = [NSArray arrayWithObjects:rowSalesRep, rowSalesTerm, nil];
-    NSMutableDictionary *sectionDefaults = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"", SECTION_TITLE, rowsDefaults, SECTION_ROWS, nil];
-    [self.sections addObject:sectionDefaults];
+
     
-    //Section 3
-    if (self.dataObject.openCustomer) {
-        NSMutableDictionary *rowBillTo1 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 1", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.line1, ROW_OBJECT, nil];
-        NSMutableDictionary *rowBillTo2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 2", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.line2, ROW_OBJECT, nil];
-        NSMutableDictionary *rowBillTo3 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 3", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.line3, ROW_OBJECT, nil];
-        NSMutableDictionary *rowBillToCity = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"City", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.city, ROW_OBJECT, nil];
-        NSMutableDictionary *rowBillToState = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"State/Province", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.countrySubDivisionCode, ROW_OBJECT, nil];
-        NSMutableDictionary *rowBillToPostal = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Zip/Postal Code", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.postalCode, ROW_OBJECT, nil];
-        NSMutableDictionary *rowBillToCountry = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Country", ROW_TITLE, self.dataObject.openCustomer.primaryBillingAddress.country, ROW_OBJECT, nil];
-        NSArray *rowsBillTo = [NSArray arrayWithObjects:rowBillTo1, rowBillTo2, rowBillTo3, rowBillToCity, rowBillToState, rowBillToPostal, rowBillToCountry, nil];
-        NSMutableDictionary *sectionBillTo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Bill To", SECTION_TITLE, rowsBillTo, SECTION_ROWS, nil];
-        [self.sections addObject:sectionBillTo];
-    } else {
-        NSArray *billToLines = [self.customer.primaryBillingAddress addressBlock];
-        NSMutableArray *rows3 = [[NSMutableArray alloc] init];
-        for (NSInteger i = 0; i < billToLines.count; i++) {
-            NSMutableDictionary *line = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"", ROW_TITLE, billToLines[i], ROW_OBJECT, nil];
-            [rows3 addObject:line];
-        }
-        NSMutableDictionary *section3 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Bill To", SECTION_TITLE, rows3, SECTION_ROWS, nil];
-        [self.sections addObject:section3];
-    }
     
-    //Section 4
-    if (self.dataObject.openCustomer) {
-        NSMutableDictionary *rowShipTo1 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 1", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.line1, ROW_OBJECT, nil];
-        NSMutableDictionary *rowShipTo2 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 2", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.line2, ROW_OBJECT, nil];
-        NSMutableDictionary *rowShipTo3 = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Line 3", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.line3, ROW_OBJECT, nil];
-        NSMutableDictionary *rowShipToCity = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"City", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.city, ROW_OBJECT, nil];
-        NSMutableDictionary *rowShipToState = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"State/Province", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.countrySubDivisionCode, ROW_OBJECT, nil];
-        NSMutableDictionary *rowShipToPostal = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Zip/Postal Code", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.postalCode, ROW_OBJECT, nil];
-        NSMutableDictionary *rowShipToCountry = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"Country", ROW_TITLE, self.dataObject.openCustomer.primaryShippingAddress.country, ROW_OBJECT, nil];
-        NSArray *rowsShipTo = [NSArray arrayWithObjects:rowShipTo1, rowShipTo2, rowShipTo3, rowShipToCity, rowShipToState, rowShipToPostal, rowShipToCountry, nil];
-        NSMutableDictionary *sectionShipTo = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Ship To", SECTION_TITLE, rowsShipTo, SECTION_ROWS, nil];
-        [self.sections addObject:sectionShipTo];
-    } else {
-        NSArray *shipToLines = [self.customer.primaryShippingAddress addressBlock];
-        if (shipToLines.count != 0) {
-            NSMutableArray *rows4 = [[NSMutableArray alloc] init];
-            for (NSInteger i = 0; i < shipToLines.count; i++) {
-                NSMutableDictionary *line = [NSMutableDictionary dictionaryWithObjectsAndKeys:TEXT_CELL, CELL_ID, @"", ROW_TITLE, shipToLines[i], ROW_OBJECT, nil];
-                [rows4 addObject:line];
-            }
-            NSMutableDictionary *section4 = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Ship To", SECTION_TITLE, rows4, SECTION_ROWS, nil];
-            [self.sections addObject:section4];
-        }
-    }
     
-    [self.tableView reloadData];
+    
+//    [self.tableView reloadData];
 }
 
-- (void)showPopoverTableWithArray:(NSArray *)dataArray withObjectType:(NSString *)objectType fromIndexPath:(NSIndexPath *)indexPath
+- (void)showPopoverTableWithArray:(NSArray *)dataArray withObjectType:(NSString *)objectType fromCell:(UITableViewCell *)cell
 {
     SCPopoverTableVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCPopoverTableVC class])];
-    self.popoverTablePC = [[UIPopoverController alloc] initWithContentViewController:vC];
-    self.popoverTablePC.delegate = self;
     vC.dataArray = dataArray;
     vC.objectType = objectType;
     vC.delegate = self;
-    vC.parentIndexPath = indexPath;
+//    vC.parentCell = cell;
     
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//    CGRect *cellBounds = cell.bounds;
+    self.popoverTablePC = [[UIPopoverController alloc] initWithContentViewController:vC];
+    self.popoverTablePC.delegate = self;
     [self.popoverTablePC presentPopoverFromRect:cell.bounds inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
-
-- (NSDictionary *)rowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *section = self.sections[indexPath.section];
-    NSArray *rows = section[SECTION_ROWS];
-    return rows[indexPath.row];
 }
 
 + (void)loadAddressDataFromLines:(NSArray *)lines toLabels:(NSArray *)labels
@@ -527,30 +423,7 @@ static NSString *const TEXT_CELL = @"SCTextCell";
 }
 
 - (IBAction)saveButtonPress:(UIBarButtonItem *)sender {
-
-    //2 ways to do this.  1. Build the cell and put it right into self.sections.  Then loop through self.sections to read and write from the object.  2. Loop through self.sections using indexes to build an index path.  Use the index path to get the value from the table cell.  Seems like 1 is more elegant, but I don't want to recode, so I'm going with 2. 
-    
-    for (NSInteger sectionNumber = 0; sectionNumber < self.sections.count; sectionNumber++) {
-        NSArray *sectionRows = self.sections[sectionNumber][SECTION_ROWS];
-        for (NSInteger rowNumber = 0; rowNumber < sectionRows.count; rowNumber++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowNumber inSection:sectionNumber];
-            
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            if ([cell isKindOfClass:[SCPopoverCell class]]) {
-                SCPopoverCell *castedCell = (SCPopoverCell *)cell;
-//                sectionRows[rowNumber]
-            }
-                
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)editButtonPress:(UIBarButtonItem *)sender {

@@ -10,5 +10,7 @@
 
 @protocol SCPopoverTableDelegate <NSObject>
 @optional
-- (void)passObject:(id)object withObjectType:(NSString *)objectType withIndexPath:(NSIndexPath *)indexPath;
+- (void)passObject:(id)object withObjectType:(NSString *)objectType;
+
+//- (void)passObject:(id)object withObjectType:(NSString *)objectType withIndexPath:(NSIndexPath *)indexPath;
 @end

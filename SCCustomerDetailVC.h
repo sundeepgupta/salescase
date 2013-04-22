@@ -1,5 +1,5 @@
 //
-//  SCNewCustomerVC.h
+//  SCCustomerDetailVC.h
 //  SalesCase
 //
 //  Created by Sundeep Gupta on 13-04-15.
@@ -13,7 +13,7 @@
 
 @class SCCustomer, SCAddress, SCOrder;
 
-@interface SCCustomerDetailVC : UITableViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, SCPopoverTableDelegate, SCCustomersVCDelegate, UIPopoverControllerDelegate> //UIImagePickerControllerDelegate, UINavigationControllerDelegate are for capturing a photo via camera
+@interface SCCustomerDetailVC : UITableViewController <SCPopoverTableDelegate, SCCustomersVCDelegate, UIPopoverControllerDelegate> //UIImagePickerControllerDelegate, UINavigationControllerDelegate are for capturing a photo via camera
 
 @property (strong, nonatomic) SCCustomer *customer;
 @property (weak, nonatomic) id <SCCustomerDetailVCDelegate> delegate;

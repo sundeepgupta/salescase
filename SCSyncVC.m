@@ -326,12 +326,16 @@
                 newCustomer.title = [self.dataObject dictionaryData:newCustomerDict forKey:@"Title"];
                 newCustomer.customerId = [newCustomerDict valueForKey:@"Id"];
                 newCustomer.qbId = [newCustomerDict valueForKey:@"ExternalKey"];
+                
+                
                 NSDictionary *addresses = [newCustomerDict valueForKey:@"Address"];
-                [self.dataObject getAddressList:addresses forCustomer:newCustomer];
+                [self.dataObject saveAddressList:addresses forCustomer:newCustomer];
+                
                 NSDictionary *phones = [newCustomerDict valueForKey:@"Phone"];
-                [self.dataObject getPhoneList:phones forCustomer:newCustomer];
+                [self.dataObject savePhoneList:phones forCustomer:newCustomer];
+                
                 NSDictionary *emails = [newCustomerDict valueForKey:@"Email"];
-                [self.dataObject getEmailList:emails forCustomer:newCustomer];
+                [self.dataObject saveEmailList:emails forCustomer:newCustomer];
                 newCustomer.salesRep = (SCSalesRep *) [self.dataObject getEntityType:ENTITY_SCSALESREP byIdentifier:@"repId" idValue:[newCustomerDict valueForKey:@"SalesRepId"]];
                 newCustomer.salesTerms = (SCSalesTerm *) [self.dataObject getEntityType:ENTITY_SCSALESTERM byIdentifier:@"termId" idValue:[newCustomerDict valueForKey:@"SalesTermId"]];
             }

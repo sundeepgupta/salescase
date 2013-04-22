@@ -87,7 +87,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id objectAtIndexPath = [self.dataArrayCopy objectAtIndex:indexPath.row];
-    [self.delegate passObject:objectAtIndexPath withObjectType:self.objectType withIndexPath:self.parentIndexPath];
+    [self.delegate passObject:objectAtIndexPath withObjectType:self.objectType];
 }  
 
 @end
