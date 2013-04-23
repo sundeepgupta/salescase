@@ -216,6 +216,38 @@
 }
 
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (!self.dataObject.openCustomer && section > 2) {
+        return [super tableView:tableView numberOfRowsInSection:section] - 2;
+    } else {
+        return [super tableView:tableView numberOfRowsInSection:section];
+    }
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Recalculate indexPath based on hidden cells
+    indexPath = [self offsetIndexPath:indexPath];
+    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+}
+
+- (NSIndexPath*)offsetIndexPath:(NSIndexPath*)indexPath
+{
+    int offsetSection = indexPath.section; // Also offset section if you intend to hide whole sections
+    if (!self.dataObject.openCustomer && offsetSection > 2) {
+        int numberOfCellsHiddenAbove = 0; // Calculate how many cells are hidden above the given indexPath.row
+        int offsetRow = indexPath.row + numberOfCellsHiddenAbove;
+        return [NSIndexPath indexPathForRow:offsetRow inSection:offsetSection];
+    } else {
+        return indexPath;
+    }
+}
+
+
+
+
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
