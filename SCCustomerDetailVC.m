@@ -76,6 +76,7 @@
 @property (nonatomic, strong) IBOutletCollection(UILabel) NSArray *addressTitles;
 @property (nonatomic, strong) IBOutletCollection(UITableViewCell) NSArray *cells;
 @property (nonatomic, strong) IBOutletCollection(UITextField) NSArray *textFields;
+@property (nonatomic, strong) IBOutletCollection(UITableViewCell) NSArray *popoverCells;
 
 @end
 
@@ -116,6 +117,8 @@
         SCOrderMasterVC *masterVC = (SCOrderMasterVC *)masterNC.topViewController;
         self.title = [masterVC menuItemLabelForVC:self];
         
+        [self readOnlyState];
+        
         self.customer = self.dataObject.openOrder.customer;
         if (!self.customer) { //if no customers has been loaded, bring up the modal so they can choose
             [self presentCustomerList];
@@ -126,23 +129,14 @@
             
             self.customer = self.dataObject.openCustomer;
 
-            self.navigationItem.rightBarButtonItem = nil;
+//            self.navigationItem.rightBarButtonItem = nil;
             toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.spacer1, self.doneButton, nil];
             
         } else {            
             self.title = [NSString stringWithFormat:@"%@ (%@)", self.customer.name, self.customer.status];
             toolbarItems.array = [NSArray arrayWithObjects:self.editButton, nil];
-            
-            //hide the address titles due to messed upness of QB addresses
-            for (UIView *view in self.addressTitles) {
-                view.hidden = YES;
-            }
 
-            //Disable user interaction for all cells
-            for (UITableViewCell *cell in self.cells) {
-                cell.userInteractionEnabled = NO;
-            }
-            
+            [self readOnlyState];
         }
     }
     
@@ -481,6 +475,28 @@
     [self presentViewController:customersNC animated:YES completion:nil];
 }
 
+- (void)readOnlyState
+{
+    //disable user interaction
+    for (UITableViewCell *cell in self.cells) {
+        cell.userInteractionEnabled = NO;
+    }
+    
+    //hide the address titles due to messed upness of QB addresses
+    for (UIView *view in self.addressTitles) {
+        view.hidden = YES;
+    }
+    
+    //disable clear button
+    for (UITextField *textField in self.textFields) {
+        textField.clearButtonMode = UITextFieldViewModeNever;
+    }
+    
+    //disable detail indicators
+    for (UITableViewCell *cell in self.popoverCells) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+}
 
 - (void)captureImage
 {
@@ -509,12 +525,14 @@
 }
 
 - (IBAction)addOrderButtonPress:(UIBarButtonItem *)sender {
-    
-    if (self.dataObject.openCustomer)  self.dataObject.openCustomer = nil;
-    
-    UINavigationController *masterNC = self.splitViewController.viewControllers[0];
-    SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
-    [masterVC startOrderModeWithCustomer:self.customer];
+    if (self.dataObject.openCustomer) {
+        self.dataObject.openCustomer = nil;
+        [self.delegate passAddOrderWithCustomer:self.customer];
+    } else {
+        UINavigationController *masterNC = self.splitViewController.viewControllers[0];
+        SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
+        [masterVC startOrderModeWithCustomer:self.customer];
+    }
 }
 
 - (IBAction)selectCustomerButtonPress:(UIBarButtonItem *)sender {

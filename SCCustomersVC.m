@@ -195,18 +195,28 @@
 #pragma mark - Protocol methods
 - (void)passSavedCustomer:(SCCustomer *)customer
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [self viewWillAppear:YES];
-    NSInteger customerRow = 0;
-    for (NSInteger i = 0; i < self.customers.count; i++) {
-        SCCustomer *iCustomer = self.customers[i];
-        if ([customer isEqual:iCustomer]) {
-            customerRow = i;
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:customerRow inSection:0];
-            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
-            break;
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self viewWillAppear:YES];
+        NSInteger customerRow = 0;
+        for (NSInteger i = 0; i < self.customers.count; i++) {
+            SCCustomer *iCustomer = self.customers[i];
+            if ([customer isEqual:iCustomer]) {
+                customerRow = i;
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:customerRow inSection:0];
+                [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+                break;
+            }
         }
-    }
+    }];
+}
+
+- (void)passAddOrderWithCustomer:(SCCustomer *)customer
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        UINavigationController *masterNC = self.splitViewController.viewControllers[0];
+        SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
+        [masterVC startOrderModeWithCustomer:customer];
+    }];
 }
 
 #pragma mark - IB methods

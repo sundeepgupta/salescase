@@ -13,5 +13,6 @@
 @protocol SCCustomerDetailVCDelegate <NSObject>
 @required
 - (void)passSavedCustomer:(SCCustomer *)customer;
+- (void)passAddOrderWithCustomer:(SCCustomer *)customer;
 
 @end
