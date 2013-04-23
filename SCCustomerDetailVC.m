@@ -63,12 +63,18 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *selectCustomerButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *spacer1;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *saveButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *spacer2;
 
+//Cells
 @property (strong, nonatomic) IBOutlet UITableViewCell *repCell;
 @property (strong, nonatomic) IBOutlet UITableViewCell *termsCell;
+@property (strong, nonatomic) IBOutlet UITableViewCell *billToPostalCell;
+
+//Labels
+@property (nonatomic, strong) IBOutletCollection(UILabel) NSArray *addressTitles;
+@property (nonatomic, strong) IBOutletCollection(UITableViewCell) NSArray *cells;
 
 @end
 
@@ -95,7 +101,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-//    NSMutableArray *topBarItems = [[NSMutableArray alloc] init];
     NSMutableArray *toolbarItems = [[NSMutableArray alloc] init];
     
     if (self.dataObject.openOrder) {
@@ -115,14 +120,25 @@
     } else {
         if (self.dataObject.openCustomer) {
             self.title = @"New Customer";
+            
             self.customer = self.dataObject.openCustomer;
+
+            self.navigationItem.rightBarButtonItem = nil;
+            toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.spacer1, self.doneButton, nil];
             
-//            self.navigationItem.rightBarButtonItem = nil;
-            toolbarItems.array = [NSArray arrayWithObjects:self.cancelButton, self.spacer1, self.saveButton, nil];
-            
-        } else {
-            self.title = self.customer.dbaName;
+        } else {            
+            self.title = [NSString stringWithFormat:@"%@ (%@)", self.customer.name, self.customer.status];
             toolbarItems.array = [NSArray arrayWithObjects:self.editButton, nil];
+            
+            //hide the address titles due to messed upness of QB addresses
+            for (UIView *view in self.addressTitles) {
+                view.hidden = YES;
+            }
+
+            //Disable user interaction for all cells
+            for (UITableViewCell *cell in self.cells) {
+                cell.userInteractionEnabled = NO;
+            }
             
         }
     }
@@ -139,6 +155,19 @@
         SCOrderMasterVC *masterVC = (SCOrderMasterVC *)masterNC.topViewController;
         [masterVC processAppearedDetailVC:self];
     }
+    
+    if (!self.dataObject.openCustomer) {
+        
+//        NSIndexPath *indexPath = [self.tableView indexPathForCell:self.billToPostalCell];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:6 inSection:4];
+//        NSArray *indexPaths = [NSArray arrayWithObjects:indexPath, nil];
+//        self.billToPostalCell = nil;
+//        [self.tableView beginUpdates];
+//        [self loadData];
+//        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+//        [self.tableView endUpdates];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -159,16 +188,19 @@
     [self setSelectCustomerButton:nil];
     [self setEditButton:nil];
     [self setSpacer1:nil];
-    [self setSaveButton:nil];
-    [self setCancelButton:nil];
+    [self setDoneButton:nil];
+    [self setDeleteButton:nil];
     [self setAddOrderButton:nil];
     [self setNextButton:nil];
     [self setSpacer2:nil];
     [self setNameTextField:nil];
     [self setRepCell:nil];
     [self setTermsCell:nil];
+    [self setBillToPostalCell:nil];
     [super viewDidUnload];
 }
+
+
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -185,6 +217,17 @@
         [self showPopoverTableWithArray:dataArray withObjectType:objectType fromCell:cell];
     }
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSIndexPath *myIndexPath = [self.tableView indexPathForRowAtPoint:self.billToPostalCell.center];
+//    if ([indexPath isEqual:myIndexPath]) {
+//        if ([self.customer.status isEqualToString:CUSTOMER_STATUS_SYNCED]) {
+//            return 0;
+//        } 
+//    }
+//    return 44;
+//}
 
 #pragma mark - TextField Delegates
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -346,12 +389,23 @@
     self.repLabel.text = self.customer.salesRep.name;
     self.termsLabel.text = self.customer.salesTerms.name;
     
+    
+    NSArray *customerBillToLines = [self.customer.primaryBillingAddress lines];
+    NSArray *viewBillToLines = [NSArray arrayWithObjects:self.billTo1TextField, self.billTo2TextField, self.billTo3TextField, self.billToCityTextField, self.billToStateTextField, nil];
+    for (NSInteger i = 0; i < customerBillToLines.count; i++) {
+        UILabel *label = viewBillToLines[i];
+        label.text = customerBillToLines[i];
+    }
+    NSArray *customerShipToLines = [self.customer.primaryShippingAddress lines];
+    NSArray *viewShipToLines = [NSArray arrayWithObjects:self.shipTo1TextField, self.shipTo2TextField, self.shipTo3TextField, self.shipToCityTextField, self.shipToStateTextField, nil];
+    for (NSInteger i = 0; i < customerShipToLines.count; i++) {
+        UILabel *label = viewShipToLines[i];
+        label.text = customerShipToLines[i];
+    }
+    
+    
+    
 
-    
-    
-    
-    
-//    [self.tableView reloadData];
 }
 
 - (void)showPopoverTableWithArray:(NSArray *)dataArray withObjectType:(NSString *)objectType fromCell:(UITableViewCell *)cell
@@ -415,6 +469,9 @@
 }
 
 - (IBAction)addOrderButtonPress:(UIBarButtonItem *)sender {
+    
+    if (self.dataObject.openCustomer)  self.dataObject.openCustomer = nil;
+    
     UINavigationController *masterNC = self.splitViewController.viewControllers[0];
     SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
     [masterVC startOrderModeWithCustomer:self.customer];
@@ -424,14 +481,15 @@
     [self presentCustomerList];
 }
 
-- (IBAction)cancelButtonPress:(UIBarButtonItem *)sender {
+- (IBAction)deleteButtonPress:(UIBarButtonItem *)sender {
     [self.dataObject deleteObject:self.dataObject.openCustomer];
     self.dataObject.openCustomer = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)saveButtonPress:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)doneButtonPress:(UIBarButtonItem *)sender {
+     self.dataObject.openCustomer = nil;
+    [self.delegate passSavedCustomer:self.customer];
 }
 
 - (IBAction)editButtonPress:(UIBarButtonItem *)sender {

@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class SCCustomer;
+
 @protocol SCCustomerDetailVCDelegate <NSObject>
 @required
-- (void)passSavedCustomer;
+- (void)passSavedCustomer:(SCCustomer *)customer;
 
 @end

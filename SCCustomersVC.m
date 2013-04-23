@@ -147,7 +147,6 @@
     } else {
         SCCustomerDetailVC *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCCustomerDetailVC"];
         detailVC.customer = customer;
-        detailVC.title = customer.dbaName;
         [self.navigationController pushViewController:detailVC animated:YES];
     }
 }
@@ -194,9 +193,20 @@
 }
 
 #pragma mark - Protocol methods
-- (void)passSavedCustomer
+- (void)passSavedCustomer:(SCCustomer *)customer
 {
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self viewWillAppear:YES];
+    NSInteger customerRow = 0;
+    for (NSInteger i = 0; i < self.customers.count; i++) {
+        SCCustomer *iCustomer = self.customers[i];
+        if ([customer isEqual:iCustomer]) {
+            customerRow = i;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:customerRow inSection:0];
+            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+            break;
+        }
+    }
 }
 
 #pragma mark - IB methods
@@ -205,8 +215,7 @@
 }
 
 - (IBAction)newCustomerButtonPress:(UIBarButtonItem *)sender {
-    SCCustomer *customer = (SCCustomer *)[self.global.dataObject newObject:@"SCCustomer"];
-    customer.status = @"New";
+    SCCustomer *customer = [self.global.dataObject newCustomer];
     self.global.dataObject.openCustomer = customer;
     
     UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomerDetailNC"];

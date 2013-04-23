@@ -228,11 +228,11 @@ static CGFloat const klineHeight = 14;
     //Bill to and Ship to
     self.billToTitle.text = self.order.customer.dbaName;
     
-    NSArray *billingLines = [self.order.customer.primaryBillingAddress addressBlock];
+    NSArray *billingLines = [self.order.customer.primaryBillingAddress lines];
     NSArray *billingLabels = [NSArray arrayWithObjects:self.address1, self.address2, self.address3, self.address4, self.address5, nil];
     [SCCustomerDetailVC loadAddressDataFromLines:billingLines toLabels:billingLabels];
     
-    NSArray *shippingLines = [self.order.customer.primaryShippingAddress addressBlock];
+    NSArray *shippingLines = [self.order.customer.primaryShippingAddress lines];
     NSArray *shippingLabels = [NSArray arrayWithObjects:self.shipTo1, self.shipTo2, self.shipTo3, self.shipTo4, self.shipTo5, nil];
     [SCCustomerDetailVC loadAddressDataFromLines:shippingLines toLabels:shippingLabels];
     

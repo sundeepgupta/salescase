@@ -29,7 +29,7 @@
 
 
 
-- (NSArray *)addressBlock
+- (NSArray *)lines
 {
     NSMutableArray *block = [[NSMutableArray alloc] init];
     

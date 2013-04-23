@@ -2751,14 +2751,14 @@ TURN INTO POPUP AFTER</string>
                                             <rect key="frame" x="43" y="1" width="617" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Customer Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3fZ-Jt-Jol">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Customer Name*" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3fZ-Jt-Jol">
                                                     <rect key="frame" x="20" y="11" width="129" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="8nn-vI-Ebc">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="8nn-vI-Ebc">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2778,14 +2778,14 @@ TURN INTO POPUP AFTER</string>
                                             <rect key="frame" x="43" y="0.0" width="617" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Company Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ro4-Bc-tqa">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Company Name*" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ro4-Bc-tqa">
                                                     <rect key="frame" x="20" y="11" width="129" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="wqH-R1-abc">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="wqH-R1-abc">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2812,7 +2812,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="5Zx-1S-PYS">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="5Zx-1S-PYS">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2839,7 +2839,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="Lcz-ec-aWd">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Lcz-ec-aWd">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2870,7 +2870,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="9Ae-gy-rwR">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="9Ae-gy-rwR">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2897,7 +2897,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="maN-Jc-xhL">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="maN-Jc-xhL">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2924,7 +2924,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="WAa-Fm-XO9">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="WAa-Fm-XO9">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2955,7 +2955,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4iA-MI-Oky">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4iA-MI-Oky">
                                                     <rect key="frame" x="157" y="11" width="440" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2980,7 +2980,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tnF-Wa-Erx">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tnF-Wa-Erx">
                                                     <rect key="frame" x="157" y="11" width="440" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3009,7 +3009,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="vnk-BN-eZ4">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="vnk-BN-eZ4">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3036,7 +3036,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="JjW-WN-asC">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="JjW-WN-asC">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3063,7 +3063,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="z4C-lL-TSm">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="z4C-lL-TSm">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3090,7 +3090,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="Zgx-Sd-nKM">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Zgx-Sd-nKM">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3117,7 +3117,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="IEx-Gt-PPH">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="IEx-Gt-PPH">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3130,7 +3130,7 @@ TURN INTO POPUP AFTER</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SCTextCell" id="nZm-bj-cpk">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="nZm-bj-cpk">
                                         <rect key="frame" x="0.0" y="737" width="703" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -3144,7 +3144,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="ERa-c4-AWJ">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="ERa-c4-AWJ">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3171,7 +3171,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="vZi-zB-4lY">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="vZi-zB-4lY">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3202,7 +3202,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="fkb-Xt-1aH">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="fkb-Xt-1aH">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3229,7 +3229,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="1b5-g3-YVm">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="1b5-g3-YVm">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3256,7 +3256,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="bj0-OY-o4m">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="bj0-OY-o4m">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3283,7 +3283,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="eyz-My-okT">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="eyz-My-okT">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3310,7 +3310,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="0VD-Jl-gcL">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="0VD-Jl-gcL">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3337,7 +3337,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="oSV-Ew-Azd">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="oSV-Ew-Azd">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3364,7 +3364,7 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Text Field" minimumFontSize="17" id="UhD-wT-0zi">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="UhD-wT-0zi">
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -3381,14 +3381,13 @@ TURN INTO POPUP AFTER</string>
                             </tableViewSection>
                         </sections>
                         <connections>
-                            <outlet property="dataSource" destination="exW-dP-DF4" id="YhC-E3-wcC"/>
                             <outlet property="delegate" destination="exW-dP-DF4" id="fH0-ft-HV1"/>
                         </connections>
                     </tableView>
                     <toolbarItems>
                         <barButtonItem title="Delete" id="uJq-j0-ajW">
                             <connections>
-                                <action selector="cancelButtonPress:" destination="exW-dP-DF4" id="Lr9-je-rPH"/>
+                                <action selector="deleteButtonPress:" destination="exW-dP-DF4" id="940-U1-Fkh"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem enabled="NO" title="Edit" id="uwd-vr-Dbv"/>
@@ -3401,7 +3400,7 @@ TURN INTO POPUP AFTER</string>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="fVZ-bi-oKW"/>
                         <barButtonItem title="Done" id="WyM-ug-sRB">
                             <connections>
-                                <action selector="saveButtonPress:" destination="exW-dP-DF4" id="DJh-DI-XWc"/>
+                                <action selector="doneButtonPress:" destination="exW-dP-DF4" id="03V-hP-JW2"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem title="Next" id="LSq-Rp-moO">
@@ -3425,10 +3424,12 @@ TURN INTO POPUP AFTER</string>
                         <outlet property="billTo3TextField" destination="z4C-lL-TSm" id="1U8-Y0-oBt"/>
                         <outlet property="billToCityTextField" destination="Zgx-Sd-nKM" id="hOA-k5-bDV"/>
                         <outlet property="billToCountryTextField" destination="vZi-zB-4lY" id="htz-u4-SdX"/>
+                        <outlet property="billToPostalCell" destination="nZm-bj-cpk" id="f7X-8m-Mbj"/>
                         <outlet property="billToPostalTextField" destination="ERa-c4-AWJ" id="hDJ-sR-CVK"/>
                         <outlet property="billToStateTextField" destination="IEx-Gt-PPH" id="EdX-vY-INa"/>
-                        <outlet property="cancelButton" destination="uJq-j0-ajW" id="7XI-kJ-Dhe"/>
                         <outlet property="dbaNameTextField" destination="wqH-R1-abc" id="PKw-cV-PGg"/>
+                        <outlet property="deleteButton" destination="uJq-j0-ajW" id="e4d-dn-JI6"/>
+                        <outlet property="doneButton" destination="WyM-ug-sRB" id="Q7y-el-Gjd"/>
                         <outlet property="editButton" destination="uwd-vr-Dbv" id="cbW-iB-6Y4"/>
                         <outlet property="emailTextField" destination="WAa-Fm-XO9" id="H8X-yp-Rvo"/>
                         <outlet property="faxTextField" destination="maN-Jc-xhL" id="5iN-Tm-O8i"/>
@@ -3439,7 +3440,6 @@ TURN INTO POPUP AFTER</string>
                         <outlet property="phoneTextField" destination="9Ae-gy-rwR" id="RMm-Km-MYs"/>
                         <outlet property="repCell" destination="fCq-c2-ovf" id="r3s-79-s9M"/>
                         <outlet property="repLabel" destination="4iA-MI-Oky" id="iRZ-kq-a5M"/>
-                        <outlet property="saveButton" destination="WyM-ug-sRB" id="oJ2-OD-hyv"/>
                         <outlet property="selectCustomerButton" destination="g4Z-xQ-4s4" id="bDZ-LI-zK0"/>
                         <outlet property="shipTo1TextField" destination="fkb-Xt-1aH" id="aDZ-Qe-1Hc"/>
                         <outlet property="shipTo2TextField" destination="1b5-g3-YVm" id="P2A-on-Ur7"/>
@@ -3452,6 +3452,39 @@ TURN INTO POPUP AFTER</string>
                         <outlet property="spacer2" destination="fVZ-bi-oKW" id="8U1-se-5dh"/>
                         <outlet property="termsCell" destination="WPi-Uq-ito" id="dok-Vr-F2A"/>
                         <outlet property="termsLabel" destination="tnF-Wa-Erx" id="scI-mA-sxX"/>
+                        <outletCollection property="addressTitles" destination="eDf-fK-mhF" id="2LF-Xb-i7m"/>
+                        <outletCollection property="addressTitles" destination="XrR-F2-IBs" id="bKh-uA-A3r"/>
+                        <outletCollection property="addressTitles" destination="iBy-dY-AeE" id="IM2-Qe-GVH"/>
+                        <outletCollection property="addressTitles" destination="CWz-ht-U5H" id="OIF-sj-5Rf"/>
+                        <outletCollection property="addressTitles" destination="2aT-3A-m5a" id="L2Z-mq-vjb"/>
+                        <outletCollection property="addressTitles" destination="81t-Gv-Rgx" id="v54-ml-z8X"/>
+                        <outletCollection property="addressTitles" destination="wax-VG-7r4" id="7c4-JF-J0Z"/>
+                        <outletCollection property="addressTitles" destination="UTn-3H-h6z" id="e6Q-ef-l5q"/>
+                        <outletCollection property="addressTitles" destination="iA0-yh-gxj" id="sgp-ce-PAk"/>
+                        <outletCollection property="addressTitles" destination="uU9-c4-mB0" id="VKK-lz-oAb"/>
+                        <outletCollection property="cells" destination="lWU-sb-eYG" id="mtg-AT-KoN"/>
+                        <outletCollection property="cells" destination="9cA-DV-Zvg" id="u6j-z0-iwz"/>
+                        <outletCollection property="cells" destination="Jcs-b2-WgE" id="5qj-F4-gU0"/>
+                        <outletCollection property="cells" destination="Nab-pX-2sm" id="cfh-sq-EkM"/>
+                        <outletCollection property="cells" destination="OCi-mW-YgV" id="OPB-ER-lpE"/>
+                        <outletCollection property="cells" destination="RIp-KZ-3UZ" id="Ii1-qB-6Dw"/>
+                        <outletCollection property="cells" destination="oUx-N1-RKj" id="CQL-86-c8U"/>
+                        <outletCollection property="cells" destination="fCq-c2-ovf" id="hEn-Ic-mhw"/>
+                        <outletCollection property="cells" destination="WPi-Uq-ito" id="Phg-PA-Od0"/>
+                        <outletCollection property="cells" destination="kNK-ag-rlc" id="Jtd-OA-WW9"/>
+                        <outletCollection property="cells" destination="wbw-e2-eCd" id="yfE-ec-OdK"/>
+                        <outletCollection property="cells" destination="ZT5-mX-wfn" id="1Tq-Uo-z7b"/>
+                        <outletCollection property="cells" destination="QHR-9G-CN9" id="g0P-dI-ZSe"/>
+                        <outletCollection property="cells" destination="6tF-e4-jGf" id="Njc-a0-1RN"/>
+                        <outletCollection property="cells" destination="nZm-bj-cpk" id="iZg-We-n1R"/>
+                        <outletCollection property="cells" destination="odu-Bo-a7W" id="WL7-j0-7F9"/>
+                        <outletCollection property="cells" destination="9d2-s0-pTF" id="QG2-W9-lyb"/>
+                        <outletCollection property="cells" destination="xad-g2-M3t" id="3UL-4a-kcu"/>
+                        <outletCollection property="cells" destination="ai1-ic-ZnM" id="Fm8-xI-45G"/>
+                        <outletCollection property="cells" destination="kVe-9r-1iU" id="tlK-XH-dpj"/>
+                        <outletCollection property="cells" destination="gSg-UG-ZZt" id="eoh-1M-Zqm"/>
+                        <outletCollection property="cells" destination="5iG-dC-jWV" id="S6K-8B-OPv"/>
+                        <outletCollection property="cells" destination="8Gn-ye-WLW" id="8SR-hb-uBS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCG-Ta-Hx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3570,340 +3603,6 @@ TURN INTO POPUP AFTER</string>
             <point key="canvasLocation" x="1896" y="-4059"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="SCCustomerDetailVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerDetailVC.h"/>
-            <relationships>
-                <relationship kind="action" name="addOrderButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="cancelButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="captureButtonPress:" candidateClass="UIButton"/>
-                <relationship kind="action" name="editButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="nextButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="saveButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="selectCustomerButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="addOrderButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="billTo1TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billTo2TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billTo3TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billToCityTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billToCountryTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billToPostalTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billToStateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="captureImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="dbaNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="faxTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="phoneTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="repCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="selectCustomerButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="shipTo1TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipTo2TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipTo3TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipToCityTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipToCountryTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipToPostalTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipToStateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="spacer1" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="spacer2" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="termsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCCustomerTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cityLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="companyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="customerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="phoneLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="zipLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCCustomersVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomersVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCDatePicker" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDatePicker.h"/>
-            <relationships>
-                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
-            </relationships>
-        </class>
-        <class className="SCDeleteOrderVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDeleteOrderVC.h"/>
-        </class>
-        <class className="SCDevVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDevVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="message" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="SCEmailOrderVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCEmailOrderVC.h"/>
-            <relationships>
-                <relationship kind="action" name="emailOrderButtonPress:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="sendToCustomer" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sendToMe" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sendToOffice" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="SCFirstLaunchVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCFirstLaunchVC.h"/>
-            <relationships>
-                <relationship kind="action" name="closeButtonPress:" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="SCIntuitLoginPopoverVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginPopoverVC.h"/>
-        </class>
-        <class className="SCIntuitLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginVC.h"/>
-            <relationships>
-                <relationship kind="action" name="finishedIntuitLoginButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="finishedIntuitLoginButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="SCItemCartTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCartTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCItemCartVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCartVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="orderTotalLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCItemDetailVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemDetailVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnSalesOrderLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOrderedTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="quantityOrderedTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="saveToOrderButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="startOrderButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SCItemTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCItemsVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemsVC.h"/>
-            <relationships>
-                <relationship kind="action" name="closeModalButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCKeepOrderVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCKeepOrderVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="SCLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLoginVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="SCLookMasterVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLookMasterVC.h"/>
-        </class>
-        <class className="SCNoDataVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCNoDataVC.h"/>
-        </class>
-        <class className="SCOrderDetailTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderDetailTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderDetailVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderDetailVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="companyNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="contactNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="customerNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="orderDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderTotalLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumberLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipViaLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderMasterVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderMasterVC.h"/>
-            <relationships>
-                <relationship kind="action" name="bugButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="closeOrderButtonPress:" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="SCOrderOptionsSelectTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsSelectTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderOptionsSelectTableVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsSelectTableVC.h"/>
-        </class>
-        <class className="SCOrderOptionsVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="poNumberTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="repButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="shipDateButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="shipViaButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="statusControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="termsButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SCOrderPDFRenderer" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFRenderer.h"/>
-            <relationships>
-                <relationship kind="outlet" name="address1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="billToTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemAmount" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemAmountHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemDescription" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemDescriptionHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemNameHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemPrice" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemPriceHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemQuantity" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemQuantityHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notes" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="orderDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="pageNumber" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumber" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumberTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="printDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="printDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="rep" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="repTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipToTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipVia" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipViaTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="terms" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="termsTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="total" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userCompanyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userFax" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userPhone" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userWebsite" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderPDFVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="SCOrderTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="total" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrdersVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrdersVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCPopoverTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCPopoverTableVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverTableVC.h"/>
-        </class>
-        <class className="SCSyncVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSyncVC.h"/>
-            <relationships>
-                <relationship kind="action" name="closeButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

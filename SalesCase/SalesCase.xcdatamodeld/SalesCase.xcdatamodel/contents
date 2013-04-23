@@ -120,17 +120,17 @@
         <relationship name="orderList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SCOrder" inverseName="shipMethod" inverseEntity="SCOrder" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="SCAddress" positionX="160" positionY="192" width="128" height="255"/>
-        <element name="SCCustomer" positionX="160" positionY="192" width="128" height="360"/>
-        <element name="SCEmail" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="SCEmailToSend" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="SCItem" positionX="160" positionY="192" width="128" height="210"/>
-        <element name="SCLine" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="SCOrder" positionX="160" positionY="192" width="128" height="270"/>
-        <element name="SCPhone" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="SCSalesRep" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="SCSalesTerm" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="SCShipMethod" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCAddress" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCCustomer" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCEmail" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCEmailToSend" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCItem" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCLine" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCOrder" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCPhone" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCSalesRep" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCSalesTerm" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SCShipMethod" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

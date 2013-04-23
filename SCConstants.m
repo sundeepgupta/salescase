@@ -75,7 +75,7 @@ NSString *const ENTITY_SCEMAILTOSEND = @"SCEmailToSend";
 
 // Customer Statuses
 NSString *const CUSTOMER_STATUS_NEW = @"New";
-//NSString *const CUSTOMER_STATUS_NEW = @"Synced";
+NSString *const CUSTOMER_STATUS_SYNCED = @"Synced";
 
 //Style constants
 float const UI_DISABLED_ALPHA = 0.5;

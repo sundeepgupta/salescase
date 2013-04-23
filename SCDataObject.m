@@ -39,6 +39,15 @@
 {
     SCCustomer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"SCCustomer" inManagedObjectContext:self.managedObjectContext];
     customer.status = CUSTOMER_STATUS_NEW;
+    
+    //Default customer name
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    NSString *nameString = [dateString substringFromIndex:3];
+    customer.name = nameString;
+    [self saveContext];
     return customer;
 }
 
@@ -180,22 +189,11 @@
 
 -(NSNumber *)newScOrderIdWithDate:(NSDate *)date
 {
-    /*
-     * in incremental fashion
-    int newScOrderId = [[self incrementMaxSCOrderId] intValue] + 1;
-    return [NSNumber numberWithInt:newScOrderId];
-     */
-    
-    //Using timestamp instead
-
-    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
     NSString *dateString = [dateFormatter stringFromDate:date];
     NSString *orderString = [dateString substringFromIndex:2];
     orderString = [orderString substringToIndex:[orderString length] - 1];
-    
-    
     
     NSNumber *returnNumber = @([orderString longLongValue]);
     return returnNumber;

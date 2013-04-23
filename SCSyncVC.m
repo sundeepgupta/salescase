@@ -343,6 +343,7 @@
                 newCustomer.title = [self.dataObject dictionaryData:newCustomerDict forKey:@"Title"];
                 newCustomer.customerId = [newCustomerDict valueForKey:@"Id"];
                 newCustomer.qbId = [newCustomerDict valueForKey:@"ExternalKey"];
+                newCustomer.status = CUSTOMER_STATUS_SYNCED;
                 
                 
                 NSDictionary *addresses = [newCustomerDict valueForKey:@"Address"];
@@ -476,7 +477,7 @@
         }
         
         if ([(NSString *)responseDictionary[@"result"] isEqualToString:@"Success"] ) {
-            customer.status = nil;
+            customer.status = CUSTOMER_STATUS_SYNCED;
             // Consider moving this outside the loop if performance appears bad
             [self.dataObject saveContext];
         } else {
