@@ -72,9 +72,10 @@
 @property (strong, nonatomic) IBOutlet UITableViewCell *termsCell;
 @property (strong, nonatomic) IBOutlet UITableViewCell *billToPostalCell;
 
-//Labels
+//Collections
 @property (nonatomic, strong) IBOutletCollection(UILabel) NSArray *addressTitles;
 @property (nonatomic, strong) IBOutletCollection(UITableViewCell) NSArray *cells;
+@property (nonatomic, strong) IBOutletCollection(UITextField) NSArray *textFields;
 
 @end
 
@@ -97,6 +98,8 @@
     self.dataObject = self.global.dataObject;
     
     [self registerForKeyboardNotifications];
+    
+   
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -155,6 +158,18 @@
         SCOrderMasterVC *masterVC = (SCOrderMasterVC *)masterNC.topViewController;
         [masterVC processAppearedDetailVC:self];
     }
+    
+    
+    //put all of the textfields into an array (sorted in same way the cells are).  Not working for cells/fields that are non-visible.  
+//    for (UITextField *textField in self.textFields) {
+//        UIView *cell = textField.superview.superview;
+//        CGPoint absolutePoint = [textField convertPoint:textField.bounds.origin toView:textField.superview.superview.superview];
+//        CGFloat y = absolutePoint.y;
+//        NSLog(@"%f", y);
+//    }
+    
+
+    
     
     if (!self.dataObject.openCustomer) {
         
@@ -217,17 +232,6 @@
         [self showPopoverTableWithArray:dataArray withObjectType:objectType fromCell:cell];
     }
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSIndexPath *myIndexPath = [self.tableView indexPathForRowAtPoint:self.billToPostalCell.center];
-//    if ([indexPath isEqual:myIndexPath]) {
-//        if ([self.customer.status isEqualToString:CUSTOMER_STATUS_SYNCED]) {
-//            return 0;
-//        } 
-//    }
-//    return 44;
-//}
 
 #pragma mark - TextField Delegates
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -353,12 +357,16 @@
 - (void)keyboardWasShown:(NSNotification*)notification
 {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    CGFloat insetsHeight = keyboardSize.width; //Good for iPad landscape always mode.  Otherwise need to check orientations and get the height accordingly.
+    
+    CGFloat insetsPadding = 5; //some extra padding to lift the cell up a bit higher
+    CGFloat insetsHeight = keyboardSize.width + insetsPadding; //Good for iPad landscape always mode.  Otherwise need to check orientations and get the height accordingly.
+        
     if (self.navigationController.toolbar) { //adjust for the toolbar because keyboard overlays it
         CGFloat toolbarHeight = self.navigationController.toolbar.frame.size.height;
         insetsHeight = insetsHeight - toolbarHeight;
     }
     UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0,0,insetsHeight,0);
+    
     self.tableView.contentInset = edgeInsets;
     self.tableView.scrollIndicatorInsets = edgeInsets;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:self.activeCell];
