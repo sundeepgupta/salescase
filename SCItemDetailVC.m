@@ -147,7 +147,7 @@
         if (textField.text.length <= 1) {
             if (string.length == 0) {
                 self.saveToOrderButton.enabled = NO;
-                self.saveToOrderButton.alpha = 0.5;
+                self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
             } else {
                 self.saveToOrderButton.enabled = YES;
                 self.saveToOrderButton.alpha = 1;
@@ -159,7 +159,7 @@
     } else {
         if (textField.text.length == 0) {
             self.saveToOrderButton.enabled = NO;
-            self.saveToOrderButton.alpha = 0.5;
+            self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
         } else {
             self.saveToOrderButton.enabled = YES;
             self.saveToOrderButton.alpha = 1;
@@ -172,7 +172,7 @@
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 { //disable the save button 
     self.saveToOrderButton.enabled = NO;
-    self.saveToOrderButton.alpha = 0.5;
+    self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
     return YES;
 }
 

@@ -41,12 +41,13 @@
     customer.status = CUSTOMER_STATUS_NEW;
     
     //Default customer name
-    NSDate *date = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"yyyyMMddHHmmss";
-    NSString *dateString = [dateFormatter stringFromDate:date];
-    NSString *nameString = [dateString substringFromIndex:3];
-    customer.name = nameString;
+//    NSDate *date = [NSDate date];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    dateFormatter.dateFormat = @"yyyyMMddHHmmss";
+//    NSString *dateString = [dateFormatter stringFromDate:date];
+//    NSString *nameString = [dateString substringFromIndex:3];
+//    customer.name = nameString;
+    
     [self saveContext];
     return customer;
 }
@@ -155,7 +156,7 @@
     [customer addPhoneListObject:newPhone];
 }
 
--(NSArray *)fetchCustomersWithStatus:(NSString *)status withError:(NSError **)error
+-(NSArray *)customersWithStatus:(NSString *)status withError:(NSError **)error
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:ENTITY_SCCUSTOMER inManagedObjectContext:self.managedObjectContext];
@@ -165,6 +166,18 @@
     return [self.managedObjectContext executeFetchRequest:request error:error];
 }
 
+- (NSArray *)customerNames:(NSError **)error
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:ENTITY_SCCUSTOMER inManagedObjectContext:self.managedObjectContext];
+    request.entity = entity;
+    request.resultType = NSDictionaryResultType;
+
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:error];
+    if (!results) return nil;
+    
+    return [results valueForKey:@"name"];
+}
 
 
 #pragma mark Al's methods

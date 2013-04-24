@@ -426,7 +426,7 @@
 
 - (BOOL)uploadNewCustomers:(NSError **)error responseError:(NSDictionary **)responseError
 {
-    NSArray *customers = [self.dataObject fetchCustomersWithStatus:CUSTOMER_STATUS_NEW withError:error];
+    NSArray *customers = [self.dataObject customersWithStatus:CUSTOMER_STATUS_NEW withError:error];
     if (!customers) {
         return NO;
     }

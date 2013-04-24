@@ -51,8 +51,8 @@
 
 -(void) savePhoneNumber:(NSString *)phoneNumber withTag:(NSString *)tag forCustomer:(SCCustomer *)customer;
 
--(NSArray *)fetchCustomersWithStatus:(NSString *)status withError:(NSError **)error;
-
+-(NSArray *)customersWithStatus:(NSString *)status withError:(NSError **)error;
+- (NSArray *)customerNames:(NSError **)error;
 
 
 

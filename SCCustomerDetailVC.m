@@ -27,6 +27,8 @@
 @property (strong, nonatomic) SCDataObject *dataObject;
 @property (strong, nonatomic) UIPopoverController *popoverTablePC;
 @property (strong, nonatomic) UITableViewCell *activeCell;
+@property (strong, nonatomic) NSArray *customerNames;
+@property (strong, nonatomic) NSString *defaultName;
 
 //IB
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
@@ -126,10 +128,28 @@
     } else {
         if (self.dataObject.openCustomer) {
             self.title = @"New Customer";
-            
             self.customer = self.dataObject.openCustomer;
+            
+            //fetch customers names once here, becuase we're saving context everytime user finishes editing.  This should happen before thd default customer name is saved to context. 
+            NSError *error = nil;
+            self.customerNames = [self.dataObject customerNames:&error];
+            if (!self.customerNames) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Proceed With Caution" message:@"Error fetching customer names. Can't validate uniqueness of the Customer Name field." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
+            //Setup the fallback customer.name and set it as the placeholder text
+            NSDate *date = [NSDate date];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *dateString = [dateFormatter stringFromDate:date];
+            self.defaultName = [dateString substringFromIndex:3];
+            self.nameTextField.placeholder = self.defaultName;
+            self.customer.name = self.defaultName;
+            [self.dataObject saveContext];
 
-//            self.navigationItem.rightBarButtonItem = nil;
+//            self.navigationItem.rightBarButtonItem.enabled = NO;
+//            self.doneButton.enabled = NO;
             toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.spacer1, self.doneButton, nil];
             
         } else {            
@@ -209,7 +229,7 @@
     [super viewDidUnload];
 }
 
-
+#pragma mark - Methods to handle hiding of rows from http://stackoverflow.com/questions/8260267/uitableview-set-to-static-cells-is-it-possible-to-hide-some-of-the-cells-progra/9434849#comment23095022_9434849
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (!self.dataObject.openCustomer && section > 2) {
@@ -238,10 +258,6 @@
         return indexPath;
     }
 }
-
-
-
-
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -277,12 +293,32 @@
     self.activeCell = (UITableViewCell*) [textField.superview superview];
 }
 
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    BOOL returnValue = YES;
+    if ([textField isEqual:self.nameTextField]) {
+        if (textField.text.length == 0) {
+            self.customer.name = self.defaultName;
+            [self.dataObject saveContext];
+            return YES;
+        } else {
+            if ([self customerNameIsUnique:textField.text]) {
+                self.customer.name = textField.text;
+                return YES;
+            } else {
+                return NO;
+            }
+        }
+    }
+    
+    return returnValue;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if ([textField isEqual:self.nameTextField]) {
-        //validate uniqueness, and if empty
         
-        self.customer.name = textField.text;
+//        self.customer.name = textField.text;
     }
     if ([textField isEqual:self.dbaNameTextField]) self.customer.dbaName = textField.text;
     if ([textField isEqual:self.firstNameTextField]) self.customer.givenName = textField.text;
@@ -295,10 +331,8 @@
 
     
     
-    [self.dataObject saveContext];
+    
     self.activeCell = nil;
-    
-    
 }
 
 #pragma mark - Protocol methods
@@ -411,7 +445,8 @@
 
 - (void)loadData
 {
-    self.nameTextField.text = self.customer.name;
+    if (!self.dataObject.openCustomer) self.nameTextField.text = self.customer.name;
+    
     self.dbaNameTextField.text = self.customer.dbaName;
     self.firstNameTextField.text = self.customer.givenName;
     self.lastNameTextField.text = self.customer.familyName;
@@ -498,6 +533,18 @@
     }
 }
 
+- (BOOL)customerNameIsUnique:(NSString *)name
+{
+    for (NSString *customerName in self.customerNames) {
+        if ([name isEqualToString:customerName]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Duplicate Customer Name" message:@"Please use a unique customer name, or leave blank." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            return NO;
+        }
+    }
+    return YES;
+}
+
 - (void)captureImage
 {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -546,7 +593,9 @@
 }
 
 - (IBAction)doneButtonPress:(UIBarButtonItem *)sender {
-     self.dataObject.openCustomer = nil;
+    
+    
+    self.dataObject.openCustomer = nil;
     [self.delegate passSavedCustomer:self.customer];
 }
 
