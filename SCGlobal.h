@@ -22,5 +22,6 @@
 
 - (NSIndexPath *)indexPathForDetailVC:(UIViewController *)vC fromArray:(NSArray *)array withKey:(NSString *)key;
 + (NSString *)stringFromDate:(NSDate *)date;
++(BOOL) stringIsValidEmail:(NSString *)checkString;
 
 @end

@@ -29,6 +29,7 @@
 @property (strong, nonatomic) UITableViewCell *activeCell;
 @property (strong, nonatomic) NSArray *customerNames;
 @property (strong, nonatomic) NSString *defaultName;
+@property (strong, nonatomic) UIAlertView *validateCompanyNameAlert;
 
 //IB
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
@@ -148,6 +149,7 @@
             self.customer.name = self.defaultName;
             [self.dataObject saveContext];
 
+            //Setup bar button items
 //            self.navigationItem.rightBarButtonItem.enabled = NO;
 //            self.doneButton.enabled = NO;
             toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.spacer1, self.doneButton, nil];
@@ -293,34 +295,63 @@
     self.activeCell = (UITableViewCell*) [textField.superview superview];
 }
 
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //The argument 'string' in this method is actually the string iOS wants to append to the existing textField.text (the keyboard button the user pressed, or what the user pasted).  Returning YES lets it, NO doesn't let it.  So check if string is valid or not.
+    
+    BOOL allowChange = YES;
+    
+    if ([textField isEqual:self.nameTextField]) { //dont' allow for :
+        NSCharacterSet *invalidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@":"];
+        NSArray *separatedString = [string componentsSeparatedByCharactersInSet:invalidCharacterSet];
+        NSString *validatedString = [separatedString componentsJoinedByString:@""];
+        if (![string isEqualToString:validatedString]) allowChange = NO;
+    }
+    
+    return allowChange;
+}
+
+
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     BOOL returnValue = YES;
+    
+    //Validate name
     if ([textField isEqual:self.nameTextField]) {
         if (textField.text.length == 0) {
             self.customer.name = self.defaultName;
             [self.dataObject saveContext];
-            return YES;
         } else {
             if ([self customerNameIsUnique:textField.text]) {
                 self.customer.name = textField.text;
-                return YES;
             } else {
-                return NO;
+                returnValue = NO;
             }
         }
     }
+    
+    //Validate email from http://stackoverflow.com/questions/3139619/check-that-an-email-address-is-valid-on-ios
+    if ([textField isEqual:self.emailTextField]) {
+        if (textField.text.length != 0 && ![SCGlobal stringIsValidEmail:textField.text]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Doesn't Look Valid" message:@"Please check the email address to make sure it's valid." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            returnValue = NO;
+        }
+    }
+    
+    
     
     return returnValue;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if ([textField isEqual:self.nameTextField]) {
+
+    if ([textField isEqual:self.dbaNameTextField]) {
         
-//        self.customer.name = textField.text;
+        self.customer.dbaName = textField.text;
     }
-    if ([textField isEqual:self.dbaNameTextField]) self.customer.dbaName = textField.text;
+    
     if ([textField isEqual:self.firstNameTextField]) self.customer.givenName = textField.text;
     if ([textField isEqual:self.lastNameTextField]) self.customer.familyName = textField.text;
     
@@ -333,6 +364,13 @@
     
     
     self.activeCell = nil;
+}
+
+#pragma mark - UIAlertView Delegates
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if ([alertView isEqual:self.validateCompanyNameAlert]) [self.dbaNameTextField becomeFirstResponder];
+        
 }
 
 #pragma mark - Protocol methods
@@ -545,6 +583,17 @@
     return YES;
 }
 
+- (BOOL)isCompanyNameValid
+{
+    if (self.dbaNameTextField.text.length == 0) {
+        self.validateCompanyNameAlert = [[UIAlertView alloc] initWithTitle:@"Company Name Needed" message:@"Please enter a company name before proceeding." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [self.validateCompanyNameAlert show];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 - (void)captureImage
 {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -573,8 +622,10 @@
 
 - (IBAction)addOrderButtonPress:(UIBarButtonItem *)sender {
     if (self.dataObject.openCustomer) {
-        self.dataObject.openCustomer = nil;
-        [self.delegate passAddOrderWithCustomer:self.customer];
+        if ([self isCompanyNameValid]) {
+            self.dataObject.openCustomer = nil;
+            [self.delegate passAddOrderWithCustomer:self.customer];
+        }
     } else {
         UINavigationController *masterNC = self.splitViewController.viewControllers[0];
         SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
@@ -593,10 +644,12 @@
 }
 
 - (IBAction)doneButtonPress:(UIBarButtonItem *)sender {
+    if ([self isCompanyNameValid]) {
+        self.dataObject.openCustomer = nil;
+        [self.delegate passSavedCustomer:self.customer];
+    }
     
     
-    self.dataObject.openCustomer = nil;
-    [self.delegate passSavedCustomer:self.customer];
 }
 
 - (IBAction)editButtonPress:(UIBarButtonItem *)sender {
