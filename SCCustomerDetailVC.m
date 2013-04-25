@@ -31,6 +31,9 @@
 @property (strong, nonatomic) NSString *defaultName;
 @property (strong, nonatomic) UIAlertView *validateCompanyNameAlert;
 
+@property (strong, nonatomic) NSArray *billToTextFields;
+@property (strong, nonatomic) NSArray *shipToTextFields;
+
 //IB
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *dbaNameTextField;
@@ -103,6 +106,9 @@
     
     [self registerForKeyboardNotifications];
     
+    self.billToTextFields = [NSArray arrayWithObjects:self.billTo1TextField, self.billTo2TextField, self.billTo3TextField, self.billToCityTextField, self.billToStateTextField, self.billToPostalTextField, self.billToCountryTextField, nil];
+    self.shipToTextFields = [NSArray arrayWithObjects:self.shipTo1TextField, self.shipTo2TextField, self.shipTo3TextField, self.shipToCityTextField, self.shipToStateTextField, self.shipToPostalTextField, self.shipToCountryTextField, nil];
+    
    
 }
 
@@ -159,6 +165,13 @@
             toolbarItems.array = [NSArray arrayWithObjects:self.editButton, nil];
 
             [self readOnlyState];
+        }
+    }
+    
+    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED]) {
+        //hide the address titles due to messed upness of QB addresses
+        for (UIView *view in self.addressTitles) {
+            view.hidden = YES;
         }
     }
     
@@ -234,8 +247,8 @@
 #pragma mark - Methods to handle hiding of rows from http://stackoverflow.com/questions/8260267/uitableview-set-to-static-cells-is-it-possible-to-hide-some-of-the-cells-progra/9434849#comment23095022_9434849
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (!self.dataObject.openCustomer && section > 2) {
-        return [super tableView:tableView numberOfRowsInSection:section] - 2;
+    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED] && section > 2) {
+        return [super tableView:tableView numberOfRowsInSection:section] - (self.billToTextFields.count - NUMBER_OF_QB_ADDRESS_LINES);
     } else {
         return [super tableView:tableView numberOfRowsInSection:section];
     }
@@ -252,7 +265,7 @@
 - (NSIndexPath*)offsetIndexPath:(NSIndexPath*)indexPath
 {
     int offsetSection = indexPath.section; // Also offset section if you intend to hide whole sections
-    if (!self.dataObject.openCustomer && offsetSection > 2) {
+    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED] && offsetSection > 2) {
         int numberOfCellsHiddenAbove = 0; // Calculate how many cells are hidden above the given indexPath.row
         int offsetRow = indexPath.row + numberOfCellsHiddenAbove;
         return [NSIndexPath indexPathForRow:offsetRow inSection:offsetSection];
@@ -338,31 +351,37 @@
             returnValue = NO;
         }
     }
-    
-    
-    
     return returnValue;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-
     if ([textField isEqual:self.dbaNameTextField]) {
-        
         self.customer.dbaName = textField.text;
     }
     
     if ([textField isEqual:self.firstNameTextField]) self.customer.givenName = textField.text;
     if ([textField isEqual:self.lastNameTextField]) self.customer.familyName = textField.text;
-    
     if ([textField isEqual:self.phoneTextField]) [self.dataObject savePhoneNumber:textField.text withTag:MAIN_PHONE_TAG forCustomer:self.customer];
     if ([textField isEqual:self.faxTextField]) [self.dataObject savePhoneNumber:textField.text withTag:FAX_PHONE_TAG forCustomer:self.customer];
     
     if ([textField isEqual:self.billTo1TextField]) self.customer.primaryBillingAddress.line1 = textField.text;
-
+    if ([textField isEqual:self.billTo2TextField]) self.customer.primaryBillingAddress.line2 = textField.text;
+    if ([textField isEqual:self.billTo3TextField]) self.customer.primaryBillingAddress.line3 = textField.text;
+    if ([textField isEqual:self.billToCityTextField]) self.customer.primaryBillingAddress.city = textField.text;
+    if ([textField isEqual:self.billToStateTextField]) self.customer.primaryBillingAddress.countrySubDivisionCode = textField.text;
+    if ([textField isEqual:self.billToCountryTextField]) self.customer.primaryBillingAddress.country = textField.text;
+    if ([textField isEqual:self.billToPostalTextField]) self.customer.primaryBillingAddress.postalCode = textField.text;
     
+    if ([textField isEqual:self.shipTo1TextField]) self.customer.primaryShippingAddress.line1 = textField.text;
+    if ([textField isEqual:self.shipTo2TextField]) self.customer.primaryShippingAddress.line2 = textField.text;
+    if ([textField isEqual:self.shipTo3TextField]) self.customer.primaryShippingAddress.line3 = textField.text;
+    if ([textField isEqual:self.shipToCityTextField]) self.customer.primaryShippingAddress.city = textField.text;
+    if ([textField isEqual:self.shipToStateTextField]) self.customer.primaryShippingAddress.countrySubDivisionCode = textField.text;
+    if ([textField isEqual:self.shipToCountryTextField]) self.customer.primaryShippingAddress.country = textField.text;
+    if ([textField isEqual:self.shipToPostalTextField]) self.customer.primaryShippingAddress.postalCode = textField.text;
     
-    
+    [self.dataObject saveContext];
     self.activeCell = nil;
 }
 
@@ -498,21 +517,21 @@
     
     
     NSArray *customerBillToLines = [self.customer.primaryBillingAddress lines];
-    NSArray *viewBillToLines = [NSArray arrayWithObjects:self.billTo1TextField, self.billTo2TextField, self.billTo3TextField, self.billToCityTextField, self.billToStateTextField, nil];
-    for (NSInteger i = 0; i < customerBillToLines.count; i++) {
-        UILabel *label = viewBillToLines[i];
+        
+    NSInteger maxNumberOfLines = self.billToTextFields.count;
+    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED]) maxNumberOfLines = NUMBER_OF_QB_ADDRESS_LINES;
+        
+    for (NSInteger i = 0; i < MIN(customerBillToLines.count, maxNumberOfLines) ; i++) {
+        UILabel *label = self.billToTextFields[i];
         label.text = customerBillToLines[i];
     }
     NSArray *customerShipToLines = [self.customer.primaryShippingAddress lines];
-    NSArray *viewShipToLines = [NSArray arrayWithObjects:self.shipTo1TextField, self.shipTo2TextField, self.shipTo3TextField, self.shipToCityTextField, self.shipToStateTextField, nil];
-    for (NSInteger i = 0; i < customerShipToLines.count; i++) {
-        UILabel *label = viewShipToLines[i];
+    
+    for (NSInteger i = 0; i < MIN(customerShipToLines.count, maxNumberOfLines); i++) {
+        UILabel *label = self.shipToTextFields[i];
         label.text = customerShipToLines[i];
     }
     
-    
-    
-
 }
 
 - (void)showPopoverTableWithArray:(NSArray *)dataArray withObjectType:(NSString *)objectType fromCell:(UITableViewCell *)cell
@@ -553,11 +572,6 @@
     //disable user interaction
     for (UITableViewCell *cell in self.cells) {
         cell.userInteractionEnabled = NO;
-    }
-    
-    //hide the address titles due to messed upness of QB addresses
-    for (UIView *view in self.addressTitles) {
-        view.hidden = YES;
     }
     
     //disable clear button

@@ -322,19 +322,30 @@
             done = YES;
         } else {
             for (NSDictionary *newCustomerDict in responseArray) {
-                SCCustomer *oldCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER
-                                                                            byIdentifier:@"customerId"
-                                                                                 idValue:[newCustomerDict valueForKey:@"Id"] 
-                                                           ];
+                SCCustomer *oldCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"customerId" idValue:[newCustomerDict valueForKey:@"Id"]];
+                
+                
+                SCCustomer *justUploadedCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"name" idValue:newCustomerDict[@"Name"]];
+                
+                
                 SCCustomer *newCustomer;
                 
                 if (oldCustomer) {
                     newCustomer = oldCustomer;
-                }
-                else {
+                } else if (justUploadedCustomer) {
+                    newCustomer = justUploadedCustomer;
+                } else {
                     newCustomer = (SCCustomer *) [self.dataObject newObject:ENTITY_SCCUSTOMER];
                     newCustomer.orderList = nil;
                 }
+                
+                
+                
+                
+                
+                
+                
+                
                 newCustomer.name = [self.dataObject dictionaryData:newCustomerDict forKey:@"Name"];
                 newCustomer.dbaName = [self.dataObject dictionaryData:newCustomerDict forKey:@"DBAName"];
                 newCustomer.givenName = [self.dataObject dictionaryData:newCustomerDict forKey:@"GivenName"];
@@ -436,9 +447,10 @@
     for (SCCustomer *customer in customers) {
         //Handle required fields first (which are validated during user input)
         NSMutableString *postString = [NSMutableString stringWithFormat:@"Name=%@", [customer.name urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        [postString appendFormat:@"&BillTo1=%@", [customer.primaryBillingAddress.line1 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+        //BillTo1 is required, but being handled by web app for better UX
         
-        //OPtional fields        
+        
+        //OPtional fields (dbaName is pretending to be required in the app for PDF purposes)
         if (customer.dbaName) [postString appendFormat:@"&DBAName=%@", [customer.dbaName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
         if (customer.givenName) [postString appendFormat:@"&GivenName=%@", [customer.givenName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
         if (customer.familyName) [postString appendFormat:@"&FamilyName=%@", [customer.familyName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
@@ -447,6 +459,7 @@
         if ([customer phoneForTag:FAX_PHONE_TAG].length != 0) [postString appendFormat:@"&FaxPhone=%@", [[customer phoneForTag:FAX_PHONE_TAG] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
         if ([customer mainEmail].length != 0) [postString appendFormat:@"&BusinessEmail=%@", [[customer mainEmail] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
 
+        if (customer.primaryBillingAddress.line1) [postString appendFormat:@"&BillTo1=%@", [customer.primaryBillingAddress.line1 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
         if (customer.primaryBillingAddress.line2) [postString appendFormat:@"&BillTo2=%@", [customer.primaryBillingAddress.line2 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
         if (customer.primaryBillingAddress.line3) [postString appendFormat:@"&BillTo3=%@", [customer.primaryBillingAddress.line3 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
         if (customer.primaryBillingAddress.city) [postString appendFormat:@"&BillToCity=%@", [customer.primaryBillingAddress.city urlEncodeUsingEncoding:NSUTF8StringEncoding]];
@@ -477,9 +490,9 @@
         }
         
         if ([(NSString *)responseDictionary[@"result"] isEqualToString:@"Success"] ) {
-            customer.status = CUSTOMER_STATUS_SYNCED;
+//            customer.status = CUSTOMER_STATUS_SYNCED;
             // Consider moving this outside the loop if performance appears bad
-            [self.dataObject saveContext];
+//            [self.dataObject saveContext];
         } else {
             *responseError = responseDictionary.mutableCopy;
             [*responseError setValue:customer.name forKey:@"name"];

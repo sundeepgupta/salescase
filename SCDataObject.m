@@ -40,6 +40,11 @@
     SCCustomer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"SCCustomer" inManagedObjectContext:self.managedObjectContext];
     customer.status = CUSTOMER_STATUS_NEW;
     
+    //create and link billing and shipping address objects
+    customer.primaryBillingAddress = [self newAddress];
+    customer.primaryShippingAddress = [self newAddress];
+
+    
     //Default customer name
 //    NSDate *date = [NSDate date];
 //    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -50,6 +55,11 @@
     
     [self saveContext];
     return customer;
+}
+
+- (SCAddress *)newAddress
+{
+    return [NSEntityDescription insertNewObjectForEntityForName:@"SCAddress" inManagedObjectContext:self.managedObjectContext];
 }
 
 - (void)saveOrder:(SCOrder *)order
@@ -154,6 +164,12 @@
     newPhone.tag = tag;
     newPhone.freeFormNumber = phoneNumber;
     [customer addPhoneListObject:newPhone];
+}
+
+-(void) saveAddressLine:(NSString *)line withLineType:(NSString *)type forCustomer:(SCCustomer *)customer
+{ //looks like when a new customer is created, it also creates the phonelist too, so no need to check for it.
+    
+    
 }
 
 -(NSArray *)customersWithStatus:(NSString *)status withError:(NSError **)error

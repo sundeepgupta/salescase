@@ -21,6 +21,9 @@ NSString *const USER_COMPANY_FAX = @"Fax";
 NSString *const USER_COMPANY_EMAIL = @"Email";
 NSString *const USER_COMPANY_WEBSITE = @"Website";
 
+//QB RELATED
+NSInteger const NUMBER_OF_QB_ADDRESS_LINES = 5;
+
 //MISC
 NSString *const EMPTY_SELECTION_STRING = @"-";
 

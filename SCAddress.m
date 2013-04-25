@@ -31,27 +31,23 @@
 
 - (NSArray *)lines
 {
-    NSMutableArray *block = [[NSMutableArray alloc] init];
+    NSMutableArray *lines = [[NSMutableArray alloc] init];
     
-    //QB made a mess of this, so hoping for the best here.
-    //Line 1 and 2 seem to be always consistent.  Everything else cna change.  
-    if (self.line1)
-        [block addObject:self.line1];
-    if (self.line2)
-        [block addObject:self.line2];
-    if (self.line3)
-        [block addObject:self.line3];        
+   //These 7 lines are used for entering new customers so they must be checked.
+    if (self.line1)        [lines addObject:self.line1];
+    if (self.line2)        [lines addObject:self.line2];
+    if (self.line3)        [lines addObject:self.line3];
+    if (self.city)        [lines addObject:self.city];
+    if (self.countrySubDivisionCode) [lines addObject:self.countrySubDivisionCode];
+    if (self.postalCode) [lines addObject:self.postalCode];
+    if (self.country) [lines addObject:self.country];
     
-    if (self.city)
-        [block addObject:self.city];
+    //Lines 4 and 5 are sometimes used if coming from IPP (in place of other lines above)
+    if (self.line4)        [lines addObject:self.line4];
+    if (self.line5)        [lines addObject:self.line5];
 
-    //This seems to be the notes field every time.  But sometimes doesn't make it either into IPP either.
-    if (self.line4)
-        [block addObject:self.line4];
-    
-    //I don't think Line 5 ever exists in the IPP object
-    if (self.line5)
-        [block addObject:self.line5];
+    //Not sure if ever used, but adding just in case
+    if (self.notes) [lines addObject:self.notes];
     
  
     
@@ -106,7 +102,7 @@
 //    }
     
     
-    return block;
+    return lines;
 }
 
 
