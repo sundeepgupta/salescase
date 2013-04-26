@@ -23,6 +23,7 @@ NSString *const USER_COMPANY_WEBSITE = @"Website";
 
 //QB RELATED
 NSInteger const NUMBER_OF_QB_ADDRESS_LINES = 5;
+NSInteger const MAX_CUSTOMER_NAME_LENGTH = 41;
 
 //MISC
 NSString *const EMPTY_SELECTION_STRING = @"-";
@@ -31,6 +32,7 @@ NSString *const EMPTY_SELECTION_STRING = @"-";
 NSString *const MAIN_PHONE_TAG = @"Business";
 NSString *const MOBILE_PHONE_TAG = @"Mobile";
 NSString *const FAX_PHONE_TAG = @"Fax";
+NSString *const MAIN_EMAIL_TAG = @"Business";
 
 //PDF
 NSString *const PDF_FILENAME = @"ThePDF";

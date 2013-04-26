@@ -166,10 +166,20 @@
     [customer addPhoneListObject:newPhone];
 }
 
--(void) saveAddressLine:(NSString *)line withLineType:(NSString *)type forCustomer:(SCCustomer *)customer
-{ //looks like when a new customer is created, it also creates the phonelist too, so no need to check for it.
-    
-    
+-(void) saveEmail:(NSString *)newAddress forCustomer:(SCCustomer *)customer
+{ //We're only using main/business email right now so just overwrite it.
+    if ([customer mainEmail]) {
+        for (SCEmail *email in customer.emailList) {
+            if ([email.tag isEqualToString:MAIN_EMAIL_TAG]) {
+                email.address = newAddress;
+                return;
+            }
+        }
+    }
+    SCEmail *newEmail = (SCEmail *)[self newObject:NSStringFromClass([SCEmail class])];
+    newEmail.tag = MAIN_EMAIL_TAG;
+    newEmail.address = newAddress;
+    [customer addEmailListObject:newEmail];
 }
 
 -(NSArray *)customersWithStatus:(NSString *)status withError:(NSError **)error

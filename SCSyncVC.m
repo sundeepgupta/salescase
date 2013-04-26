@@ -321,15 +321,12 @@
         if (responseArray.count == 0) {
             done = YES;
         } else {
-            for (NSDictionary *newCustomerDict in responseArray) {
-                SCCustomer *oldCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"customerId" idValue:[newCustomerDict valueForKey:@"Id"]];
+            for (NSDictionary *ippCustomerDict in responseArray) {
+                SCCustomer *oldCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"customerId" idValue:[ippCustomerDict valueForKey:@"Id"]];
                 
-                
-                SCCustomer *justUploadedCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"name" idValue:newCustomerDict[@"Name"]];
-                
+                SCCustomer *justUploadedCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"name" idValue:ippCustomerDict[@"Name"]];
                 
                 SCCustomer *newCustomer;
-                
                 if (oldCustomer) {
                     newCustomer = oldCustomer;
                 } else if (justUploadedCustomer) {
@@ -339,34 +336,28 @@
                     newCustomer.orderList = nil;
                 }
                 
+                newCustomer.name = [self.dataObject dictionaryData:ippCustomerDict forKey:@"Name"];
+                newCustomer.dbaName = [self.dataObject dictionaryData:ippCustomerDict forKey:@"DBAName"];
+                newCustomer.givenName = [self.dataObject dictionaryData:ippCustomerDict forKey:@"GivenName"];
+                newCustomer.middleName = [self.dataObject dictionaryData:ippCustomerDict forKey:@"MiddleName"];
+                newCustomer.familyName = [self.dataObject dictionaryData:ippCustomerDict forKey:@"FamilyName"];
+                newCustomer.title = [self.dataObject dictionaryData:ippCustomerDict forKey:@"Title"];
+                newCustomer.customerId = [ippCustomerDict valueForKey:@"Id"];
+                newCustomer.qbId = [ippCustomerDict valueForKey:@"ExternalKey"];
                 
-                
-                
-                
-                
-                
-                
-                newCustomer.name = [self.dataObject dictionaryData:newCustomerDict forKey:@"Name"];
-                newCustomer.dbaName = [self.dataObject dictionaryData:newCustomerDict forKey:@"DBAName"];
-                newCustomer.givenName = [self.dataObject dictionaryData:newCustomerDict forKey:@"GivenName"];
-                newCustomer.middleName = [self.dataObject dictionaryData:newCustomerDict forKey:@"MiddleName"];
-                newCustomer.familyName = [self.dataObject dictionaryData:newCustomerDict forKey:@"FamilyName"];
-                newCustomer.title = [self.dataObject dictionaryData:newCustomerDict forKey:@"Title"];
-                newCustomer.customerId = [newCustomerDict valueForKey:@"Id"];
-                newCustomer.qbId = [newCustomerDict valueForKey:@"ExternalKey"];
                 newCustomer.status = CUSTOMER_STATUS_SYNCED;
                 
                 
-                NSDictionary *addresses = [newCustomerDict valueForKey:@"Address"];
+                NSDictionary *addresses = [ippCustomerDict valueForKey:@"Address"];
                 [self.dataObject saveAddressList:addresses forCustomer:newCustomer];
                 
-                NSDictionary *phones = [newCustomerDict valueForKey:@"Phone"];
+                NSDictionary *phones = [ippCustomerDict valueForKey:@"Phone"];
                 [self.dataObject savePhoneList:phones forCustomer:newCustomer];
                 
-                NSDictionary *emails = [newCustomerDict valueForKey:@"Email"];
+                NSDictionary *emails = [ippCustomerDict valueForKey:@"Email"];
                 [self.dataObject saveEmailList:emails forCustomer:newCustomer];
-                newCustomer.salesRep = (SCSalesRep *) [self.dataObject getEntityType:ENTITY_SCSALESREP byIdentifier:@"repId" idValue:[newCustomerDict valueForKey:@"SalesRepId"]];
-                newCustomer.salesTerms = (SCSalesTerm *) [self.dataObject getEntityType:ENTITY_SCSALESTERM byIdentifier:@"termId" idValue:[newCustomerDict valueForKey:@"SalesTermId"]];
+                newCustomer.salesRep = (SCSalesRep *) [self.dataObject getEntityType:ENTITY_SCSALESREP byIdentifier:@"repId" idValue:[ippCustomerDict valueForKey:@"SalesRepId"]];
+                newCustomer.salesTerms = (SCSalesTerm *) [self.dataObject getEntityType:ENTITY_SCSALESTERM byIdentifier:@"termId" idValue:[ippCustomerDict valueForKey:@"SalesTermId"]];
             }
             didSave = [self.dataObject.managedObjectContext save:error];
             if (!didSave) {
@@ -490,12 +481,25 @@
         }
         
         if ([(NSString *)responseDictionary[@"result"] isEqualToString:@"Success"] ) {
-//            customer.status = CUSTOMER_STATUS_SYNCED;
+            customer.status = CUSTOMER_STATUS_SYNCED;
+            
             // Consider moving this outside the loop if performance appears bad
-//            [self.dataObject saveContext];
+            [self.dataObject saveContext];
         } else {
             *responseError = responseDictionary.mutableCopy;
-            [*responseError setValue:customer.name forKey:@"name"];
+            
+            
+            //get the error code
+            NSString *errorCode = [*responseError valueForKey:@"error"];
+            if ([errorCode isEqualToString:@"-3002"]) { //customer name not unique - someone likely uploaded a new customer into IPP
+                NSMutableString *newName = customer.name.mutableCopy;
+                NSRange range = NSMakeRange(newName.length - 1, 1);
+                [newName replaceCharactersInRange:range withString:@"*"];
+                customer.name = newName; //if don't do this, the download will overwrite this customer
+                [self.dataObject saveContext];
+                [*responseError setValue:customer.name forKey:@"name"];
+            }
+            
             return NO;
         }
     }

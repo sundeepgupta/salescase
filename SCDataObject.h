@@ -50,6 +50,7 @@
 -(void) deleteObject:(NSManagedObject *)order;
 
 -(void) savePhoneNumber:(NSString *)phoneNumber withTag:(NSString *)tag forCustomer:(SCCustomer *)customer;
+-(void) saveEmail:(NSString *)newAddress forCustomer:(SCCustomer *)customer;
 
 -(NSArray *)customersWithStatus:(NSString *)status withError:(NSError **)error;
 - (NSArray *)customerNames:(NSError **)error;

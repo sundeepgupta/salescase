@@ -315,11 +315,20 @@
     BOOL allowChange = YES;
     
     if ([textField isEqual:self.nameTextField]) { //dont' allow for :
+        
+        if (textField.text.length + string.length - range.length > MAX_CUSTOMER_NAME_LENGTH) return NO;
+        
+        //check invalid characters
         NSCharacterSet *invalidCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@":"];
         NSArray *separatedString = [string componentsSeparatedByCharactersInSet:invalidCharacterSet];
         NSString *validatedString = [separatedString componentsJoinedByString:@""];
-        if (![string isEqualToString:validatedString]) allowChange = NO;
+        if (![string isEqualToString:validatedString]) return NO;
     }
+    
+    
+        
+        
+        
     
     return allowChange;
 }
@@ -356,14 +365,14 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if ([textField isEqual:self.dbaNameTextField]) {
-        self.customer.dbaName = textField.text;
-    }
-    
+    //customer.name is saved in textFieldShouldEndEditing
+    if ([textField isEqual:self.dbaNameTextField])  self.customer.dbaName = textField.text;
     if ([textField isEqual:self.firstNameTextField]) self.customer.givenName = textField.text;
     if ([textField isEqual:self.lastNameTextField]) self.customer.familyName = textField.text;
+    
     if ([textField isEqual:self.phoneTextField]) [self.dataObject savePhoneNumber:textField.text withTag:MAIN_PHONE_TAG forCustomer:self.customer];
     if ([textField isEqual:self.faxTextField]) [self.dataObject savePhoneNumber:textField.text withTag:FAX_PHONE_TAG forCustomer:self.customer];
+    if ([textField isEqual:self.emailTextField]) [self.dataObject saveEmail:textField.text forCustomer:self.customer];
     
     if ([textField isEqual:self.billTo1TextField]) self.customer.primaryBillingAddress.line1 = textField.text;
     if ([textField isEqual:self.billTo2TextField]) self.customer.primaryBillingAddress.line2 = textField.text;
