@@ -149,7 +149,7 @@
     [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
-#pragma mark - SCDeleteOrderVCDelegate Methods
+#pragma mark - SCConfirmDeleteVCDelegate Methods
 - (void)passConfirmDeleteButtonPress
 {
     [self.dataObject deleteObject:self.dataObject.openOrder];

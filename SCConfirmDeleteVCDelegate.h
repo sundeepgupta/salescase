@@ -1,5 +1,5 @@
 //
-//  SCDeleteOrderVCDelegate.h
+//  SCConfirmDeleteVCDelegate.h
 //  SalesCaseAlpha
 //
 //  Created by Sundeep Gupta on 13-03-28.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SCDeleteOrderVCDelegate <NSObject>
+@protocol SCConfirmDeleteVCDelegate <NSObject>
 @required
 - (void)passConfirmDeleteButtonPress;
 @optional

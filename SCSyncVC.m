@@ -492,12 +492,19 @@
             //get the error code
             NSString *errorCode = [*responseError valueForKey:@"error"];
             if ([errorCode isEqualToString:@"-3002"]) { //customer name not unique - someone likely uploaded a new customer into IPP
+                
+                //rename customer.name
                 NSMutableString *newName = customer.name.mutableCopy;
                 NSRange range = NSMakeRange(newName.length - 1, 1);
                 [newName replaceCharactersInRange:range withString:@"*"];
                 customer.name = newName; //if don't do this, the download will overwrite this customer
                 [self.dataObject saveContext];
-                [*responseError setValue:customer.name forKey:@"name"];
+                [*responseError setValue:[NSString stringWithFormat:@"SalesCase customer renamed to %@. All linked orders set to Draft status and will not upload.", customer.name] forKey:@"name"];
+
+                //handle orders attached to this customer - put them all in draft mode so they don't sync
+                for (SCOrder *order in customer.orderList) {
+                    order.confirmed = nil;
+                }
             }
             
             return NO;

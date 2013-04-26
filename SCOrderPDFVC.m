@@ -12,7 +12,7 @@
 #import "SCDataObject.h"
 #import "SCOrderMasterVC.h"
 #import "SCOrder.h"
-#import "SCDeleteOrderVC.h"
+#import "SCConfirmDeleteVC.h"
 #import "SCLookMasterVC.h"
 #import "SCEmailOrderVC.h"
 #import "SCCustomer.h"
@@ -164,7 +164,7 @@
 }
 
 - (IBAction)deleteButtonPress:(UIBarButtonItem *)sender {
-    SCDeleteOrderVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCDeleteOrderVC"];
+    SCConfirmDeleteVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
     self.deleteOrderPC = [[UIPopoverController alloc] initWithContentViewController:deleteOrderVC];
     deleteOrderVC.delegate = self; 
     [self.deleteOrderPC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];

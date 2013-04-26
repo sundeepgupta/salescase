@@ -9,7 +9,7 @@
 #import "SCOrderDetailVC.h"
 #import "SCGlobal.h"
 #import "SCOrderMasterVC.h"
-#import "SCDeleteOrderVC.h"
+#import "SCConfirmDeleteVC.h"
 #import "SCEmailOrderVC.h"
 #import "SCDataObject.h"
 #import "SCOrder.h"
@@ -217,7 +217,7 @@
 
 #pragma mark - IB Methods
 - (IBAction)deleteButtonPress:(UIButton *)sender {
-    SCDeleteOrderVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCDeleteOrderVC"];
+    SCConfirmDeleteVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
     self.deleteOrderPC = [[UIPopoverController alloc] initWithContentViewController:deleteOrderVC];
     deleteOrderVC.delegate = self;
     [self.deleteOrderPC presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];

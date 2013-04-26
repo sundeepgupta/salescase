@@ -20,6 +20,7 @@
 #import "SCOrder.h"
 #import "SCCustomersVC.h"
 #import "SCLookMasterVC.h"
+#import "SCConfirmDeleteVC.h"
 
 
 @interface SCCustomerDetailVC ()
@@ -30,11 +31,13 @@
 @property (strong, nonatomic) NSArray *customerNames;
 @property (strong, nonatomic) NSString *defaultName;
 @property (strong, nonatomic) UIAlertView *validateCompanyNameAlert;
+@property (strong, nonatomic) UIPopoverController *confirmDeletePC;
 
 @property (strong, nonatomic) NSArray *billToTextFields;
 @property (strong, nonatomic) NSArray *shipToTextFields;
 
 //IB
+//Data fields
 @property (strong, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *dbaNameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *firstNameTextField;
@@ -63,8 +66,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *repLabel;
 @property (strong, nonatomic) IBOutlet UILabel *termsLabel;
 
+//Buttons
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *addOrderButton;
-@property (strong, nonatomic) IBOutlet UIButton *captureImageButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *captureImageButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *selectCustomerButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
@@ -132,6 +136,10 @@
         if (!self.customer) { //if no customers has been loaded, bring up the modal so they can choose
             [self presentCustomerList];
         }
+
+        
+        
+        
     } else {
         if (self.dataObject.openCustomer) {
             self.title = @"New Customer";
@@ -145,7 +153,7 @@
                 [alert show];
             }
             
-            //Setup the fallback customer.name and set it as the placeholder text
+            //Setup the default customer.name and set it as the placeholder text
             NSDate *date = [NSDate date];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             dateFormatter.dateFormat = @"yyyyMMddHHmmss";
@@ -158,7 +166,7 @@
             //Setup bar button items
 //            self.navigationItem.rightBarButtonItem.enabled = NO;
 //            self.doneButton.enabled = NO;
-            toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.spacer1, self.doneButton, nil];
+            toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.spacer1, self.captureImageButton, self.spacer2, self.doneButton, nil];
             
         } else {            
             self.title = [NSString stringWithFormat:@"%@ (%@)", self.customer.name, self.customer.status];
@@ -187,31 +195,6 @@
         SCOrderMasterVC *masterVC = (SCOrderMasterVC *)masterNC.topViewController;
         [masterVC processAppearedDetailVC:self];
     }
-    
-    
-    //put all of the textfields into an array (sorted in same way the cells are).  Not working for cells/fields that are non-visible.  
-//    for (UITextField *textField in self.textFields) {
-//        UIView *cell = textField.superview.superview;
-//        CGPoint absolutePoint = [textField convertPoint:textField.bounds.origin toView:textField.superview.superview.superview];
-//        CGFloat y = absolutePoint.y;
-//        NSLog(@"%f", y);
-//    }
-    
-
-    
-    
-    if (!self.dataObject.openCustomer) {
-        
-//        NSIndexPath *indexPath = [self.tableView indexPathForCell:self.billToPostalCell];
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:6 inSection:4];
-//        NSArray *indexPaths = [NSArray arrayWithObjects:indexPath, nil];
-//        self.billToPostalCell = nil;
-//        [self.tableView beginUpdates];
-//        [self loadData];
-//        [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-//        [self.tableView endUpdates];
-    }
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -245,34 +228,34 @@
 }
 
 #pragma mark - Methods to handle hiding of rows from http://stackoverflow.com/questions/8260267/uitableview-set-to-static-cells-is-it-possible-to-hide-some-of-the-cells-progra/9434849#comment23095022_9434849
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED] && section > 2) {
-        return [super tableView:tableView numberOfRowsInSection:section] - (self.billToTextFields.count - NUMBER_OF_QB_ADDRESS_LINES);
-    } else {
-        return [super tableView:tableView numberOfRowsInSection:section];
-    }
-    
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Recalculate indexPath based on hidden cells
-    indexPath = [self offsetIndexPath:indexPath];
-    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-}
-
-- (NSIndexPath*)offsetIndexPath:(NSIndexPath*)indexPath
-{
-    int offsetSection = indexPath.section; // Also offset section if you intend to hide whole sections
-    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED] && offsetSection > 2) {
-        int numberOfCellsHiddenAbove = 0; // Calculate how many cells are hidden above the given indexPath.row
-        int offsetRow = indexPath.row + numberOfCellsHiddenAbove;
-        return [NSIndexPath indexPathForRow:offsetRow inSection:offsetSection];
-    } else {
-        return indexPath;
-    }
-}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED] && section > 2) {
+//        return [super tableView:tableView numberOfRowsInSection:section] - (self.billToTextFields.count - NUMBER_OF_QB_ADDRESS_LINES);
+//    } else {
+//        return [super tableView:tableView numberOfRowsInSection:section];
+//    }
+//    
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    // Recalculate indexPath based on hidden cells
+//    indexPath = [self offsetIndexPath:indexPath];
+//    return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+//}
+//
+//- (NSIndexPath*)offsetIndexPath:(NSIndexPath*)indexPath
+//{
+//    int offsetSection = indexPath.section; // Also offset section if you intend to hide whole sections
+//    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED] && offsetSection > 2) {
+//        int numberOfCellsHiddenAbove = 0; // Calculate how many cells are hidden above the given indexPath.row
+//        int offsetRow = indexPath.row + numberOfCellsHiddenAbove;
+//        return [NSIndexPath indexPathForRow:offsetRow inSection:offsetSection];
+//    } else {
+//        return indexPath;
+//    }
+//}
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -463,9 +446,17 @@
 {
     //get and save the image
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [self.captureImageButton setImage:image forState:UIControlStateNormal];
+//    [self.captureImageButton setImage:image forState:UIControlStateNormal];
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     self.customer.image = image;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)passConfirmDeleteButtonPress
+{
+    [self.dataObject deleteObject:self.dataObject.openCustomer];
+    self.dataObject.openCustomer = nil;
+    [self.confirmDeletePC dismissPopoverAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -528,8 +519,8 @@
     NSArray *customerBillToLines = [self.customer.primaryBillingAddress lines];
         
     NSInteger maxNumberOfLines = self.billToTextFields.count;
-    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED]) maxNumberOfLines = NUMBER_OF_QB_ADDRESS_LINES;
-        
+//    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED]) maxNumberOfLines = NUMBER_OF_QB_ADDRESS_LINES;
+    
     for (NSInteger i = 0; i < MIN(customerBillToLines.count, maxNumberOfLines) ; i++) {
         UILabel *label = self.billToTextFields[i];
         label.text = customerBillToLines[i];
@@ -634,7 +625,7 @@
 }
 
 #pragma mark - IB Methods
-- (IBAction)captureButtonPress:(UIButton *)sender {
+- (IBAction)captureButtonPress:(UIBarButtonItem *)sender {
     [self captureImage];
 }
 
@@ -661,9 +652,10 @@
 }
 
 - (IBAction)deleteButtonPress:(UIBarButtonItem *)sender {
-    [self.dataObject deleteObject:self.dataObject.openCustomer];
-    self.dataObject.openCustomer = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    SCConfirmDeleteVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
+    self.confirmDeletePC = [[UIPopoverController alloc] initWithContentViewController:vc];
+    vc.delegate = self;
+    [self.confirmDeletePC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (IBAction)doneButtonPress:(UIBarButtonItem *)sender {

@@ -1365,10 +1365,10 @@ Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed 
             </objects>
             <point key="canvasLocation" x="3345" y="-5045"/>
         </scene>
-        <!--Delete OrderVC-->
+        <!--Confirm DeleteVC-->
         <scene sceneID="w49-n4-40h">
             <objects>
-                <viewController storyboardIdentifier="SCDeleteOrderVC" id="WkX-hB-qR2" customClass="SCDeleteOrderVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SCConfirmDeleteVC" id="WkX-hB-qR2" customClass="SCConfirmDeleteVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6hx-zl-TYw">
                         <rect key="frame" x="0.0" y="20" width="540" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1395,7 +1395,7 @@ Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed 
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" text="If this order has not been synced to App Center, it will be gone forever. " id="W67-KQ-qKY">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" text="If this has not been synced to App Center, it will be gone forever. " id="W67-KQ-qKY">
                                 <rect key="frame" x="20" y="43" width="220" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -3397,6 +3397,11 @@ TURN INTO POPUP AFTER</string>
                                 <action selector="selectCustomerButtonPress:" destination="exW-dP-DF4" id="SY9-ba-BZm"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem title="Photo" id="UaQ-0Q-H7d">
+                            <connections>
+                                <action selector="captureButtonPress:" destination="exW-dP-DF4" id="LhX-yd-Ixp"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="fVZ-bi-oKW"/>
                         <barButtonItem title="Done" id="WyM-ug-sRB">
                             <connections>
@@ -3427,6 +3432,7 @@ TURN INTO POPUP AFTER</string>
                         <outlet property="billToPostalCell" destination="nZm-bj-cpk" id="f7X-8m-Mbj"/>
                         <outlet property="billToPostalTextField" destination="ERa-c4-AWJ" id="hDJ-sR-CVK"/>
                         <outlet property="billToStateTextField" destination="IEx-Gt-PPH" id="EdX-vY-INa"/>
+                        <outlet property="captureImageButton" destination="UaQ-0Q-H7d" id="1US-En-3Mv"/>
                         <outlet property="dbaNameTextField" destination="wqH-R1-abc" id="PKw-cV-PGg"/>
                         <outlet property="deleteButton" destination="uJq-j0-ajW" id="e4d-dn-JI6"/>
                         <outlet property="doneButton" destination="WyM-ug-sRB" id="Q7y-el-Gjd"/>

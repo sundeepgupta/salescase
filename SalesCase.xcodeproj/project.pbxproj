@@ -67,8 +67,8 @@
 		AE2928161714FF6D0094BE0F /* SCCustomerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927DC1714FF6D0094BE0F /* SCCustomerTableCell.m */; };
 		AE2928171714FF6D0094BE0F /* SCDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927DE1714FF6D0094BE0F /* SCDatePicker.m */; };
 		AE2928181714FF6D0094BE0F /* SCDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927DE1714FF6D0094BE0F /* SCDatePicker.m */; };
-		AE2928191714FF6D0094BE0F /* SCDeleteOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927E11714FF6D0094BE0F /* SCDeleteOrderVC.m */; };
-		AE29281A1714FF6D0094BE0F /* SCDeleteOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927E11714FF6D0094BE0F /* SCDeleteOrderVC.m */; };
+		AE2928191714FF6D0094BE0F /* SCConfirmDeleteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927E11714FF6D0094BE0F /* SCConfirmDeleteVC.m */; };
+		AE29281A1714FF6D0094BE0F /* SCConfirmDeleteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927E11714FF6D0094BE0F /* SCConfirmDeleteVC.m */; };
 		AE29281B1714FF6D0094BE0F /* SCEmailOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927E41714FF6D0094BE0F /* SCEmailOrderVC.m */; };
 		AE29281C1714FF6D0094BE0F /* SCEmailOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927E41714FF6D0094BE0F /* SCEmailOrderVC.m */; };
 		AE29281D1714FF6D0094BE0F /* SCFirstLaunchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927E71714FF6D0094BE0F /* SCFirstLaunchVC.m */; };
@@ -157,6 +157,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE02F8AD172B31890001C760 /* SCConfirmDeleteVCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCConfirmDeleteVCDelegate.h; sourceTree = "<group>"; };
 		AE29272E1714DCF00094BE0F /* SalesCase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalesCase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE2927311714DCF00094BE0F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AE2927331714DCF00094BE0F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -221,9 +222,8 @@
 		AE2927DD1714FF6D0094BE0F /* SCDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDatePicker.h; sourceTree = "<group>"; };
 		AE2927DE1714FF6D0094BE0F /* SCDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDatePicker.m; sourceTree = "<group>"; };
 		AE2927DF1714FF6D0094BE0F /* SCDatePickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDatePickerDelegate.h; sourceTree = "<group>"; };
-		AE2927E01714FF6D0094BE0F /* SCDeleteOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDeleteOrderVC.h; sourceTree = "<group>"; };
-		AE2927E11714FF6D0094BE0F /* SCDeleteOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDeleteOrderVC.m; sourceTree = "<group>"; };
-		AE2927E21714FF6D0094BE0F /* SCDeleteOrderVCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDeleteOrderVCDelegate.h; sourceTree = "<group>"; };
+		AE2927E01714FF6D0094BE0F /* SCConfirmDeleteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCConfirmDeleteVC.h; sourceTree = "<group>"; };
+		AE2927E11714FF6D0094BE0F /* SCConfirmDeleteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCConfirmDeleteVC.m; sourceTree = "<group>"; };
 		AE2927E31714FF6D0094BE0F /* SCEmailOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEmailOrderVC.h; sourceTree = "<group>"; };
 		AE2927E41714FF6D0094BE0F /* SCEmailOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEmailOrderVC.m; sourceTree = "<group>"; };
 		AE2927E51714FF6D0094BE0F /* SCEmailOrderVCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEmailOrderVCDelegate.h; sourceTree = "<group>"; };
@@ -599,9 +599,9 @@
 				AE2928511714FFBB0094BE0F /* SCOrdersVC.m */,
 				AE2928521714FFBB0094BE0F /* SCOrderTableCell.h */,
 				AE2928531714FFBB0094BE0F /* SCOrderTableCell.m */,
-				AE2927E01714FF6D0094BE0F /* SCDeleteOrderVC.h */,
-				AE2927E11714FF6D0094BE0F /* SCDeleteOrderVC.m */,
-				AE2927E21714FF6D0094BE0F /* SCDeleteOrderVCDelegate.h */,
+				AE2927E01714FF6D0094BE0F /* SCConfirmDeleteVC.h */,
+				AE2927E11714FF6D0094BE0F /* SCConfirmDeleteVC.m */,
+				AE02F8AD172B31890001C760 /* SCConfirmDeleteVCDelegate.h */,
 				AE2927E31714FF6D0094BE0F /* SCEmailOrderVC.h */,
 				AE2927E41714FF6D0094BE0F /* SCEmailOrderVC.m */,
 				AE2927E51714FF6D0094BE0F /* SCEmailOrderVCDelegate.h */,
@@ -769,7 +769,7 @@
 				AE2928131714FF6D0094BE0F /* SCCustomersVC.m in Sources */,
 				AE2928151714FF6D0094BE0F /* SCCustomerTableCell.m in Sources */,
 				AE2928171714FF6D0094BE0F /* SCDatePicker.m in Sources */,
-				AE2928191714FF6D0094BE0F /* SCDeleteOrderVC.m in Sources */,
+				AE2928191714FF6D0094BE0F /* SCConfirmDeleteVC.m in Sources */,
 				AE29281B1714FF6D0094BE0F /* SCEmailOrderVC.m in Sources */,
 				AE29281D1714FF6D0094BE0F /* SCFirstLaunchVC.m in Sources */,
 				AE29281F1714FF6D0094BE0F /* SCGlobal.m in Sources */,
@@ -831,7 +831,7 @@
 				AE2928141714FF6D0094BE0F /* SCCustomersVC.m in Sources */,
 				AE2928161714FF6D0094BE0F /* SCCustomerTableCell.m in Sources */,
 				AE2928181714FF6D0094BE0F /* SCDatePicker.m in Sources */,
-				AE29281A1714FF6D0094BE0F /* SCDeleteOrderVC.m in Sources */,
+				AE29281A1714FF6D0094BE0F /* SCConfirmDeleteVC.m in Sources */,
 				AE29281C1714FF6D0094BE0F /* SCEmailOrderVC.m in Sources */,
 				AE29281E1714FF6D0094BE0F /* SCFirstLaunchVC.m in Sources */,
 				AE2928201714FF6D0094BE0F /* SCGlobal.m in Sources */,

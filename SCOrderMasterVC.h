@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SCDeleteOrderVCDelegate.h"
+#import "SCConfirmDeleteVCDelegate.h"
 
 @class SCOrder;
 
-@interface SCOrderMasterVC : UITableViewController <SCDeleteOrderVCDelegate>
+@interface SCOrderMasterVC : UITableViewController <SCConfirmDeleteVCDelegate>
 
 
 //This is a work around for not being able to animate the detail view when order mode starts, when order mode views are fronted by a nav controller.  So I dropped the nav controller and now we have to keep track of the stack once order mode starts.

@@ -1,24 +1,24 @@
 //
-//  SCDeleteOrderVC.m
+//  SCConfirmDeleteVC.m
 //  SalesCaseAlpha
 //
 //  Created by Sundeep Gupta on 13-03-22.
 //  Copyright (c) 2013 Sundeep Gupta. All rights reserved.
 //
 
-#import "SCDeleteOrderVC.h"
+#import "SCConfirmDeleteVC.h"
 #import "SCGlobal.h"
 #import "SCOrderMasterVC.h"
 #import "SCDataObject.h"
 
-@interface SCDeleteOrderVC ()
+@interface SCConfirmDeleteVC ()
 
 @property (strong, nonatomic) SCGlobal *global;
 
 
 @end
 
-@implementation SCDeleteOrderVC
+@implementation SCConfirmDeleteVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +33,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.title = @"Delete Order";
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,7 +51,7 @@
 
 #pragma mark - IB Methods
 - (IBAction)confirmDeleteButtonPress:(UIButton *)sender {
-    [sender setTitle:@"Order Deleted" forState:UIControlStateNormal];
+    [sender setTitle:@"Deleting" forState:UIControlStateNormal];
     [self.delegate passConfirmDeleteButtonPress];
 }
 

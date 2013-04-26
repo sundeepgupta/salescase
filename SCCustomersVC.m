@@ -53,6 +53,7 @@
     
     if (self.global.dataObject.openOrder) {
         self.title = @"Select Customer";
+        self.navigationItem.rightBarButtonItem = nil;
     } else {
         //get titles
         UINavigationController *masterNC = self.splitViewController.viewControllers[0];
@@ -232,5 +233,16 @@
     SCCustomerDetailVC *vc = (SCCustomerDetailVC *)nc.topViewController;
     vc.delegate = self;
     [self presentViewController:nc animated:YES completion:nil];
+    
+    
+//    SCCustomerDetailVC *vc;
+//    if (self.global.dataObject.openOrder) {
+//        vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCCustomerDetailVC class])];
+//        
+//    } else {
+//        vc = (SCCustomerDetailVC *)nc.topViewController;
+//    }
+
+    
 }
 @end

@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import "SCDeleteOrderVCDelegate.h"
+#import "SCConfirmDeleteVCDelegate.h"
 #import "SCEmailOrderVCDelegate.h"
 
 
 @class SCOrder;
 
-@interface SCOrderPDFVC : UIViewController <MFMailComposeViewControllerDelegate, SCDeleteOrderVCDelegate, SCEmailOrderVCDelegate>
+@interface SCOrderPDFVC : UIViewController <MFMailComposeViewControllerDelegate, SCConfirmDeleteVCDelegate, SCEmailOrderVCDelegate>
 
 @property (strong, nonatomic) SCOrder *order;
 

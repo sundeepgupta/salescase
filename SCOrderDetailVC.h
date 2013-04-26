@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SCDeleteOrderVCDelegate.h"
+#import "SCConfirmDeleteVCDelegate.h"
 
 @class SCOrder;
 
-@interface SCOrderDetailVC : UIViewController <SCDeleteOrderVCDelegate>
+@interface SCOrderDetailVC : UIViewController <SCConfirmDeleteVCDelegate>
 
 @property (strong, nonatomic) SCOrder *order;
 

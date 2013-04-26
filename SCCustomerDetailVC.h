@@ -10,10 +10,12 @@
 #import "SCPopoverTableDelegate.h"
 #import "SCCustomersVCDelegate.h"
 #import "SCCustomerDetailVCDelegate.h"
+#import "SCConfirmDeleteVC.h"
 
 @class SCCustomer, SCAddress, SCOrder;
 
-@interface SCCustomerDetailVC : UITableViewController <SCPopoverTableDelegate, SCCustomersVCDelegate, UIPopoverControllerDelegate, UIAlertViewDelegate> //UIImagePickerControllerDelegate, UINavigationControllerDelegate are for capturing a photo via camera
+@interface SCCustomerDetailVC : UITableViewController <SCPopoverTableDelegate, SCCustomersVCDelegate, UIPopoverControllerDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SCConfirmDeleteVCDelegate>
+//UIImagePickerControllerDelegate, UINavigationControllerDelegate are for capturing a photo via camera
 
 @property (strong, nonatomic) SCCustomer *customer;
 @property (weak, nonatomic) id <SCCustomerDetailVCDelegate> delegate;
