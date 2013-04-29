@@ -67,9 +67,9 @@
     self.dataObject = self.global.dataObject;
     
     //Apply a border around the notes field, otherwise can't see it.
-    self.notesTextView.layer.borderWidth = 1.0;
-    self.notesTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.notesTextView.layer.cornerRadius = 10;
+//    self.notesTextView.layer.borderWidth = 1.0;
+//    self.notesTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+//    self.notesTextView.layer.cornerRadius = 10;
     
 }
 
