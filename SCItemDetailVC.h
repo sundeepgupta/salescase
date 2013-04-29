@@ -11,7 +11,7 @@
 
 @class SCItem, SCLine;
 
-@interface SCItemDetailVC : UIViewController
+@interface SCItemDetailVC : UITableViewController
 
 @property (strong, nonatomic) SCItem *item;
 @property (strong, nonatomic) SCLine *line;

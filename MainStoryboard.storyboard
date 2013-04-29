@@ -828,10 +828,10 @@ or 1-888-680-1480</string>
             </objects>
             <point key="canvasLocation" x="1174" y="-3179"/>
         </scene>
-        <!--Item DetailVC-->
+        <!--View Controller-->
         <scene sceneID="9e4-90-eS7">
             <objects>
-                <viewController storyboardIdentifier="SCItemDetailVC" id="ZBK-GF-1rA" customClass="SCItemDetailVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" id="ZBK-GF-1rA" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="csS-OH-JLI">
                         <rect key="frame" x="0.0" y="64" width="703" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -905,21 +905,6 @@ Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed 
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EvK-gI-9q7">
-                                <rect key="frame" x="483" y="295" width="200" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Add To Order">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveToOrderButtonPress:" destination="ZBK-GF-1rA" eventType="touchUpInside" id="1ig-h8-RFl"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5J0-fq-ASv">
                                 <rect key="frame" x="483" y="597" width="200" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -944,21 +929,6 @@ Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed 
                                     <outlet property="delegate" destination="ZBK-GF-1rA" id="fuP-nT-CNL"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nTU-1m-gFn">
-                                <rect key="frame" x="20" y="295" width="200" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Delete">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="deleteButtonPress:" destination="ZBK-GF-1rA" eventType="touchUpInside" id="oIu-3b-8ra"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -982,7 +952,7 @@ Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed 
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PvL-gS-VHe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1970" y="-3179"/>
+            <point key="canvasLocation" x="2663" y="-3179"/>
         </scene>
         <!--OrdersVC-->
         <scene sceneID="OuT-QO-xA8">
@@ -3238,7 +3208,7 @@ TURN INTO POPUP AFTER</string>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="bwR-Eu-NcK">
-                        <barButtonItem key="rightBarButtonItem" title="New Order" id="h5l-4p-8wn">
+                        <barButtonItem key="rightBarButtonItem" title="New Order With Customer" id="h5l-4p-8wn">
                             <connections>
                                 <action selector="addOrderButtonPress:" destination="exW-dP-DF4" id="Lia-4P-ddx"/>
                             </connections>
@@ -3697,6 +3667,209 @@ TURN INTO POPUP AFTER</string>
             </objects>
             <point key="canvasLocation" x="1948" y="-2263"/>
         </scene>
+        <!--Item DetailVC-->
+        <scene sceneID="PqO-Ia-KvB">
+            <objects>
+                <tableViewController storyboardIdentifier="SCItemDetailVC" id="2Sp-1o-SWI" customClass="SCItemDetailVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="XMF-ZO-zKe">
+                        <rect key="frame" x="0.0" y="64" width="703" height="660"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <sections>
+                            <tableViewSection id="xBN-mb-Syi">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="58" id="xtp-4c-yA5">
+                                        <rect key="frame" x="0.0" y="30" width="703" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="43" y="1" width="617" height="57"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Quantity Ordered" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bJm-ld-egq">
+                                                    <rect key="frame" x="20" y="18" width="129" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="always" id="G2r-Cy-qrG">
+                                                    <rect key="frame" x="157" y="14" width="124" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="2Sp-1o-SWI" id="yyk-4n-0yH"/>
+                                                    </connections>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EvK-gI-9q7">
+                                                    <rect key="frame" x="447" y="7" width="150" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="Add To Order">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="saveToOrderButtonPress:" destination="ZBK-GF-1rA" eventType="touchUpInside" id="1ig-h8-RFl"/>
+                                                        <action selector="saveToOrderButtonPress:" destination="2Sp-1o-SWI" eventType="touchUpInside" id="nT4-bf-7pd"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nTU-1m-gFn">
+                                                    <rect key="frame" x="289" y="7" width="150" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="Delete">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteButtonPress:" destination="2Sp-1o-SWI" eventType="touchUpInside" id="4kn-Lr-cBh"/>
+                                                        <action selector="deleteButtonPress:" destination="ZBK-GF-1rA" eventType="touchUpInside" id="oIu-3b-8ra"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="cKB-mW-gHw">
+                                <cells>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="mB7-MD-sw6">
+                                        <rect key="frame" x="0.0" y="110" width="703" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="43" y="1" width="617" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JJW-pG-ukZ">
+                                                    <rect key="frame" x="20" y="11" width="129" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="cQh-KS-OEb">
+                                                    <rect key="frame" x="157" y="7" width="440" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="8Tu-L9-C7G">
+                                        <rect key="frame" x="0.0" y="155" width="703" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="43" y="0.0" width="617" height="99"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6WY-gl-ZZL">
+                                                    <rect key="frame" x="20" y="39" width="129" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="Htw-uq-kGa">
+                                                    <rect key="frame" x="157" y="7" width="440" height="86"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="done"/>
+                                                </textView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hiP-DF-ZhQ">
+                                        <rect key="frame" x="0.0" y="255" width="703" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="43" y="0.0" width="617" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hRe-zy-PSR">
+                                                    <rect key="frame" x="20" y="11" width="129" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="Kb5-JN-dfR">
+                                                    <rect key="frame" x="157" y="7" width="440" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="4ev-VG-Xyw">
+                                        <rect key="frame" x="0.0" y="299" width="703" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="43" y="0.0" width="617" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Quantity On Hand" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ePB-pF-aEI">
+                                                    <rect key="frame" x="20" y="11" width="129" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="jfa-o8-BYh">
+                                                    <rect key="frame" x="157" y="7" width="440" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="hnk-De-WTH">
+                        <barButtonItem key="rightBarButtonItem" title="New Order With Item" id="bHE-TJ-jEA">
+                            <connections>
+                                <action selector="startOrderButtonPress:" destination="2Sp-1o-SWI" id="p2c-3d-bB0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="deleteButton" destination="nTU-1m-gFn" id="Y0V-ka-jMd"/>
+                        <outlet property="descriptionTextView" destination="Htw-uq-kGa" id="0rK-6O-bJp"/>
+                        <outlet property="nameLabel" destination="cQh-KS-OEb" id="3nw-kK-UR8"/>
+                        <outlet property="priceLabel" destination="Kb5-JN-dfR" id="owI-I9-5Q0"/>
+                        <outlet property="quantityOnHandLabel" destination="jfa-o8-BYh" id="VBc-aW-SxX"/>
+                        <outlet property="quantityOrderedCell" destination="xtp-4c-yA5" id="EwG-nW-PGb"/>
+                        <outlet property="quantityOrderedTextField" destination="G2r-Cy-qrG" id="3x4-qI-OQe"/>
+                        <outlet property="saveToOrderButton" destination="EvK-gI-9q7" id="Gim-jd-2vc"/>
+                        <outlet property="startOrderButton" destination="bHE-TJ-jEA" id="949-xi-Zw2"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hlv-mo-y9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1918" y="-3179"/>
+        </scene>
     </scenes>
     <classes>
         <class className="SCConfirmDeleteVC" superclassName="UIViewController">
@@ -3709,6 +3882,7 @@ TURN INTO POPUP AFTER</string>
                 <relationship kind="action" name="captureButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="deleteButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="doneButtonPress:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="editButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="nextButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="selectCustomerButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="addOrderButton" candidateClass="UIBarButtonItem"/>
@@ -3792,6 +3966,9 @@ TURN INTO POPUP AFTER</string>
         </class>
         <class className="SCFirstLaunchVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCFirstLaunchVC.h"/>
+            <relationships>
+                <relationship kind="action" name="closeButtonPress:" candidateClass="UIBarButtonItem"/>
+            </relationships>
         </class>
         <class className="SCIntuitLoginPopoverVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginPopoverVC.h"/>
@@ -3799,6 +3976,7 @@ TURN INTO POPUP AFTER</string>
         <class className="SCIntuitLoginVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginVC.h"/>
             <relationships>
+                <relationship kind="action" name="finishedIntuitLoginButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="finishedIntuitLoginButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
@@ -3822,19 +4000,22 @@ TURN INTO POPUP AFTER</string>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
-        <class className="SCItemDetailVC" superclassName="UIViewController">
+        <class className="SCItemDetailVC" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemDetailVC.h"/>
             <relationships>
+                <relationship kind="action" name="deleteButtonPress:" candidateClass="UIButton"/>
+                <relationship kind="action" name="saveToOrderButtonPress:" candidateClass="UIButton"/>
+                <relationship kind="action" name="startOrderButtonPress:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnSalesOrderLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="priceLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="quantityOrderedCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="quantityOrderedTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="quantityOrderedTitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="saveToOrderButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="startOrderButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="startOrderButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="SCItemTableCell" superclassName="UITableViewCell">
@@ -3849,7 +4030,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCItemsVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemsVC.h"/>
             <relationships>
-                <relationship kind="action" name="closeModalButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -3910,6 +4090,7 @@ TURN INTO POPUP AFTER</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsVC.h"/>
             <relationships>
                 <relationship kind="action" name="nextButtonPress:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="statusControlValueChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="poNumberTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="repCell" candidateClass="UITableViewCell"/>

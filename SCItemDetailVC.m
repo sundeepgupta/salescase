@@ -15,25 +15,22 @@
 #import "SCOrder.h"
 #import "SCOrderMasterVC.h"
 
-
 @interface SCItemDetailVC ()
 
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCDataObject *dataObject;
 
 //IB Stuff
-@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UITextField *nameLabel;
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property (strong, nonatomic) IBOutlet UILabel *priceLabel;
-@property (strong, nonatomic) IBOutlet UILabel *quantityOnHandLabel;
-@property (strong, nonatomic) IBOutlet UILabel *quantityOnSalesOrderLabel;
+@property (strong, nonatomic) IBOutlet UITextField *priceLabel;
+@property (strong, nonatomic) IBOutlet UITextField *quantityOnHandLabel;
+
 @property (strong, nonatomic) IBOutlet UITextField *quantityOrderedTextField;
 @property (strong, nonatomic) IBOutlet UIButton *deleteButton;
-@property (strong, nonatomic) IBOutlet UIButton *startOrderButton;
-
-
-
-@property (strong, nonatomic) IBOutlet UILabel *quantityOrderedTitleLabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *startOrderButton;
+@property (strong, nonatomic) IBOutlet UITableViewCell *quantityOrderedCell;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 
 @end
 
@@ -58,11 +55,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     //workaround to change height of text field.
-    self.quantityOrderedTextField.borderStyle = UITextBorderStyleRoundedRect;
+//    self.quantityOrderedTextField.borderStyle = UITextBorderStyleRoundedRect;
     
     if (self.global.dataObject.openOrder) {
         self.title = @"Enter Quantity";
-        self.startOrderButton.hidden = YES;
+        self.navigationItem.rightBarButtonItem = nil; //hide the new order button
 
         [self.quantityOrderedTextField selectAll:self.quantityOrderedTextField]; //not actually selecting the text, dont' know whats wrong. Its not crucial.
         
@@ -75,19 +72,21 @@
         if (self.isEditLineMode) {
             self.title = @"Edit Line Item";
             [self.saveToOrderButton setTitle:@"Save" forState:UIControlStateNormal];
+            
+            self.quantityOrderedTextField.returnKeyType = UIReturnKeyDone;
+            
             //create and add left bar button item
             UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self.delegate action:@selector(dismissModal)];
             self.navigationItem.leftBarButtonItem = cancelButton;
+            
+            
         } else { //normally adding to cart so hide delete button
             self.deleteButton.hidden = YES;
+
         }
     } else {
-        //Hide the Add to Order stuff      
-        self.saveToOrderButton.hidden = YES;
-        self.quantityOrderedTextField.hidden = YES;
-        self.quantityOrderedTitleLabel.hidden = YES;
-        self.deleteButton.hidden = YES;
-    }
+
+            }
     
     [self loadData];
 }
@@ -108,15 +107,21 @@
     [self setNameLabel:nil];
     [self setDescriptionTextView:nil];
     [self setPriceLabel:nil];
-    [self setQuantityOnSalesOrderLabel:nil];
     [self setQuantityOrderedTextField:nil];
     [self setSaveToOrderButton:nil];
-    [self setQuantityOrderedTitleLabel:nil];
     [self setQuantityOnHandLabel:nil];
     [self setDeleteButton:nil];
-
     [self setStartOrderButton:nil];
+    [self setQuantityOrderedCell:nil];
+    [self setCancelButton:nil];
     [super viewDidUnload];
+}
+
+#pragma mark - TableView Datasource delegates
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{ //implementing to remove the order quantity cell.  Be aware, the space for the header remains.
+    if (!self.dataObject.openOrder && section == 0) return 0;
+    else return [super tableView:tableView numberOfRowsInSection:section];
 }
 
 #pragma mark - TextField Delegates
@@ -192,14 +197,12 @@
         self.descriptionTextView.text = self.line.item.itemDescription;
         self.priceLabel.text = [NSString stringWithFormat:@"$%.2f", self.line.item.price.floatValue];
         self.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", [self.line.item.quantityOnHand stringValue]];
-        self.quantityOnSalesOrderLabel.text = [NSString stringWithFormat:@"%@", self.line.item.quantityOnSalesOrder];
         self.quantityOrderedTextField.text = [self.line.quantity stringValue];
     } else { //new item
         self.nameLabel.text = self.item.name;
         self.descriptionTextView.text = self.item.itemDescription;
         self.priceLabel.text = [NSString stringWithFormat:@"$%.2f", self.item.price.floatValue];
         self.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", [self.item.quantityOnHand stringValue]];
-        self.quantityOnSalesOrderLabel.text = [NSString stringWithFormat:@"%@", self.item.quantityOnSalesOrder];
     }
 }
 
