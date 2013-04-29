@@ -263,6 +263,9 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     if ([cell isEqual:self.repCell] || [cell isEqual:self.termsCell]) {
+        //dismiss keyboard
+        [self.view endEditing:YES];
+        
         NSString *objectType;
         
         if ([cell isEqual:self.repCell]) objectType = ENTITY_SCSALESREP;
@@ -410,6 +413,9 @@
     }
     [self.popoverTablePC dismissPopoverAnimated:YES];
     [self.dataObject saveContext];
+    
+    //deselect the cell
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)passCustomer:(SCCustomer *)customer
@@ -433,13 +439,8 @@
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-//    for (NSInteger sectionNumber = 0; sectionNumber < self.sections.count; sectionNumber++) {
-//        NSArray *sectionRows = self.sections[sectionNumber][SECTION_ROWS];
-//        for (NSInteger rowNumber = 0; rowNumber < sectionRows.count; rowNumber++) {
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowNumber inSection:sectionNumber];
-//            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-//        }
-//    }
+    //deselect the cell
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
