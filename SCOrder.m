@@ -34,7 +34,7 @@
 @dynamic shipMethod;
 @dynamic emailQueue;
 
-- (float)totalAmount
+- (CGFloat)totalAmount
 {
     float total=0;
     for(SCLine *line in self.lines)

@@ -26,7 +26,7 @@
 //IB Stuff
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) IBOutlet UILabel *orderTotalLabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *orderTotal;
 
 @end
 
@@ -91,7 +91,6 @@
 }
 
 - (void)viewDidUnload {
-    [self setOrderTotalLabel:nil];
     [super viewDidUnload];
 }
 
@@ -120,8 +119,8 @@
     cell.nameLabel.text = line.item.name;
     cell.descriptionLabel.text = line.item.itemDescription;
     cell.quantityLabel.text = [line.quantity stringValue];
-    cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [line.item.price floatValue]];
-    cell.amountLabel.text = [NSString stringWithFormat:@"$%.2f", [line amount]];
+    cell.priceLabel.text = [SCGlobal stringFromDollarAmount:[line.item.price floatValue]];
+    cell.amountLabel.text = [SCGlobal stringFromDollarAmount:[line amount]];
 
     return cell; 
 }
@@ -179,7 +178,9 @@
     //fetch lines for openOrder and reload table
     self.lines = self.dataObject.openOrder.lines.allObjects;
     [self.tableView reloadData];
-    self.orderTotalLabel.text = [NSString stringWithFormat:@"Total $%.2f", [self.dataObject.openOrder totalAmount]];    
+    
+    NSString *orderTotalString = [NSString stringWithFormat:@"Total %@", [SCGlobal stringFromDollarAmount:[self.dataObject.openOrder totalAmount]]];
+    [self.orderTotal setTitle:orderTotalString];
 }
 
 - (void)presentItemList

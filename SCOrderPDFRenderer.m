@@ -308,7 +308,7 @@ static CGFloat const klineHeight = 14;
 
 - (void)addLastPageElements
 {
-    self.total.text =[NSString stringWithFormat:@"Total $%.2f", [self.order totalAmount]];
+    self.total.text =[SCGlobal stringFromDollarAmount:[self.order totalAmount]];
     self.notes.text = self.order.orderDescription;
     self.pageNumber.text = [NSString stringWithFormat:@"Page %d", self.currentPage];
 
@@ -376,8 +376,8 @@ static CGFloat const klineHeight = 14;
     NSString *nameText = line.item.name;
     NSString *descriptionText = line.item.itemDescription;
     NSString *quantityText = line.quantity.stringValue;
-    NSString *priceText = [NSString stringWithFormat:@"$%.2f", line.item.price.floatValue];
-    NSString *amountText = [NSString stringWithFormat:@"$%.2f", [line amount]];
+    NSString *priceText = [SCGlobal stringFromDollarAmount:line.item.price.floatValue];
+    NSString *amountText = [SCGlobal stringFromDollarAmount:[line amount]];
     
     CGFloat nameWidth =  self.itemNameHeader.frame.size.width;
     CGFloat descriptionWidth = self.itemDescriptionHeader.frame.size.width;

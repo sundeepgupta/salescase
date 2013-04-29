@@ -108,7 +108,7 @@
     cell.orderId.text = [NSString stringWithFormat:@"%@", [order.scOrderId stringValue]];
     cell.status.text = [order singleLetterStatus];
     cell.companyName.text = order.customer.dbaName;
-    cell.total.text = [NSString stringWithFormat:@"$%.2f", [order totalAmount]];
+    cell.total.text = [SCGlobal stringFromDollarAmount:[order totalAmount]];
 
     return cell;
 }

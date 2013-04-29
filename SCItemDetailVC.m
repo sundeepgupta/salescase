@@ -195,13 +195,13 @@
     if (self.isEditLineMode) {
         self.nameLabel.text = self.line.item.name;
         self.descriptionTextView.text = self.line.item.itemDescription;
-        self.priceLabel.text = [NSString stringWithFormat:@"$%.2f", self.line.item.price.floatValue];
+        self.priceLabel.text = [SCGlobal stringFromDollarAmount:self.line.item.price.floatValue];
         self.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", [self.line.item.quantityOnHand stringValue]];
         self.quantityOrderedTextField.text = [self.line.quantity stringValue];
     } else { //new item
         self.nameLabel.text = self.item.name;
         self.descriptionTextView.text = self.item.itemDescription;
-        self.priceLabel.text = [NSString stringWithFormat:@"$%.2f", self.item.price.floatValue];
+        self.priceLabel.text = [SCGlobal stringFromDollarAmount:self.item.price.floatValue];
         self.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", [self.item.quantityOnHand stringValue]];
     }
 }

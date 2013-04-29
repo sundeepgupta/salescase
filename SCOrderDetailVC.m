@@ -157,8 +157,8 @@
     cell.nameLabel.text = line.item.name;
     cell.descriptionLabel.text = line.item.itemDescription;
     cell.quantityLabel.text = [line.quantity stringValue];
-    cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [line.item.price floatValue]];
-    cell.amountLabel.text = [NSString stringWithFormat:@"$%.2f", [line amount]];
+    cell.priceLabel.text = [SCGlobal stringFromDollarAmount:[line.item.price floatValue]];
+    cell.amountLabel.text = [SCGlobal stringFromDollarAmount:[line amount]];
 
     return cell;
 }

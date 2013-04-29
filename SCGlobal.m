@@ -69,6 +69,12 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
-
++(NSString *)stringFromDollarAmount:(CGFloat)amount
+{
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    NSString *amountString = [formatter stringFromNumber:[NSNumber numberWithFloat:amount]];
+    return amountString;
+}
 
 @end

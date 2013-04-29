@@ -103,7 +103,7 @@
     //don't need to alloc init the labels since they're built in IB and have outlets to the class.
     cell.nameLabel.text = item.name;
     cell.descriptionLabel.text = item.itemDescription;
-    cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", item.price.floatValue];
+    cell.priceLabel.text = [SCGlobal stringFromDollarAmount:item.price.floatValue];
     cell.quantityOnHandLabel.text = [NSString stringWithFormat:@"%d", item.quantityOnHand.intValue];
     
     return cell;
