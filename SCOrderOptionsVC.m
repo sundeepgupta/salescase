@@ -11,7 +11,7 @@
 #import "SCDataObject.h"
 #import "SCOrderMasterVC.h"
 #import <QuartzCore/QuartzCore.h>
-#import "SCOrderOptionsSelectTableVC.h"
+#import "SCPopoverTableVC.h"
 #import "SCDatePicker.h"
 
 #import "SCCustomer.h"
@@ -23,25 +23,30 @@
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCDataObject *dataObject;
 
-@property (strong, nonatomic) NSArray *controlMap;
-@property (strong, nonatomic) NSString *controlName;
-@property (strong, nonatomic) NSString *controlValue;
-@property (strong, nonatomic) NSString *orderProperty;
-@property (strong, nonatomic) NSString *orderPropertyValue;
-@property (strong, nonatomic) NSString *emptySelctionString;
 
 //Popover Controllers
-@property (strong, nonatomic) UIPopoverController *selectTablePC;
+@property (strong, nonatomic) UIPopoverController *popoverTablePC;
 @property (strong, nonatomic) UIPopoverController *datePickerPC;
 
-//IB Stuff
-@property (strong, nonatomic) IBOutlet UIButton *repButton;
-@property (strong, nonatomic) IBOutlet UIButton *termsButton;
-@property (strong, nonatomic) IBOutlet UIButton *shipViaButton;
-@property (strong, nonatomic) IBOutlet UIButton *shipDateButton;
+//IB
+//Values
+@property (strong, nonatomic) IBOutlet UILabel *repLabel;
+@property (strong, nonatomic) IBOutlet UILabel *termsLabel;
+@property (strong, nonatomic) IBOutlet UILabel *shipViaLabel;
+@property (strong, nonatomic) IBOutlet UILabel *shipDateLabel;
 @property (strong, nonatomic) IBOutlet UITextField *poNumberTextField;
 @property (strong, nonatomic) IBOutlet UITextView *notesTextView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *statusControl;
+
+//Cells
+@property (strong, nonatomic) IBOutlet UITableViewCell *repCell;
+@property (strong, nonatomic) IBOutlet UITableViewCell *termsCell;
+@property (strong, nonatomic) IBOutlet UITableViewCell *shipViaCell;
+@property (strong, nonatomic) IBOutlet UITableViewCell *shipDateCell;
+
+//Collections
+@property (nonatomic, strong) IBOutletCollection(UITableViewCell) NSArray *popoverCells;
+
 @end
 
 @implementation SCOrderOptionsVC
@@ -66,7 +71,6 @@
     self.notesTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
     self.notesTextView.layer.cornerRadius = 10;
     
-    self.emptySelctionString = @"-";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,25 +86,7 @@
         self.statusControl.alpha = UI_DISABLED_ALPHA;
     }
     
-    //Load view data based on existing open order.
-    if (self.dataObject.openOrder.salesRep)
-        [self.repButton setTitle:self.dataObject.openOrder.salesRep.name forState:UIControlStateNormal];
-    if (self.dataObject.openOrder.salesTerm)
-        [self.termsButton setTitle:self.dataObject.openOrder.salesTerm.name forState:UIControlStateNormal];
-    if (self.dataObject.openOrder.shipDate)
-        [self.shipDateButton setTitle:[SCGlobal stringFromDate:self.dataObject.openOrder.shipDate] forState:UIControlStateNormal];
-    if (self.dataObject.openOrder.shipMethod)
-        [self.shipViaButton setTitle:self.dataObject.openOrder.shipMethod.name forState:UIControlStateNormal];
-    if (self.dataObject.openOrder.poNumber)
-        self.poNumberTextField.text = self.dataObject.openOrder.poNumber;
-    if (self.dataObject.openOrder.orderDescription)
-        self.notesTextView.text = self.dataObject.openOrder.orderDescription;
-    if (self.dataObject.openOrder.confirmed)
-        self.statusControl.selectedSegmentIndex = 1;
-    else
-        self.statusControl.selectedSegmentIndex = 0;
-    
-    
+    [self loadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -109,11 +95,6 @@
     UINavigationController *masterNC = self.splitViewController.viewControllers[0];
     SCOrderMasterVC *masterVC = (SCOrderMasterVC *)masterNC.topViewController;
     [masterVC processAppearedDetailVC:self]; 
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -131,14 +112,36 @@
 - (void)viewDidUnload {
     [self setPoNumberTextField:nil];
     [self setNotesTextView:nil];
-    [self setRepButton:nil];
-    [self setTermsButton:nil];
-    [self setShipViaButton:nil];
-    [self setShipDateButton:nil];
-
     [super viewDidUnload];
 }
 
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    if ([cell isEqual:self.repCell] || [cell isEqual:self.termsCell] || [cell isEqual:self.shipViaCell]) {
+        //dismiss keyboard
+        [self.view endEditing:YES];
+        
+        NSString *objectType;
+        
+        if ([cell isEqual:self.repCell]) objectType = ENTITY_SCSALESREP;
+        else if ([cell isEqual:self.termsCell]) objectType = ENTITY_SCSALESTERM;
+        else objectType = ENTITY_SCSHIPMETHOD;
+        
+        NSArray *dataArray = [self.dataObject fetchAllObjectsOfType:objectType];
+        [self showPopoverTableWithArray:dataArray withObjectType:objectType fromCell:cell];
+        
+    } else if ([cell isEqual:self.shipDateCell]) {
+        SCDatePicker *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCDatePicker"];
+        self.datePickerPC = [[UIPopoverController alloc] initWithContentViewController:vC];
+        self.datePickerPC.delegate = self;
+        vC.myPC = self.datePickerPC;
+        vC.delegate = self;
+        [self.datePickerPC presentPopoverFromRect:cell.bounds inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+}
 
 #pragma mark - TextField delegates
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -170,43 +173,103 @@
     [self.dataObject saveOrder:self.dataObject.openOrder];
 }
 
-- (void)showSelectTableWithDataArray:(NSArray *)dataArray andButtonObjectType:(NSString *)buttonObjectType  fromButton:(UIButton *)button
+- (void)showPopoverTableWithArray:(NSArray *)dataArray withObjectType:(NSString *)objectType fromCell:(UITableViewCell *)cell
 {
-    SCOrderOptionsSelectTableVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCOrderOptionsSelectTableVC"];
-    self.selectTablePC = [[UIPopoverController alloc] initWithContentViewController:vC];
-    vC.myPC = self.selectTablePC;
+    SCPopoverTableVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCPopoverTableVC class])]; 
     vC.dataArray = dataArray;
-    vC.buttonObjectType = buttonObjectType;
-    vC.emptySelctionString = self.emptySelctionString;
+    vC.objectType = objectType;
     vC.delegate = self;
-    [self.selectTablePC presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
+    self.popoverTablePC = [[UIPopoverController alloc] initWithContentViewController:vC]; 
+    self.popoverTablePC.delegate = self;  
+    [self.popoverTablePC presentPopoverFromRect:cell.bounds inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+#pragma mark - Protocol methods
+- (void)passObject:(id)object withObjectType:(NSString *)objectType
+{
+    if (objectType == ENTITY_SCSALESREP) {
+        if ([object isKindOfClass:[NSString class]]) {
+            self.repLabel.text = object;
+            self.dataObject.openOrder.salesRep = nil;
+        } else {
+            SCSalesRep *castedObject = (SCSalesRep *)object;
+            self.repLabel.text = castedObject.name;
+            self.dataObject.openOrder.salesRep = object;
+        }
+     } else if (objectType == ENTITY_SCSALESTERM) {
+         if ([object isKindOfClass:[NSString class]]) {
+             self.termsLabel.text = object;
+             self.dataObject.openOrder.salesTerm = nil;
+         } else {
+            SCSalesTerm *castedObject = (SCSalesTerm *)object;
+            self.termsLabel.text = castedObject.name;
+             self.dataObject.openOrder.salesTerm = object;
+         }
+    } else if (objectType == ENTITY_SCSHIPMETHOD) {
+        if ([object isKindOfClass:[NSString class]]) {
+            self.shipViaLabel.text = object;
+            self.dataObject.openOrder.shipMethod = nil;
+        } else {
+            SCShipMethod *castedObject = (SCShipMethod *)object;
+            self.shipViaLabel.text = castedObject.name;
+            self.dataObject.openOrder.shipMethod = object;
+        }
+    } else {
+        NSLog(@"Button object type passed back from the table is not being handled for in passObject method.");
+    }
+    [self.dataObject saveOrder:self.dataObject.openOrder];
+    [self.popoverTablePC dismissPopoverAnimated:YES];
+    
+    [self deselectSelectedRow];
+}
+
+- (void)passDate:(NSDate *)date
+{
+    if (date) {
+        self.shipDateLabel.text = [SCGlobal stringFromDate:date];
+    } else {
+        self.shipDateLabel.text = EMPTY_SELECTION_STRING;
+    }
+    self.dataObject.openOrder.shipDate = date;
+    [self.dataObject saveOrder:self.dataObject.openOrder];
+    
+    [self deselectSelectedRow];
+}
+
+#pragma mark - Custom methods
+- (void)loadData
+{
+    if (self.dataObject.openOrder.salesRep) self.repLabel.text = self.dataObject.openOrder.salesRep.name;
+    if (self.dataObject.openOrder.salesTerm)
+        self.termsLabel.text = self.dataObject.openOrder.salesTerm.name;
+    if (self.dataObject.openOrder.shipDate)
+        self.shipDateLabel.text = [SCGlobal stringFromDate:self.dataObject.openOrder.shipDate];
+    if (self.dataObject.openOrder.shipMethod)
+        self.shipViaLabel.text = self.dataObject.openOrder.shipMethod.name;
+    if (self.dataObject.openOrder.poNumber)
+        self.poNumberTextField.text = self.dataObject.openOrder.poNumber;
+    if (self.dataObject.openOrder.orderDescription)
+        self.notesTextView.text = self.dataObject.openOrder.orderDescription;
+    if (self.dataObject.openOrder.confirmed)
+        self.statusControl.selectedSegmentIndex = 1;
+    else
+        self.statusControl.selectedSegmentIndex = 0;
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    //deselect the cell
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
+- (void)deselectSelectedRow
+{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 #pragma mark - IB methods
-- (IBAction)salesRepButtonPress:(UIButton *)sender {
-    NSArray *dataArray = [self.global.dataObject fetchAllObjectsOfType:ENTITY_SCSALESREP];
-    [self showSelectTableWithDataArray:dataArray andButtonObjectType:ENTITY_SCSALESREP  fromButton:sender];
-}
-
-- (IBAction)termsButtonPress:(UIButton *)sender {
-    NSArray *dataArray = [self.global.dataObject fetchAllObjectsOfType:ENTITY_SCSALESTERM];
-    [self showSelectTableWithDataArray:dataArray andButtonObjectType:ENTITY_SCSALESTERM  fromButton:sender];
-}
-
-- (IBAction)shipViaButtonPress:(UIButton *)sender {
-    NSArray *dataArray = [self.global.dataObject fetchAllObjectsOfType:ENTITY_SCSHIPMETHOD];
-    [self showSelectTableWithDataArray:dataArray andButtonObjectType:ENTITY_SCSHIPMETHOD  fromButton:sender];
-}
-
-- (IBAction)shipDateButtonPress:(UIButton *)sender {
-    SCDatePicker *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCDatePicker"];
-    self.datePickerPC = [[UIPopoverController alloc] initWithContentViewController:vC];
-    vC.myPC = self.datePickerPC;
-    vC.delegate = self;
-    [self.datePickerPC presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
-
-- (IBAction)nextButtonPress:(UIButton *)sender {
+- (IBAction)nextButtonPress:(UIBarButtonItem *)sender {
     UIViewController *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCOrderPDFVC"];
     [self.navigationController pushViewController:vC animated:YES];
 }
@@ -242,51 +305,6 @@
     masterVC.title = [SCOrderMasterVC masterVCTitleFromOrder:self.dataObject.openOrder];
 }
 
-#pragma mark - Protocol methods
-- (void)passObject:(id)object withButtonObjectType:(NSString *)buttonObjectType
-{
-    if (buttonObjectType == ENTITY_SCSALESREP) {
-        if ([object isKindOfClass:[NSString class]]) {
-            [self.repButton setTitle:object forState:UIControlStateNormal];
-            self.dataObject.openOrder.salesRep = nil;
-        } else {
-            SCSalesRep *castedObject = (SCSalesRep *)object;
-            [self.repButton setTitle:castedObject.name forState:UIControlStateNormal];
-            self.dataObject.openOrder.salesRep = object;
-        }
-     } else if (buttonObjectType == ENTITY_SCSALESTERM) {
-         if ([object isKindOfClass:[NSString class]]) {
-             [self.termsButton setTitle:object forState:UIControlStateNormal];
-             self.dataObject.openOrder.salesTerm = nil;
-         } else {
-            SCSalesTerm *castedObject = (SCSalesTerm *)object;
-            [self.termsButton setTitle:castedObject.name forState:UIControlStateNormal];
-             self.dataObject.openOrder.salesTerm = object;
-         }
-    } else if (buttonObjectType == ENTITY_SCSHIPMETHOD) {
-        if ([object isKindOfClass:[NSString class]]) {
-            [self.shipViaButton setTitle:object forState:UIControlStateNormal];
-            self.dataObject.openOrder.shipMethod = nil;
-        } else {
-            SCShipMethod *castedObject = (SCShipMethod *)object;
-            [self.shipViaButton setTitle:castedObject.name forState:UIControlStateNormal];
-            self.dataObject.openOrder.shipMethod = object;
-        }
-    } else {
-        NSLog(@"Button object type passed back from the table is not being handled for in passObject method.");
-    }
-    [self.dataObject saveOrder:self.dataObject.openOrder];
-}
 
-- (void)passDate:(NSDate *)date
-{
-    if (date) {
-        [self.shipDateButton setTitle:[SCGlobal stringFromDate:date] forState:UIControlStateNormal];
-    } else {
-        [self.shipDateButton setTitle:self.emptySelctionString forState:UIControlStateNormal];
-    }
-    self.dataObject.openOrder.shipDate = date;
-    [self.dataObject saveOrder:self.dataObject.openOrder];
-}
 
 @end

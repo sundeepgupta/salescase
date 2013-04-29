@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SCOrderOptionsSelectTableDelegate.h"
+#import "SCPopoverTableDelegate.h"
 #import "SCDatePickerDelegate.h"
 
-@interface SCOrderOptionsVC : UIViewController <SCOrderOptionsSelectTableDelegate, SCDatePickerDelegate>
+@interface SCOrderOptionsVC : UITableViewController <SCPopoverTableDelegate, SCDatePickerDelegate, UIPopoverControllerDelegate>
 
 
 

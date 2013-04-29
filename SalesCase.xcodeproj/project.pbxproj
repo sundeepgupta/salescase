@@ -103,10 +103,6 @@
 		AE2928421714FF6E0094BE0F /* SCOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29280C1714FF6D0094BE0F /* SCOrderDetailVC.m */; };
 		AE2928431714FF6E0094BE0F /* SCOrderMasterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29280E1714FF6D0094BE0F /* SCOrderMasterVC.m */; };
 		AE2928441714FF6E0094BE0F /* SCOrderMasterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29280E1714FF6D0094BE0F /* SCOrderMasterVC.m */; };
-		AE29285C1714FFBB0094BE0F /* SCOrderOptionsSelectTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2928461714FFBA0094BE0F /* SCOrderOptionsSelectTableCell.m */; };
-		AE29285D1714FFBB0094BE0F /* SCOrderOptionsSelectTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2928461714FFBA0094BE0F /* SCOrderOptionsSelectTableCell.m */; };
-		AE29285E1714FFBB0094BE0F /* SCOrderOptionsSelectTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2928491714FFBA0094BE0F /* SCOrderOptionsSelectTableVC.m */; };
-		AE29285F1714FFBB0094BE0F /* SCOrderOptionsSelectTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2928491714FFBA0094BE0F /* SCOrderOptionsSelectTableVC.m */; };
 		AE2928601714FFBB0094BE0F /* SCOrderOptionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29284B1714FFBA0094BE0F /* SCOrderOptionsVC.m */; };
 		AE2928611714FFBB0094BE0F /* SCOrderOptionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29284B1714FFBA0094BE0F /* SCOrderOptionsVC.m */; };
 		AE2928621714FFBB0094BE0F /* SCOrderPDFRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29284D1714FFBB0094BE0F /* SCOrderPDFRenderer.m */; };
@@ -260,11 +256,6 @@
 		AE29280C1714FF6D0094BE0F /* SCOrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOrderDetailVC.m; sourceTree = "<group>"; };
 		AE29280D1714FF6D0094BE0F /* SCOrderMasterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOrderMasterVC.h; sourceTree = "<group>"; };
 		AE29280E1714FF6D0094BE0F /* SCOrderMasterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOrderMasterVC.m; sourceTree = "<group>"; };
-		AE2928451714FFBA0094BE0F /* SCOrderOptionsSelectTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOrderOptionsSelectTableCell.h; sourceTree = "<group>"; };
-		AE2928461714FFBA0094BE0F /* SCOrderOptionsSelectTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOrderOptionsSelectTableCell.m; sourceTree = "<group>"; };
-		AE2928471714FFBA0094BE0F /* SCOrderOptionsSelectTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOrderOptionsSelectTableDelegate.h; sourceTree = "<group>"; };
-		AE2928481714FFBA0094BE0F /* SCOrderOptionsSelectTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOrderOptionsSelectTableVC.h; sourceTree = "<group>"; };
-		AE2928491714FFBA0094BE0F /* SCOrderOptionsSelectTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOrderOptionsSelectTableVC.m; sourceTree = "<group>"; };
 		AE29284A1714FFBA0094BE0F /* SCOrderOptionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOrderOptionsVC.h; sourceTree = "<group>"; };
 		AE29284B1714FFBA0094BE0F /* SCOrderOptionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCOrderOptionsVC.m; sourceTree = "<group>"; };
 		AE29284C1714FFBA0094BE0F /* SCOrderPDFRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCOrderPDFRenderer.h; sourceTree = "<group>"; };
@@ -337,21 +328,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE02F8AE172F05770001C760 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				AE02F8AF172F05880001C760 /* Popover Table */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		AE02F8AF172F05880001C760 /* Popover Table */ = {
+			isa = PBXGroup;
+			children = (
+				AE3496FC171E51CA0017AD6E /* SCPopoverTableVC.h */,
+				AE3496FD171E51CA0017AD6E /* SCPopoverTableVC.m */,
+				AE349700171E52230017AD6E /* SCPopoverTableDelegate.h */,
+				AE349701171E524D0017AD6E /* SCPopoverTableCell.h */,
+				AE349702171E524D0017AD6E /* SCPopoverTableCell.m */,
+			);
+			name = "Popover Table";
+			sourceTree = "<group>";
+		};
 		AE2927251714DCF00094BE0F = {
 			isa = PBXGroup;
 			children = (
-				AED8D3E41721AC8200005B91 /* SCCustomerDetailVCDelegate.h */,
 				AE3496F4171E3C940017AD6E /* SCTextCell.h */,
 				AE3496F5171E3C940017AD6E /* SCTextCell.m */,
 				AE3496F8171E499C0017AD6E /* SCButtonCell.h */,
 				AE3496F9171E499C0017AD6E /* SCButtonCell.m */,
 				AE3496F0171E3C480017AD6E /* SCPopoverCell.h */,
 				AE3496F1171E3C480017AD6E /* SCPopoverCell.m */,
-				AE3496FC171E51CA0017AD6E /* SCPopoverTableVC.h */,
-				AE3496FD171E51CA0017AD6E /* SCPopoverTableVC.m */,
-				AE349700171E52230017AD6E /* SCPopoverTableDelegate.h */,
-				AE349701171E524D0017AD6E /* SCPopoverTableCell.h */,
-				AE349702171E524D0017AD6E /* SCPopoverTableCell.m */,
+				AE02F8AE172F05770001C760 /* Helpers */,
 				AE292872171500C20094BE0F /* Application Control */,
 				AE29287C171501E40094BE0F /* Launch */,
 				AE29287B171501770094BE0F /* Syncing */,
@@ -546,11 +552,6 @@
 				AE2927DD1714FF6D0094BE0F /* SCDatePicker.h */,
 				AE2927DE1714FF6D0094BE0F /* SCDatePicker.m */,
 				AE2927DF1714FF6D0094BE0F /* SCDatePickerDelegate.h */,
-				AE2928451714FFBA0094BE0F /* SCOrderOptionsSelectTableCell.h */,
-				AE2928461714FFBA0094BE0F /* SCOrderOptionsSelectTableCell.m */,
-				AE2928471714FFBA0094BE0F /* SCOrderOptionsSelectTableDelegate.h */,
-				AE2928481714FFBA0094BE0F /* SCOrderOptionsSelectTableVC.h */,
-				AE2928491714FFBA0094BE0F /* SCOrderOptionsSelectTableVC.m */,
 				AE29284A1714FFBA0094BE0F /* SCOrderOptionsVC.h */,
 				AE29284B1714FFBA0094BE0F /* SCOrderOptionsVC.m */,
 			);
@@ -573,6 +574,7 @@
 			children = (
 				AE349683171CF2FE0017AD6E /* SCCustomerDetailVC.h */,
 				AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */,
+				AED8D3E41721AC8200005B91 /* SCCustomerDetailVCDelegate.h */,
 				AE2927D81714FF6D0094BE0F /* SCCustomersVC.h */,
 				AE2927D91714FF6D0094BE0F /* SCCustomersVC.m */,
 				AE2927DA1714FF6D0094BE0F /* SCCustomersVCDelegate.h */,
@@ -787,8 +789,6 @@
 				AE29283F1714FF6E0094BE0F /* SCOrderDetailTableCell.m in Sources */,
 				AE2928411714FF6E0094BE0F /* SCOrderDetailVC.m in Sources */,
 				AE2928431714FF6E0094BE0F /* SCOrderMasterVC.m in Sources */,
-				AE29285C1714FFBB0094BE0F /* SCOrderOptionsSelectTableCell.m in Sources */,
-				AE29285E1714FFBB0094BE0F /* SCOrderOptionsSelectTableVC.m in Sources */,
 				AE2928601714FFBB0094BE0F /* SCOrderOptionsVC.m in Sources */,
 				AE2928621714FFBB0094BE0F /* SCOrderPDFRenderer.m in Sources */,
 				AE2928641714FFBB0094BE0F /* SCOrderPDFVC.m in Sources */,
@@ -849,8 +849,6 @@
 				AE2928401714FF6E0094BE0F /* SCOrderDetailTableCell.m in Sources */,
 				AE2928421714FF6E0094BE0F /* SCOrderDetailVC.m in Sources */,
 				AE2928441714FF6E0094BE0F /* SCOrderMasterVC.m in Sources */,
-				AE29285D1714FFBB0094BE0F /* SCOrderOptionsSelectTableCell.m in Sources */,
-				AE29285F1714FFBB0094BE0F /* SCOrderOptionsSelectTableVC.m in Sources */,
 				AE2928611714FFBB0094BE0F /* SCOrderOptionsVC.m in Sources */,
 				AE2928631714FFBB0094BE0F /* SCOrderPDFRenderer.m in Sources */,
 				AE2928651714FFBB0094BE0F /* SCOrderPDFVC.m in Sources */,
