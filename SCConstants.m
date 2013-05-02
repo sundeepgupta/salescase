@@ -49,8 +49,8 @@ NSString *const EXCEPTION_UPLOAD = @"Failed to upload data";
 NSString *const SC_DATETIME_LOCALE = @"en_US_POSIX";
 
 //WEB app url constants
-NSString *const WEB_APP_URL = @"http://salescasesgu.evermight.net/"; //Dev sgu
-//NSString *const WEB_APP_URL = @"https://salescaseapp.evermight.com/"; //prod
+//NSString *const WEB_APP_URL = @"http://salescasesgu.evermight.net/"; //Dev sgu
+NSString *const WEB_APP_URL = @"https://salescaseapp.evermight.com/"; //prod
 NSString *const OAUTH_REQUEST_URL_EXT = @"OAuthRequestToken.php";
 NSString *const LIST_CUSTOMERS_URL_EXT = @"listCustomers.php";
 NSString *const LIST_ITEMS_URL_EXT = @"listItems.php";
@@ -78,9 +78,14 @@ NSString *const ENTITY_SCSALESTERM = @"SCSalesTerm";
 NSString *const ENTITY_SCSHIPMETHOD = @"SCShipMethod";
 NSString *const ENTITY_SCEMAILTOSEND = @"SCEmailToSend";
 
-// Customer Statuses
+// Statuses
 NSString *const CUSTOMER_STATUS_NEW = @"New";
 NSString *const CUSTOMER_STATUS_SYNCED = @"Synced";
+NSString *const DRAFT_STATUS = @"Draft";
+NSString *const CONFIRMED_STATUS = @"Confirmed";
+NSString *const SYNCED_STATUS = @"Synced";
+NSString *const NEW_STATUS = @"New";
+
 
 //Style constants
 float const UI_DISABLED_ALPHA = 0.5;

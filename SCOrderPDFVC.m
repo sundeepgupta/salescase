@@ -62,7 +62,7 @@
         
     } else {
         self.title = [self titleString];
-        if (self.order.synced) {
+        if ([self.order.status isEqualToString:SYNCED_STATUS]) {
             //disable the edit button
             self.editButton.enabled = NO;
         }

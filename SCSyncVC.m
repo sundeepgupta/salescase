@@ -503,7 +503,7 @@
 
                 //handle orders attached to this customer - put them all in draft mode so they don't sync
                 for (SCOrder *order in customer.orderList) {
-                    order.confirmed = nil;
+                    order.status = DRAFT_STATUS;
                 }
             }
             
@@ -525,7 +525,7 @@
     for (SCOrder *order in orders)
     {
         // Only sync orders with status "confirmed"
-        if (order.confirmed && !order.synced) //don't need to check for customer here or 0 line items because not allowing these orders to be changed to confirmed status.
+        if ([order.status isEqualToString:CONFIRMED_STATUS]) //don't need to check for customer here or 0 line items because not allowing these orders to be changed to confirmed status.
         {
             //Required fields
             NSMutableString *postString = [NSMutableString stringWithFormat:@"customerid=%@",order.customer.customerId];
@@ -569,7 +569,7 @@
             
             if ([(NSString *) responseDictionary[@"result"] isEqualToString:@"Success"] )
             {
-                order.synced = @YES;
+                order.status = SYNCED_STATUS;
                 // Consider moving this outside the loop if performance appears bad
                 [self.dataObject saveOrder:order];
             }

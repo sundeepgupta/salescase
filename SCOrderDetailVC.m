@@ -86,7 +86,7 @@
         
     } else {
         self.title = [self titleString];
-        if (self.order.synced) {
+        if ([self.order.status isEqualToString:SYNCED_STATUS]) {
             self.editButton.hidden = YES;
         }
     }

@@ -31,6 +31,7 @@
     SCOrder *order = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([SCOrder class]) inManagedObjectContext:self.managedObjectContext];
     order.createDate = currentDate;
     order.scOrderId = [self newScOrderIdWithDate:currentDate];
+    order.status = DRAFT_STATUS; 
     [self saveOrder:order];
     return order;
 }
@@ -246,19 +247,6 @@
     if (![self.managedObjectContext save:&error]) NSLog(@"Error saving context: %@", [error localizedDescription]);
 }
 
--(SCItem *)createItemInContext
-{
-    SCItem *item = [NSEntityDescription insertNewObjectForEntityForName:@"SCItem" inManagedObjectContext:self.managedObjectContext];
-    return item;
-}
-
--(SCCustomer *)createCustomerInContext
-{
-    SCCustomer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"SCCustomer" inManagedObjectContext:self.managedObjectContext];
-    return customer;
-}
-
-
 
 // READ
 -(NSArray *) fetchCustomersInContext
@@ -358,142 +346,6 @@
 }
 
 
-// CREATE/UPDATE
--(SCOrder *) placeOrderWithItemsData:(NSArray *)selectedLinesData 
-                        withCustomer:(SCCustomer *)customer 
-                         isConfirmed:(NSNumber *)isConfirmed
-                        withPONumber:(NSString *)poNumber
-                withOrderDescription:(NSString *)orderDescription
-                        withSalesRep:(SCSalesRep *)selectedSalesRep
-                      withShipMethod:(SCShipMethod *)selectedShipMethod
-                       withSalesTerm:(SCSalesTerm *)selectedSalesTerms
-                        withShipDate:(NSDate *)selectedShipDate
-{
-    NSError *error;
-    SCOrder *order = (SCOrder *) [self newObject:@"SCOrder"];
-    //Predetermined properties
-    order.scOrderId = [self newScOrderIdWithDate:[NSDate date]];
-    //NSLog(@"Order ID: %@", order.scOrderId);
-    order.createDate = [NSDate date];
-    order.lastActivityDate = order.createDate;
-    order.synced = @NO;
-    order.orderDescription = @"String to describe the order";
-    
-    order.customer = customer;
-    [order setConfirmed:(NSNumber *)isConfirmed];
-    for (NSDictionary *lineData in selectedLinesData)
-    {
-        //        SCLine *line = [SCLine createInContext:self.managedObjectContext];
-        SCLine *line = (SCLine *) [self newObject:@"SCLine"];
-        line.item = lineData[@"item"];
-        line.quantity = lineData[@"lineQuantity"];
-        line.order = order;
-    }
-    order.orderDescription = orderDescription;
-    order.poNumber = poNumber;
-    order.confirmed = isConfirmed;
-    order.salesRep = selectedSalesRep;
-    order.shipMethod = selectedShipMethod;
-    order.salesTerm = selectedSalesTerms;
-    order.shipDate = selectedShipDate;
-    order.lastActivityDate = [NSDate date];
-    if (![self.managedObjectContext save:&error]) NSLog(@"Whoops, error saving context while placing order: %@", [error localizedDescription]);
-    return order;
-}
-
--(SCOrder *) updateOrder:(SCOrder *)order 
-           withItemsData:(NSArray *)selectedLinesData 
-            withCustomer:(SCCustomer *)customer 
-             isConfirmed:(NSNumber *)isConfirmed
-            withPONumber:(NSString *)poNumber
-    withOrderDescription:(NSString *)orderDescription
-            withSalesRep:(SCSalesRep *)selectedSalesRep
-          withShipMethod:(SCShipMethod *)selectedShipMethod
-           withSalesTerm:(SCSalesTerm *)selectedSalesTerms
-            withShipDate:(NSDate *)selectedShipDate
-{
-    order.customer = customer;
-    //[customer addOrderListObject:order];
-    // Remove all lines and add the new ones back -
-    [order removeLines:order.lines];
-    for (NSDictionary *lineData in selectedLinesData)
-    {
-        SCLine *line = (SCLine *) [self newObject:@"SCLine"];
-        line.item = lineData[@"item"];
-        //[line.item addOwningLinesObject:line];
-        line.quantity = lineData[@"lineQuantity"];
-        //line.order = order;
-        [order addLinesObject:line];        
-    }
-    order.poNumber = (NSString *)poNumber;
-    order.orderDescription = orderDescription;
-    order.confirmed = isConfirmed;
-    order.salesRep = selectedSalesRep;
-    order.shipMethod = selectedShipMethod;
-    order.salesTerm = selectedSalesTerms;
-    order.shipDate = selectedShipDate;
-    order.lastActivityDate = [NSDate date];
-    @try{
-        NSError* error = nil;
-        if (![self.managedObjectContext save:&error]) NSLog(@"Whoops, error saving context while updating order");
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Exception thrown: %@", exception);
-    }
-    @finally {
-    }
-    return order;
-}
--(void) removeAllEntityType:(NSString *)entityName
-{
-    NSError *error;
-    for (NSManagedObject *object in [self fetchAllObjectsOfType:entityName])
-    {
-        [self.managedObjectContext deleteObject:object];
-    }
-    if (![self.managedObjectContext save:&error]) NSLog(@"Error clearing customers from context: %@", [error localizedDescription]);
-}
-
-
--(void) removeCustomersFromContext
-{
-    NSError *error;
-    for (SCCustomer *customerToDelete in [self fetchCustomersInContextIdOnly])
-    {
-        [self.managedObjectContext deleteObject:customerToDelete];
-    }
-    if (![self.managedObjectContext save:&error]) NSLog(@"Error clearing customers from context: %@", [error localizedDescription]);
-    //? if (error) [error release];
-}
-
--(void) removeItemsFromContext
-{
-    NSError *error;
-    for (SCItem *itemToDelete in [self fetchItemsInContextIdOnly])
-    {
-        [self.managedObjectContext deleteObject:itemToDelete];
-    }
-    if (![self.managedObjectContext save:&error]) NSLog(@"Error clearing items from context: %@", [error localizedDescription]);    
-}
--(void) removeOrdersFromContext
-{
-    //
-}
-
--(void) removeOrderFromContext:(SCOrder *)order
-{
-    NSError *error;
-    [self.managedObjectContext deleteObject:order];
-    if (![self.managedObjectContext save:&error]) NSLog(@"Whoops, error saving context: %@", [error localizedDescription]);
-}
-
--(void) removeQueuedEmailFromContext:(SCEmailToSend *)email
-{
-    NSError *error;
-    [self.managedObjectContext deleteObject:email];
-    if (![self.managedObjectContext save:&error]) NSLog(@"Whoops, error saving context: %@", [error localizedDescription]);
-}
-
 
 /* Helper methods */
 
@@ -507,82 +359,5 @@
     else 
         return nil;
 }
-
-
-
-
-
-
-/* SOME OLD TESTING FUNCTIONS, meant to be deleted */
--(void) resetContextWithModel:(NSManagedObjectModel *)model inStore:(NSPersistentStoreCoordinator *)storeCoordinator
-{
-    NSError *err = nil;
-    NSPersistentStore *store = [[storeCoordinator persistentStores] lastObject];
-    NSURL *storeURL = store.URL;
-    
-    self.managedObjectContext = nil;
-    model = nil;
-    storeCoordinator = nil;
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:storeURL.path])
-        [fileManager removeItemAtURL:storeURL error:&err];
-    else
-        NSLog(@"Whoops, error clearing context");
-}
-
-//deprecated....
-//old place order method, should be deprecated
--(SCOrder *) placeOrderWithItemsData:(NSArray *)selectedLinesData withCustomer:(SCCustomer *)customer isConfirmed:(NSNumber *)isConfirmed
-{
-    NSError *error;
-    SCOrder *order = (SCOrder *) [self newObject:@"SCOrder"];
-    //Predetermined properties
-    order.createDate = [NSDate date];
-    order.lastActivityDate = order.createDate;
-    order.synced = @NO;
-    order.orderDescription = @"String to describe the order";
-    
-    order.customer = customer;
-    [order setConfirmed:(NSNumber *)isConfirmed];
-    for (NSDictionary *lineData in selectedLinesData)
-    {
-        //        SCLine *line = [SCLine createInContext:self.managedObjectContext];
-        SCLine *line = (SCLine *) [self newObject:@"SCLine"];
-        line.item = lineData[@"item"];
-        line.quantity = lineData[@"lineQuantity"];
-        line.order = order;
-    }
-    if (![self.managedObjectContext save:&error]) NSLog(@"Whoops, error saving context while placing order: %@", [error localizedDescription]);
-    return order;
-}
-
-//old place order method should be deprecated
--(SCOrder *) updateOrder:(SCOrder *)order 
-           withItemsData:(NSArray *)selectedLinesData 
-            withCustomer:(SCCustomer *)customer 
-{
-    NSError *error = nil;
-    NSManagedObjectContext *moc = [order managedObjectContext]; 
-    order.lastActivityDate = [NSDate date];
-    order.customer = customer;
-    [customer addOrderListObject:order];
-    // Remove all lines and add the new ones back -
-    [order removeLines:order.lines];
-    for (NSDictionary *lineData in selectedLinesData)
-    {
-        //        SCLine *line = [SCLine createInContext:moc];
-        SCLine *line = (SCLine *) [self newObject:@"SCLine"];
-        line.item = lineData[@"item"];
-        //[line.item addOwningLinesObject:line];
-        line.quantity = lineData[@"lineQuantity"];
-        line.order = order;
-        //[order addLinesObject:line];        
-    }
-    if (![moc save:&error]) NSLog(@"Whoops, error saving context while updating order: %@", [error localizedDescription]);
-    return order;
-}
-
-
 
 @end

@@ -19,20 +19,21 @@
 
 @implementation SCOrder
 
-@dynamic confirmed;
+//@dynamic confirmed;
 @dynamic createDate;
 @dynamic lastActivityDate;
 @dynamic orderDescription;
 @dynamic poNumber;
 @dynamic scOrderId;
 @dynamic shipDate;
-@dynamic synced;
+//@dynamic synced;
 @dynamic customer;
 @dynamic lines;
 @dynamic salesRep;
 @dynamic salesTerm;
 @dynamic shipMethod;
 @dynamic emailQueue;
+@dynamic status;
 
 - (CGFloat)totalAmount
 {
@@ -46,9 +47,9 @@
 
 - (NSString *)singleLetterStatus
 {
-    if (self.synced) {
+    if ([self.status isEqualToString:SYNCED_STATUS]) {
         return @"S";
-    } else if (self.confirmed) {
+    } else if ([self.status isEqualToString:CONFIRMED_STATUS]) {
         return @"C";
     } else {
         return @"D";
@@ -57,9 +58,9 @@
 
 - (NSString *)fullStatus
 {
-    if (self.synced) {
+    if ([self.status isEqualToString:SYNCED_STATUS]) {
         return @"Synced";
-    } else if (self.confirmed) {
+    } else if ([self.status isEqualToString:CONFIRMED_STATUS]) {
         return @"Confirmed";
     } else {
         return @"Draft";

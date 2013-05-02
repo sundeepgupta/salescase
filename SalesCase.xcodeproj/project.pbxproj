@@ -124,8 +124,6 @@
 		AE2928831715054F0094BE0F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928821715054F0094BE0F /* MessageUI.framework */; };
 		AE2928851715055A0094BE0F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928841715055A0094BE0F /* QuartzCore.framework */; };
 		AE2928871715059B0094BE0F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928861715059B0094BE0F /* libz.dylib */; };
-		AE2928891715060C0094BE0F /* Case-only-in-square-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = AE2928881715060C0094BE0F /* Case-only-in-square-72x72.png */; };
-		AE29288B171506150094BE0F /* Case-only-in-square.png in Resources */ = {isa = PBXBuildFile; fileRef = AE29288A171506150094BE0F /* Case-only-in-square.png */; };
 		AE349682171CF1FF0017AD6E /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = AE349681171CF1FF0017AD6E /* capture.png */; };
 		AE349685171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
 		AE349686171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
@@ -708,8 +706,6 @@
 				AE2927951714FE590094BE0F /* MainStoryboard.storyboard in Resources */,
 				AE29286E1714FFBB0094BE0F /* README.md in Resources */,
 				AE2928701714FFBB0094BE0F /* release_notes.md in Resources */,
-				AE2928891715060C0094BE0F /* Case-only-in-square-72x72.png in Resources */,
-				AE29288B171506150094BE0F /* Case-only-in-square.png in Resources */,
 				AE349682171CF1FF0017AD6E /* capture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

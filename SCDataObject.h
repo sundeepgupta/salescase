@@ -1,5 +1,5 @@
 //
-//  testData.h
+//  SCDataObject.H
 //  SalesCase
 //
 //  Created by Devon DuVernet on 12-12-20.
@@ -14,21 +14,15 @@
  */
 
 #import <Foundation/Foundation.h>
-
-
-
 #import "SCAddress.h"
-
 #import "SCItem.h"
 #import "SCLine.h"
-
 #import "SCPhone.h"
 #import "SCEmail.h"
 #import "SCSalesRep.h"
 #import "SCSalesTerm.h"
 #import "SCShipMethod.h"
 #import "SCEmailToSend.h"
-
 #import "UIDevice+IdentifierAddition.h"
 
 @class SCOrder, SCCustomer, SCGlobal;
@@ -62,8 +56,6 @@
 // Managed Object Context Operations
 -(void) saveContext;
 
--(SCItem *)createItemInContext;
--(SCCustomer *)createCustomerInContext;
 
 // Read
 -(NSArray *) fetchAllObjectsOfType:(NSString *)entityName;
@@ -79,35 +71,6 @@
 -(NSManagedObject *) getEntityType:(NSString *)entityForName byIdentifier:(NSString *)idName idValue:(NSString *)idValue;
 
 
-// Create/Update
--(SCOrder *) placeOrderWithItemsData:(NSArray *)selectedLinesData 
-                        withCustomer:(SCCustomer *)customer 
-                         isConfirmed:(NSNumber *)isConfirmed
-                        withPONumber:(NSString *)poNumber
-                withOrderDescription:(NSString *)orderDescription
-                        withSalesRep:(SCSalesRep *)selectedSalesRep
-                      withShipMethod:(SCShipMethod *)selectedShipMethod
-                       withSalesTerm:(SCSalesTerm *)selectedSalesTerms
-                        withShipDate:(NSDate *)selectedShipDate;
--(SCOrder *) updateOrder:(SCOrder *)order 
-           withItemsData:(NSArray *)selectedLinesData 
-            withCustomer:(SCCustomer *)customer 
-             isConfirmed:(NSNumber *)isConfirmed
-            withPONumber:(NSString *)poNumber
-    withOrderDescription:(NSString *)orderDescription
-            withSalesRep:(SCSalesRep *)selectedSalesRep
-          withShipMethod:(SCShipMethod *)selectedShipMethod
-           withSalesTerm:(SCSalesTerm *)selectedSalesTerms
-            withShipDate:(NSDate *)selectedShipDate;
-//Delete
-//Generic:
--(void) removeAllEntityType:(NSString *)entityName;
-//Other (should remove)
--(void) removeCustomersFromContext;
--(void) removeItemsFromContext;
--(void) removeOrdersFromContext;
--(void) removeOrderFromContext:(SCOrder *)order;
--(void) removeQueuedEmailFromContext:(SCEmailToSend *)email;
 
 // Helpers
 -(void) saveAddressList:(NSDictionary *)addresses forCustomer:(SCCustomer *)customer;
@@ -116,8 +79,6 @@
 // returns dictionary data - to handle null cases
 -(NSString *) dictionaryData:(NSDictionary *)dictionaryData forKey:(NSString *)forKey;
 
-// Testing functions only - remove when ready
--(void) resetContextWithModel:(NSManagedObjectModel *)model inStore:(NSPersistentStoreCoordinator *)storeCoordinator;
 
 
 

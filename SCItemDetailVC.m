@@ -228,8 +228,8 @@
     [self.delegate dismissModal];
 
     //handle the order status if no more lines and change title of masterVC
-    if (self.dataObject.openOrder.lines.count == 0 && self.dataObject.openOrder.confirmed) {
-        self.dataObject.openOrder.confirmed = nil;
+    if (self.dataObject.openOrder.lines.count == 0 && [self.dataObject.openOrder.status isEqualToString:CONFIRMED_STATUS]) {
+        self.dataObject.openOrder.status = DRAFT_STATUS;
         [SCOrderMasterVC masterVCTitleFromOrder:self.dataObject.openOrder];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Order Status Changed" message:@"The order now has 'draft' status since there are no items in the order." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];

@@ -251,9 +251,9 @@
         self.poNumberTextField.text = self.dataObject.openOrder.poNumber;
     if (self.dataObject.openOrder.orderDescription)
         self.notesTextView.text = self.dataObject.openOrder.orderDescription;
-    if (self.dataObject.openOrder.confirmed)
+    if ([self.dataObject.openOrder.status isEqualToString:CONFIRMED_STATUS])
         self.statusControl.selectedSegmentIndex = 1;
-    else
+    else //no need to check for synced status, as we can't edit it
         self.statusControl.selectedSegmentIndex = 0;
 }
 
@@ -293,9 +293,9 @@
 //            return;
         
 
-        self.dataObject.openOrder.confirmed = @YES;
+        self.dataObject.openOrder.status = CONFIRMED_STATUS;
     } else {
-        self.dataObject.openOrder.confirmed = nil;
+        self.dataObject.openOrder.status = DRAFT_STATUS;
     }
     [self.dataObject saveOrder:self.dataObject.openOrder];
     

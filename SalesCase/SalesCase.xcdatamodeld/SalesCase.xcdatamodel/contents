@@ -71,19 +71,18 @@
         <relationship name="owningLines" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCLine" inverseName="item" inverseEntity="SCLine" syncable="YES"/>
     </entity>
     <entity name="SCLine" representedClassName="SCLine" syncable="YES">
-        <attribute name="quantity" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <relationship name="item" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCItem" inverseName="owningLines" inverseEntity="SCItem" syncable="YES"/>
         <relationship name="order" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCOrder" inverseName="lines" inverseEntity="SCOrder" syncable="YES"/>
     </entity>
     <entity name="SCOrder" representedClassName="SCOrder" syncable="YES">
-        <attribute name="confirmed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="createDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="lastActivityDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="orderDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="poNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="scOrderId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="shipDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="synced" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCCustomer" inverseName="orderList" inverseEntity="SCCustomer" syncable="YES"/>
         <relationship name="emailQueue" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCEmailToSend" inverseName="orderForEmail" inverseEntity="SCEmailToSend" syncable="YES"/>
         <relationship name="lines" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCLine" inverseName="order" inverseEntity="SCLine" syncable="YES"/>
@@ -127,7 +126,7 @@
         <element name="SCEmailToSend" positionX="0" positionY="0" width="128" height="105"/>
         <element name="SCItem" positionX="0" positionY="0" width="128" height="210"/>
         <element name="SCLine" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="SCOrder" positionX="0" positionY="0" width="128" height="255"/>
+        <element name="SCOrder" positionX="0" positionY="0" width="128" height="240"/>
         <element name="SCPhone" positionX="0" positionY="0" width="128" height="120"/>
         <element name="SCSalesRep" positionX="0" positionY="0" width="128" height="120"/>
         <element name="SCSalesTerm" positionX="0" positionY="0" width="128" height="150"/>
