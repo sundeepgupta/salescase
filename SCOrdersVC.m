@@ -152,6 +152,25 @@
     [self.tableView reloadData];
 }
 
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    NSError *error = nil;
+    if (selectedScope == 0) {
+        self.orders = [self.global.dataObject fetchOrdersInContext:&error];
+    } else if (selectedScope == 1) { //draft orders
+        self.orders = [self.global.dataObject objectsOfType:ENTITY_SCORDER withStatus:DRAFT_STATUS withError:&error];
+    } else if (selectedScope == 2) { //confirmed orders
+        self.orders = [self.global.dataObject objectsOfType:ENTITY_SCORDER withStatus:CONFIRMED_STATUS withError:&error];
+    } else if (selectedScope == 3) { //synced orders
+        self.orders = [self.global.dataObject objectsOfType:ENTITY_SCORDER withStatus:SYNCED_STATUS withError:&error];
+    }
+    
+    //after scoping, need to call filter again
+    [self searchBar:self.searchBar textDidChange:self.searchBar.text];
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - Custom methods
 - (SCOrder *)orderAtIndexPath:(NSIndexPath *)indexPath;
 {

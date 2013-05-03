@@ -434,7 +434,7 @@
 
 - (BOOL)uploadNewCustomers:(NSError **)error responseError:(NSDictionary **)responseError
 {
-    NSArray *customers = [self.dataObject customersWithStatus:NEW_STATUS withError:error];
+    NSArray *customers = [self.dataObject objectsOfType:ENTITY_SCCUSTOMER withStatus:NEW_STATUS withError:error];
     if (!customers) {
         return NO;
     }

@@ -184,10 +184,10 @@
     [customer addEmailListObject:newEmail];
 }
 
--(NSArray *)customersWithStatus:(NSString *)status withError:(NSError **)error
+-(NSArray *)objectsOfType:(NSString *)type withStatus:(NSString *)status withError:(NSError **)error
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:ENTITY_SCCUSTOMER inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:type inManagedObjectContext:self.managedObjectContext];
     request.entity = entity;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"status = %@", status];
     request.predicate = predicate;
