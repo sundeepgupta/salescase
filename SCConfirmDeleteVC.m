@@ -56,4 +56,8 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setTextView:nil];
+    [super viewDidUnload];
+}
 @end

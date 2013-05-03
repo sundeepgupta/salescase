@@ -37,8 +37,6 @@
 		AE2927B61714FE6F0094BE0F /* SCDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29279C1714FE6F0094BE0F /* SCDataObject.m */; };
 		AE2927B71714FE6F0094BE0F /* SCEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29279E1714FE6F0094BE0F /* SCEmail.m */; };
 		AE2927B81714FE6F0094BE0F /* SCEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = AE29279E1714FE6F0094BE0F /* SCEmail.m */; };
-		AE2927B91714FE6F0094BE0F /* SCEmailToSend.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927A01714FE6F0094BE0F /* SCEmailToSend.m */; };
-		AE2927BA1714FE6F0094BE0F /* SCEmailToSend.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927A01714FE6F0094BE0F /* SCEmailToSend.m */; };
 		AE2927BB1714FE6F0094BE0F /* SCItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927A21714FE6F0094BE0F /* SCItem.m */; };
 		AE2927BC1714FE6F0094BE0F /* SCItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927A21714FE6F0094BE0F /* SCItem.m */; };
 		AE2927BD1714FE6F0094BE0F /* SCLine.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2927A41714FE6F0094BE0F /* SCLine.m */; };
@@ -184,8 +182,6 @@
 		AE29279C1714FE6F0094BE0F /* SCDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDataObject.m; sourceTree = "<group>"; };
 		AE29279D1714FE6F0094BE0F /* SCEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEmail.h; sourceTree = "<group>"; };
 		AE29279E1714FE6F0094BE0F /* SCEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEmail.m; sourceTree = "<group>"; };
-		AE29279F1714FE6F0094BE0F /* SCEmailToSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCEmailToSend.h; sourceTree = "<group>"; };
-		AE2927A01714FE6F0094BE0F /* SCEmailToSend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCEmailToSend.m; sourceTree = "<group>"; };
 		AE2927A11714FE6F0094BE0F /* SCItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCItem.h; sourceTree = "<group>"; };
 		AE2927A21714FE6F0094BE0F /* SCItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCItem.m; sourceTree = "<group>"; };
 		AE2927A31714FE6F0094BE0F /* SCLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLine.h; sourceTree = "<group>"; };
@@ -449,8 +445,6 @@
 				AE29279C1714FE6F0094BE0F /* SCDataObject.m */,
 				AE29279D1714FE6F0094BE0F /* SCEmail.h */,
 				AE29279E1714FE6F0094BE0F /* SCEmail.m */,
-				AE29279F1714FE6F0094BE0F /* SCEmailToSend.h */,
-				AE2927A01714FE6F0094BE0F /* SCEmailToSend.m */,
 				AE2927A11714FE6F0094BE0F /* SCItem.h */,
 				AE2927A21714FE6F0094BE0F /* SCItem.m */,
 				AE2927A31714FE6F0094BE0F /* SCLine.h */,
@@ -752,7 +746,6 @@
 				AE2927B31714FE6F0094BE0F /* SCCustomer.m in Sources */,
 				AE2927B51714FE6F0094BE0F /* SCDataObject.m in Sources */,
 				AE2927B71714FE6F0094BE0F /* SCEmail.m in Sources */,
-				AE2927B91714FE6F0094BE0F /* SCEmailToSend.m in Sources */,
 				AE2927BB1714FE6F0094BE0F /* SCItem.m in Sources */,
 				AE2927BD1714FE6F0094BE0F /* SCLine.m in Sources */,
 				AE2927BF1714FE6F0094BE0F /* SCOrder.m in Sources */,
@@ -812,7 +805,6 @@
 				AE2927B41714FE6F0094BE0F /* SCCustomer.m in Sources */,
 				AE2927B61714FE6F0094BE0F /* SCDataObject.m in Sources */,
 				AE2927B81714FE6F0094BE0F /* SCEmail.m in Sources */,
-				AE2927BA1714FE6F0094BE0F /* SCEmailToSend.m in Sources */,
 				AE2927BC1714FE6F0094BE0F /* SCItem.m in Sources */,
 				AE2927BE1714FE6F0094BE0F /* SCLine.m in Sources */,
 				AE2927C01714FE6F0094BE0F /* SCOrder.m in Sources */,

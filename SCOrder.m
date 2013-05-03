@@ -8,7 +8,6 @@
 
 #import "SCOrder.h"
 #import "SCCustomer.h"
-#import "SCEmailToSend.h"
 #import "SCLine.h"
 #import "SCSalesRep.h"
 #import "SCSalesTerm.h"

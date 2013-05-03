@@ -1377,6 +1377,9 @@ Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed 
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="260" height="210"/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="textView" destination="W67-KQ-qKY" id="eNk-i8-Owp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWU-hT-1gu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

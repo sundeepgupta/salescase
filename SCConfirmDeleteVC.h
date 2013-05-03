@@ -13,4 +13,7 @@
 
 @property (weak, nonatomic) id <SCConfirmDeleteVCDelegate> delegate;
 
+@property (strong, nonatomic) IBOutlet UITextView *textView;
+
+
 @end

@@ -466,6 +466,9 @@
 
 - (void)passConfirmDeleteButtonPress
 {
+    for (SCOrder *order in self.customer.orderList) {
+        order.status = DRAFT_STATUS;
+    }
     [self.dataObject deleteObject:self.customer];
     [self.confirmDeletePC dismissPopoverAnimated:YES];
     [self.navigationController popViewControllerAnimated:YES];
@@ -475,6 +478,13 @@
 { //only getting called when updating a new customer that started from this view
     [self dismissViewControllerAnimated:YES completion:nil];
     [self loadData];
+}
+
+- (void)passAddOrderWithCustomer:(SCCustomer *)customer
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self addOrderButtonPress:self.addOrderButton];
+    }];
 }
 
 #pragma mark - Custom Methods
@@ -672,6 +682,7 @@
     SCConfirmDeleteVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
     self.confirmDeletePC = [[UIPopoverController alloc] initWithContentViewController:vc];
     vc.delegate = self;
+    vc.textView.text = @"This customer's orders will be set to Draft status with no customer.";
     [self.confirmDeletePC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 

@@ -51,12 +51,6 @@
         <attribute name="tag" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="owningCustomer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCCustomer" inverseName="emailList" inverseEntity="SCCustomer" syncable="YES"/>
     </entity>
-    <entity name="SCEmailToSend" representedClassName="SCEmailToSend" syncable="YES">
-        <attribute name="toCustomer" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="toMe" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="toOffice" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="orderForEmail" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCOrder" inverseName="emailQueue" inverseEntity="SCOrder" syncable="YES"/>
-    </entity>
     <entity name="SCItem" representedClassName="SCItem" syncable="YES">
         <attribute name="itemDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
@@ -82,7 +76,6 @@
         <attribute name="shipDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="customer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCCustomer" inverseName="orderList" inverseEntity="SCCustomer" syncable="YES"/>
-        <relationship name="emailQueue" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCEmailToSend" inverseName="orderForEmail" inverseEntity="SCEmailToSend" syncable="YES"/>
         <relationship name="lines" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCLine" inverseName="order" inverseEntity="SCLine" syncable="YES"/>
         <relationship name="salesRep" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCSalesRep" inverseName="orderList" inverseEntity="SCSalesRep" syncable="YES"/>
         <relationship name="salesTerm" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCSalesTerm" inverseName="orderList" inverseEntity="SCSalesTerm" syncable="YES"/>
@@ -121,10 +114,9 @@
         <element name="SCAddress" positionX="0" positionY="0" width="128" height="255"/>
         <element name="SCCustomer" positionX="0" positionY="0" width="128" height="360"/>
         <element name="SCEmail" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="SCEmailToSend" positionX="0" positionY="0" width="128" height="105"/>
         <element name="SCItem" positionX="0" positionY="0" width="128" height="180"/>
         <element name="SCLine" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="SCOrder" positionX="0" positionY="0" width="128" height="240"/>
+        <element name="SCOrder" positionX="0" positionY="0" width="128" height="225"/>
         <element name="SCPhone" positionX="0" positionY="0" width="128" height="120"/>
         <element name="SCSalesRep" positionX="0" positionY="0" width="128" height="120"/>
         <element name="SCSalesTerm" positionX="0" positionY="0" width="128" height="150"/>

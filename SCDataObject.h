@@ -22,7 +22,6 @@
 #import "SCSalesRep.h"
 #import "SCSalesTerm.h"
 #import "SCShipMethod.h"
-#import "SCEmailToSend.h"
 #import "UIDevice+IdentifierAddition.h"
 
 @class SCOrder, SCCustomer, SCGlobal;
