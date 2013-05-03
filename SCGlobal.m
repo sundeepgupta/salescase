@@ -29,7 +29,6 @@
         self.webApp = [[SCWebApp alloc] init];
         self.webApp.dataObject = self.dataObject;
         self.dataObject.global = self;
-        
     }
     return self;
 }

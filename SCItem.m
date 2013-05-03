@@ -12,10 +12,8 @@
 
 @implementation SCItem
 
-@dynamic innerPack;
 @dynamic itemDescription;
 @dynamic itemId;
-@dynamic masterCarton;
 @dynamic name;
 @dynamic price;
 @dynamic qbId;

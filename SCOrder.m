@@ -19,14 +19,12 @@
 
 @implementation SCOrder
 
-//@dynamic confirmed;
 @dynamic createDate;
 @dynamic lastActivityDate;
 @dynamic orderDescription;
 @dynamic poNumber;
 @dynamic scOrderId;
 @dynamic shipDate;
-//@dynamic synced;
 @dynamic customer;
 @dynamic lines;
 @dynamic salesRep;

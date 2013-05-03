@@ -345,7 +345,7 @@
                 newCustomer.customerId = [ippCustomerDict valueForKey:@"Id"];
                 newCustomer.qbId = [ippCustomerDict valueForKey:@"ExternalKey"];
                 
-                newCustomer.status = CUSTOMER_STATUS_SYNCED;
+                newCustomer.status = SYNCED_STATUS;
                 
                 
                 NSDictionary *addresses = [ippCustomerDict valueForKey:@"Address"];
@@ -407,14 +407,20 @@
                 
                 NSString *qOH = (NSString *)[newItemDict valueForKey:@"Quantity"];
                 if ([ [qOH class] isSubclassOfClass:[NSString class]])
-                    newItem.quantityOnHand = @([qOH intValue])  ;
+                    newItem.quantityOnHand = @([qOH floatValue])  ;
                 
                 NSString *priceString = (NSString *)[newItemDict valueForKey:@"Price"];
                 if ([[ priceString class] isSubclassOfClass:[NSString class]])
                     newItem.price = (NSNumber *)@([priceString floatValue]);
                 
-                newItem.quantityOnSalesOrder = [self.dataObject dictionaryData:newItemDict forKey:@"QuantityOnSalesOrder"];
-                newItem.quantityOnPurchase = [self.dataObject dictionaryData:newItemDict forKey:@"QuantityOnPurchase"];
+                NSString *quantityOnSalesOrderString = (NSString *)[newItemDict valueForKey:@"QuantityOnSalesOrder"];
+                if ([[ quantityOnSalesOrderString class] isSubclassOfClass:[NSString class]])
+                    newItem.quantityOnSalesOrder = (NSNumber *)@([quantityOnSalesOrderString floatValue]);
+                
+                NSString *quantityOnPurchaseString = (NSString *)[newItemDict valueForKey:@"QuantityOnPurchase"];
+                if ([[ quantityOnPurchaseString class] isSubclassOfClass:[NSString class]])
+                    newItem.quantityOnPurchase = (NSNumber *)@([quantityOnPurchaseString floatValue]);
+
             }
             didSave = [self.dataObject.managedObjectContext save:error];
             if (!didSave) {
@@ -428,7 +434,7 @@
 
 - (BOOL)uploadNewCustomers:(NSError **)error responseError:(NSDictionary **)responseError
 {
-    NSArray *customers = [self.dataObject customersWithStatus:CUSTOMER_STATUS_NEW withError:error];
+    NSArray *customers = [self.dataObject customersWithStatus:NEW_STATUS withError:error];
     if (!customers) {
         return NO;
     }
@@ -481,7 +487,7 @@
         }
         
         if ([(NSString *)responseDictionary[@"result"] isEqualToString:@"Success"] ) {
-            customer.status = CUSTOMER_STATUS_SYNCED;
+            customer.status = SYNCED_STATUS;
             
             // Consider moving this outside the loop if performance appears bad
             [self.dataObject saveContext];

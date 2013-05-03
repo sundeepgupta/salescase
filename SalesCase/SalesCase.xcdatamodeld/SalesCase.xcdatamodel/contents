@@ -58,16 +58,14 @@
         <relationship name="orderForEmail" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCOrder" inverseName="emailQueue" inverseEntity="SCOrder" syncable="YES"/>
     </entity>
     <entity name="SCItem" representedClassName="SCItem" syncable="YES">
-        <attribute name="innerPack" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="itemDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="masterCarton" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="qbId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="quantityOnHand" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="quantityOnPurchase" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="quantityOnSalesOrder" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quantityOnHand" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="quantityOnPurchase" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="quantityOnSalesOrder" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <relationship name="owningLines" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCLine" inverseName="item" inverseEntity="SCLine" syncable="YES"/>
     </entity>
     <entity name="SCLine" representedClassName="SCLine" syncable="YES">
@@ -124,7 +122,7 @@
         <element name="SCCustomer" positionX="0" positionY="0" width="128" height="360"/>
         <element name="SCEmail" positionX="0" positionY="0" width="128" height="105"/>
         <element name="SCEmailToSend" positionX="0" positionY="0" width="128" height="105"/>
-        <element name="SCItem" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="SCItem" positionX="0" positionY="0" width="128" height="180"/>
         <element name="SCLine" positionX="0" positionY="0" width="128" height="90"/>
         <element name="SCOrder" positionX="0" positionY="0" width="128" height="240"/>
         <element name="SCPhone" positionX="0" positionY="0" width="128" height="120"/>

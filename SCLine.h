@@ -20,6 +20,4 @@
 - (float)amount;
 
 
-//+(SCLine *)createInContext:(NSManagedObjectContext *) context;
-
 @end

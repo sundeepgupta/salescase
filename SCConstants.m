@@ -28,6 +28,11 @@ NSInteger const MAX_CUSTOMER_NAME_LENGTH = 41;
 //MISC
 NSString *const EMPTY_SELECTION_STRING = @"-";
 
+//View States
+NSInteger const CREATE_VIEW_STATE = 0;
+NSInteger const UPDATE_VIEW_STATE = 1;
+NSInteger const READ_VIEW_STATE = 2;
+
 //Tags
 NSString *const MAIN_PHONE_TAG = @"Business";
 NSString *const MOBILE_PHONE_TAG = @"Mobile";
@@ -79,8 +84,6 @@ NSString *const ENTITY_SCSHIPMETHOD = @"SCShipMethod";
 NSString *const ENTITY_SCEMAILTOSEND = @"SCEmailToSend";
 
 // Statuses
-NSString *const CUSTOMER_STATUS_NEW = @"New";
-NSString *const CUSTOMER_STATUS_SYNCED = @"Synced";
 NSString *const DRAFT_STATUS = @"Draft";
 NSString *const CONFIRMED_STATUS = @"Confirmed";
 NSString *const SYNCED_STATUS = @"Synced";

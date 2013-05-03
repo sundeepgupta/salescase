@@ -132,7 +132,7 @@
     BOOL allowChange = NO;
     
     //Prevent non-numbers
-    NSCharacterSet *validCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    NSCharacterSet *validCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
     NSCharacterSet *invalidCharacterSet = validCharacterSet.invertedSet;
     NSArray *separatedString = [string componentsSeparatedByCharactersInSet:invalidCharacterSet];
     NSString *validatedString = [separatedString componentsJoinedByString:@""];

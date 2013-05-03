@@ -148,6 +148,7 @@
     } else {
         SCCustomerDetailVC *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCCustomerDetailVC"];
         detailVC.customer = customer;
+        detailVC.viewState = READ_VIEW_STATE;
         [self.navigationController pushViewController:detailVC animated:YES];
     }
 }
@@ -195,7 +196,7 @@
 
 #pragma mark - Protocol methods
 - (void)passSavedCustomer:(SCCustomer *)customer
-{
+{ //only getting called when creating a new customer that started from this view
     [self dismissViewControllerAnimated:YES completion:^{
         [self viewWillAppear:YES];
         NSInteger customerRow = 0;
@@ -226,23 +227,16 @@
 }
 
 - (IBAction)newCustomerButtonPress:(UIBarButtonItem *)sender {
-    SCCustomer *customer = [self.global.dataObject newCustomer];
-    self.global.dataObject.openCustomer = customer;
+//    SCCustomer *customer = [self.global.dataObject newCustomer];
+//    self.global.dataObject.openCustomer = customer;
     
     UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomerDetailNC"];
     SCCustomerDetailVC *vc = (SCCustomerDetailVC *)nc.topViewController;
+    
+    vc.customer = [self.global.dataObject newCustomer];
+    vc.viewState = CREATE_VIEW_STATE;
+    
     vc.delegate = self;
     [self presentViewController:nc animated:YES completion:nil];
-    
-    
-//    SCCustomerDetailVC *vc;
-//    if (self.global.dataObject.openOrder) {
-//        vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCCustomerDetailVC class])];
-//        
-//    } else {
-//        vc = (SCCustomerDetailVC *)nc.topViewController;
-//    }
-
-    
 }
 @end

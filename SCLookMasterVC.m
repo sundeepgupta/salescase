@@ -250,11 +250,14 @@
     
     //Setup detailVCs
     //This will need to change to be a loop if the target vCId can be OrderOptions or OrderDetail
-    UIViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCCustomerDetailVC"];
+    //only casting to set the view state for SCCustomerDEtailVC
+    SCCustomerDetailVC *customerDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCCustomerDetailVC"];
+    customerDetailVC.viewState = READ_VIEW_STATE;
+    //uncast it
+    UIViewController *detailVC = (UIViewController *)customerDetailVC;
+    
     if (vC) {
-//        detailVC.title = [masterVC menuItemLabelForVC:detailVC]; //Not working, so set this in Storyboard.
         [self.detailNC pushViewController:detailVC animated:NO];
-//        detailVC = [self.storyboard instantiateViewControllerWithIdentifier:vCId];
         detailVC = vC;
     }
     

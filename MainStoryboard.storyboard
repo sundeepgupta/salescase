@@ -3159,7 +3159,16 @@ TURN INTO POPUP AFTER</string>
                                 <action selector="deleteButtonPress:" destination="exW-dP-DF4" id="940-U1-Fkh"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem enabled="NO" title="Edit" id="uwd-vr-Dbv"/>
+                        <barButtonItem title="Edit" id="uwd-vr-Dbv">
+                            <connections>
+                                <action selector="editButtonPress:" destination="exW-dP-DF4" id="9dr-de-GY1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Cancel" id="cBO-1K-fFu">
+                            <connections>
+                                <action selector="cancelButtonPress:" destination="exW-dP-DF4" id="mCU-l7-awh"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="LEs-ps-t7E"/>
                         <barButtonItem title="Select Customer" id="g4Z-xQ-4s4">
                             <connections>
@@ -3172,7 +3181,7 @@ TURN INTO POPUP AFTER</string>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="fVZ-bi-oKW"/>
-                        <barButtonItem title="Done" id="WyM-ug-sRB">
+                        <barButtonItem title="Save" id="WyM-ug-sRB">
                             <connections>
                                 <action selector="doneButtonPress:" destination="exW-dP-DF4" id="03V-hP-JW2"/>
                             </connections>
@@ -3184,7 +3193,7 @@ TURN INTO POPUP AFTER</string>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="bwR-Eu-NcK">
-                        <barButtonItem key="rightBarButtonItem" title="New Order With Customer" id="h5l-4p-8wn">
+                        <barButtonItem key="rightBarButtonItem" title="Save &amp; Start Order" id="h5l-4p-8wn">
                             <connections>
                                 <action selector="addOrderButtonPress:" destination="exW-dP-DF4" id="Lia-4P-ddx"/>
                             </connections>
@@ -3201,6 +3210,7 @@ TURN INTO POPUP AFTER</string>
                         <outlet property="billToPostalCell" destination="nZm-bj-cpk" id="f7X-8m-Mbj"/>
                         <outlet property="billToPostalTextField" destination="ERa-c4-AWJ" id="hDJ-sR-CVK"/>
                         <outlet property="billToStateTextField" destination="IEx-Gt-PPH" id="EdX-vY-INa"/>
+                        <outlet property="cancelButton" destination="cBO-1K-fFu" id="fzC-Lc-H1e"/>
                         <outlet property="captureImageButton" destination="UaQ-0Q-H7d" id="1US-En-3Mv"/>
                         <outlet property="dbaNameTextField" destination="wqH-R1-abc" id="PKw-cV-PGg"/>
                         <outlet property="deleteButton" destination="uJq-j0-ajW" id="e4d-dn-JI6"/>
@@ -3848,325 +3858,6 @@ TURN INTO POPUP AFTER</string>
             <point key="canvasLocation" x="1918" y="-3179"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="SCConfirmDeleteVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCConfirmDeleteVC.h"/>
-        </class>
-        <class className="SCCustomerDetailVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerDetailVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addOrderButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="billTo1TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billTo2TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billTo3TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billToCityTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billToCountryTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billToPostalCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="billToPostalTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="billToStateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="captureImageButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="dbaNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="deleteButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="faxTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="phoneTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="repCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="selectCustomerButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="shipTo1TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipTo2TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipTo3TextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipToCityTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipToCountryTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipToPostalTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="shipToStateTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="spacer1" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="spacer2" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="termsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
-                <relationship kind="outletCollection" name="addressTitles" candidateClass="UILabel"/>
-                <relationship kind="outletCollection" name="cells" candidateClass="UITableViewCell"/>
-                <relationship kind="outletCollection" name="popoverCells" candidateClass="UITableViewCell"/>
-                <relationship kind="outletCollection" name="textFields" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="SCCustomerTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cityLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="companyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="customerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="phoneLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="zipLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCCustomersVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomersVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCDatePicker" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDatePicker.h"/>
-            <relationships>
-                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
-            </relationships>
-        </class>
-        <class className="SCDevVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDevVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="message" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="SCEmailOrderVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCEmailOrderVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="sendToCustomer" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sendToMe" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="sendToOffice" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="SCFirstLaunchVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCFirstLaunchVC.h"/>
-        </class>
-        <class className="SCIntuitLoginPopoverVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginPopoverVC.h"/>
-        </class>
-        <class className="SCIntuitLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="finishedIntuitLoginButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="SCItemCartTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCartTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCItemCartVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCartVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="orderTotal" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCItemDetailVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemDetailVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="quantityOrderedCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="quantityOrderedTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="saveToOrderButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="startOrderButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="SCItemTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCItemsVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemsVC.h"/>
-            <relationships>
-                <relationship kind="action" name="closeModalButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCKeepOrderVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCKeepOrderVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="SCLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLoginVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="SCLookMasterVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLookMasterVC.h"/>
-        </class>
-        <class className="SCNoDataVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCNoDataVC.h"/>
-        </class>
-        <class className="SCOrderDetailTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderDetailTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderDetailVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderDetailVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="companyNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="contactNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="customerNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="orderDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderTotalLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumberLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipViaLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderMasterVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderMasterVC.h"/>
-        </class>
-        <class className="SCOrderOptionsVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="poNumberTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="repCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDateCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="shipDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipViaCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="shipViaLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="termsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
-                <relationship kind="outletCollection" name="popoverCells" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="SCOrderPDFRenderer" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFRenderer.h"/>
-            <relationships>
-                <relationship kind="outlet" name="address1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="address5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="billToTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemAmount" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemAmountHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemDescription" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemDescriptionHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemNameHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemPrice" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemPriceHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemQuantity" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemQuantityHeader" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="notes" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="orderDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="pageNumber" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumber" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="poNumberTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="printDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="printDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="rep" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="repTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipDateTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipTo5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipToTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipVia" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shipViaTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="terms" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="termsTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="total" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userAddress5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userCompanyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userFax" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userPhone" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userWebsite" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrderPDFVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="SCOrderTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="total" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCOrdersVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrdersVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SCPopoverTableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverTableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SCPopoverTableVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverTableVC.h"/>
-        </class>
-        <class className="SCSyncVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSyncVC.h"/>
-            <relationships>
-                <relationship kind="action" name="closeButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

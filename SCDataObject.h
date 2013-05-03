@@ -33,7 +33,7 @@
 //SKG's stuff
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCOrder *openOrder;
-@property (strong, nonatomic) SCCustomer *openCustomer;
+//@property (strong, nonatomic) SCCustomer *openCustomer;
 @property (strong) NSManagedObjectContext *managedObjectContext;
 
 -(NSManagedObject *)newObject:(NSString *)entityName;

@@ -39,7 +39,7 @@
 -(SCCustomer *)newCustomer
 {
     SCCustomer *customer = [NSEntityDescription insertNewObjectForEntityForName:@"SCCustomer" inManagedObjectContext:self.managedObjectContext];
-    customer.status = CUSTOMER_STATUS_NEW;
+    customer.status = NEW_STATUS;
     
     //create and link billing and shipping address objects
     customer.primaryBillingAddress = [self newAddress];
@@ -77,6 +77,7 @@
     NSError *error;
     [self.managedObjectContext deleteObject:object];
     if (![self.managedObjectContext save:&error]) NSLog(@"Error deleting object: %@", [error localizedDescription]);
+    [self saveContext];
 }
 
 -(void) saveAddressList:(NSDictionary *)addresses forCustomer:(SCCustomer *)customer

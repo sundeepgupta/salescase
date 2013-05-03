@@ -13,16 +13,14 @@
 
 @interface SCItem : NSManagedObject
 
-@property (nonatomic, strong) NSNumber * innerPack;
 @property (nonatomic, strong) NSString * itemDescription;
 @property (nonatomic, strong) NSString * itemId;
-@property (nonatomic, strong) NSNumber * masterCarton;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSNumber * price;
 @property (nonatomic, strong) NSString * qbId;
 @property (nonatomic, strong) NSNumber * quantityOnHand;
-@property (nonatomic, strong) NSString * quantityOnSalesOrder;
-@property (nonatomic, strong) NSString * quantityOnPurchase;
+@property (nonatomic, strong) NSNumber * quantityOnSalesOrder;
+@property (nonatomic, strong) NSNumber * quantityOnPurchase;
 @property (nonatomic, strong) NSSet *owningLines;
 @end
 

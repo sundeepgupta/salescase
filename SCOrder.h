@@ -13,7 +13,6 @@
 
 @interface SCOrder : NSManagedObject
 
-//@property (nonatomic, strong) NSNumber * confirmed;
 @property (nonatomic, strong) NSDate * createDate;
 @property (nonatomic, strong) NSDate * lastActivityDate;
 @property (nonatomic, strong) NSString * orderDescription;
@@ -21,7 +20,6 @@
 @property (nonatomic, strong) NSNumber * scOrderId;
 @property (nonatomic, strong) NSDate * shipDate;
 @property (nonatomic, strong) NSString * status;
-//@property (nonatomic, strong) NSNumber * synced;
 @property (nonatomic, strong) SCCustomer *customer;
 @property (nonatomic, strong) NSSet *lines;
 @property (nonatomic, strong) SCSalesRep *salesRep;

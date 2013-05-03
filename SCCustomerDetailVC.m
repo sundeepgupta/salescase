@@ -32,6 +32,7 @@
 @property (strong, nonatomic) NSString *defaultName;
 @property (strong, nonatomic) UIAlertView *validateCompanyNameAlert;
 @property (strong, nonatomic) UIPopoverController *confirmDeletePC;
+@property (strong, nonatomic) NSUndoManager *undoManager;
 
 @property (strong, nonatomic) NSArray *billToTextFields;
 @property (strong, nonatomic) NSArray *shipToTextFields;
@@ -76,6 +77,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *spacer2;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 
 //Cells
 @property (strong, nonatomic) IBOutlet UITableViewCell *repCell;
@@ -98,6 +100,8 @@
     if (self) {
         // Custom initialization
         
+        //set the default view state
+        self.viewState = READ_VIEW_STATE;
     }
     return self;
 }
@@ -120,32 +124,46 @@
 {
     NSMutableArray *toolbarItems = [[NSMutableArray alloc] init];
     
-    if (self.dataObject.openOrder) {
-        
-        self.navigationItem.rightBarButtonItem = nil;
-        toolbarItems.array = [NSArray arrayWithObjects:self.editButton, self.spacer1, self.selectCustomerButton, self.spacer2, self.nextButton, nil]; 
-        
-        //get titles
-        UINavigationController *masterNC = self.splitViewController.viewControllers[0];
-        SCOrderMasterVC *masterVC = (SCOrderMasterVC *)masterNC.topViewController;
-        self.title = [masterVC menuItemLabelForVC:self];
-        
+    
+    if (self.viewState == READ_VIEW_STATE) {
+
         [self readOnlyState];
         
-        self.customer = self.dataObject.openOrder.customer;
-        if (!self.customer) { //if no customers has been loaded, bring up the modal so they can choose
-            [self presentCustomerList];
+        if (self.dataObject.openOrder) {
+            
+            //setup bar buttons
+            self.navigationItem.rightBarButtonItem = nil;
+            self.navigationItem.hidesBackButton = YES;
+            toolbarItems.array = [NSArray arrayWithObjects:self.selectCustomerButton, self.spacer2, self.nextButton, nil]; 
+            
+            //get title
+            UINavigationController *masterNC = self.splitViewController.viewControllers[0];
+            SCOrderMasterVC *masterVC = (SCOrderMasterVC *)masterNC.topViewController;
+            self.title = [masterVC menuItemLabelForVC:self];
+            
+            self.customer = self.dataObject.openOrder.customer;
+            if (!self.customer) { //if no customers has been loaded, bring up the modal so they can choose
+                [self presentCustomerList];
+            }
+            
+            
+        } else {
+            self.title = [NSString stringWithFormat:@"%@ (%@)", self.customer.name, self.customer.status];
+            
+            self.navigationItem.rightBarButtonItem.title = @"Start Order With Customer";
+            
+            if ([self.customer.status isEqualToString:NEW_STATUS]) {
+                toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.editButton, nil];
+            } else {
+                toolbarItems.array = [NSArray arrayWithObjects: nil];
+            }
         }
 
-        
-        
-        
-    } else {
-        if (self.dataObject.openCustomer) {
+    } else { //must be in modal view for create or update view state
+        if (self.viewState == CREATE_VIEW_STATE) {
             self.title = @"New Customer";
-            self.customer = self.dataObject.openCustomer;
-            
-            //fetch customers names once here, becuase we're saving context everytime user finishes editing.  This should happen before thd default customer name is saved to context. 
+        
+            //fetch customers names once here, becuase we're saving context everytime user finishes editing.  This should happen before thd default customer name is saved to context.
             NSError *error = nil;
             self.customerNames = [self.dataObject customerNames:&error];
             if (!self.customerNames) {
@@ -162,25 +180,27 @@
             self.nameTextField.placeholder = self.defaultName;
             self.customer.name = self.defaultName;
             [self.dataObject saveContext];
-
-            //Setup bar button items
-//            self.navigationItem.rightBarButtonItem.enabled = NO;
-//            self.doneButton.enabled = NO;
-            toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.spacer1, self.captureImageButton, self.spacer2, self.doneButton, nil];
             
-        } else {            
-            self.title = [NSString stringWithFormat:@"%@ (%@)", self.customer.name, self.customer.status];
-            toolbarItems.array = [NSArray arrayWithObjects:self.editButton, nil];
-
-            [self readOnlyState];
+            //Setup bar button items
+            toolbarItems.array = [NSArray arrayWithObjects:self.cancelButton, self.spacer1, self.captureImageButton, self.spacer2, self.doneButton, nil];
+            
+        } else if (self.viewState == UPDATE_VIEW_STATE) {
+            self.title = self.customer.name;
+            self.nameTextField.userInteractionEnabled = NO;
+            self.nameTextField.clearButtonMode = UITextFieldViewModeNever;
+            
+            toolbarItems.array = [NSArray arrayWithObjects:self.cancelButton, self.spacer1, self.doneButton, nil];
         }
     }
-    
-    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED]) {
+
+    if ([self.customer.status isEqual:SYNCED_STATUS]) {
         //hide the address titles due to messed upness of QB addresses
         for (UIView *view in self.addressTitles) {
             view.hidden = YES;
         }
+        
+        //disable the edit button
+        self.editButton.enabled = NO;
     }
     
     self.toolbarItems = toolbarItems;
@@ -224,13 +244,14 @@
     [self setRepCell:nil];
     [self setTermsCell:nil];
     [self setBillToPostalCell:nil];
+    [self setCancelButton:nil];
     [super viewDidUnload];
 }
 
 #pragma mark - Methods to handle hiding of rows from http://stackoverflow.com/questions/8260267/uitableview-set-to-static-cells-is-it-possible-to-hide-some-of-the-cells-progra/9434849#comment23095022_9434849
 //- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //{
-//    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED] && section > 2) {
+//    if ([self.customer.status isEqual:SYNCED_STATUS] && section > 2) {
 //        return [super tableView:tableView numberOfRowsInSection:section] - (self.billToTextFields.count - NUMBER_OF_QB_ADDRESS_LINES);
 //    } else {
 //        return [super tableView:tableView numberOfRowsInSection:section];
@@ -248,7 +269,7 @@
 //- (NSIndexPath*)offsetIndexPath:(NSIndexPath*)indexPath
 //{
 //    int offsetSection = indexPath.section; // Also offset section if you intend to hide whole sections
-//    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED] && offsetSection > 2) {
+//    if ([self.customer.status isEqual:SYNCED_STATUS] && offsetSection > 2) {
 //        int numberOfCellsHiddenAbove = 0; // Calculate how many cells are hidden above the given indexPath.row
 //        int offsetRow = indexPath.row + numberOfCellsHiddenAbove;
 //        return [NSIndexPath indexPathForRow:offsetRow inSection:offsetSection];
@@ -277,18 +298,6 @@
 }
 
 #pragma mark - TextField Delegates
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    //only one textField so no need to check
-//    [self.notesTextView becomeFirstResponder];
-    
-    //don't allow ":"
-    
-    
-    return YES;
-}
-
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.activeCell = (UITableViewCell*) [textField.superview superview];
@@ -326,13 +335,8 @@
     
     //Validate name
     if ([textField isEqual:self.nameTextField]) {
-        if (textField.text.length == 0) {
-            self.customer.name = self.defaultName;
-            [self.dataObject saveContext];
-        } else {
-            if ([self customerNameIsUnique:textField.text]) {
-                self.customer.name = textField.text;
-            } else {
+        if (textField.text.length != 0) {
+            if (![self customerNameIsUnique:textField.text]) {
                 returnValue = NO;
             }
         }
@@ -351,7 +355,14 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    //customer.name is saved in textFieldShouldEndEditing
+    if ([textField isEqual:self.nameTextField]) {
+        if (textField.text.length == 0) {
+            self.customer.name = self.defaultName;
+        } else {
+            self.customer.name = textField.text;
+        }
+    }
+   
     if ([textField isEqual:self.dbaNameTextField])  self.customer.dbaName = textField.text;
     if ([textField isEqual:self.firstNameTextField]) self.customer.givenName = textField.text;
     if ([textField isEqual:self.lastNameTextField]) self.customer.familyName = textField.text;
@@ -376,8 +387,8 @@
     if ([textField isEqual:self.shipToCountryTextField]) self.customer.primaryShippingAddress.country = textField.text;
     if ([textField isEqual:self.shipToPostalTextField]) self.customer.primaryShippingAddress.postalCode = textField.text;
     
-    [self.dataObject saveContext];
-    self.activeCell = nil;
+//    [self.dataObject saveContext];
+    self.activeCell = nil; //to manage scrolling for the keyboard
 }
 
 #pragma mark - UIAlertView Delegates
@@ -412,7 +423,7 @@
         NSLog(@"Object type passed back from the table is not being handled for in passObject method.");
     }
     [self.popoverTablePC dismissPopoverAnimated:YES];
-    [self.dataObject saveContext];
+//    [self.dataObject saveContext];
     
     //deselect the cell
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
@@ -455,10 +466,15 @@
 
 - (void)passConfirmDeleteButtonPress
 {
-    [self.dataObject deleteObject:self.dataObject.openCustomer];
-    self.dataObject.openCustomer = nil;
+    [self.dataObject deleteObject:self.customer];
     [self.confirmDeletePC dismissPopoverAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)passSavedCustomer:(SCCustomer *)customer
+{ //only getting called when updating a new customer that started from this view
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self loadData];
 }
 
 #pragma mark - Custom Methods
@@ -503,7 +519,7 @@
 
 - (void)loadData
 {
-    if (!self.dataObject.openCustomer) self.nameTextField.text = self.customer.name;
+    if (self.viewState != CREATE_VIEW_STATE) self.nameTextField.text = self.customer.name;
     
     self.dbaNameTextField.text = self.customer.dbaName;
     self.firstNameTextField.text = self.customer.givenName;
@@ -520,7 +536,7 @@
     NSArray *customerBillToLines = [self.customer.primaryBillingAddress lines];
         
     NSInteger maxNumberOfLines = self.billToTextFields.count;
-//    if ([self.customer.status isEqual:CUSTOMER_STATUS_SYNCED]) maxNumberOfLines = NUMBER_OF_QB_ADDRESS_LINES;
+//    if ([self.customer.status isEqual:SYNCED_STATUS]) maxNumberOfLines = NUMBER_OF_QB_ADDRESS_LINES;
     
     for (NSInteger i = 0; i < MIN(customerBillToLines.count, maxNumberOfLines) ; i++) {
         UILabel *label = self.billToTextFields[i];
@@ -636,12 +652,12 @@
 }
 
 - (IBAction)addOrderButtonPress:(UIBarButtonItem *)sender {
-    if (self.dataObject.openCustomer) {
+    if (self.viewState != READ_VIEW_STATE) {
         if ([self isCompanyNameValid]) {
-            self.dataObject.openCustomer = nil;
             [self.delegate passAddOrderWithCustomer:self.customer];
         }
     } else {
+        [self.dataObject saveContext];
         UINavigationController *masterNC = self.splitViewController.viewControllers[0];
         SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
         [masterVC startOrderModeWithCustomer:self.customer];
@@ -661,13 +677,29 @@
 
 - (IBAction)doneButtonPress:(UIBarButtonItem *)sender {
     if ([self isCompanyNameValid]) {
-        self.dataObject.openCustomer = nil;
+        [self.dataObject saveContext];
         [self.delegate passSavedCustomer:self.customer];
     }
-    
-    
 }
 
 - (IBAction)editButtonPress:(UIBarButtonItem *)sender {
+//    self.global.dataObject.openCustomer = self.customer;
+    
+    UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomerDetailNC"];
+    SCCustomerDetailVC *vc = (SCCustomerDetailVC *)nc.topViewController;
+    vc.viewState = UPDATE_VIEW_STATE;
+    vc.customer = self.customer;
+    vc.delegate = self;
+    [self presentViewController:nc animated:YES completion:nil];
 }
+
+- (IBAction)cancelButtonPress:(UIBarButtonItem *)sender {
+    if (self.viewState == CREATE_VIEW_STATE) {
+        [self.dataObject deleteObject:self.customer];
+    } else if (self.viewState == UPDATE_VIEW_STATE){
+        [self.dataObject.managedObjectContext rollback];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

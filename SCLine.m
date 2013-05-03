@@ -25,11 +25,5 @@
 }
 
 
-//+(SCLine *)createInContext:(NSManagedObjectContext *) context
-//{
-//    SCLine *line = [NSEntityDescription insertNewObjectForEntityForName:@"SCLine" inManagedObjectContext:context];
-//    return line;
-//}
-
 
 @end

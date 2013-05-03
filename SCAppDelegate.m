@@ -42,10 +42,9 @@
     self.global.dataObject.managedObjectContext = self.managedObjectContext;
     
     
-    
-    
-    
-    
+    //Setup the undo manager - http://stackoverflow.com/questions/2214343/core-data-reset-to-the-initial-state
+//    NSUndoManager *undoManager = [[NSUndoManager alloc] init];
+//    self.managedObjectContext.undoManager = undoManager;
     
     
     //    [webApp verifyOAuthRegistration];  need to connect to IPP
