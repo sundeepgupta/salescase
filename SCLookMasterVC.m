@@ -344,7 +344,7 @@
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError *)error
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - SyncVCDelegate Methods

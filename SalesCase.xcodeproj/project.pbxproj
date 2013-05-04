@@ -122,15 +122,11 @@
 		AE2928831715054F0094BE0F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928821715054F0094BE0F /* MessageUI.framework */; };
 		AE2928851715055A0094BE0F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928841715055A0094BE0F /* QuartzCore.framework */; };
 		AE2928871715059B0094BE0F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928861715059B0094BE0F /* libz.dylib */; };
+		AE2E4F45173583630028A972 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2927351714DCF00094BE0F /* CoreGraphics.framework */; };
+		AE2E4F46173583720028A972 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928821715054F0094BE0F /* MessageUI.framework */; };
 		AE349682171CF1FF0017AD6E /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = AE349681171CF1FF0017AD6E /* capture.png */; };
 		AE349685171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
 		AE349686171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
-		AE3496F2171E3C490017AD6E /* SCPopoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F1171E3C480017AD6E /* SCPopoverCell.m */; };
-		AE3496F3171E3C490017AD6E /* SCPopoverCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F1171E3C480017AD6E /* SCPopoverCell.m */; };
-		AE3496F6171E3C940017AD6E /* SCTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F5171E3C940017AD6E /* SCTextCell.m */; };
-		AE3496F7171E3C940017AD6E /* SCTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F5171E3C940017AD6E /* SCTextCell.m */; };
-		AE3496FA171E499C0017AD6E /* SCButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F9171E499C0017AD6E /* SCButtonCell.m */; };
-		AE3496FB171E499C0017AD6E /* SCButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496F9171E499C0017AD6E /* SCButtonCell.m */; };
 		AE3496FE171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496FD171E51CA0017AD6E /* SCPopoverTableVC.m */; };
 		AE3496FF171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3496FD171E51CA0017AD6E /* SCPopoverTableVC.m */; };
 		AE349703171E524D0017AD6E /* SCPopoverTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349702171E524D0017AD6E /* SCPopoverTableCell.m */; };
@@ -275,12 +271,6 @@
 		AE349681171CF1FF0017AD6E /* capture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture.png; path = SalesCase/capture.png; sourceTree = "<group>"; };
 		AE349683171CF2FE0017AD6E /* SCCustomerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCustomerDetailVC.h; sourceTree = "<group>"; };
 		AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCustomerDetailVC.m; sourceTree = "<group>"; };
-		AE3496F0171E3C480017AD6E /* SCPopoverCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopoverCell.h; sourceTree = "<group>"; };
-		AE3496F1171E3C480017AD6E /* SCPopoverCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPopoverCell.m; sourceTree = "<group>"; };
-		AE3496F4171E3C940017AD6E /* SCTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTextCell.h; sourceTree = "<group>"; };
-		AE3496F5171E3C940017AD6E /* SCTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTextCell.m; sourceTree = "<group>"; };
-		AE3496F8171E499C0017AD6E /* SCButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCButtonCell.h; sourceTree = "<group>"; };
-		AE3496F9171E499C0017AD6E /* SCButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCButtonCell.m; sourceTree = "<group>"; };
 		AE3496FC171E51CA0017AD6E /* SCPopoverTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopoverTableVC.h; sourceTree = "<group>"; };
 		AE3496FD171E51CA0017AD6E /* SCPopoverTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPopoverTableVC.m; sourceTree = "<group>"; };
 		AE349700171E52230017AD6E /* SCPopoverTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPopoverTableDelegate.h; sourceTree = "<group>"; };
@@ -311,6 +301,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE2E4F46173583720028A972 /* MessageUI.framework in Frameworks */,
+				AE2E4F45173583630028A972 /* CoreGraphics.framework in Frameworks */,
 				AE29275E1714DCF10094BE0F /* SenTestingKit.framework in Frameworks */,
 				AE29275F1714DCF10094BE0F /* UIKit.framework in Frameworks */,
 				AE2927601714DCF10094BE0F /* Foundation.framework in Frameworks */,
@@ -345,12 +337,6 @@
 		AE2927251714DCF00094BE0F = {
 			isa = PBXGroup;
 			children = (
-				AE3496F4171E3C940017AD6E /* SCTextCell.h */,
-				AE3496F5171E3C940017AD6E /* SCTextCell.m */,
-				AE3496F8171E499C0017AD6E /* SCButtonCell.h */,
-				AE3496F9171E499C0017AD6E /* SCButtonCell.m */,
-				AE3496F0171E3C480017AD6E /* SCPopoverCell.h */,
-				AE3496F1171E3C480017AD6E /* SCPopoverCell.m */,
 				AE02F8AE172F05770001C760 /* Helpers */,
 				AE292872171500C20094BE0F /* Application Control */,
 				AE29287C171501E40094BE0F /* Launch */,
@@ -785,9 +771,6 @@
 				AE2928681714FFBB0094BE0F /* SCOrderTableCell.m in Sources */,
 				AE29286A1714FFBB0094BE0F /* SCSyncVC.m in Sources */,
 				AE349685171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */,
-				AE3496F2171E3C490017AD6E /* SCPopoverCell.m in Sources */,
-				AE3496F6171E3C940017AD6E /* SCTextCell.m in Sources */,
-				AE3496FA171E499C0017AD6E /* SCButtonCell.m in Sources */,
 				AE3496FE171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */,
 				AE349703171E524D0017AD6E /* SCPopoverTableCell.m in Sources */,
 				AEE8B56B172059CC0046A34A /* SCDevVC.m in Sources */,
@@ -844,9 +827,6 @@
 				AE2928691714FFBB0094BE0F /* SCOrderTableCell.m in Sources */,
 				AE29286B1714FFBB0094BE0F /* SCSyncVC.m in Sources */,
 				AE349686171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */,
-				AE3496F3171E3C490017AD6E /* SCPopoverCell.m in Sources */,
-				AE3496F7171E3C940017AD6E /* SCTextCell.m in Sources */,
-				AE3496FB171E499C0017AD6E /* SCButtonCell.m in Sources */,
 				AE3496FF171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */,
 				AE349704171E524D0017AD6E /* SCPopoverTableCell.m in Sources */,
 			);

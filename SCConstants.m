@@ -54,8 +54,8 @@ NSString *const EXCEPTION_UPLOAD = @"Failed to upload data";
 NSString *const SC_DATETIME_LOCALE = @"en_US_POSIX";
 
 //WEB app url constants
-//NSString *const WEB_APP_URL = @"http://salescasesgu.evermight.net/"; //Dev sgu
-NSString *const WEB_APP_URL = @"https://salescaseapp.evermight.com/"; //prod
+NSString *const WEB_APP_URL = @"http://salescasesgu.evermight.com/"; //Dev sgu
+//NSString *const WEB_APP_URL = @"https://salescaseapp.evermight.com/"; //prod
 NSString *const OAUTH_REQUEST_URL_EXT = @"OAuthRequestToken.php";
 NSString *const LIST_CUSTOMERS_URL_EXT = @"listCustomers.php";
 NSString *const LIST_ITEMS_URL_EXT = @"listItems.php";

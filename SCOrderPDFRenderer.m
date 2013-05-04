@@ -409,7 +409,7 @@ static CGFloat const klineHeight = 14;
     UIFont *font = [UIFont systemFontOfSize:kFontSize];
     [text drawInRect:frame
             withFont:font
-       lineBreakMode:UILineBreakModeTailTruncation
+       lineBreakMode:NSLineBreakByTruncatingTail
            alignment:alignment];
 }
 

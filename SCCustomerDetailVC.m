@@ -8,8 +8,6 @@
 
 #import "SCCustomerDetailVC.h"
 #import "SCCustomer.h"
-#import "SCPopoverCell.h"
-#import "SCTextCell.h"
 #import "SCSalesRep.h"
 #import "SCAddress.h"
 #import "SCSalesTerm.h"
