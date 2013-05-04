@@ -538,10 +538,8 @@
             [postString appendFormat:@"&scorderid=%@", order.scOrderId];
             
             //Optional fields
-            //TODO - BUG IN DEVKIT OR IPP?  Dates in teh past cause orders not to sync.
             NSString *createDate = [SCGlobal stringFromDate:order.createDate];
             [postString appendFormat:@"&txndate=%@", createDate];
-//            [postString appendFormat:@"&txndate=2013-06-25"];
             
             if (order.salesRep) [postString appendFormat:@"&salesrepid=%@", order.salesRep.repId];
             if (order.salesTerm) {
