@@ -209,13 +209,13 @@
 - (void)saveLine
 { //self.line here is an existing line, where line is a new line
     if (self.isEditLineMode) {
-        self.line.quantity = [NSNumber numberWithInt:[self.quantityOrderedTextField.text intValue]];
+        self.line.quantity = [NSNumber numberWithFloat:[self.quantityOrderedTextField.text floatValue]];
         [self.dataObject saveOrder:self.dataObject.openOrder];
         [self.delegate dismissModal];
     } else {
         SCLine *line = (SCLine *)[self.dataObject newObject:@"SCLine"];
         line.item = self.item;
-        line.quantity = [NSNumber numberWithInt:[self.quantityOrderedTextField.text intValue]];
+        line.quantity = [NSNumber numberWithFloat:[self.quantityOrderedTextField.text floatValue]];
         line.order = self.dataObject.openOrder;
         [self.dataObject saveOrder:self.dataObject.openOrder];
         [self.navigationController popViewControllerAnimated:YES];

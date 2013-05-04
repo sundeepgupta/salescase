@@ -124,6 +124,7 @@
 		AE2928871715059B0094BE0F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928861715059B0094BE0F /* libz.dylib */; };
 		AE2E4F45173583630028A972 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2927351714DCF00094BE0F /* CoreGraphics.framework */; };
 		AE2E4F46173583720028A972 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928821715054F0094BE0F /* MessageUI.framework */; };
+		AE2E4F471735A1EF0028A972 /* SalesCase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE29274E1714DCF00094BE0F /* SalesCase.xcdatamodeld */; };
 		AE349682171CF1FF0017AD6E /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = AE349681171CF1FF0017AD6E /* capture.png */; };
 		AE349685171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
 		AE349686171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
@@ -829,6 +830,7 @@
 				AE349686171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */,
 				AE3496FF171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */,
 				AE349704171E524D0017AD6E /* SCPopoverTableCell.m in Sources */,
+				AE2E4F471735A1EF0028A972 /* SalesCase.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

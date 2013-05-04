@@ -104,7 +104,7 @@
     cell.nameLabel.text = item.name;
     cell.descriptionLabel.text = item.itemDescription;
     cell.priceLabel.text = [SCGlobal stringFromDollarAmount:item.price.floatValue];
-    cell.quantityOnHandLabel.text = [NSString stringWithFormat:@"%d", item.quantityOnHand.intValue];
+    cell.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", item.quantityOnHand.stringValue];
     
     return cell;
 }
