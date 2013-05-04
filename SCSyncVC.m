@@ -544,7 +544,7 @@
             if (order.salesRep) [postString appendFormat:@"&salesrepid=%@", order.salesRep.repId];
             if (order.salesTerm) {
                 [postString appendFormat:@"&salestermid=%@", order.salesTerm.termId];
-                [postString appendFormat:@"&salestermname=%@", [order.salesTerm.name urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+//                [postString appendFormat:@"&salestermname=%@", [order.salesTerm.name urlEncodeUsingEncoding:NSUTF8StringEncoding]];
             }
             if (order.shipDate) {
                 NSString *dateString = [SCGlobal stringFromDate:order.shipDate];

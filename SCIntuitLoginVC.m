@@ -42,18 +42,24 @@
     self.title = @"Login To Intuit App Center";
     self.global = [SCGlobal sharedGlobal];
 
+    
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     if (![self.global.webApp getTenant]) {
         [self.global.webApp setTenant];
     }
     NSMutableString *url = [[NSMutableString alloc] init];
     [url appendString:WEB_APP_URL];
-    [url appendString:OAUTH_REQUEST_URL_EXT]; 
+    [url appendString:OAUTH_REQUEST_URL_EXT];
     [url appendString:@"?tenant="];
     [url appendString:[self.global.webApp getTenant]];
     NSURL *requestUrl = [NSURL URLWithString:url];
     NSURLRequest *httpRequest = [NSURLRequest requestWithURL:requestUrl];
     [self.webView loadRequest:httpRequest];
-    
 }
 
 - (void)didReceiveMemoryWarning
