@@ -25,9 +25,10 @@
 @property (strong, nonatomic) SCDataObject *dataObject;
 
 //IB Stuff
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 @end
 
 @implementation SCSyncVC
@@ -52,15 +53,24 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //disable closeButton
-    self.navigationItem.leftBarButtonItem.enabled = NO;
+    //disable and back button
+    self.closeButton.enabled = NO;
+    self.navigationItem.hidesBackButton = YES;
     
-    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self sync];
+//    [self syncEverything];
+    switch (self.syncMethod) {
+        case EVERYTHING_SYNC:
+            [self syncEverything];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,11 +89,12 @@
     [self setTitleLabel:nil];
     [self setActivityIndicator:nil];
     [self setTextView:nil];
+    [self setCloseButton:nil];
     [super viewDidUnload];
 }
 
 #pragma mark - Sundeep's Methods
-- (void)sync
+- (void)syncEverything
 {
     NSError *connectionError = nil;
     NSError *companyInfoError = nil;
@@ -117,11 +128,6 @@
             [syncErrorString appendFormat:@"Failed to upload new customers. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nCustomer Name: %@", newCustomersError, newCustomersResponseError[@"error"], newCustomersResponseError[@"msg"], newCustomersResponseError[@"errorDetail"], newCustomersResponseError[@"name"]];
             hadSyncError = YES;
         }
-        
-
-        
-        
-        
         
         if (![self downloadCompanyInfo:&companyInfoError]) {
             if (syncErrorString.length != 0) {
@@ -171,7 +177,7 @@
             hadSyncError = YES;
         }
         
-                if (![self uploadOrders:&ordersError responseError:&ordersResponseError]) {
+        if (![self uploadOrders:&ordersError responseError:&ordersResponseError]) {
             if (syncErrorString.length != 0) {
                 [syncErrorString appendString:@"\n\n"];
             }
@@ -201,8 +207,88 @@
         }
     }
 
+    //Set the view components
     [self.activityIndicator stopAnimating];
-    self.navigationItem.leftBarButtonItem.enabled = YES;
+    self.closeButton.enabled = YES;
+    self.navigationItem.hidesBackButton = NO;
+}
+
+- (void)syncCompanyInfo
+{
+    NSError *connectionError = nil;
+    NSError *companyInfoError = nil;
+    NSError *repsError = nil;
+    NSError *termsError = nil;
+    NSError *shipViasError = nil;
+    
+    NSDictionary *oAuthResponseError;
+    NSDictionary *repsResponseError = nil;
+    NSDictionary *termsResponseError = nil;
+    NSDictionary *shipViasResponseError = nil;
+    
+    BOOL hadSyncError = NO;
+    NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
+    
+    if ([self.webApp oAuthTokenIsValid:&connectionError responseError:&oAuthResponseError]) {
+        
+        if (![self downloadCompanyInfo:&companyInfoError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to sync company info. Error: \n%@", companyInfoError];
+            hadSyncError = YES;
+        }
+        
+        if (![self downloadReps:&repsError responseError:&repsResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to sync reps.\nError: %@\nResponse Error: %@", repsError, repsResponseError[@"error"]];
+            hadSyncError = YES;
+        }
+        
+        if (![self downloadTerms:&termsError responseError:&termsResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to sync terms.  Error: \n%@", termsError];
+            hadSyncError = YES;
+        }
+        
+        if (![self downloadShipVias:&shipViasError responseError:&shipViasResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to sync ship vias.  Error: \n%@", shipViasError];
+            hadSyncError = YES;
+        }
+                
+        if (hadSyncError) {
+            self.titleLabel.text = @"Synced With Errors";
+            self.textView.text = syncErrorString;
+        } else {
+            self.titleLabel.text = @"Synced Successfully";
+            self.textView.text = @"Sync finished without errors.";
+        }
+        
+    } else { //Connection not good, couldn't even start syncing.
+        //        hadConnectionError = YES;
+        
+        self.titleLabel.text = @"Sync Failed";
+        
+        if (![self.webApp isOnline:&connectionError]) {
+            self.textView.text = [NSString stringWithFormat:@"Can't connect to the internet. Error: \n%@", connectionError];
+        } else if (![self.webApp canConnectToSalesCaseWebApp:&connectionError]) {
+            self.textView.text = [NSString stringWithFormat:@"Can't connect to SalesCase servers. Error: \n%@", connectionError];
+        } else {
+            self.textView.text = [NSString stringWithFormat:@"Can't connect to your App Center account. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@", connectionError, oAuthResponseError[@"error"], oAuthResponseError[@"msg"], oAuthResponseError[@"errorDetail"]];
+        }
+    }
+    
+    //Set the view components
+    [self.activityIndicator stopAnimating];
+    self.closeButton.enabled = YES;
+    self.navigationItem.hidesBackButton = NO;
 }
 
 -(BOOL) downloadCompanyInfo:(NSError **)error
@@ -628,289 +714,6 @@
 #pragma mark - IB Methods
 - (IBAction)closeButtonPress:(UIBarButtonItem *)sender {
     [self.delegate passCloseSyncButtonPress];
-    
 }
-
-#pragma mark - Al's Methods
-//-(void)performSyncOperation
-//{
-//    if (self.global.webApp == nil)
-//    {
-//        //throw a fit
-//        NSException *webAppExistenceException = [NSException exceptionWithName: EXCEPTION_CONNECTION                                                                      reason: [NSString stringWithFormat:@"Salescase was unable to download data from Quickbooks.  %@", @"Couldn't initiate the web service"]                                                                      userInfo: nil];
-////        [self alertConnectionError:webAppExistenceException];
-//        NSLog(@"self.global.webApp == nil");
-//    }
-//    else if ([self.global.webApp connectedToApp])
-//    {
-//        BOOL errorOccurred = NO;
-//        @try {
-//            [self.global.webApp downloadSalesTerms];
-//        } @catch (NSException *exception) {
-//            errorOccurred = YES;
-////            [self alertConnectionError:exception];
-//        } @finally {
-//        }
-//        @try {
-//            [self.global.webApp downloadShippingMethods];
-//        } @catch (NSException *exception) {
-//            errorOccurred = YES;
-////            [self alertConnectionError:exception];
-//        } @finally {
-//        }
-//        @try {
-//            [self.global.webApp downloadSalesReps];
-//        } @catch (NSException *exception) {
-//            errorOccurred = YES;
-////            [self alertConnectionError:exception];
-//        } @finally {
-//        }
-//        @try {
-//            [self.global.webApp downloadCustomers];
-//        } @catch (NSException *exception) {
-//            errorOccurred = YES;
-////            [self alertConnectionError:exception];
-//        } @finally {
-//        }
-//        @try {
-//            [self.global.webApp downloadItems];
-//        } @catch (NSException *exception) {
-//            errorOccurred = YES;
-////            [self alertConnectionError:exception];
-//        } @finally {
-//        }
-//        
-////        @try {
-////            [self.global.webApp downloadCompanyInfo];
-////        } @catch (NSException *exception) {
-////            errorOccurred = YES;
-//////            [self alertConnectionError:exception];
-////        } @finally {
-////        }
-//        
-//        @try {
-//            [self.global.webApp uploadOrders];
-//        } @catch (NSException *exception) {
-//            errorOccurred = YES;
-////            [self alertConnectionError:exception];
-//        } @finally {
-//        }
-//        //        @try {
-//        //            [self.global.webApp sendQueuedEmails];
-//        //        } @catch (NSException *exception) {
-//        //            errorOccurred = YES;
-//        //            [self alertConnectionError:exception];
-//        //        } @finally {
-//        //        }
-//        
-//        
-//        if (!errorOccurred)
-//        {
-//            self.titleLabel.text = @"Successful";
-//            self.textView.hidden = YES;
-//        } else {
-//            self.titleLabel.text = @"Failed";
-//        }
-//    }
-//    else // not connected to App
-//    {
-//        NSException *exception = [NSException exceptionWithName: EXCEPTION_CONNECTION
-//                                                         reason: @"Salescase was unable to establish a connection with the web app"
-//                                                       userInfo: nil];
-////        [self alertConnectionError:exception];
-//    }
-//    
-//    //Enable the close button after syncing finished.
-//    self.navigationItem.leftBarButtonItem.enabled = YES;
-//    [self.activityIndicator stopAnimating];
-//}
-//
-//-(void) uploadOrders
-//{
-////    if ([self connectedToApp])
-////    {
-//        @try {
-//            NSError *error;
-////            NSArray *orderList = [self.dataObject fetchOrdersInContext];
-//            NSURL *url;
-//            NSString *urlString;
-//            
-//            urlString = [NSString stringWithFormat:@"%@%@", WEB_APP_URL, SEND_ORDER_URL_EXT];
-//            NSString *urlTenantQuery = [NSString stringWithFormat:@"tenant=%@", [self.webApp getTenant] ];
-//            urlString = [NSString stringWithFormat:@"%@?%@",urlString,urlTenantQuery];
-//            url = [NSURL URLWithString:urlString];
-//            
-//            for (SCOrder *order in orderList)
-//            {
-//                // Only sync confirmed orders which have NOT been synced
-//                if (order.confirmed && !order.synced) //don't need to check for customer here or 0 line items because not allowing these orders to be changed to confirmed status.
-//                {
-//                    NSString *postString = [self orderQueryStringFrom:order];
-//                    
-//                    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-//                    [req setHTTPMethod:@"POST"];
-//                    
-//                    //NSData *postData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-//                    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-//                    
-//                    
-//                    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
-//                    [req setValue:postLength forHTTPHeaderField:@"Content-Length"];
-//                    [req setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//                    [req setHTTPBody:postData];
-//                    NSData *res = [NSURLConnection  sendSynchronousRequest:req returningResponse:NULL error:NULL];
-//                    NSMutableDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:res options:kNilOptions error:&error];
-//                    
-//                    if ([(NSString *) responseDictionary[@"result"] isEqualToString:@"Success"] )
-//                    {
-//                        order.synced = @YES;
-//                        // Consider moving this outside the loop if performance appears bad
-//                        [self.dataObject saveOrder:order];
-//                    }
-//                    else
-//                    {
-//                        NSException *exception = [NSException exceptionWithName:EXCEPTION_UPLOAD reason:responseDictionary[@"msg"] userInfo:nil];
-//                        @throw exception;
-//                    }
-//                }
-//            }
-//        } @catch (NSException *thrownException) {
-//            // Repackage and hope for the best
-//            NSException *exception = [NSException exceptionWithName: EXCEPTION_UPLOAD
-//                                                             reason: [NSString stringWithFormat:@"Salescase was unable to upload sales orders to Quickbooks.  %@", thrownException.reason]
-//                                                           userInfo: nil];
-//            @throw exception;
-//        } @finally { /* empty */ }
-////    }
-//}
-//
-//-(void) downloadSalesReps
-//{
-//    [self downloadFromExtension:LIST_SALES_REPS_URL_EXT withPages:NO];
-//}
-//-(void) downloadSalesTerms
-//{
-//    [self downloadFromExtension:LIST_SALES_TERMS_URL_EXT withPages:NO];
-//}
-//-(void) downloadShippingMethods
-//{
-//    [self downloadFromExtension:LIST_SHIP_METHODS_URL_EXT withPages:NO];
-//}
-//-(void) downloadCustomers
-//{
-//    [self downloadFromExtension:LIST_CUSTOMERS_URL_EXT withPages:YES];
-//}
-//-(void) downloadItems
-//{
-//    [self downloadFromExtension:LIST_ITEMS_URL_EXT withPages:YES];
-//}
-//
-//-(NSMutableDictionary *)resultFromURI:(NSString *)urlExtention pageNumber:(int)pageNumber
-//{
-//    NSError *error=nil;
-//    NSString *tenant = [self.webApp getTenant];
-//    NSString *urlstring = [NSString stringWithFormat:@"%@%@?tenant=%@&page=%d", WEB_APP_URL, urlExtention, tenant, pageNumber];
-//    
-//    NSURL *url = [NSURL URLWithString:urlstring ];
-//    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url
-//                                                       cachePolicy:NSURLRequestUseProtocolCachePolicy
-//                                                   timeoutInterval:240];
-//    [req setHTTPMethod:@"POST"];
-//    NSData *res = [NSURLConnection  sendSynchronousRequest:req returningResponse:NULL error:&error];
-//    
-//    if (error!=nil) NSLog(@"error: %@", error);
-//    
-//    return [NSJSONSerialization JSONObjectWithData:res options:kNilOptions error:&error];
-//}
-//
-//-(void) downloadFromExtension:(NSString *)urlExtension withPages:(BOOL)withPages
-//{
-//    [self downloadFromExtension:urlExtension pageNumber:1 nextPage:withPages];
-//}
-//
-//-(void) downloadFromExtension:(NSString *)urlExtension pageNumber:(int)pageNumber nextPage:(BOOL)nextPage
-//{
-//    NSMutableDictionary *fullDataArray = [self resultFromURI:urlExtension pageNumber:pageNumber];
-//    if ([fullDataArray isKindOfClass:[NSDictionary class]]) //Web app gave us a single associative array (not a list of them wrapped in an array)
-//    {
-//        if ([urlExtension isEqualToString:LIST_COMPANY_INFO_URL_EXT])
-//        {
-//            self *webTranslator = [[self alloc] initWithDataObject:self.dataObject];
-//            [webTranslator processCompanyInfo:fullDataArray];
-//        }
-//        else
-//        {
-//            if (fullDataArray[@"result"] != nil)
-//            {
-////                NSString *exceptionReasonHeader = [self exceptionReasonForOperation:urlExtension];
-////                NSException *exception =
-////                [NSException exceptionWithName: EXCEPTION_DOWNLOAD
-////                                        reason: [NSString stringWithFormat:@"%@\nServer message: %@", exceptionReasonHeader, fullDataArray[@"error"]]
-////                                      userInfo: nil];
-////                @throw exception;
-//            }
-//            else
-//            {
-//                NSException *exception = [NSException exceptionWithName: EXCEPTION_DOWNLOAD
-//                                                                 reason: @"Unknown server response. Might be because app tenant ID is accessing same IPP account as another tenant ID"
-//                                                               userInfo: nil];
-//                @throw  exception;
-//            }
-//        }
-//    }
-//    else if ([fullDataArray isKindOfClass:[NSArray class]])
-//    {
-//        if ([(NSArray *)fullDataArray count] == 0)
-//        {
-//            //done!
-//        }
-//        else
-//        {
-//            self *webTranslator = [[self alloc] initWithDataObject:self.dataObject];
-//            if ([urlExtension isEqualToString:LIST_SALES_REPS_URL_EXT]) {
-//                [webTranslator processSalesRepData:(NSArray *) fullDataArray];
-//            } else if ([urlExtension isEqualToString:LIST_SALES_TERMS_URL_EXT]) {
-//                [webTranslator processSalesTerms:(NSArray *) fullDataArray];
-//            } else if ([urlExtension isEqualToString:LIST_SHIP_METHODS_URL_EXT]) {
-//                [webTranslator processShippingMethods:(NSArray *) fullDataArray];
-//            } else if ([urlExtension isEqualToString:LIST_CUSTOMERS_URL_EXT]) {
-//                [webTranslator processCustomers:(NSArray *) fullDataArray];
-//            } else if ([urlExtension isEqualToString:LIST_ITEMS_URL_EXT]) {
-//                [webTranslator processItems:(NSArray *) fullDataArray];
-//            } else {
-//                // Throw unknown exception
-//                NSException *exception = [NSException exceptionWithName: EXCEPTION_DOWNLOAD
-//                                                                 reason: @"Unknown operation request."
-//                                                               userInfo: nil];
-//                @throw  exception;
-//            }
-//            
-//            //continue with next page
-//            if (nextPage)
-//            {
-//                if (pageNumber < WEB_APP_MAX_PAGES)
-//                {
-//                    [self downloadFromExtension:urlExtension pageNumber:(pageNumber+1) nextPage:YES];
-//                }
-//                else{
-//                    NSException *exception = [NSException exceptionWithName: EXCEPTION_DOWNLOAD
-//                                                                     reason: @"Request size exceeded limit."
-//                                                                   userInfo: nil];
-//                    @throw  exception;
-//                }
-//            }
-//        }
-//    }
-//    else
-//    {
-//        NSException *exception = [NSException exceptionWithName: EXCEPTION_DOWNLOAD
-//                                                         reason: @"Ubable to parse server response.  The data request might have been too large."
-//                                                       userInfo: nil];
-//        @throw  exception;
-//    }
-//}
-
-
-
 
 @end

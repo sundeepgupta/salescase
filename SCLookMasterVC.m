@@ -20,6 +20,7 @@
 #import "SCCustomerDetailVC.h"
 #import "SCItemCartVC.h"
 #import "SCCustomer.h"
+#import "SCSelectSyncVC.h"
 
 @interface SCLookMasterVC ()
 @property (strong, nonatomic) SCGlobal *global;
@@ -356,10 +357,15 @@
 
 #pragma mark - IB methods
 - (IBAction)syncButtonPress:(UIBarButtonItem *)sender {
-    UINavigationController *nC = [self.storyboard instantiateViewControllerWithIdentifier:@"SyncNC"];
-    SCSyncVC *vC = (SCSyncVC *)nC.topViewController;
-    vC.delegate = self;
-    [self presentViewController:nC animated:YES completion:nil];
+    UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"SyncNC"];
+    [self presentViewController:nc animated:YES completion:nil];
+    SCSelectSyncVC *vc = (SCSelectSyncVC *)nc.topViewController;
+    vc.syncVCDelegate = self;
+
+    //still need to give the delegate to SyncVC
+//    SCSyncVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCSyncVC class])];
+//    vC.delegate = self;
+
 }
 
 - (IBAction)newOrderButtonPress:(UIBarButtonItem *)sender {

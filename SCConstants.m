@@ -8,6 +8,9 @@
 
 #import "SCConstants.h"
 
+//enums
+
+
 //User Defaults
 NSString *const USER_COMPANY_INFO = @"CompanyInfo";
 NSString *const USER_COMPANY_NAME = @"Name";

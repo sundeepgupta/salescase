@@ -125,6 +125,8 @@
 		AE2E4F45173583630028A972 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2927351714DCF00094BE0F /* CoreGraphics.framework */; };
 		AE2E4F46173583720028A972 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928821715054F0094BE0F /* MessageUI.framework */; };
 		AE2E4F471735A1EF0028A972 /* SalesCase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE29274E1714DCF00094BE0F /* SalesCase.xcdatamodeld */; };
+		AE2E4F4A1735CC7C0028A972 /* SCSelectSyncVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E4F491735CC7C0028A972 /* SCSelectSyncVC.m */; };
+		AE2E4F4B1735CC7C0028A972 /* SCSelectSyncVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E4F491735CC7C0028A972 /* SCSelectSyncVC.m */; };
 		AE349682171CF1FF0017AD6E /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = AE349681171CF1FF0017AD6E /* capture.png */; };
 		AE349685171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
 		AE349686171CF2FE0017AD6E /* SCCustomerDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */; };
@@ -269,6 +271,8 @@
 		AE2928861715059B0094BE0F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AE2928881715060C0094BE0F /* Case-only-in-square-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Case-only-in-square-72x72.png"; sourceTree = "<group>"; };
 		AE29288A171506150094BE0F /* Case-only-in-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Case-only-in-square.png"; sourceTree = "<group>"; };
+		AE2E4F481735CC7B0028A972 /* SCSelectSyncVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSelectSyncVC.h; sourceTree = "<group>"; };
+		AE2E4F491735CC7C0028A972 /* SCSelectSyncVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSelectSyncVC.m; sourceTree = "<group>"; };
 		AE349681171CF1FF0017AD6E /* capture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture.png; path = SalesCase/capture.png; sourceTree = "<group>"; };
 		AE349683171CF2FE0017AD6E /* SCCustomerDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCustomerDetailVC.h; sourceTree = "<group>"; };
 		AE349684171CF2FE0017AD6E /* SCCustomerDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCustomerDetailVC.m; sourceTree = "<group>"; };
@@ -499,6 +503,8 @@
 				AE2927CD1714FF2C0094BE0F /* NSString+URLEncoding.m */,
 				AE2927AF1714FE6F0094BE0F /* SCWebApp.h */,
 				AE2927B01714FE6F0094BE0F /* SCWebApp.m */,
+				AE2E4F481735CC7B0028A972 /* SCSelectSyncVC.h */,
+				AE2E4F491735CC7C0028A972 /* SCSelectSyncVC.m */,
 				AE2928541714FFBB0094BE0F /* SCSyncVC.h */,
 				AE2928551714FFBB0094BE0F /* SCSyncVC.m */,
 				AE2928561714FFBB0094BE0F /* SCSyncVCDelegate.h */,
@@ -775,6 +781,7 @@
 				AE3496FE171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */,
 				AE349703171E524D0017AD6E /* SCPopoverTableCell.m in Sources */,
 				AEE8B56B172059CC0046A34A /* SCDevVC.m in Sources */,
+				AE2E4F4A1735CC7C0028A972 /* SCSelectSyncVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -831,6 +838,7 @@
 				AE3496FF171E51CA0017AD6E /* SCPopoverTableVC.m in Sources */,
 				AE349704171E524D0017AD6E /* SCPopoverTableCell.m in Sources */,
 				AE2E4F471735A1EF0028A972 /* SalesCase.xcdatamodeld in Sources */,
+				AE2E4F4B1735CC7C0028A972 /* SCSelectSyncVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

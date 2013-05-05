@@ -7,33 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import <UIKit/UIKit.h>
 
-////Storyboard IDs
-////Detail VCs
-//FOUNDATION_EXPORT NSString *const @"SCCustomerDetailVC";
-//FOUNDATION_EXPORT NSString *const @"SCCustomersVC";
-//FOUNDATION_EXPORT NSString *const @"SCItemCartVC";
-//FOUNDATION_EXPORT NSString *const @"SCItemDetailVC";
-//FOUNDATION_EXPORT NSString *const ITEMS_VC;
-//FOUNDATION_EXPORT NSString *const ORDER_ACTIONS_VC;
-//FOUNDATION_EXPORT NSString *const @"SCOrderDetailVC";
-//FOUNDATION_EXPORT NSString *const @"SCOrderOptionsVC";
-//FOUNDATION_EXPORT NSString *const ORDERS_VC;
-//FOUNDATION_EXPORT NSString *const @"SCLoginVC";
-////Master VCs
-//FOUNDATION_EXPORT NSString *const ORDER_MASTER_VC;
-////NCs
-//FOUNDATION_EXPORT NSString *const @"CustomersNC";
-//FOUNDATION_EXPORT NSString *const @"ItemsNC";
-//FOUNDATION_EXPORT NSString *const LOGIN_NC;
-//
-//FOUNDATION_EXPORT NSString *const SYNC_NC;
-//FOUNDATION_EXPORT NSString *const NO_DATA_NC;
-//
-////Login VCs
-//FOUNDATION_EXPORT NSString *const @"SCLoginVC";
-//FOUNDATION_EXPORT NSString *const INTUIT_@"SCLoginVC";
+typedef enum{
+    EVERYTHING_SYNC = 0,
+    COMPANY_INFO_SYNC = 1
+}eSyncMethod;
+
 
 //User Defaults
 FOUNDATION_EXPORT NSString *const USER_COMPANY_INFO;

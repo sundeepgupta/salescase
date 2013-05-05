@@ -10,16 +10,20 @@
 #import "SCSyncVCDelegate.h"
 #import <MessageUI/MessageUI.h>
 
+
+
 @interface SCSyncVC : UIViewController <MFMailComposeViewControllerDelegate>
 
-@property (weak, nonatomic) id <SCSyncVCDelegate> delegate;
+@property (strong, nonatomic) id <SCSyncVCDelegate> delegate;
+@property eSyncMethod syncMethod;
 
 
 
 
+- (void)syncEverything;
+- (void)syncCompanyInfo;
 
 
-
-
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
