@@ -3194,9 +3194,14 @@ TURN INTO POPUP AFTER</string>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="fVZ-bi-oKW"/>
-                        <barButtonItem title="Save" id="WyM-ug-sRB">
+                        <barButtonItem title="Orders" id="WyM-ug-sRB">
                             <connections>
-                                <action selector="doneButtonPress:" destination="exW-dP-DF4" id="03V-hP-JW2"/>
+                                <action selector="ordersButtonPress:" destination="exW-dP-DF4" id="Kh7-UB-Fuf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Save" id="9FY-7E-gic">
+                            <connections>
+                                <action selector="doneButtonPress:" destination="exW-dP-DF4" id="tnC-fS-ocx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem title="Next" id="LSq-Rp-moO">
@@ -3227,7 +3232,6 @@ TURN INTO POPUP AFTER</string>
                         <outlet property="captureImageButton" destination="UaQ-0Q-H7d" id="1US-En-3Mv"/>
                         <outlet property="dbaNameTextField" destination="wqH-R1-abc" id="PKw-cV-PGg"/>
                         <outlet property="deleteButton" destination="uJq-j0-ajW" id="e4d-dn-JI6"/>
-                        <outlet property="doneButton" destination="WyM-ug-sRB" id="Q7y-el-Gjd"/>
                         <outlet property="editButton" destination="uwd-vr-Dbv" id="cbW-iB-6Y4"/>
                         <outlet property="emailTextField" destination="WAa-Fm-XO9" id="H8X-yp-Rvo"/>
                         <outlet property="faxTextField" destination="maN-Jc-xhL" id="5iN-Tm-O8i"/>
@@ -3235,6 +3239,7 @@ TURN INTO POPUP AFTER</string>
                         <outlet property="lastNameTextField" destination="Lcz-ec-aWd" id="2bq-uq-59N"/>
                         <outlet property="nameTextField" destination="8nn-vI-Ebc" id="SIX-XR-7mA"/>
                         <outlet property="nextButton" destination="LSq-Rp-moO" id="YQ2-in-XOL"/>
+                        <outlet property="ordersButton" destination="WyM-ug-sRB" id="2WF-uB-tqe"/>
                         <outlet property="phoneTextField" destination="9Ae-gy-rwR" id="RMm-Km-MYs"/>
                         <outlet property="repCell" destination="fCq-c2-ovf" id="r3s-79-s9M"/>
                         <outlet property="repLabel" destination="4iA-MI-Oky" id="iRZ-kq-a5M"/>

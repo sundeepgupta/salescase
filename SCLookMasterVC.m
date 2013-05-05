@@ -24,10 +24,10 @@
 
 @interface SCLookMasterVC ()
 @property (strong, nonatomic) SCGlobal *global;
-@property (strong, nonatomic) NSArray *menu;
+
 @property (strong, nonatomic) NSString *menuItemLabel;
-@property (strong, nonatomic) NSString *menuItemRootVC;
-@property (strong, nonatomic) NSString *menuItemPreviousStack;
+
+
 @property (strong, nonatomic) UINavigationController *detailNC;
 @property (strong, nonatomic) UIPopoverController *syncPopoverController;
 @property (strong, nonatomic) SCItemCartVC *itemCartVC;
@@ -170,6 +170,11 @@
             [self.detailNC setViewControllers:stack animated:NO];
         }
     }
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 #pragma mark - Custom methods

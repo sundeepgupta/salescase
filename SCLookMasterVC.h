@@ -14,6 +14,12 @@
 
 @interface SCLookMasterVC : UITableViewController <SCSyncVCDelegate, MFMailComposeViewControllerDelegate>
 
+@property (strong, nonatomic) NSArray *menu;
+@property (strong, nonatomic) NSString *menuItemRootVC;
+@property (strong, nonatomic) NSString *menuItemPreviousStack;
+
+
+
 - (NSString *)menuItemLabelForVC:(UIViewController *)vC;
 - (void)startOrderMode;
 - (void)startOrderModeWithCustomer:(SCCustomer *)customer;

@@ -19,7 +19,7 @@
 #import "SCCustomersVC.h"
 #import "SCLookMasterVC.h"
 #import "SCConfirmDeleteVC.h"
-
+#import "SCOrdersVC.h"
 
 @interface SCCustomerDetailVC ()
 @property (strong, nonatomic) SCGlobal *global;
@@ -30,7 +30,6 @@
 @property (strong, nonatomic) NSString *defaultName;
 @property (strong, nonatomic) UIAlertView *validateCompanyNameAlert;
 @property (strong, nonatomic) UIPopoverController *confirmDeletePC;
-@property (strong, nonatomic) NSUndoManager *undoManager;
 
 @property (strong, nonatomic) NSArray *billToTextFields;
 @property (strong, nonatomic) NSArray *shipToTextFields;
@@ -76,6 +75,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *spacer2;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *ordersButton;
 
 //Cells
 @property (strong, nonatomic) IBOutlet UITableViewCell *repCell;
@@ -153,7 +153,7 @@
             if ([self.customer.status isEqualToString:NEW_STATUS]) {
                 toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.editButton, nil];
             } else {
-                toolbarItems.array = [NSArray arrayWithObjects: nil];
+                toolbarItems.array = [NSArray arrayWithObjects: self.spacer1, self.ordersButton, nil];
             }
         }
 
@@ -243,6 +243,7 @@
     [self setTermsCell:nil];
     [self setBillToPostalCell:nil];
     [self setCancelButton:nil];
+    [self setOrdersButton:nil];
     [super viewDidUnload];
 }
 
@@ -711,4 +712,34 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)ordersButtonPress:(UIBarButtonItem *)sender {
+    UINavigationController *masterNC = self.splitViewController.viewControllers[0];
+    SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
+    NSString *ordersVCString = NSStringFromClass([SCOrdersVC class]);
+    
+    //setup OrdersVC
+    SCOrdersVC *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:ordersVCString];
+     detailVC.searchBar.text = @"bla";
+    
+    //Get indexPath of menu item and reset the menu item's stack so we always get OrdersVC, not OrderDetailVC
+    NSInteger rowNumber = 0;
+    for (NSInteger i = 0; i < masterVC.menu.count; i++) {
+        NSMutableDictionary *dict = masterVC.menu[i];
+        if ([dict[masterVC.menuItemRootVC] isEqualToString:ordersVCString]) {
+            rowNumber = i;
+            NSArray *newStack = [NSArray arrayWithObject:detailVC];
+            dict[masterVC.menuItemPreviousStack] = newStack;
+            break;
+        }
+    }
+    //setup the detail view
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rowNumber inSection:0];
+    [masterVC tableView:masterVC.tableView didHighlightRowAtIndexPath:indexPath];
+    [masterVC tableView:masterVC.tableView didSelectRowAtIndexPath:indexPath];
+    
+   
+//    [detailVC searchBar:detailVC.searchBar textDidChange:@"alb"];
+
+    
+}
 @end

@@ -25,7 +25,7 @@
 
 //IB stuff
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+
 
 @end
 
