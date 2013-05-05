@@ -10,7 +10,10 @@
 
 typedef enum{
     EVERYTHING_SYNC = 0,
-    COMPANY_INFO_SYNC = 1
+    COMPANY_INFO_SYNC = 1,
+    ORDERS_SYNC = 2,
+    CUSTOMERS_SYNC = 3,
+    ITEMS_SYNC = 4
 }eSyncMethod;
 
 

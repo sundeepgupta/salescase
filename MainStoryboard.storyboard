@@ -3974,9 +3974,6 @@ TURN INTO POPUP AFTER</string>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <outlet property="everythingButton" destination="Lhk-6e-91l" id="gkl-Xu-eh8"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lnZ-KY-TJf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

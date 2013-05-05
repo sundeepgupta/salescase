@@ -56,18 +56,26 @@
     //disable and back button
     self.closeButton.enabled = NO;
     self.navigationItem.hidesBackButton = YES;
-    
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-//    [self syncEverything];
     switch (self.syncMethod) {
         case EVERYTHING_SYNC:
             [self syncEverything];
             break;
-            
+        case COMPANY_INFO_SYNC:
+            [self syncCompanyInfo];
+            break;
+        case ORDERS_SYNC:
+            [self syncOrders];
+            break;
+        case CUSTOMERS_SYNC:
+            [self syncCustomers];
+            break;
+        case ITEMS_SYNC:
+            [self syncItems];
+            break;
         default:
             break;
     }
@@ -96,7 +104,9 @@
 #pragma mark - Sundeep's Methods
 - (void)syncEverything
 {
-    NSError *connectionError = nil;
+    //This function really should be an amalgamation of the other sync methods, so optimize later
+    
+    NSError *oAuthError = nil;
     NSError *companyInfoError = nil;
     NSError *repsError = nil;
     NSError *termsError = nil;
@@ -118,16 +128,7 @@
     BOOL hadSyncError = NO;
     NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
     
-    if ([self.webApp oAuthTokenIsValid:&connectionError responseError:&oAuthResponseError]) {
-        
-        
-        if (![self uploadNewCustomers:&newCustomersError responseError:&newCustomersResponseError]) {
-            if (syncErrorString.length != 0) {
-                [syncErrorString appendString:@"\n\n"];
-            }
-            [syncErrorString appendFormat:@"Failed to upload new customers. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nCustomer Name: %@", newCustomersError, newCustomersResponseError[@"error"], newCustomersResponseError[@"msg"], newCustomersResponseError[@"errorDetail"], newCustomersResponseError[@"name"]];
-            hadSyncError = YES;
-        }
+    if ([self.webApp oAuthTokenIsValid:&oAuthError responseError:&oAuthResponseError]) {
         
         if (![self downloadCompanyInfo:&companyInfoError]) {
             if (syncErrorString.length != 0) {
@@ -161,6 +162,14 @@
             hadSyncError = YES;
         }
         
+        if (![self uploadNewCustomers:&newCustomersError responseError:&newCustomersResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to upload new customers. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nCustomer Name: %@", newCustomersError, newCustomersResponseError[@"error"], newCustomersResponseError[@"msg"], newCustomersResponseError[@"errorDetail"], newCustomersResponseError[@"name"]];
+            hadSyncError = YES;
+        }
+        
         if (![self downloadCustomers:&customersError]) {
             if (syncErrorString.length != 0) {
                 [syncErrorString appendString:@"\n\n"];
@@ -185,32 +194,12 @@
             hadSyncError = YES;
         }
         
-        if (hadSyncError) {
-            self.titleLabel.text = @"Synced With Errors";
-            self.textView.text = syncErrorString;
-        } else {
-            self.titleLabel.text = @"Synced Successfully";
-            self.textView.text = @"Sync finished without errors.";
-        }
+        [self handleFinishedSyncErrorWithStatus:hadSyncError withErrorString:syncErrorString];
         
     } else { //Connection not good, couldn't even start syncing.
-//        hadConnectionError = YES;
-        
-        self.titleLabel.text = @"Sync Failed";
-        
-        if (![self.webApp isOnline:&connectionError]) {
-            self.textView.text = [NSString stringWithFormat:@"Can't connect to the internet. Error: \n%@", connectionError];
-        } else if (![self.webApp canConnectToSalesCaseWebApp:&connectionError]) {
-            self.textView.text = [NSString stringWithFormat:@"Can't connect to SalesCase servers. Error: \n%@", connectionError];
-        } else {
-            self.textView.text = [NSString stringWithFormat:@"Can't connect to your App Center account. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@", connectionError, oAuthResponseError[@"error"], oAuthResponseError[@"msg"], oAuthResponseError[@"errorDetail"]];
-        }
+        [self handleConnectionErrorWithOAuthError:oAuthError withOAuthResponseError:oAuthResponseError];
     }
-
-    //Set the view components
-    [self.activityIndicator stopAnimating];
-    self.closeButton.enabled = YES;
-    self.navigationItem.hidesBackButton = NO;
+    [self finalizeView];
 }
 
 - (void)syncCompanyInfo
@@ -284,7 +273,113 @@
             self.textView.text = [NSString stringWithFormat:@"Can't connect to your App Center account. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@", connectionError, oAuthResponseError[@"error"], oAuthResponseError[@"msg"], oAuthResponseError[@"errorDetail"]];
         }
     }
+    [self finalizeView];
+}
+
+- (void)syncOrders
+{    
+    NSError *oAuthError = nil;
+    NSError *ordersError = nil;
+    NSDictionary *oAuthResponseError;
+    NSDictionary *ordersResponseError;
+    BOOL hadSyncError = NO;
+    NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
+    if ([self.webApp oAuthTokenIsValid:&oAuthError responseError:&oAuthResponseError]) {
+        if (![self uploadOrders:&ordersError responseError:&ordersResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to sync orders. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nSCOrderID: %@", ordersError, ordersResponseError[@"error"], ordersResponseError[@"msg"], ordersResponseError[@"errorDetail"], ordersResponseError[@"SCOrderID"]];
+            hadSyncError = YES;
+        }
+        [self handleFinishedSyncErrorWithStatus:hadSyncError withErrorString:syncErrorString];
+    } else { //Connection not good, couldn't even start syncing.
+        [self handleConnectionErrorWithOAuthError:oAuthError withOAuthResponseError:oAuthResponseError];
+    }
+    [self finalizeView];
+}
+
+- (void)syncCustomers
+{
+    NSError *oAuthError = nil;
+    NSError *customersError = nil;
+    NSError *newCustomersError = nil;
+    NSDictionary *oAuthResponseError;
+    NSDictionary *newCustomersResponseError;
+    BOOL hadSyncError = NO;
+    NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
+    if ([self.webApp oAuthTokenIsValid:&oAuthError responseError:&oAuthResponseError]) {
+        if (![self uploadNewCustomers:&newCustomersError responseError:&newCustomersResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to upload new customers. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nCustomer Name: %@", newCustomersError, newCustomersResponseError[@"error"], newCustomersResponseError[@"msg"], newCustomersResponseError[@"errorDetail"], newCustomersResponseError[@"name"]];
+            hadSyncError = YES;
+        }
+        
+        if (![self downloadCustomers:&customersError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to sync customers.  Error: \n%@", customersError];
+            hadSyncError = YES;
+        }
+        [self handleFinishedSyncErrorWithStatus:hadSyncError withErrorString:syncErrorString];
+    } else { //Connection not good, couldn't even start syncing.
+        [self handleConnectionErrorWithOAuthError:oAuthError withOAuthResponseError:oAuthResponseError];
+    }
+    [self finalizeView];
+}
+
+- (void)syncItems
+{
+    NSError *oAuthError = nil;
+    NSError *itemsError = nil;
+    NSDictionary *oAuthResponseError;
+    BOOL hadSyncError = NO;
+    NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
+    if ([self.webApp oAuthTokenIsValid:&oAuthError responseError:&oAuthResponseError]) {
+        if (![self downloadItems:&itemsError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to sync items.  Error: \n%@", itemsError];
+            hadSyncError = YES;
+        }
+        [self handleFinishedSyncErrorWithStatus:hadSyncError withErrorString:syncErrorString];
+    } else { //Connection not good, couldn't even start syncing.
+        [self handleConnectionErrorWithOAuthError:oAuthError withOAuthResponseError:oAuthResponseError];
+    }
+    [self finalizeView];
+}
+
+- (void)handleFinishedSyncErrorWithStatus:(BOOL)hadSyncError withErrorString:(NSString *)syncErrorString
+{
+    if (hadSyncError) {
+        self.titleLabel.text = @"Synced With Errors";
+        self.textView.text = syncErrorString;
+    } else {
+        self.titleLabel.text = @"Synced Successfully";
+        self.textView.text = @"Sync finished without errors.";
+    }
+}
+
+- (void)handleConnectionErrorWithOAuthError:(NSError *)oAuthError withOAuthResponseError:(NSDictionary *)oAuthResponseError
+{
+    self.titleLabel.text = @"Sync Failed";
     
+    NSError *connectionError = nil;
+    if (![self.webApp isOnline:&connectionError]) {
+        self.textView.text = [NSString stringWithFormat:@"Can't connect to the internet. Error: \n%@", connectionError];
+    } else if (![self.webApp canConnectToSalesCaseWebApp:&connectionError]) {
+        self.textView.text = [NSString stringWithFormat:@"Can't connect to SalesCase servers. Error: \n%@", connectionError];
+    } else {
+        self.textView.text = [NSString stringWithFormat:@"Can't connect to your App Center account. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@", oAuthError, oAuthResponseError[@"error"], oAuthResponseError[@"msg"], oAuthResponseError[@"errorDetail"]];
+    }
+}
+
+- (void)finalizeView
+{
     //Set the view components
     [self.activityIndicator stopAnimating];
     self.closeButton.enabled = YES;
