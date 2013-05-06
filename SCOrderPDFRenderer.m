@@ -376,7 +376,7 @@ static CGFloat const klineHeight = 14;
     NSString *nameText = line.item.name;
     NSString *descriptionText = line.item.itemDescription;
     NSString *quantityText = line.quantity.stringValue;
-    NSString *priceText = [SCGlobal stringFromDollarAmount:line.item.price.floatValue];
+    NSString *priceText = [SCGlobal stringFromDollarAmount:line.price.floatValue];
     NSString *amountText = [SCGlobal stringFromDollarAmount:[line amount]];
     
     CGFloat nameWidth =  self.itemNameHeader.frame.size.width;

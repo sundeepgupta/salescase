@@ -16,14 +16,15 @@
 @dynamic quantity;
 @dynamic item;
 @dynamic order;
+@dynamic price;
+
 
 - (float)amount
 {
     float quantity = [self.quantity floatValue];
-    float price = [self.item.price floatValue];
+    float price = [self.price floatValue];
     return quantity * price;
 }
-
 
 
 @end

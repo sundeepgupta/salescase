@@ -16,6 +16,9 @@
 @property (nonatomic, strong) NSNumber * quantity;
 @property (nonatomic, strong) SCItem *item;
 @property (nonatomic, strong) SCOrder *order;
+@property (strong, nonatomic) NSNumber *price;
+ 
+
 
 - (float)amount;
 

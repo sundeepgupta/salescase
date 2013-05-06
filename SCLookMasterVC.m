@@ -234,6 +234,9 @@
     //create a line with 0 quantity
     SCLine *line = (SCLine *)[self.global.dataObject newObject:@"SCLine"];
     line.item = item;
+    
+    line.price = item.price;
+    
     line.quantity = 0;
     line.order = self.global.dataObject.openOrder;
     [self.global.dataObject saveOrder:self.global.dataObject.openOrder];

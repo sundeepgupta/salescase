@@ -195,7 +195,7 @@
     if (self.isEditLineMode) {
         self.nameLabel.text = self.line.item.name;
         self.descriptionTextView.text = self.line.item.itemDescription;
-        self.priceLabel.text = [SCGlobal stringFromDollarAmount:self.line.item.price.floatValue];
+        self.priceLabel.text = [SCGlobal stringFromDollarAmount:self.line.price.floatValue];
         self.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", [self.line.item.quantityOnHand stringValue]];
         self.quantityOrderedTextField.text = [self.line.quantity stringValue];
     } else { //new item
@@ -210,11 +210,16 @@
 { //self.line here is an existing line, where line is a new line
     if (self.isEditLineMode) {
         self.line.quantity = [NSNumber numberWithFloat:[self.quantityOrderedTextField.text floatValue]];
+        
+        
         [self.dataObject saveOrder:self.dataObject.openOrder];
         [self.delegate dismissModal];
     } else {
         SCLine *line = (SCLine *)[self.dataObject newObject:@"SCLine"];
-        line.item = self.item;
+        line.item = self.item; //provides for id and name
+        
+        line.price = self.item.price;
+        
         line.quantity = [NSNumber numberWithFloat:[self.quantityOrderedTextField.text floatValue]];
         line.order = self.dataObject.openOrder;
         [self.dataObject saveOrder:self.dataObject.openOrder];

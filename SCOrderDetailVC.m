@@ -157,7 +157,7 @@
     cell.nameLabel.text = line.item.name;
     cell.descriptionLabel.text = line.item.itemDescription;
     cell.quantityLabel.text = [line.quantity stringValue];
-    cell.priceLabel.text = [SCGlobal stringFromDollarAmount:[line.item.price floatValue]];
+    cell.priceLabel.text = [SCGlobal stringFromDollarAmount:[line.price floatValue]];
     cell.amountLabel.text = [SCGlobal stringFromDollarAmount:[line amount]];
 
     return cell;

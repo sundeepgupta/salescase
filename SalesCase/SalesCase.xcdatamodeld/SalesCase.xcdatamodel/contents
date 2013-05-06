@@ -63,6 +63,7 @@
         <relationship name="owningLines" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCLine" inverseName="item" inverseEntity="SCLine" syncable="YES"/>
     </entity>
     <entity name="SCLine" representedClassName="SCLine" syncable="YES">
+        <attribute name="price" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="quantity" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <relationship name="item" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCItem" inverseName="owningLines" inverseEntity="SCItem" syncable="YES"/>
         <relationship name="order" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SCOrder" inverseName="lines" inverseEntity="SCOrder" syncable="YES"/>
@@ -115,7 +116,7 @@
         <element name="SCCustomer" positionX="0" positionY="0" width="128" height="360"/>
         <element name="SCEmail" positionX="0" positionY="0" width="128" height="105"/>
         <element name="SCItem" positionX="0" positionY="0" width="128" height="180"/>
-        <element name="SCLine" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="SCLine" positionX="0" positionY="0" width="128" height="105"/>
         <element name="SCOrder" positionX="0" positionY="0" width="128" height="225"/>
         <element name="SCPhone" positionX="0" positionY="0" width="128" height="120"/>
         <element name="SCSalesRep" positionX="0" positionY="0" width="128" height="120"/>

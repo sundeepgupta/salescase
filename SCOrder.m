@@ -37,7 +37,7 @@
     float total=0;
     for(SCLine *line in self.lines)
     {
-        total += [line.quantity floatValue] * [line.item.price floatValue];
+        total += [line.quantity floatValue] * [line.price floatValue];
     }
     return total;
 }
