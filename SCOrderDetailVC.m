@@ -155,7 +155,7 @@
     SCOrderDetailTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     cell.nameLabel.text = line.item.name;
-    cell.descriptionLabel.text = line.item.itemDescription;
+    cell.descriptionLabel.text = line.lineDescription;
     cell.quantityLabel.text = [line.quantity stringValue];
     cell.priceLabel.text = [SCGlobal stringFromDollarAmount:[line.price floatValue]];
     cell.amountLabel.text = [SCGlobal stringFromDollarAmount:[line amount]];

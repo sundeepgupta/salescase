@@ -738,7 +738,9 @@
             //Line items (at least 1 is required)
             NSArray *lines = (NSArray *) order.lines;
             for (SCLine *line in lines) {
-                [postString appendFormat:@"&line[%@][id]=%@&line[%@][quantity]=%@&line[%@][price]=%@", line.item.itemId, line.item.itemId, line.item.itemId, line.quantity, line.item.itemId, line.price];
+                //need to encode the description
+                NSString *encodedDescription = [line.lineDescription urlEncodeUsingEncoding:NSUTF8StringEncoding];
+                [postString appendFormat:@"&line[%@][id]=%@&line[%@][quantity]=%@&line[%@][price]=%@&line[%@][description]=%@", line.item.itemId, line.item.itemId, line.item.itemId, line.quantity, line.item.itemId, line.price, line.item.itemId, encodedDescription];
             }
             
             NSURLRequest *request = [self.webApp requestFromUrl:url withPostString:postString];

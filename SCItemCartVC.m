@@ -101,6 +101,7 @@
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.isFiltered)
@@ -117,7 +118,7 @@
     SCItemCartTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     cell.nameLabel.text = line.item.name;
-    cell.descriptionLabel.text = line.item.itemDescription;
+    cell.descriptionLabel.text = line.lineDescription;
     cell.quantityLabel.text = [line.quantity stringValue];
     cell.priceLabel.text = [SCGlobal stringFromDollarAmount:[line.price floatValue]];
     cell.amountLabel.text = [SCGlobal stringFromDollarAmount:[line amount]];
@@ -147,12 +148,12 @@
         for (SCLine* line in self.lines)
         {
             NSRange nameRange = [line.item.name rangeOfString:text options:NSCaseInsensitiveSearch];
-            NSRange descriptionRange = [line.item.itemDescription rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange descriptionRange = [line.lineDescription rangeOfString:text options:NSCaseInsensitiveSearch];
             
             // can have multiple
             if(
                (line.item.name && [line.item.name length] > 0 && (nameRange.location != NSNotFound))
-               ||(line.item.description && [line.item.itemDescription length] > 0 && (descriptionRange.location != NSNotFound))
+               ||(line.item.description && [line.lineDescription length] > 0 && (descriptionRange.location != NSNotFound))
                )
             {
                 [self.filteredCells addObject:line];

@@ -374,7 +374,7 @@ static CGFloat const klineHeight = 14;
 - (void)addLine:(SCLine *)line fromY:(CGFloat)y
 {
     NSString *nameText = line.item.name;
-    NSString *descriptionText = line.item.itemDescription;
+    NSString *descriptionText = line.lineDescription;
     NSString *quantityText = line.quantity.stringValue;
     NSString *priceText = [SCGlobal stringFromDollarAmount:line.price.floatValue];
     NSString *amountText = [SCGlobal stringFromDollarAmount:[line amount]];

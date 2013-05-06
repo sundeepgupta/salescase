@@ -3701,7 +3701,7 @@ TURN INTO POPUP AFTER</string>
                                                     <rect key="frame" x="157" y="14" width="124" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2Sp-1o-SWI" id="yyk-4n-0yH"/>
                                                     </connections>
@@ -3770,7 +3770,7 @@ TURN INTO POPUP AFTER</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="8Tu-L9-C7G">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="8Tu-L9-C7G">
                                         <rect key="frame" x="0.0" y="155" width="703" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -3784,18 +3784,21 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" id="Htw-uq-kGa">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="Htw-uq-kGa">
                                                     <rect key="frame" x="157" y="7" width="440" height="86"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="2Sp-1o-SWI" id="iXU-7V-g3q"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hiP-DF-ZhQ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hiP-DF-ZhQ">
                                         <rect key="frame" x="0.0" y="255" width="703" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -3810,11 +3813,21 @@ TURN INTO POPUP AFTER</string>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="Kb5-JN-dfR">
-                                                    <rect key="frame" x="157" y="7" width="440" height="30"/>
+                                                    <rect key="frame" x="175" y="7" width="422" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="2Sp-1o-SWI" id="ca2-35-1uU"/>
+                                                    </connections>
                                                 </textField>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hoW-ow-Vad">
+                                                    <rect key="frame" x="157" y="11" width="10" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -3863,7 +3876,7 @@ TURN INTO POPUP AFTER</string>
                         <outlet property="deleteButton" destination="nTU-1m-gFn" id="Y0V-ka-jMd"/>
                         <outlet property="descriptionTextView" destination="Htw-uq-kGa" id="0rK-6O-bJp"/>
                         <outlet property="nameLabel" destination="cQh-KS-OEb" id="3nw-kK-UR8"/>
-                        <outlet property="priceLabel" destination="Kb5-JN-dfR" id="owI-I9-5Q0"/>
+                        <outlet property="priceTextField" destination="Kb5-JN-dfR" id="56s-WQ-Wo2"/>
                         <outlet property="quantityOnHandLabel" destination="jfa-o8-BYh" id="VBc-aW-SxX"/>
                         <outlet property="quantityOrderedCell" destination="xtp-4c-yA5" id="EwG-nW-PGb"/>
                         <outlet property="quantityOrderedTextField" destination="G2r-Cy-qrG" id="3x4-qI-OQe"/>

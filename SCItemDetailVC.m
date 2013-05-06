@@ -23,7 +23,7 @@
 //IB Stuff
 @property (strong, nonatomic) IBOutlet UITextField *nameLabel;
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property (strong, nonatomic) IBOutlet UITextField *priceLabel;
+@property (strong, nonatomic) IBOutlet UITextField *priceTextField;
 @property (strong, nonatomic) IBOutlet UITextField *quantityOnHandLabel;
 
 @property (strong, nonatomic) IBOutlet UITextField *quantityOrderedTextField;
@@ -64,10 +64,10 @@
         [self.quantityOrderedTextField selectAll:self.quantityOrderedTextField]; //not actually selecting the text, dont' know whats wrong. Its not crucial.
         
         //Disable the save to order button if textField is empty
-        if (self.quantityOrderedTextField.text.length == 0) {
-            self.saveToOrderButton.enabled = NO;
-            self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
-        }
+//        if (self.quantityOrderedTextField.text.length == 0) {
+//            self.saveToOrderButton.enabled = NO;
+//            self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
+//        }
         
         if (self.isEditLineMode) {
             self.title = @"Edit Line Item";
@@ -85,8 +85,10 @@
 
         }
     } else {
-
-            }
+        //don't disable user interaction on description and price fields
+        self.descriptionTextView.editable = NO;
+        self.priceTextField.userInteractionEnabled = NO;
+    }
     
     [self loadData];
 }
@@ -106,7 +108,7 @@
 - (void)viewDidUnload {
     [self setNameLabel:nil];
     [self setDescriptionTextView:nil];
-    [self setPriceLabel:nil];
+    [self setPriceTextField:nil];
     [self setQuantityOrderedTextField:nil];
     [self setSaveToOrderButton:nil];
     [self setQuantityOnHandLabel:nil];
@@ -131,7 +133,7 @@
     
     BOOL allowChange = NO;
     
-    //Prevent non-numbers
+    //Prevent non-numbers for price and quantity fields
     NSCharacterSet *validCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
     NSCharacterSet *invalidCharacterSet = validCharacterSet.invertedSet;
     NSArray *separatedString = [string componentsSeparatedByCharactersInSet:invalidCharacterSet];
@@ -142,44 +144,46 @@
         allowChange = NO;
     }
     
-    //Prevent leading 0's
+    //Prevent leading 0's for price and quantity fields.
     if (textField.text.length == 0 && [string isEqualToString:@"0"]) {
         allowChange = NO;
     }
     
-    //Enable/disable the save button.  string.length == 0 means Backspace key pressed.
-    if (allowChange) {
-        if (textField.text.length <= 1) {
-            if (string.length == 0) {
-                self.saveToOrderButton.enabled = NO;
-                self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
-            } else {
-                self.saveToOrderButton.enabled = YES;
-                self.saveToOrderButton.alpha = 1;
-            }
-        } else {
-            self.saveToOrderButton.enabled = YES;
-            self.saveToOrderButton.alpha = 1;
-        }
-    } else {
-        if (textField.text.length == 0) {
-            self.saveToOrderButton.enabled = NO;
-            self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
-        } else {
-            self.saveToOrderButton.enabled = YES;
-            self.saveToOrderButton.alpha = 1;
-        }
-    }
+    //Enable/disable the save button.  string.length == 0 means Backspace key pressed.  Only for the quanity field.
+//    if ([textField isEqual:self.quantityOrderedTextField]) {
+//        if (allowChange) {
+//            if (textField.text.length <= 1) {
+//                if (string.length == 0) {
+//                    self.saveToOrderButton.enabled = NO;
+//                    self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
+//                } else {
+//                    self.saveToOrderButton.enabled = YES;
+//                    self.saveToOrderButton.alpha = 1;
+//                }
+//            } else {
+//                self.saveToOrderButton.enabled = YES;
+//                self.saveToOrderButton.alpha = 1;
+//            }
+//        } else {
+//            if (textField.text.length == 0) {
+//                self.saveToOrderButton.enabled = NO;
+//                self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
+//            } else {
+//                self.saveToOrderButton.enabled = YES;
+//                self.saveToOrderButton.alpha = 1;
+//            }
+//        }
+//    }
     
     return allowChange;
 }
 
-- (BOOL)textFieldShouldClear:(UITextField *)textField
-{ //disable the save button 
-    self.saveToOrderButton.enabled = NO;
-    self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
-    return YES;
-}
+//- (BOOL)textFieldShouldClear:(UITextField *)textField
+//{ //disable the save button 
+//    self.saveToOrderButton.enabled = NO;
+//    self.saveToOrderButton.alpha = UI_DISABLED_ALPHA;
+//    return YES;
+//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -189,19 +193,41 @@
     return YES;
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    //only one textView so no need to check
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];        
+        [self saveLine];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{ //no need to check, only one of them right now
+    if (textView.text.length == 0) {
+        if (self.isEditLineMode) {
+            textView.text = self.line.item.itemDescription;
+        } else {
+            textView.text = self.item.itemDescription;
+        }
+    }
+    //THis is not enough, because if user taps "save", this method doesn't fire.  So, need to check on save also.
+}
+
 #pragma mark - Custom Methods
 - (void)loadData
 {
     if (self.isEditLineMode) {
         self.nameLabel.text = self.line.item.name;
-        self.descriptionTextView.text = self.line.item.itemDescription;
-        self.priceLabel.text = [SCGlobal stringFromDollarAmount:self.line.price.floatValue];
+        self.descriptionTextView.text = self.line.lineDescription;
+        self.priceTextField.text = [NSString stringWithFormat:@"%.2f", self.line.price.floatValue];
         self.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", [self.line.item.quantityOnHand stringValue]];
         self.quantityOrderedTextField.text = [self.line.quantity stringValue];
-    } else { //new item
+    } else { // either in look mode or a new line item in order mode so get everything from the item
         self.nameLabel.text = self.item.name;
         self.descriptionTextView.text = self.item.itemDescription;
-        self.priceLabel.text = [SCGlobal stringFromDollarAmount:self.item.price.floatValue];
+        self.priceTextField.text = [NSString stringWithFormat:@"%.2f", self.item.price.floatValue];
         self.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", [self.item.quantityOnHand stringValue]];
     }
 }
@@ -209,22 +235,37 @@
 - (void)saveLine
 { //self.line here is an existing line, where line is a new line
     if (self.isEditLineMode) {
-        self.line.quantity = [NSNumber numberWithFloat:[self.quantityOrderedTextField.text floatValue]];
-        
-        
-        [self.dataObject saveOrder:self.dataObject.openOrder];
+        [self assignLineValuesForLine:self.line];
         [self.delegate dismissModal];
     } else {
-        SCLine *line = (SCLine *)[self.dataObject newObject:@"SCLine"];
-        line.item = self.item; //provides for id and name
-        
-        line.price = self.item.price;
-        
-        line.quantity = [NSNumber numberWithFloat:[self.quantityOrderedTextField.text floatValue]];
+        SCLine *line = [self.dataObject newLineWithItem:self.item];
+        [self assignLineValuesForLine:line];
         line.order = self.dataObject.openOrder;
-        [self.dataObject saveOrder:self.dataObject.openOrder];
         [self.navigationController popViewControllerAnimated:YES];
     }
+    [self.dataObject saveOrder:self.dataObject.openOrder];
+}
+
+- (void)assignLineValuesForLine:(SCLine *)line
+{    
+    if (self.descriptionTextView.text.length == 0) {
+        if (self.isEditLineMode) {
+            line.lineDescription = self.line.item.itemDescription;
+        } else {
+            line.lineDescription = self.item.itemDescription;
+        }
+    } else {
+        line.lineDescription = self.descriptionTextView.text;
+    }
+    
+    if (self.priceTextField.text.length == 0) {
+        line.price = 0;
+    } else {
+        line.price = [NSNumber numberWithFloat:self.priceTextField.text.floatValue];
+    }
+    
+    
+    line.quantity = [NSNumber numberWithFloat:self.quantityOrderedTextField.text.floatValue];
 }
 
 - (void)deleteLine

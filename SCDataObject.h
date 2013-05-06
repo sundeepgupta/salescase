@@ -38,6 +38,7 @@
 -(NSManagedObject *)newObject:(NSString *)entityName;
 - (SCOrder *)newOrder;
 -(SCCustomer *)newCustomer;
+-(SCLine *)newLineWithItem:(SCItem *)item;
 
 - (void)saveOrder:(SCOrder *)order;
 -(void) deleteObject:(NSManagedObject *)order;

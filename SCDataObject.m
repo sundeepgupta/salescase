@@ -58,6 +58,18 @@
     return customer;
 }
 
+-(SCLine *)newLineWithItem:(SCItem *)item
+{
+    SCLine *line = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([SCLine class]) inManagedObjectContext:self.managedObjectContext];
+    line.item = item;
+    line.lineDescription = item.itemDescription;
+    line.price = item.price;
+    line.quantity = 0;
+    
+    [self saveContext];
+    return line;
+}
+
 - (SCAddress *)newAddress
 {
     return [NSEntityDescription insertNewObjectForEntityForName:@"SCAddress" inManagedObjectContext:self.managedObjectContext];

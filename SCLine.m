@@ -17,6 +17,7 @@
 @dynamic item;
 @dynamic order;
 @dynamic price;
+@dynamic lineDescription;
 
 
 - (float)amount
