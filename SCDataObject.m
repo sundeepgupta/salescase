@@ -75,6 +75,14 @@
     return [NSEntityDescription insertNewObjectForEntityForName:@"SCAddress" inManagedObjectContext:self.managedObjectContext];
 }
 
++ (NSString *)idFromObject:(NSManagedObject *)object
+{
+    NSURL *uri = object.objectID.URIRepresentation;
+    NSString *uriString = uri.absoluteString;
+    NSArray *separatedUri = [uriString componentsSeparatedByString:@"/"];
+    return separatedUri.lastObject;
+}
+
 - (void)saveOrder:(SCOrder *)order
 {
     order.lastActivityDate = [NSDate date];
@@ -219,6 +227,16 @@
     return [results valueForKey:@"name"];
 }
 
+- (NSArray *)linesSortedByIdForOrder:(SCOrder *)order
+{
+    NSArray *lines = order.lines.allObjects;    
+    NSArray *sortedLines = [lines sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSString *first = [SCDataObject idFromObject:a];
+        NSString *second = [SCDataObject idFromObject:b];
+        return [first compare:second];
+    }];
+    return sortedLines;
+}
 
 #pragma mark Al's methods
 -(NSNumber *)incrementMaxSCOrderId

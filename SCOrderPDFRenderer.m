@@ -9,6 +9,7 @@
 #import "SCOrderPDFRenderer.h"
 #import "SCOrder.h"
 #import "SCGlobal.h"
+#import "SCDataObject.h"
 #import "SCSalesRep.h"
 #import "SCSalesTerm.h"
 #import "SCShipMethod.h"
@@ -28,6 +29,7 @@ static CGFloat const klineHeight = 14;
 
 @interface SCOrderPDFRenderer ()
 
+@property (strong, nonatomic) SCDataObject *dataObject;
 @property CGContextRef context;
 @property NSInteger currentPage;
 
@@ -83,11 +85,11 @@ static CGFloat const klineHeight = 14;
 @property (strong, nonatomic) IBOutlet UILabel *itemQuantityHeader;
 @property (strong, nonatomic) IBOutlet UILabel *itemPriceHeader;
 @property (strong, nonatomic) IBOutlet UILabel *itemAmountHeader;
-@property (strong, nonatomic) IBOutlet UILabel *itemName;
-@property (strong, nonatomic) IBOutlet UILabel *itemDescription;
-@property (strong, nonatomic) IBOutlet UILabel *itemQuantity;
-@property (strong, nonatomic) IBOutlet UILabel *itemPrice;
-@property (strong, nonatomic) IBOutlet UILabel *itemAmount;
+//@property (strong, nonatomic) IBOutlet UILabel *itemName;
+//@property (strong, nonatomic) IBOutlet UILabel *itemDescription;
+//@property (strong, nonatomic) IBOutlet UILabel *itemQuantity;
+//@property (strong, nonatomic) IBOutlet UILabel *itemPrice;
+//@property (strong, nonatomic) IBOutlet UILabel *itemAmount;
 
 //Footer
 @property (strong, nonatomic) IBOutlet UITextView *notes;
@@ -114,6 +116,8 @@ static CGFloat const klineHeight = 14;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    SCGlobal *global = [SCGlobal sharedGlobal];
+    self.dataObject = global.dataObject;
 }
 
 - (void)didReceiveMemoryWarning
@@ -343,7 +347,7 @@ static CGFloat const klineHeight = 14;
 {
     self.currentPage = 1;
     CGFloat lineTopY = [self resetLineTopY];
-    for (SCLine *line in self.order.lines.allObjects) {
+    for (SCLine *line in [self.dataObject linesSortedByIdForOrder:self.order]) {
         
         if (lineTopY + klineHeight > self.notes.frame.origin.y) { //it too low, need to start a new page
             
@@ -359,6 +363,7 @@ static CGFloat const klineHeight = 14;
             [self addAllPagesElements];
             lineTopY = [self resetLineTopY];
         }
+        
         [self addLine:line fromY:lineTopY];
         lineTopY = lineTopY + klineHeight;
     }

@@ -735,18 +735,24 @@
             if (order.orderDescription) [postString appendFormat:@"&notes=%@", [order.orderDescription urlEncodeUsingEncoding:NSUTF8StringEncoding]];
             if (order.poNumber) [postString appendFormat:@"&ponumber=%@", [order.poNumber urlEncodeUsingEncoding:NSUTF8StringEncoding]];
             
-            //Line items (at least 1 is required)
-            NSArray *lines = (NSArray *) order.lines;
+            //Line items (at least 1 is required)            
+            NSArray *lines = [self.dataObject linesSortedByIdForOrder:order];
             for (SCLine *line in lines) {
-                //need to encode the description
                 NSString *encodedDescription = [line.lineDescription urlEncodeUsingEncoding:NSUTF8StringEncoding];
-                [postString appendFormat:@"&line[%@][id]=%@&line[%@][quantity]=%@&line[%@][price]=%@&line[%@][description]=%@", line.item.itemId, line.item.itemId, line.item.itemId, line.quantity, line.item.itemId, line.price, line.item.itemId, encodedDescription];
+                NSString *lineId = [SCDataObject idFromObject:line];
+                [postString appendFormat:@"&line[%@][id]=%@&line[%@][quantity]=%@&line[%@][price]=%@&line[%@][description]=%@", lineId, line.item.itemId, lineId, line.quantity, lineId, line.price, lineId, encodedDescription];
+                NSLog(@"line id: %@", lineId);
             }
             
             NSURLRequest *request = [self.webApp requestFromUrl:url withPostString:postString];
             
             //DEBUG
-            NSLog(@"request: %@\npost string: %@", request, postString);
+            NSArray *explodedString = [postString componentsSeparatedByString:@"&"];
+            for (NSString *string in explodedString) {
+                NSLog(@"&%@\n", string);
+            }
+//            NSLog(@"request: %@\npost string: %@", request, postString);
+            //END DEBUG
             
             NSDictionary *responseDictionary = [self.webApp dictionaryFromRequest:request error:error];
             if (!responseDictionary) {

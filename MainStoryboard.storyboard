@@ -3789,7 +3789,6 @@ TURN INTO POPUP AFTER</string>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="2Sp-1o-SWI" id="iXU-7V-g3q"/>
                                                     </connections>

@@ -177,7 +177,7 @@
 - (void)loadData
 {
     //fetch lines for openOrder and reload table
-    self.lines = self.dataObject.openOrder.lines.allObjects;
+    self.lines = [self.dataObject linesSortedByIdForOrder:self.dataObject.openOrder];
     [self.tableView reloadData];
     
     NSString *orderTotalString = [NSString stringWithFormat:@"Total %@", [SCGlobal stringFromDollarAmount:[self.dataObject.openOrder totalAmount]]];

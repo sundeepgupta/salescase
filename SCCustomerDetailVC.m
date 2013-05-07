@@ -429,7 +429,7 @@
 }
 
 - (void)passCustomer:(SCCustomer *)customer
-{ //this only gets called in order mode
+{ //this only gets called in order mode from the modal version of CustomersVC
     
     if (self.customer && self.customer != customer) { //user changed the customer that was previously set
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Customer Changed"
@@ -444,7 +444,7 @@
     self.dataObject.openOrder.salesRep = customer.salesRep;
     self.dataObject.openOrder.salesTerm = customer.salesTerms;
     [self.dataObject saveOrder:self.dataObject.openOrder];
-    [self loadData];
+    [self viewWillAppear:YES];
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
@@ -623,7 +623,7 @@
     return YES;
 }
 
-- (BOOL)isCompanyNameValid
+- (BOOL)companyNameIsValid
 {
     if (self.dbaNameTextField.text.length == 0) {
         self.validateCompanyNameAlert = [[UIAlertView alloc] initWithTitle:@"Company Name Needed" message:@"Please enter a company name before proceeding." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -662,7 +662,7 @@
 
 - (IBAction)addOrderButtonPress:(UIBarButtonItem *)sender {
     if (self.viewState != READ_VIEW_STATE) {
-        if ([self isCompanyNameValid]) {
+        if ([self companyNameIsValid]) {
             [self.delegate passAddOrderWithCustomer:self.customer];
         }
     } else {
@@ -686,7 +686,7 @@
 }
 
 - (IBAction)doneButtonPress:(UIBarButtonItem *)sender {
-    if ([self isCompanyNameValid]) {
+    if ([self companyNameIsValid]) {
         [self.dataObject saveContext];
         [self.delegate passSavedCustomer:self.customer];
     }
