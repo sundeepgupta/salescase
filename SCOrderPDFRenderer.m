@@ -73,12 +73,14 @@ static CGFloat const kMaxLineHeight = 142; //10 lines
 @property (strong, nonatomic) IBOutlet UILabel *address3;
 @property (strong, nonatomic) IBOutlet UILabel *address4;
 @property (strong, nonatomic) IBOutlet UILabel *address5;
+@property (strong, nonatomic) NSArray *billToLines;
 @property (strong, nonatomic) IBOutlet UILabel *shipToTitle;
 @property (strong, nonatomic) IBOutlet UILabel *shipTo1;
 @property (strong, nonatomic) IBOutlet UILabel *shipTo2;
 @property (strong, nonatomic) IBOutlet UILabel *shipTo3;
 @property (strong, nonatomic) IBOutlet UILabel *shipTo4;
 @property (strong, nonatomic) IBOutlet UILabel *shipTo5;
+@property (strong, nonatomic) NSArray *shipToLines;
 
 //Line items
 @property (strong, nonatomic) IBOutlet UILabel *itemNameHeader;
@@ -119,6 +121,10 @@ static CGFloat const kMaxLineHeight = 142; //10 lines
 	// Do any additional setup after loading the view.
     SCGlobal *global = [SCGlobal sharedGlobal];
     self.dataObject = global.dataObject;
+    
+    self.billToLines = @[self.address1, self.address2, self.address3, self.address4, self.address5];
+    self.shipToLines = @[self.shipTo1, self.shipTo2, self.shipTo3, self.shipTo4, self.shipTo5];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -233,25 +239,17 @@ static CGFloat const kMaxLineHeight = 142; //10 lines
     //Bill to and Ship to
     self.billToTitle.text = self.order.customer.dbaName;
     
-    NSArray *billingLines = [self.order.customer.primaryBillingAddress lines];
-    NSArray *billingLabels = [NSArray arrayWithObjects:self.address1, self.address2, self.address3, self.address4, self.address5, nil];
-    [SCCustomerDetailVC loadAddressDataFromLines:billingLines toLabels:billingLabels];
-    
-    NSArray *shippingLines = [self.order.customer.primaryShippingAddress lines];
-    NSArray *shippingLabels = [NSArray arrayWithObjects:self.shipTo1, self.shipTo2, self.shipTo3, self.shipTo4, self.shipTo5, nil];
-    [SCCustomerDetailVC loadAddressDataFromLines:shippingLines toLabels:shippingLabels];
-    
-    
-    self.address1.text = self.order.customer.primaryBillingAddress.line1;
-    self.address2.text = self.order.customer.primaryBillingAddress.line2;
-    self.address3.text = self.order.customer.primaryBillingAddress.line3;
-    self.address4.text = self.order.customer.primaryBillingAddress.line4;
-    self.address5.text = self.order.customer.primaryBillingAddress.line5;
-    self.shipTo1.text = self.order.customer.primaryShippingAddress.line1;
-    self.shipTo2.text = self.order.customer.primaryShippingAddress.line2;
-    self.shipTo3.text = self.order.customer.primaryShippingAddress.line3;
-    self.shipTo4.text = self.order.customer.primaryShippingAddress.line4;
-    self.shipTo5.text = self.order.customer.primaryShippingAddress.line5;
+    if ([self.order.customer.status isEqualToString:NEW_STATUS]) {
+        NSArray *billTo5Lines = [self.order.customer.primaryBillingAddress fiveLines];
+        NSArray *shipTo5Lines = [self.order.customer.primaryShippingAddress fiveLines];
+        self.billToLines = [SCGlobal labels:self.billToLines fromArrayOfStrings:billTo5Lines];
+        self.shipToLines = [SCGlobal labels:self.shipToLines fromArrayOfStrings:shipTo5Lines];
+    } else {
+        NSArray *billToLines = [self.order.customer.primaryBillingAddress lines];
+        NSArray *shipToLines = [self.order.customer.primaryShippingAddress lines];
+        self.billToLines = [SCGlobal labels:self.billToLines fromArrayOfStrings:billToLines];
+        self.shipToLines = [SCGlobal labels:self.shipToLines fromArrayOfStrings:shipToLines];
+    }
 }
 
 - (void)addAllPagesElements

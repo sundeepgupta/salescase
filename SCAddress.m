@@ -48,63 +48,39 @@
 
     //Not sure if ever used, but adding just in case
     if (self.notes) [lines addObject:self.notes];
-    
- 
-    
-//    This was Al's version, which doesn't work.  
-//    NSString *line4;
-//    if (self.line4) {
-//        line4 = self.line4;
-//    }
-//    // Line 4 seems to be reserved for the ZIP + PROVINCE + COUNTRY,
-//    if (self.city) {
-//        BOOL foundCity = '\0';
-//        BOOL foundProvince;
-//        BOOL foundZip;
-//        
-//        if (self.city) {
-//            NSRange cityRange = [line4 rangeOfString:self.city options:NSCaseInsensitiveSearch];
-//            foundCity = cityRange.location != NSNotFound;
-//        }
-//        if (self.countrySubDivisionCode) {
-//            NSRange provinceRange = [line4 rangeOfString:self.countrySubDivisionCode options:NSCaseInsensitiveSearch];
-//            foundProvince = provinceRange.location != NSNotFound;
-//        }
-//        if (self.postalCode) {
-//            NSRange zipRange = [line4 rangeOfString:self.postalCode options:NSCaseInsensitiveSearch];
-//            foundZip = zipRange.location != NSNotFound;
-//        }
-//        if( !foundCity || !foundProvince || !foundZip ) {
-//            NSString *cityLine = @"";
-//            if (self.city) {
-//                cityLine = [NSString stringWithFormat:@"%@%@, ", cityLine, self.city];
-//            }
-//            if (self.countrySubDivisionCode) {
-//                cityLine = [NSString stringWithFormat:@"%@%@ ", cityLine, self.countrySubDivisionCode];
-//            }
-//            if (self.postalCode) {
-//                cityLine = [NSString stringWithFormat:@"%@%@ ", cityLine, self.postalCode];
-//            }
-//            if (self.country) {
-//                cityLine = [NSString stringWithFormat:@"%@%@", cityLine, self.country];
-//            }
-//            line4 = [NSString stringWithFormat:@"%@%@", line4, cityLine];
-//        }
-//    }
-//    if (line4)
-//        [block addObject:line4];
-    
-
-    
-    //DEBUG
-//    for (int i = 0; i < block.count; i++) {
-//        NSLog(@"%d: %@", i + 1, block[i]);
-//    }
-    
-    
+  
     return lines;
 }
 
+- (NSArray *)fiveLines
+{
+    NSMutableArray *lines = [[NSMutableArray alloc] init];
+    if (self.line1) [lines addObject:self.line1];
+    if (self.line2) [lines addObject:self.line2];
+    if (self.line3) [lines addObject:self.line3];
+    
+    //put city , state, zip into one line
+    NSString *city;
+    if (self.city) city = self.city;
+    else city = @"";
+
+    NSString *countrySubDivisionCode;
+    if (self.countrySubDivisionCode) countrySubDivisionCode = self.countrySubDivisionCode;
+    else countrySubDivisionCode = @"";
+    
+    NSString *postalCode;
+    if (self.postalCode) postalCode = self.postalCode;
+    else postalCode = @"";
+
+    if (city.length + countrySubDivisionCode.length + postalCode.length != 0) {
+        NSString *cityStateZipLine = [NSString stringWithFormat:@"%@, %@ %@", city, countrySubDivisionCode, postalCode];
+        [lines addObject:cityStateZipLine];
+    }
+    
+    if (self.country) [lines addObject:self.country];
+
+    return lines;
+}
 
 
 

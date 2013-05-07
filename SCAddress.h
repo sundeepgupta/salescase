@@ -29,5 +29,6 @@
 @property (nonatomic, strong) SCCustomer *owningCustomer;
 
 - (NSArray *)lines;
+- (NSArray *)fiveLines;
 
 @end

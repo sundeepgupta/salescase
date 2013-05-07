@@ -542,21 +542,28 @@
     self.termsLabel.text = self.customer.salesTerms.name;
     
     
+//    NSArray *customerBillToLines = [self.customer.primaryBillingAddress linesToDisplayWithMaxNumberOfLines:self.billToTextFields.count];
+//    for (NSInteger i = 0; i < self.billToTextFields.count; i++) {
+//        UILabel *label = self.billToTextFields[i];
+//        label.text = customerBillToLines[i];
+//    }
+    
     NSArray *customerBillToLines = [self.customer.primaryBillingAddress lines];
-        
-    NSInteger maxNumberOfLines = self.billToTextFields.count;
-//    if ([self.customer.status isEqual:SYNCED_STATUS]) maxNumberOfLines = NUMBER_OF_QB_ADDRESS_LINES;
-    
-    for (NSInteger i = 0; i < MIN(customerBillToLines.count, maxNumberOfLines) ; i++) {
-        UILabel *label = self.billToTextFields[i];
-        label.text = customerBillToLines[i];
-    }
     NSArray *customerShipToLines = [self.customer.primaryShippingAddress lines];
+    self.billToTextFields = [SCGlobal labels:self.billToTextFields fromArrayOfStrings:customerBillToLines];
+    self.shipToTextFields = [SCGlobal labels:self.shipToTextFields fromArrayOfStrings:customerShipToLines];
     
-    for (NSInteger i = 0; i < MIN(customerShipToLines.count, maxNumberOfLines); i++) {
-        UILabel *label = self.shipToTextFields[i];
-        label.text = customerShipToLines[i];
-    }
+//    NSInteger maxNumberOfLines = self.billToTextFields.count;
+//    for (NSInteger i = 0; i < MIN(customerBillToLines.count, maxNumberOfLines) ; i++) {
+//        UILabel *label = self.billToTextFields[i];
+//        label.text = customerBillToLines[i];
+//    }
+    
+
+//    for (NSInteger i = 0; i < MIN(customerShipToLines.count, maxNumberOfLines); i++) {
+//        UILabel *label = self.shipToTextFields[i];
+//        label.text = customerShipToLines[i];
+//    }
     
 }
 

@@ -76,4 +76,14 @@
     return amountString;
 }
 
++(NSArray *)labels:(NSArray *)labels fromArrayOfStrings:(NSArray *)array
+{ //This is working eventhough the labels is containing textfields.  
+    for (NSInteger i = 0; i < MIN(array.count, labels.count) ; i++) {
+        UILabel *label = labels[i];
+        label.text = array[i];
+    }
+    return labels;
+}
+
+
 @end
