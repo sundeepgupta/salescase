@@ -25,7 +25,8 @@ static CGFloat const kPageWidth = 612;
 static CGFloat const kPageHeight = 792;
 static CGFloat const kPagePadding = 30;
 static CGFloat const kFontSize = 10;
-static CGFloat const klineHeight = 14;
+//static CGFloat const klineHeight = 14;
+static CGFloat const kMaxLineHeight = 142; //10 lines
 
 @interface SCOrderPDFRenderer ()
 
@@ -306,8 +307,7 @@ static CGFloat const klineHeight = 14;
     [self addRectWithLabel:self.itemDescriptionHeader];
     [self addRectWithLabel:self.itemQuantityHeader];
     [self addRectWithLabel:self.itemPriceHeader];
-    [self addRectWithLabel:self.itemAmountHeader];
-
+    [self addRectWithLabel:self.itemAmountHeader];    
 }
 
 - (void)addLastPageElements
@@ -348,8 +348,9 @@ static CGFloat const klineHeight = 14;
     self.currentPage = 1;
     CGFloat lineTopY = [self resetLineTopY];
     for (SCLine *line in [self.dataObject linesSortedByIdForOrder:self.order]) {
+        CGFloat lineHeight = [self heightForLine:line];
         
-        if (lineTopY + klineHeight > self.notes.frame.origin.y) { //it too low, need to start a new page
+        if (lineTopY + lineHeight > self.notes.frame.origin.y) { //it too low, need to start a new page
             
             //setup the labels based on the page
             self.total.text = @"Continued...";
@@ -364,10 +365,18 @@ static CGFloat const klineHeight = 14;
             lineTopY = [self resetLineTopY];
         }
         
-        [self addLine:line fromY:lineTopY];
-        lineTopY = lineTopY + klineHeight;
+        [self addLine:line fromY:lineTopY withHeight:lineHeight];
+        lineTopY = lineTopY + lineHeight;
     }
     [self addLastPageElements];
+}
+
+- (CGFloat)heightForLine:(SCLine *)line
+{
+    UIFont *font = [UIFont systemFontOfSize:kFontSize];
+    CGSize maxSize = CGSizeMake(self.itemDescriptionHeader.frame.size.width, kMaxLineHeight);
+    CGSize size = [line.lineDescription sizeWithFont:font constrainedToSize:maxSize];
+    return size.height;
 }
 
 - (CGFloat)resetLineTopY
@@ -376,7 +385,7 @@ static CGFloat const klineHeight = 14;
     return self.itemNameHeader.frame.origin.y + self.itemNameHeader.frame.size.height;
 }
 
-- (void)addLine:(SCLine *)line fromY:(CGFloat)y
+- (void)addLine:(SCLine *)line fromY:(CGFloat)y withHeight:(CGFloat)height
 {
     NSString *nameText = line.item.name;
     NSString *descriptionText = line.lineDescription;
@@ -396,17 +405,19 @@ static CGFloat const klineHeight = 14;
     CGFloat priceX = quantityX + quantityWidth;
     CGFloat amountX = priceX + priceWidth;
     
-    CGRect nameFrame = CGRectMake(nameX, y, nameWidth, klineHeight);
-    CGRect descriptionFrame = CGRectMake(descriptionX, y, descriptionWidth, klineHeight);
-    CGRect quantityFrame = CGRectMake(quantityX, y, quantityWidth, klineHeight);
-    CGRect priceFrame = CGRectMake(priceX, y, priceWidth, klineHeight);
-    CGRect amountFrame = CGRectMake(amountX, y, amountWidth, klineHeight);
+    CGRect nameFrame = CGRectMake(nameX, y, nameWidth, height);
+    CGRect descriptionFrame = CGRectMake(descriptionX, y, descriptionWidth, height);
+    CGRect quantityFrame = CGRectMake(quantityX, y, quantityWidth, height);
+    CGRect priceFrame = CGRectMake(priceX, y, priceWidth, height);
+    CGRect amountFrame = CGRectMake(amountX, y, amountWidth, height);
     
     [self addCellWithText:nameText withFrame:nameFrame withAlignment:NSTextAlignmentLeft];
     [self addCellWithText:descriptionText withFrame:descriptionFrame withAlignment:NSTextAlignmentLeft];
     [self addCellWithText:quantityText withFrame:quantityFrame withAlignment:NSTextAlignmentRight];
     [self addCellWithText:priceText withFrame:priceFrame withAlignment:NSTextAlignmentRight];
     [self addCellWithText:amountText withFrame:amountFrame withAlignment:NSTextAlignmentRight];
+    
+    [self drawActualLineFromX:kPagePadding fromY:(y) toX:(kPageWidth - kPagePadding) toY:(y)];
 }
 
 - (void)addCellWithText:(NSString *)text withFrame:(CGRect)frame withAlignment:(NSTextAlignment)alignment
@@ -416,6 +427,14 @@ static CGFloat const klineHeight = 14;
             withFont:font
        lineBreakMode:NSLineBreakByTruncatingTail
            alignment:alignment];
+}
+
+- (void)drawActualLineFromX:(CGFloat)fromX fromY:(CGFloat)fromY toX:(CGFloat)toX toY:(CGFloat)toY
+{
+    CGContextBeginPath(self.context);
+    CGContextMoveToPoint(self.context, fromX, fromY);
+    CGContextAddLineToPoint(self.context, toX, toY);
+    CGContextStrokePath(self.context);
 }
 
 - (NSString *)pathForFileName:(NSString *)name withFileNameExtension:(NSString *)extension
