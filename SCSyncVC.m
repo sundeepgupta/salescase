@@ -584,7 +584,8 @@
                 }
                 newItem.itemId = [newItemDict valueForKey:@"Id"];
                 newItem.name = [newItemDict valueForKey:@"Name"];
-                newItem.itemDescription = [newItemDict valueForKey:@"Description"];
+                
+                if (newItem.itemDescription) newItem.itemDescription = [newItemDict valueForKey:@"Description"];
                 
                 NSString *qOH = (NSString *)[newItemDict valueForKey:@"Quantity"];
                 if ([ [qOH class] isSubclassOfClass:[NSString class]])
@@ -738,9 +739,13 @@
             //Line items (at least 1 is required)            
             NSArray *lines = [self.dataObject linesSortedByIdForOrder:order];
             for (SCLine *line in lines) {
-                NSString *encodedDescription = [line.lineDescription urlEncodeUsingEncoding:NSUTF8StringEncoding];
+                
+                NSString *descriptionToSend;
+                if (line.lineDescription) descriptionToSend = [line.lineDescription urlEncodeUsingEncoding:NSUTF8StringEncoding];
+                else descriptionToSend = @"";
+                    
                 NSString *lineId = [SCDataObject idFromObject:line];
-                [postString appendFormat:@"&line[%@][id]=%@&line[%@][quantity]=%@&line[%@][price]=%@&line[%@][description]=%@", lineId, line.item.itemId, lineId, line.quantity, lineId, line.price, lineId, encodedDescription];
+                [postString appendFormat:@"&line[%@][id]=%@&line[%@][quantity]=%@&line[%@][price]=%@&line[%@][description]=%@", lineId, line.item.itemId, lineId, line.quantity, lineId, line.price, lineId, descriptionToSend];
                 NSLog(@"line id: %@", lineId);
             }
             

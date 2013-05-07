@@ -25,7 +25,7 @@ static CGFloat const kPageWidth = 612;
 static CGFloat const kPageHeight = 792;
 static CGFloat const kPagePadding = 30;
 static CGFloat const kFontSize = 10;
-//static CGFloat const klineHeight = 14;
+static CGFloat const kDefaultLineHeight = 14;
 static CGFloat const kMaxLineHeight = 142; //10 lines
 
 @interface SCOrderPDFRenderer ()
@@ -373,10 +373,14 @@ static CGFloat const kMaxLineHeight = 142; //10 lines
 
 - (CGFloat)heightForLine:(SCLine *)line
 {
-    UIFont *font = [UIFont systemFontOfSize:kFontSize];
-    CGSize maxSize = CGSizeMake(self.itemDescriptionHeader.frame.size.width, kMaxLineHeight);
-    CGSize size = [line.lineDescription sizeWithFont:font constrainedToSize:maxSize];
-    return size.height;
+    if (line.lineDescription) {
+        UIFont *font = [UIFont systemFontOfSize:kFontSize];
+        CGSize maxSize = CGSizeMake(self.itemDescriptionHeader.frame.size.width, kMaxLineHeight);
+        CGSize size = [line.lineDescription sizeWithFont:font constrainedToSize:maxSize];
+        return size.height;
+    } else {
+        return kDefaultLineHeight;
+    }
 }
 
 - (CGFloat)resetLineTopY
