@@ -552,65 +552,110 @@
 
 - (BOOL)downloadItems:(NSError **)error 
 {
+    //Get all of the items (not just the chunk limit which is set to 50)
     NSInteger page = 1;
     BOOL done = NO;
-    BOOL didSave;
-    
+    NSMutableArray *allIppObjects = [[NSMutableArray alloc] init];
     while (!done) {
         NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_ITEMS_URL_EXT withPageNumber:page error:error];
         if (!responseArray) {
             return NO;
         }
-        
         if (responseArray.count == 0) {
             done = YES;
         } else {
-            for (NSDictionary *newItemDict in responseArray)
-            {
-                SCItem *oldItem = (SCItem *) [self.dataObject getEntityType:ENTITY_SCITEM
-                                                               byIdentifier:@"itemId"
-                                                                    idValue:[newItemDict valueForKey:@"Id"]
-                                              ];
-                SCItem *newItem;
-                
-                if (oldItem)
-                {
-                    newItem = oldItem;
-                    
-                }
-                else
-                {
-                    newItem = (SCItem *)[self.dataObject newObject:@"SCItem"];
-                }
-                newItem.itemId = [newItemDict valueForKey:@"Id"];
-                newItem.name = [newItemDict valueForKey:@"Name"];
-                
-                if (newItem.itemDescription) newItem.itemDescription = [newItemDict valueForKey:@"Description"];
-                
-                NSString *qOH = (NSString *)[newItemDict valueForKey:@"Quantity"];
-                if ([ [qOH class] isSubclassOfClass:[NSString class]])
-                    newItem.quantityOnHand = @([qOH floatValue])  ;
-                
-                NSString *priceString = (NSString *)[newItemDict valueForKey:@"Price"];
-                if ([[ priceString class] isSubclassOfClass:[NSString class]])
-                    newItem.price = (NSNumber *)@([priceString floatValue]);
-                
-                NSString *quantityOnSalesOrderString = (NSString *)[newItemDict valueForKey:@"QuantityOnSalesOrder"];
-                if ([[ quantityOnSalesOrderString class] isSubclassOfClass:[NSString class]])
-                    newItem.quantityOnSalesOrder = (NSNumber *)@([quantityOnSalesOrderString floatValue]);
-                
-                NSString *quantityOnPurchaseString = (NSString *)[newItemDict valueForKey:@"QuantityOnPurchase"];
-                if ([[ quantityOnPurchaseString class] isSubclassOfClass:[NSString class]])
-                    newItem.quantityOnPurchase = (NSNumber *)@([quantityOnPurchaseString floatValue]);
-
-            }
-            didSave = [self.dataObject.managedObjectContext save:error];
-            if (!didSave) {
-                return NO;
-            }
-            page = page + 1;
+            [allIppObjects addObjectsFromArray:responseArray];
+            page++;
         }
     }
+    
+    //chedk for deleted items from IPP list, and delete them
+    NSArray *scItems = [self.dataObject fetchItemsInContext];
+    NSMutableArray *itemsToDelete = [[NSMutableArray alloc] init];
+    NSMutableSet *affectedOrders = [[NSMutableSet alloc] init];
+    for (SCItem *scItem in scItems) {
+
+        BOOL matchFound = NO;
+        NSInteger ippIndex = 0;
+        while (ippIndex < allIppObjects.count && !matchFound) {
+            NSDictionary *ippDict = allIppObjects[ippIndex];
+            NSString *ippItemId = ippDict[@"Id"];
+            if ([scItem.itemId isEqualToString:ippItemId]) { 
+                matchFound = YES;
+                
+                //update scItem here?
+                //mark ippItem as being processed?
+            }
+            ippIndex++;
+        }
+        
+        if (!matchFound) {
+            NSLog(@"item id to delete: %@", scItem.name);
+            [itemsToDelete addObject:scItem]; 
+            
+            if (scItem.owningLines > 0) {
+                for (SCLine *line in scItem.owningLines) {
+                    [affectedOrders addObject:line.order];
+                }
+            }
+            
+            [self.dataObject deleteObject:scItem];
+
+            //either handle the deleted item here, or via the array later
+            //items are part of an order, then must delete those lines (already set to cascade) so the order can sync.  otherwise, it won't sync and the order will be lost into oblivion.
+            //notify user of the orders affected?  make a list of order #s and Company names i think its enough
+            
+        }
+    }
+
+    //need to make all affected orders that now have 0 lines as a result of the deletions, need to be marked as draft so they don't sync
+    for (SCOrder *order in affectedOrders) {
+        if (order.lines.count == 0) {
+            order.status = DRAFT_STATUS;
+        }
+    }
+    
+    
+    //Update and add new items from IPP into SC
+    for (NSDictionary *ippItemDict in allIppObjects)
+    {
+        SCItem *oldItem = (SCItem *) [self.dataObject getEntityType:ENTITY_SCITEM byIdentifier:@"itemId" idValue:[ippItemDict valueForKey:@"Id"]];
+        SCItem *newItem;
+        if (oldItem) {
+            newItem = oldItem;
+        } else {
+            newItem = (SCItem *)[self.dataObject newObject:@"SCItem"];
+        }
+        
+        //required fields
+        newItem.itemId = [ippItemDict valueForKey:@"Id"];
+        newItem.name = [ippItemDict valueForKey:@"Name"];
+        
+        //optional fields
+        NSString *description = (NSString *)ippItemDict[@"Description"];
+        if ([[description class] isSubclassOfClass:[NSString class]]) newItem.itemDescription = description;
+        
+        NSString *qOH = (NSString *)[ippItemDict valueForKey:@"Quantity"];
+        if ([ [qOH class] isSubclassOfClass:[NSString class]])
+            newItem.quantityOnHand = @([qOH floatValue])  ;
+        
+        NSString *priceString = (NSString *)[ippItemDict valueForKey:@"Price"];
+        if ([[ priceString class] isSubclassOfClass:[NSString class]])
+            newItem.price = (NSNumber *)@([priceString floatValue]);
+        
+        NSString *quantityOnSalesOrderString = (NSString *)[ippItemDict valueForKey:@"QuantityOnSalesOrder"];
+        if ([[ quantityOnSalesOrderString class] isSubclassOfClass:[NSString class]])
+            newItem.quantityOnSalesOrder = (NSNumber *)@([quantityOnSalesOrderString floatValue]);
+        
+        NSString *quantityOnPurchaseString = (NSString *)[ippItemDict valueForKey:@"QuantityOnPurchase"];
+        if ([[ quantityOnPurchaseString class] isSubclassOfClass:[NSString class]])
+            newItem.quantityOnPurchase = (NSNumber *)@([quantityOnPurchaseString floatValue]);
+        
+        if (![self.dataObject.managedObjectContext save:error] ) {
+            return NO;
+        }
+    }
+    
     return YES;
 }
 
