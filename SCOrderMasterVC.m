@@ -179,7 +179,7 @@
 + (NSString *)masterVCTitleFromOrder:(SCOrder *)order
 {
     if (order) {
-        NSString *status = [order singleLetterStatus];
+        NSString *status = [SCGlobal singleCharacterStringForStatus:order.status];
         return [NSString stringWithFormat:@"Order #%@ (%@)", order.scOrderId, status];
     } else {
         return @"New Order";

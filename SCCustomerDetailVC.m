@@ -146,7 +146,7 @@
             
             
         } else {
-            self.title = [NSString stringWithFormat:@"%@ (%@)", self.customer.name, self.customer.status];
+            self.title = [NSString stringWithFormat:@"%@ (%@)", self.customer.name, [SCGlobal singleCharacterStringForStatus:self.customer.status]];
             
             self.navigationItem.rightBarButtonItem.title = @"Start Order With Customer";
             

@@ -50,8 +50,6 @@
     return returnString;
 }
 
-
-
 -(NSString *)phoneForTag:(NSString *)tag
 {
     NSString *returnString = @"";

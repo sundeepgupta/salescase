@@ -28,8 +28,8 @@
 @property (nonatomic, strong) NSSet *emailQueue;
 
 - (float)totalAmount;
-- (NSString *)fullStatus;
-- (NSString *)singleLetterStatus;
+//- (NSString *)fullStatus;
+//- (NSString *)singleLetterStatus;
 
 @end
 

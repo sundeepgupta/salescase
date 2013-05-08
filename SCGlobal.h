@@ -25,4 +25,7 @@
 +(BOOL) stringIsValidEmail:(NSString *)checkString;
 +(NSString *)stringFromDollarAmount:(CGFloat)amount;
 +(NSArray *)labels:(NSArray *)labels fromArrayOfStrings:(NSArray *)array;
++ (NSString *)singleCharacterStringForStatus:(NSString *)status;
++ (NSString *)fullStringForStatus:(NSString *)status;
+
 @end

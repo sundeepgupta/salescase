@@ -85,5 +85,33 @@
     return labels;
 }
 
++ (NSString *)singleCharacterStringForStatus:(NSString *)status
+{
+    if ([status isEqualToString:SYNCED_STATUS]) {
+        return @"S";
+    } else if ([status isEqualToString:CONFIRMED_STATUS]) {
+        return @"C";
+    } else if ([status isEqualToString:DRAFT_STATUS]){
+        return @"D";
+    } else if ([status isEqualToString:NEW_STATUS]) {
+        return @"N";
+    }
+    return @"?";
+}
+
++ (NSString *)fullStringForStatus:(NSString *)status
+{
+    if ([status isEqualToString:SYNCED_STATUS]) {
+        return @"Synced";
+    } else if ([status isEqualToString:CONFIRMED_STATUS]) {
+        return @"Confirmed";
+    } else if ([status isEqualToString:DRAFT_STATUS]){
+        return @"Draft";
+    } else if ([status isEqualToString:NEW_STATUS]) {
+        return @"New";
+    }
+    return @"?";
+}
+
 
 @end

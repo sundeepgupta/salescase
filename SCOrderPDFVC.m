@@ -100,7 +100,7 @@
 #pragma mark - Custom Methods
 - (NSString *)titleString
 {
-    NSString *status = [self.order fullStatus];
+    NSString *status = [SCGlobal fullStringForStatus:self.order.status];
     return [NSString stringWithFormat:@"Order #%@ (%@)", self.order.scOrderId, status];
 }
 

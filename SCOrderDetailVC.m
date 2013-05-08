@@ -167,7 +167,7 @@
 #pragma mark - Custom Methods
 - (NSString *)titleString
 {
-    NSString *status = [self.order fullStatus];
+    NSString *status = [SCGlobal singleCharacterStringForStatus:self.order.status];
     return [NSString stringWithFormat:@"Order #%@ (%@)", self.order.scOrderId, status];
 }
 

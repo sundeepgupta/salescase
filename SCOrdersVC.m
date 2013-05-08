@@ -106,7 +106,7 @@
     
     //don't need to alloc init the labels since they're built in IB and have outlets to the class.
     cell.orderId.text = [NSString stringWithFormat:@"%@", [order.scOrderId stringValue]];
-    cell.status.text = [order singleLetterStatus];
+    cell.status.text = [SCGlobal singleCharacterStringForStatus:order.status];
     cell.companyName.text = order.customer.dbaName;
     cell.total.text = [SCGlobal stringFromDollarAmount:[order totalAmount]];
 

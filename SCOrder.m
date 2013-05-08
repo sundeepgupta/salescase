@@ -42,27 +42,27 @@
     return total;
 }
 
-- (NSString *)singleLetterStatus
-{
-    if ([self.status isEqualToString:SYNCED_STATUS]) {
-        return @"S";
-    } else if ([self.status isEqualToString:CONFIRMED_STATUS]) {
-        return @"C";
-    } else {
-        return @"D";
-    }
-}
-
-- (NSString *)fullStatus
-{
-    if ([self.status isEqualToString:SYNCED_STATUS]) {
-        return @"Synced";
-    } else if ([self.status isEqualToString:CONFIRMED_STATUS]) {
-        return @"Confirmed";
-    } else {
-        return @"Draft";
-    }
-}
+//- (NSString *)singleLetterStatus
+//{
+//    if ([self.status isEqualToString:SYNCED_STATUS]) {
+//        return @"S";
+//    } else if ([self.status isEqualToString:CONFIRMED_STATUS]) {
+//        return @"C";
+//    } else {
+//        return @"D";
+//    }
+//}
+//
+//- (NSString *)fullStatus
+//{
+//    if ([self.status isEqualToString:SYNCED_STATUS]) {
+//        return @"Synced";
+//    } else if ([self.status isEqualToString:CONFIRMED_STATUS]) {
+//        return @"Confirmed";
+//    } else {
+//        return @"Draft";
+//    }
+//}
 
 
 @end

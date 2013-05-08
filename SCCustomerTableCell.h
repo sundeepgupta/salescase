@@ -15,5 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *zipLabel;
 @property (strong, nonatomic) IBOutlet UILabel *customerLabel;
 @property (strong, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (strong, nonatomic) IBOutlet UILabel *statusLabel;
 
 @end

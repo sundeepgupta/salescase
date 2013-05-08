@@ -226,7 +226,7 @@ static CGFloat const kMaxLineHeight = 142; //10 lines
     self.userWebsite.text = companyInfo[USER_COMPANY_WEBSITE];
 
     //Order Header
-    self.status.text = [self.order fullStatus];    
+    self.status.text = [SCGlobal fullStringForStatus:self.order.status];
     self.orderId.text = [NSString stringWithFormat:@"SalesCase Order #%@", self.order.scOrderId.stringValue];
     self.orderDate.text = [SCGlobal stringFromDate:self.order.createDate];
     self.poNumber.text = self.order.poNumber;

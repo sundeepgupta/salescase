@@ -116,6 +116,7 @@
     SCCustomerTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     //don't need to alloc init the labels since they're built in IB and have outlets to the class.
+    cell.statusLabel.text = [SCGlobal singleCharacterStringForStatus:customer.status];
     cell.companyLabel.text = customer.dbaName;
     cell.customerLabel.text = customer.name;
     cell.phoneLabel.text = [customer phoneForTag:MAIN_PHONE_TAG]; 
