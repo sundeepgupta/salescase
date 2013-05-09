@@ -55,7 +55,9 @@
         NSLog(@"%@: Error fetching orders: %@", self.class, error);
     }
     
-    [self.tableView reloadData];
+    
+    [self searchBar:self.searchBar selectedScopeButtonIndexDidChange:self.searchBar.selectedScopeButtonIndex]; //this method reloads the data too.
+//    [self.tableView reloadData];
     
     
     //get titles
@@ -151,6 +153,7 @@
     }
     [self.tableView reloadData];
 }
+
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {

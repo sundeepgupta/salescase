@@ -10,6 +10,7 @@
 #import "SCGlobal.h"
 #import "SCDataObject.h"
 #import "SCWebApp.h"
+#import "SCOrder.h"
 
 @interface SCDevVC ()
 @property (strong, nonatomic) SCGlobal *global;
@@ -87,6 +88,14 @@
 
 - (IBAction)closeButtonPress:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)draftOrdersButtonPress:(UIButton *)sender {
+    NSError *error = nil;
+    NSArray *orders = [self.dataObject fetchOrdersInContext:&error];
+    for (SCOrder *order in orders) {
+        order.status = DRAFT_STATUS;
+    }
 }
 
 - (void)viewDidUnload {

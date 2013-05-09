@@ -23,6 +23,8 @@
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCWebApp *webApp;
 @property (strong, nonatomic) SCDataObject *dataObject;
+@property (strong, nonatomic) NSMutableSet *affectedOrders;
+@property (strong, nonatomic) NSMutableString *affectedOrdersMessage;
 
 //IB Stuff
 
@@ -56,6 +58,8 @@
     //disable and back button
     self.closeButton.enabled = NO;
     self.navigationItem.hidesBackButton = YES;
+    
+    self.affectedOrders = [[NSMutableSet alloc] init]; //reset this array on each sync
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -117,14 +121,12 @@
     NSError *newCustomersError = nil;
     
     NSDictionary *oAuthResponseError;
-//    NSDictionary *companyInfoResponseError = nil;
     NSDictionary *repsResponseError = nil;
     NSDictionary *termsResponseError = nil;
     NSDictionary *shipViasResponseError = nil;
-//    NSDictionary *customersResponseError = nil;
-//    NSDictionary *itemsResponseError = nil;
     NSDictionary *ordersResponseError;
     NSDictionary *newCustomersResponseError;
+    
     BOOL hadSyncError = NO;
     NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
     
@@ -185,6 +187,8 @@
             [syncErrorString appendFormat:@"Failed to sync items.  Error: \n%@", itemsError];
             hadSyncError = YES;
         }
+        
+        [self processAffectedOrders];
         
         if (![self uploadOrders:&ordersError responseError:&ordersResponseError]) {
             if (syncErrorString.length != 0) {
@@ -279,12 +283,45 @@
 - (void)syncOrders
 {    
     NSError *oAuthError = nil;
+    NSError *customersError = nil;
+    NSError *itemsError = nil;
     NSError *ordersError = nil;
+    NSError *newCustomersError = nil;
+    
     NSDictionary *oAuthResponseError;
     NSDictionary *ordersResponseError;
+    NSDictionary *newCustomersResponseError;
     BOOL hadSyncError = NO;
     NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
+    
     if ([self.webApp oAuthTokenIsValid:&oAuthError responseError:&oAuthResponseError]) {
+                
+        if (![self uploadNewCustomers:&newCustomersError responseError:&newCustomersResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to upload new customers. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nCustomer Name: %@", newCustomersError, newCustomersResponseError[@"error"], newCustomersResponseError[@"msg"], newCustomersResponseError[@"errorDetail"], newCustomersResponseError[@"name"]];
+            hadSyncError = YES;
+        }
+        
+        if (![self downloadCustomers:&customersError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to download customers.  Error: \n%@", customersError];
+            hadSyncError = YES;
+        }
+        
+        if (![self downloadItems:&itemsError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to sync items.  Error: \n%@", itemsError];
+            hadSyncError = YES;
+        }
+        
+        [self processAffectedOrders];
+        
         if (![self uploadOrders:&ordersError responseError:&ordersResponseError]) {
             if (syncErrorString.length != 0) {
                 [syncErrorString appendString:@"\n\n"];
@@ -292,11 +329,14 @@
             [syncErrorString appendFormat:@"Failed to sync orders. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nSCOrderID: %@", ordersError, ordersResponseError[@"error"], ordersResponseError[@"msg"], ordersResponseError[@"errorDetail"], ordersResponseError[@"SCOrderID"]];
             hadSyncError = YES;
         }
+        
         [self handleFinishedSyncErrorWithStatus:hadSyncError withErrorString:syncErrorString];
+        
     } else { //Connection not good, couldn't even start syncing.
         [self handleConnectionErrorWithOAuthError:oAuthError withOAuthResponseError:oAuthResponseError];
     }
     [self finalizeView];
+
 }
 
 - (void)syncCustomers
@@ -328,6 +368,7 @@
     } else { //Connection not good, couldn't even start syncing.
         [self handleConnectionErrorWithOAuthError:oAuthError withOAuthResponseError:oAuthResponseError];
     }
+    [self processAffectedOrders];
     [self finalizeView];
 }
 
@@ -350,6 +391,7 @@
     } else { //Connection not good, couldn't even start syncing.
         [self handleConnectionErrorWithOAuthError:oAuthError withOAuthResponseError:oAuthResponseError];
     }
+    [self processAffectedOrders];
     [self finalizeView];
 }
 
@@ -360,7 +402,7 @@
         self.textView.text = syncErrorString;
     } else {
         self.titleLabel.text = @"Synced Successfully";
-        self.textView.text = @"Sync finished without errors.";
+        self.textView.text = @"";
     }
 }
 
@@ -384,6 +426,51 @@
     [self.activityIndicator stopAnimating];
     self.closeButton.enabled = YES;
     self.navigationItem.hidesBackButton = NO;
+    
+    if (self.affectedOrdersMessage) {
+        self.textView.text = [self.textView.text stringByAppendingString:self.affectedOrdersMessage];
+    }
+}
+
+- (void)processAffectedOrders
+{
+    //make affected orders drafts and build the message string for UI
+    if (self.affectedOrders.count > 0) {
+        NSString *customerName = @"*Deleted Customer*";
+        self.affectedOrdersMessage = [[NSMutableString alloc] initWithString:@"\n\nConfirmed orders set to Draft status due to deleted customers/items:\n\n"];
+        for (SCOrder *order in self.affectedOrders) {
+            if ([order.status isEqualToString:CONFIRMED_STATUS]) {
+                order.status = DRAFT_STATUS;
+
+                //setup the string
+                if (order.customer) {
+                    customerName = order.customer.name;
+                }
+                [self.affectedOrdersMessage appendFormat:@"%@ - %@\n", order.scOrderId, customerName];
+            }
+        }
+    }
+}
+
+- (NSArray *)allIppObjectsFromUrlExt:(NSString *)urlExt error:(NSError **)error
+{
+    //Get all of the objects (not just the chunk limit which is set to 50)
+    NSInteger page = 1;
+    BOOL done = NO;
+    NSMutableArray *allIppObjects = [[NSMutableArray alloc] init];
+    while (!done) {
+        NSArray *responseArray = [self.webApp arrayFromUrlExtension:urlExt withPageNumber:page error:error];
+        if (!responseArray) {
+            return nil;
+        }
+        if (responseArray.count == 0) {
+            done = YES;
+        } else {
+            [allIppObjects addObjectsFromArray:responseArray];
+            page++;
+        }
+    }
+    return allIppObjects;
 }
 
 -(BOOL) downloadCompanyInfo:(NSError **)error
@@ -493,9 +580,6 @@
     if (!allIppObjects) {
         return NO;
     }
-    
-    //WAIT THIS DOESN'T WORK BECAUSE WE CAN ADD NEW CUSTOMERS, SO THEY WILL BE WIPED OUT BY THIS METHOD.  REVISE THIS.  
-    
         
     //Update and add new items from IPP into SC
     for (NSDictionary *ippObjectDict in allIppObjects)
@@ -541,8 +625,6 @@
     
     //chedk for deleted objects from IPP list, and delete them in SC
     NSArray *scObjects = [self.dataObject fetchCustomersInContext];
-    NSMutableArray *objectsToDelete = [[NSMutableArray alloc] init];
-    NSMutableSet *affectedOrders = [[NSMutableSet alloc] init];
     for (SCCustomer *scObject in scObjects) {
         
         BOOL matchFound = NO;
@@ -559,28 +641,16 @@
             ippIndex++;
         }
         
+        //if no match, process deleted item
         if (!matchFound) {
-            NSLog(@"customer id to delete: %@", scObject.name);
-            [objectsToDelete addObject:scObject];
-            
+            NSLog(@"customer id to delete: %@", scObject.name);            
             if (scObject.orderList.count > 0) {
-                [affectedOrders addObjectsFromArray:scObject.orderList.allObjects];
+                [self.affectedOrders addObjectsFromArray:scObject.orderList.allObjects];
             }
-            
             [self.dataObject deleteObject:scObject];
-            
-            //either handle the deleted item here, or via the array later
-            //items are part of an order, then must delete those lines (already set to cascade) so the order can sync.  otherwise, it won't sync and the order will be lost into oblivion.
-            //notify user of the orders affected?  make a list of order #s and Company names i think its enough
         }
     }
-    
-    //need to make all affected orders draft so they don't sync
-    for (SCOrder *order in affectedOrders) {
-        order.status = DRAFT_STATUS;
-    }
 
-    
     return YES;
 }
 
@@ -589,51 +659,6 @@
     NSArray *allIppObjects = [self allIppObjectsFromUrlExt:LIST_ITEMS_URL_EXT error:error];
     if (!allIppObjects) {
         return NO;
-    }
-    
-    //chedk for deleted objects from IPP list, and delete them in SC
-    NSArray *scObjects = [self.dataObject fetchItemsInContext];
-    NSMutableArray *objectsToDelete = [[NSMutableArray alloc] init];
-    NSMutableSet *affectedOrders = [[NSMutableSet alloc] init];
-    for (SCItem *scObject in scObjects) {
-
-        BOOL matchFound = NO;
-        NSInteger ippIndex = 0;
-        while (ippIndex < allIppObjects.count && !matchFound) {
-            NSDictionary *ippDict = allIppObjects[ippIndex];
-            NSString *ippObjectId = ippDict[@"Id"];
-            if ([scObject.itemId isEqualToString:ippObjectId]) {
-                matchFound = YES;
-                
-                //update scItem here?
-                //mark ippItem as being processed?
-            }
-            ippIndex++;
-        }
-        
-        if (!matchFound) {
-            NSLog(@"item id to delete: %@", scObject.name);
-            [objectsToDelete addObject:scObject]; 
-            
-            if (scObject.owningLines > 0) {
-                for (SCLine *line in scObject.owningLines) {
-                    [affectedOrders addObject:line.order];
-                }
-            }
-            
-            [self.dataObject deleteObject:scObject];
-
-            //either handle the deleted item here, or via the array later
-            //items are part of an order, then must delete those lines (already set to cascade) so the order can sync.  otherwise, it won't sync and the order will be lost into oblivion.
-            //notify user of the orders affected?  make a list of order #s and Company names i think its enough
-        }
-    }
-
-    //need to make all affected orders that now have 0 lines as a result of the deletions, need to be marked as draft so they don't sync
-    for (SCOrder *order in affectedOrders) {
-        if (order.lines.count == 0) {
-            order.status = DRAFT_STATUS;
-        }
     }
     
     //Update and add new items from IPP into SC
@@ -676,28 +701,37 @@
         }
     }
     
-    return YES;
-}
-
-- (NSArray *)allIppObjectsFromUrlExt:(NSString *)urlExt error:(NSError **)error
-{
-    //Get all of the objects (not just the chunk limit which is set to 50)
-    NSInteger page = 1;
-    BOOL done = NO;
-    NSMutableArray *allIppObjects = [[NSMutableArray alloc] init];
-    while (!done) {
-        NSArray *responseArray = [self.webApp arrayFromUrlExtension:urlExt withPageNumber:page error:error];
-        if (!responseArray) {
-            return nil;
+    //chedk for deleted objects from IPP list, and delete them in SC
+    NSArray *scObjects = [self.dataObject fetchItemsInContext];
+    for (SCItem *scObject in scObjects) {
+        
+        BOOL matchFound = NO;
+        NSInteger ippIndex = 0;
+        while (ippIndex < allIppObjects.count && !matchFound) {
+            NSDictionary *ippDict = allIppObjects[ippIndex];
+            NSString *ippObjectId = ippDict[@"Id"];
+            if ([scObject.itemId isEqualToString:ippObjectId]) {
+                matchFound = YES;
+                
+                //update scItem here?
+                //mark ippItem as being processed?
+            }
+            ippIndex++;
         }
-        if (responseArray.count == 0) {
-            done = YES;
-        } else {
-            [allIppObjects addObjectsFromArray:responseArray];
-            page++;
+        
+        //If no match found, the items was deleted from QB, so handle it
+        if (!matchFound) {
+            NSLog(@"item id to delete: %@", scObject.name);            
+            if (scObject.owningLines > 0) {
+                for (SCLine *line in scObject.owningLines) {
+                    [self.affectedOrders addObject:line.order];
+                }
+            }
+            [self.dataObject deleteObject:scObject]; //model is set to cascade delets so this code will delete the lines for us
         }
     }
-    return allIppObjects;
+    
+    return YES;
 }
 
 - (BOOL)uploadNewCustomers:(NSError **)error responseError:(NSDictionary **)responseError
@@ -867,7 +901,6 @@
     }
     return YES;
 }
-
 
 -(NSString *)addressAsRequestString:(SCAddress *)address withPrefix:(NSString *)prefix
 {

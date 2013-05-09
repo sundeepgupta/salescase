@@ -71,15 +71,15 @@
 - (IBAction)ordersButtonPress:(UIButton *)sender {
     
     //need to check first if any orders have cutoemrs with status "new"
-    NSError *error = nil;
-    NSArray *newCustomers = [self.dataObject objectsOfType:NSStringFromClass([SCCustomer class]) withStatus:NEW_STATUS withError:&error];
-    for (SCCustomer *customer in newCustomers) {
-        if (customer.orderList.count > 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Customers First" message:@"There are orders for new customers, so please sync them first, or use the \"Everything\" sync." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [alert show];
-            return;
-        }
-    }
+//    NSError *error = nil;
+//    NSArray *newCustomers = [self.dataObject objectsOfType:NSStringFromClass([SCCustomer class]) withStatus:NEW_STATUS withError:&error];
+//    for (SCCustomer *customer in newCustomers) {
+//        if (customer.orderList.count > 0) {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sync Customers First" message:@"There are orders for new customers, so please sync them first, or use the \"Everything\" sync." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//            [alert show];
+//            return;
+//        }
+//    }
     
     [self pushSyncVCWithSyncMethod:ORDERS_SYNC];
 }
