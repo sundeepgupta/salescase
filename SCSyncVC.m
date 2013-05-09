@@ -489,98 +489,68 @@
 
 - (BOOL)downloadCustomers:(NSError **)error 
 {
-    NSInteger page = 1;
-    BOOL done = NO;
-    BOOL didSave;
+    NSArray *allIppObjects = [self allIppObjectsFromUrlExt:LIST_CUSTOMERS_URL_EXT error:error];
+    if (!allIppObjects) {
+        return NO;
+    }
     
-    while (!done) {
-        NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_CUSTOMERS_URL_EXT withPageNumber:page error:error];
-        if (!responseArray) {
-            return NO;
+    //WAIT THIS DOESN'T WORK BECAUSE WE CAN ADD NEW CUSTOMERS, SO THEY WILL BE WIPED OUT BY THIS METHOD.  REVISE THIS.  
+    
+        
+    //Update and add new items from IPP into SC
+    for (NSDictionary *ippObjectDict in allIppObjects)
+    {
+        SCCustomer *scObject = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"customerId" idValue:ippObjectDict[@"Id"]];
+        SCCustomer *justUploadedObject = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"name" idValue:ippObjectDict[@"Name"]];
+        SCCustomer *objectToSave;
+        if (scObject) {
+            objectToSave = scObject;
+        } else if (justUploadedObject) {
+            objectToSave = justUploadedObject;
+        } else {
+            objectToSave = (SCCustomer *) [self.dataObject newObject:ENTITY_SCCUSTOMER];
+            objectToSave.orderList = nil;
         }
         
-        if (responseArray.count == 0) {
-            done = YES;
-        } else {
-            for (NSDictionary *ippCustomerDict in responseArray) {
-                SCCustomer *oldCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"customerId" idValue:[ippCustomerDict valueForKey:@"Id"]];
-                
-                SCCustomer *justUploadedCustomer = (SCCustomer *) [self.dataObject getEntityType:ENTITY_SCCUSTOMER byIdentifier:@"name" idValue:ippCustomerDict[@"Name"]];
-                
-                SCCustomer *newCustomer;
-                if (oldCustomer) {
-                    newCustomer = oldCustomer;
-                } else if (justUploadedCustomer) {
-                    newCustomer = justUploadedCustomer;
-                } else {
-                    newCustomer = (SCCustomer *) [self.dataObject newObject:ENTITY_SCCUSTOMER];
-                    newCustomer.orderList = nil;
-                }
-                
-                newCustomer.name = [self.dataObject dictionaryData:ippCustomerDict forKey:@"Name"];
-                newCustomer.dbaName = [self.dataObject dictionaryData:ippCustomerDict forKey:@"DBAName"];
-                newCustomer.givenName = [self.dataObject dictionaryData:ippCustomerDict forKey:@"GivenName"];
-                newCustomer.middleName = [self.dataObject dictionaryData:ippCustomerDict forKey:@"MiddleName"];
-                newCustomer.familyName = [self.dataObject dictionaryData:ippCustomerDict forKey:@"FamilyName"];
-                newCustomer.title = [self.dataObject dictionaryData:ippCustomerDict forKey:@"Title"];
-                newCustomer.customerId = [ippCustomerDict valueForKey:@"Id"];
-                newCustomer.qbId = [ippCustomerDict valueForKey:@"ExternalKey"];
-                
-                newCustomer.status = SYNCED_STATUS;
-                
-                
-                NSDictionary *addresses = [ippCustomerDict valueForKey:@"Address"];
-                [self.dataObject saveAddressList:addresses forCustomer:newCustomer];
-                
-                NSDictionary *phones = [ippCustomerDict valueForKey:@"Phone"];
-                [self.dataObject savePhoneList:phones forCustomer:newCustomer];
-                
-                NSDictionary *emails = [ippCustomerDict valueForKey:@"Email"];
-                [self.dataObject saveEmailList:emails forCustomer:newCustomer];
-                newCustomer.salesRep = (SCSalesRep *) [self.dataObject getEntityType:ENTITY_SCSALESREP byIdentifier:@"repId" idValue:[ippCustomerDict valueForKey:@"SalesRepId"]];
-                newCustomer.salesTerms = (SCSalesTerm *) [self.dataObject getEntityType:ENTITY_SCSALESTERM byIdentifier:@"termId" idValue:[ippCustomerDict valueForKey:@"SalesTermId"]];
-            }
-            didSave = [self.dataObject.managedObjectContext save:error];
-            if (!didSave) {
-                return NO;
-            }
-            page = page + 1;
-        }
-    }
-    return YES;
-}
-
-- (BOOL)downloadItems:(NSError **)error 
-{
-    //Get all of the items (not just the chunk limit which is set to 50)
-    NSInteger page = 1;
-    BOOL done = NO;
-    NSMutableArray *allIppObjects = [[NSMutableArray alloc] init];
-    while (!done) {
-        NSArray *responseArray = [self.webApp arrayFromUrlExtension:LIST_ITEMS_URL_EXT withPageNumber:page error:error];
-        if (!responseArray) {
+        objectToSave.name = [self.dataObject dictionaryData:ippObjectDict forKey:@"Name"];
+        objectToSave.dbaName = [self.dataObject dictionaryData:ippObjectDict forKey:@"DBAName"];
+        objectToSave.givenName = [self.dataObject dictionaryData:ippObjectDict forKey:@"GivenName"];
+        objectToSave.middleName = [self.dataObject dictionaryData:ippObjectDict forKey:@"MiddleName"];
+        objectToSave.familyName = [self.dataObject dictionaryData:ippObjectDict forKey:@"FamilyName"];
+        objectToSave.title = [self.dataObject dictionaryData:ippObjectDict forKey:@"Title"];
+        objectToSave.customerId = [ippObjectDict valueForKey:@"Id"];
+        objectToSave.qbId = [ippObjectDict valueForKey:@"ExternalKey"];
+        objectToSave.status = SYNCED_STATUS;
+        
+        NSDictionary *addresses = [ippObjectDict valueForKey:@"Address"];
+        [self.dataObject saveAddressList:addresses forCustomer:objectToSave];
+        
+        NSDictionary *phones = [ippObjectDict valueForKey:@"Phone"];
+        [self.dataObject savePhoneList:phones forCustomer:objectToSave];
+        
+        NSDictionary *emails = [ippObjectDict valueForKey:@"Email"];
+        [self.dataObject saveEmailList:emails forCustomer:objectToSave];
+        objectToSave.salesRep = (SCSalesRep *) [self.dataObject getEntityType:ENTITY_SCSALESREP byIdentifier:@"repId" idValue:[ippObjectDict valueForKey:@"SalesRepId"]];
+        objectToSave.salesTerms = (SCSalesTerm *) [self.dataObject getEntityType:ENTITY_SCSALESTERM byIdentifier:@"termId" idValue:[ippObjectDict valueForKey:@"SalesTermId"]];
+        
+        if (![self.dataObject.managedObjectContext save:error] ) {
             return NO;
-        }
-        if (responseArray.count == 0) {
-            done = YES;
-        } else {
-            [allIppObjects addObjectsFromArray:responseArray];
-            page++;
         }
     }
     
-    //chedk for deleted items from IPP list, and delete them
-    NSArray *scItems = [self.dataObject fetchItemsInContext];
-    NSMutableArray *itemsToDelete = [[NSMutableArray alloc] init];
+    
+    //chedk for deleted objects from IPP list, and delete them in SC
+    NSArray *scObjects = [self.dataObject fetchCustomersInContext];
+    NSMutableArray *objectsToDelete = [[NSMutableArray alloc] init];
     NSMutableSet *affectedOrders = [[NSMutableSet alloc] init];
-    for (SCItem *scItem in scItems) {
-
+    for (SCCustomer *scObject in scObjects) {
+        
         BOOL matchFound = NO;
         NSInteger ippIndex = 0;
         while (ippIndex < allIppObjects.count && !matchFound) {
             NSDictionary *ippDict = allIppObjects[ippIndex];
-            NSString *ippItemId = ippDict[@"Id"];
-            if ([scItem.itemId isEqualToString:ippItemId]) { 
+            NSString *ippObjectId = ippDict[@"Id"];
+            if ([scObject.customerId isEqualToString:ippObjectId]) {
                 matchFound = YES;
                 
                 //update scItem here?
@@ -590,21 +560,72 @@
         }
         
         if (!matchFound) {
-            NSLog(@"item id to delete: %@", scItem.name);
-            [itemsToDelete addObject:scItem]; 
+            NSLog(@"customer id to delete: %@", scObject.name);
+            [objectsToDelete addObject:scObject];
             
-            if (scItem.owningLines > 0) {
-                for (SCLine *line in scItem.owningLines) {
+            if (scObject.orderList.count > 0) {
+                [affectedOrders addObjectsFromArray:scObject.orderList.allObjects];
+            }
+            
+            [self.dataObject deleteObject:scObject];
+            
+            //either handle the deleted item here, or via the array later
+            //items are part of an order, then must delete those lines (already set to cascade) so the order can sync.  otherwise, it won't sync and the order will be lost into oblivion.
+            //notify user of the orders affected?  make a list of order #s and Company names i think its enough
+        }
+    }
+    
+    //need to make all affected orders draft so they don't sync
+    for (SCOrder *order in affectedOrders) {
+        order.status = DRAFT_STATUS;
+    }
+
+    
+    return YES;
+}
+
+- (BOOL)downloadItems:(NSError **)error 
+{
+    NSArray *allIppObjects = [self allIppObjectsFromUrlExt:LIST_ITEMS_URL_EXT error:error];
+    if (!allIppObjects) {
+        return NO;
+    }
+    
+    //chedk for deleted objects from IPP list, and delete them in SC
+    NSArray *scObjects = [self.dataObject fetchItemsInContext];
+    NSMutableArray *objectsToDelete = [[NSMutableArray alloc] init];
+    NSMutableSet *affectedOrders = [[NSMutableSet alloc] init];
+    for (SCItem *scObject in scObjects) {
+
+        BOOL matchFound = NO;
+        NSInteger ippIndex = 0;
+        while (ippIndex < allIppObjects.count && !matchFound) {
+            NSDictionary *ippDict = allIppObjects[ippIndex];
+            NSString *ippObjectId = ippDict[@"Id"];
+            if ([scObject.itemId isEqualToString:ippObjectId]) {
+                matchFound = YES;
+                
+                //update scItem here?
+                //mark ippItem as being processed?
+            }
+            ippIndex++;
+        }
+        
+        if (!matchFound) {
+            NSLog(@"item id to delete: %@", scObject.name);
+            [objectsToDelete addObject:scObject]; 
+            
+            if (scObject.owningLines > 0) {
+                for (SCLine *line in scObject.owningLines) {
                     [affectedOrders addObject:line.order];
                 }
             }
             
-            [self.dataObject deleteObject:scItem];
+            [self.dataObject deleteObject:scObject];
 
             //either handle the deleted item here, or via the array later
             //items are part of an order, then must delete those lines (already set to cascade) so the order can sync.  otherwise, it won't sync and the order will be lost into oblivion.
             //notify user of the orders affected?  make a list of order #s and Company names i think its enough
-            
         }
     }
 
@@ -615,41 +636,40 @@
         }
     }
     
-    
     //Update and add new items from IPP into SC
-    for (NSDictionary *ippItemDict in allIppObjects)
+    for (NSDictionary *ippObjectDict in allIppObjects)
     {
-        SCItem *oldItem = (SCItem *) [self.dataObject getEntityType:ENTITY_SCITEM byIdentifier:@"itemId" idValue:[ippItemDict valueForKey:@"Id"]];
-        SCItem *newItem;
-        if (oldItem) {
-            newItem = oldItem;
+        SCItem *oldObject = (SCItem *) [self.dataObject getEntityType:ENTITY_SCITEM byIdentifier:@"itemId" idValue:[ippObjectDict valueForKey:@"Id"]];
+        SCItem *newObject;
+        if (oldObject) {
+            newObject = oldObject;
         } else {
-            newItem = (SCItem *)[self.dataObject newObject:@"SCItem"];
+            newObject = (SCItem *)[self.dataObject newObject:ENTITY_SCITEM];
         }
         
         //required fields
-        newItem.itemId = [ippItemDict valueForKey:@"Id"];
-        newItem.name = [ippItemDict valueForKey:@"Name"];
+        newObject.itemId = [ippObjectDict valueForKey:@"Id"];
+        newObject.name = [ippObjectDict valueForKey:@"Name"];
         
         //optional fields
-        NSString *description = (NSString *)ippItemDict[@"Description"];
-        if ([[description class] isSubclassOfClass:[NSString class]]) newItem.itemDescription = description;
+        NSString *description = (NSString *)ippObjectDict[@"Description"];
+        if ([[description class] isSubclassOfClass:[NSString class]]) newObject.itemDescription = description;
         
-        NSString *qOH = (NSString *)[ippItemDict valueForKey:@"Quantity"];
+        NSString *qOH = (NSString *)[ippObjectDict valueForKey:@"Quantity"];
         if ([ [qOH class] isSubclassOfClass:[NSString class]])
-            newItem.quantityOnHand = @([qOH floatValue])  ;
+            newObject.quantityOnHand = @([qOH floatValue])  ;
         
-        NSString *priceString = (NSString *)[ippItemDict valueForKey:@"Price"];
+        NSString *priceString = (NSString *)[ippObjectDict valueForKey:@"Price"];
         if ([[ priceString class] isSubclassOfClass:[NSString class]])
-            newItem.price = (NSNumber *)@([priceString floatValue]);
+            newObject.price = (NSNumber *)@([priceString floatValue]);
         
-        NSString *quantityOnSalesOrderString = (NSString *)[ippItemDict valueForKey:@"QuantityOnSalesOrder"];
+        NSString *quantityOnSalesOrderString = (NSString *)[ippObjectDict valueForKey:@"QuantityOnSalesOrder"];
         if ([[ quantityOnSalesOrderString class] isSubclassOfClass:[NSString class]])
-            newItem.quantityOnSalesOrder = (NSNumber *)@([quantityOnSalesOrderString floatValue]);
+            newObject.quantityOnSalesOrder = (NSNumber *)@([quantityOnSalesOrderString floatValue]);
         
-        NSString *quantityOnPurchaseString = (NSString *)[ippItemDict valueForKey:@"QuantityOnPurchase"];
+        NSString *quantityOnPurchaseString = (NSString *)[ippObjectDict valueForKey:@"QuantityOnPurchase"];
         if ([[ quantityOnPurchaseString class] isSubclassOfClass:[NSString class]])
-            newItem.quantityOnPurchase = (NSNumber *)@([quantityOnPurchaseString floatValue]);
+            newObject.quantityOnPurchase = (NSNumber *)@([quantityOnPurchaseString floatValue]);
         
         if (![self.dataObject.managedObjectContext save:error] ) {
             return NO;
@@ -657,6 +677,27 @@
     }
     
     return YES;
+}
+
+- (NSArray *)allIppObjectsFromUrlExt:(NSString *)urlExt error:(NSError **)error
+{
+    //Get all of the objects (not just the chunk limit which is set to 50)
+    NSInteger page = 1;
+    BOOL done = NO;
+    NSMutableArray *allIppObjects = [[NSMutableArray alloc] init];
+    while (!done) {
+        NSArray *responseArray = [self.webApp arrayFromUrlExtension:urlExt withPageNumber:page error:error];
+        if (!responseArray) {
+            return nil;
+        }
+        if (responseArray.count == 0) {
+            done = YES;
+        } else {
+            [allIppObjects addObjectsFromArray:responseArray];
+            page++;
+        }
+    }
+    return allIppObjects;
 }
 
 - (BOOL)uploadNewCustomers:(NSError **)error responseError:(NSDictionary **)responseError
