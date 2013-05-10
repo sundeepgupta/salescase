@@ -18,18 +18,23 @@
 #import "SCCustomer.h"
 
 @interface SCOrderPDFVC ()
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
+
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCDataObject *dataObject;
 @property (strong, nonatomic) UIPopoverController *deleteOrderPC;
 @property (strong, nonatomic) UIPopoverController *emailOrderPC;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
 @property (strong, nonatomic) NSArray *actionButtonStrings;
 @property (strong, nonatomic) NSData *pdfData;
+@property BOOL actionSheetIsShowing;
+@property BOOL printPopoverIsShowing;
+@property BOOL emailPopoverIsShowing;
+@property (strong, nonatomic) UIActionSheet *actionSheet;
+@property (strong, nonatomic) SCEmailOrderVC *emailOrderVC;
 
 //IB
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *shareButton;
-
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *actionButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
 
 @end
 
@@ -115,7 +120,7 @@
 
 - (void)viewDidUnload {
     [self setEditButton:nil];
-    [self setShareButton:nil];
+    [self setActionButton:nil];
     [super viewDidUnload];
 }
 
@@ -224,11 +229,26 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) { //email
-        
+        if ([MFMailComposeViewController canSendMail]) {
+            SCEmailOrderVC *emailOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCEmailOrderVC"];
+            self.emailOrderPC = [[UIPopoverController alloc] initWithContentViewController:emailOrderVC];
+            self.emailOrderPC.delegate = self; 
+            emailOrderVC.delegate = self;
+            [self.emailOrderPC presentPopoverFromBarButtonItem:self.actionButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            self.emailPopoverIsShowing = YES;
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't Email"
+                                                            message:@"Looks like your device isn't setup to send emails."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
     } else if (buttonIndex == 1) { //print
         if ([UIPrintInteractionController canPrintData:self.pdfData]) {
             UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
             pic.printingItem = self.pdfData;
+            pic.delegate = self; 
             
             void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) =
             ^(UIPrintInteractionController *pic, BOOL completed, NSError *error) {
@@ -238,7 +258,8 @@
                           error.domain, error.code);
             };
             
-            [pic presentFromBarButtonItem:self.shareButton animated:YES completionHandler:completionHandler];
+            [pic presentFromBarButtonItem:self.actionButton animated:YES completionHandler:completionHandler];
+            self.printPopoverIsShowing = YES;
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't Print"
                                                             message:@"The document cannot be found or is corrupt."
@@ -250,26 +271,28 @@
     }
 }
 
+- (void)printInteractionControllerDidDismissPrinterOptions:(UIPrintInteractionController *)printInteractionController
+{
+    self.printPopoverIsShowing = NO;
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.emailPopoverIsShowing = NO;
+}
+
+- (void)didPresentActionSheet:(UIActionSheet *)actionSheet
+{
+    self.actionSheetIsShowing = YES;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    self.actionSheetIsShowing = NO;
+}
+
+
 #pragma mark - IB methods
-- (IBAction)emailButtonPress:(UIBarButtonItem *)sender {
-    if ([MFMailComposeViewController canSendMail]) {
-        SCEmailOrderVC *emailOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCEmailOrderVC"];
-        self.emailOrderPC = [[UIPopoverController alloc] initWithContentViewController:emailOrderVC];
-        emailOrderVC.delegate = self;
-        [self.emailOrderPC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't Email"
-                                                        message:@"Looks like your device isn't setup to send emails."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
-}
-
-- (IBAction)printButtonPress:(UIBarButtonItem *)sender {
-}
-
 - (IBAction)deleteButtonPress:(UIBarButtonItem *)sender {
     SCConfirmDeleteVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
     self.deleteOrderPC = [[UIPopoverController alloc] initWithContentViewController:deleteOrderVC];
@@ -287,12 +310,13 @@
 - (IBAction)actionButtonPress:(UIBarButtonItem *)sender {
     //us action sheet.  Activity controller is for iOS 6+
 
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share Order" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    for (NSString *string in self.actionButtonStrings) {
-        [actionSheet addButtonWithTitle:string];
+    if (!self.emailPopoverIsShowing && !self.actionSheetIsShowing && !self.printPopoverIsShowing) {
+        self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share Order" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        for (NSString *string in self.actionButtonStrings) {
+            [self.actionSheet addButtonWithTitle:string];
+        }
+        [self.actionSheet showFromBarButtonItem:sender animated:YES];
     }
-    [actionSheet showFromBarButtonItem:sender animated:YES];
-    
 }
 
 @end

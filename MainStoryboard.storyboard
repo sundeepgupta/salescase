@@ -576,16 +576,6 @@
                                 <action selector="actionButtonPress:" destination="2BQ-zf-fXv" id="ZgG-iF-QV9"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Email" id="KH6-uM-Wfs">
-                            <connections>
-                                <action selector="emailButtonPress:" destination="2BQ-zf-fXv" id="8Lg-Qg-pOj"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem title="Print" id="S13-g3-nIq">
-                            <connections>
-                                <action selector="printButtonPress:" destination="2BQ-zf-fXv" id="VXg-Cl-n0w"/>
-                            </connections>
-                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="zMH-SX-SvX"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -593,8 +583,8 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="actionButton" destination="ZKX-pM-b9f" id="vJH-ao-pnC"/>
                         <outlet property="editButton" destination="By7-8z-V9P" id="Edg-T6-H5b"/>
-                        <outlet property="shareButton" destination="ZKX-pM-b9f" id="Pg2-R5-ovf"/>
                         <outlet property="webView" destination="6jE-ZS-edh" id="iHf-vf-6kf"/>
                     </connections>
                 </viewController>
