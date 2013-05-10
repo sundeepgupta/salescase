@@ -14,7 +14,7 @@
 
 @class SCOrder;
 
-@interface SCOrderPDFVC : UIViewController <MFMailComposeViewControllerDelegate, SCConfirmDeleteVCDelegate, SCEmailOrderVCDelegate>
+@interface SCOrderPDFVC : UIViewController <MFMailComposeViewControllerDelegate, SCConfirmDeleteVCDelegate, SCEmailOrderVCDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) SCOrder *order;
 

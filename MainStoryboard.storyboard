@@ -104,7 +104,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Sync" id="rR4-YU-i9q">
+                        <barButtonItem systemItem="refresh" id="rR4-YU-i9q">
                             <connections>
                                 <action selector="syncButtonPress:" destination="Iql-ub-0gb" id="O1j-O2-gxT"/>
                             </connections>
@@ -122,7 +122,7 @@
                                 <action selector="devButtonPress:" destination="Iql-ub-0gb" id="F1X-xM-ceF"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="New Order" id="I7h-R6-BjH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="I7h-R6-BjH">
                             <connections>
                                 <action selector="newOrderButtonPress:" destination="Iql-ub-0gb" id="9fc-9O-YNW"/>
                             </connections>
@@ -560,23 +560,28 @@
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Delete" id="nVr-tL-9U7">
+                        <barButtonItem systemItem="trash" id="nVr-tL-9U7">
                             <connections>
                                 <action selector="deleteButtonPress:" destination="2BQ-zf-fXv" id="AjV-t0-iz1"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Edit" id="By7-8z-V9P">
+                        <barButtonItem systemItem="edit" id="By7-8z-V9P">
                             <connections>
                                 <action selector="editButtonPress:" destination="2BQ-zf-fXv" id="9aq-Ld-md2"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="YKb-bR-Kci"/>
-                        <barButtonItem title="Email" id="ZKX-pM-b9f">
+                        <barButtonItem systemItem="action" id="ZKX-pM-b9f">
                             <connections>
-                                <action selector="emailButtonPress:" destination="2BQ-zf-fXv" id="AL4-D4-Khe"/>
+                                <action selector="actionButtonPress:" destination="2BQ-zf-fXv" id="ZgG-iF-QV9"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem enabled="NO" title="Print" id="S13-g3-nIq">
+                        <barButtonItem title="Email" id="KH6-uM-Wfs">
+                            <connections>
+                                <action selector="emailButtonPress:" destination="2BQ-zf-fXv" id="8Lg-Qg-pOj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Print" id="S13-g3-nIq">
                             <connections>
                                 <action selector="printButtonPress:" destination="2BQ-zf-fXv" id="VXg-Cl-n0w"/>
                             </connections>
@@ -589,6 +594,7 @@
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="editButton" destination="By7-8z-V9P" id="Edg-T6-H5b"/>
+                        <outlet property="shareButton" destination="ZKX-pM-b9f" id="Pg2-R5-ovf"/>
                         <outlet property="webView" destination="6jE-ZS-edh" id="iHf-vf-6kf"/>
                     </connections>
                 </viewController>

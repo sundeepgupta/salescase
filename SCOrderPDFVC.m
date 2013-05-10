@@ -24,6 +24,13 @@
 @property (strong, nonatomic) UIPopoverController *deleteOrderPC;
 @property (strong, nonatomic) UIPopoverController *emailOrderPC;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (strong, nonatomic) NSArray *actionButtonStrings;
+@property (strong, nonatomic) NSData *pdfData;
+
+//IB
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+
+
 @end
 
 @implementation SCOrderPDFVC
@@ -43,6 +50,8 @@
 	// Do any additional setup after loading the view.
     self.global = [SCGlobal sharedGlobal];
     self.dataObject = self.global.dataObject;
+    
+    self.actionButtonStrings = @[@"Email", @"Print"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,7 +82,14 @@
     renderer.order = self.order;
     [renderer view]; //this is needed to load up the labels and other views in this VC
     [renderer createPDF];
-    [self viewPDFDocumentNamed:PDF_FILENAME];
+    
+    //get a reference to the generated pdf file
+    NSString *pdfPath = [self pathForFileName:PDF_FILENAME withFileNameExtension:PDF_FILENAME_EXTENSION];
+    if (pdfPath) {
+        self.pdfData = [NSData dataWithContentsOfFile:pdfPath];
+        [self.webView loadData:self.pdfData MIMEType:PDF_MIME_TYPE textEncodingName:PDF_TEXT_ENCODING baseURL:nil];
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -95,6 +111,12 @@
 {
     // Return YES for supported orientations
     return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
+- (void)viewDidUnload {
+    [self setEditButton:nil];
+    [self setShareButton:nil];
+    [super viewDidUnload];
 }
 
 #pragma mark - Custom Methods
@@ -141,40 +163,6 @@
     [mailer setBccRecipients:bCCRecipients];
     [mailer setMessageBody:body isHTML:NO];
     [self presentViewController:mailer animated:YES completion:nil];
-}
-
-#pragma mark - IB methods
-- (IBAction)emailButtonPress:(UIBarButtonItem *)sender {
-    if ([MFMailComposeViewController canSendMail]) {
-        SCEmailOrderVC *emailOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCEmailOrderVC"];
-        self.emailOrderPC = [[UIPopoverController alloc] initWithContentViewController:emailOrderVC];
-        emailOrderVC.delegate = self;
-        [self.emailOrderPC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't Email"
-                                                        message:@"Looks like your device isn't setup to send emails."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
-}
-
-- (IBAction)printButtonPress:(UIBarButtonItem *)sender {
-}
-
-- (IBAction)deleteButtonPress:(UIBarButtonItem *)sender {
-    SCConfirmDeleteVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
-    self.deleteOrderPC = [[UIPopoverController alloc] initWithContentViewController:deleteOrderVC];
-    deleteOrderVC.delegate = self; 
-    [self.deleteOrderPC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
-
-- (IBAction)editButtonPress:(UIBarButtonItem *)sender {
-    //only visible in look mode and when not synced
-    UINavigationController *masterNC = self.splitViewController.viewControllers[0];
-    SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
-    [masterVC startOrderModeWithOrder:self.order]; 
 }
 
 #pragma mark - DeleteOrder delegate
@@ -232,8 +220,79 @@
     }
 }
 
-- (void)viewDidUnload {
-    [self setEditButton:nil];
-    [super viewDidUnload];
+#pragma mark - UIActionSheet Delegats
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) { //email
+        
+    } else if (buttonIndex == 1) { //print
+        if ([UIPrintInteractionController canPrintData:self.pdfData]) {
+            UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
+            pic.printingItem = self.pdfData;
+            
+            void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) =
+            ^(UIPrintInteractionController *pic, BOOL completed, NSError *error) {
+//                self.content = nil;
+                if (!completed && error)
+                    NSLog(@"FAILED! due to error in domain %@ with error code %u",
+                          error.domain, error.code);
+            };
+            
+            [pic presentFromBarButtonItem:self.shareButton animated:YES completionHandler:completionHandler];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't Print"
+                                                            message:@"The document cannot be found or is corrupt."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    }
 }
+
+#pragma mark - IB methods
+- (IBAction)emailButtonPress:(UIBarButtonItem *)sender {
+    if ([MFMailComposeViewController canSendMail]) {
+        SCEmailOrderVC *emailOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCEmailOrderVC"];
+        self.emailOrderPC = [[UIPopoverController alloc] initWithContentViewController:emailOrderVC];
+        emailOrderVC.delegate = self;
+        [self.emailOrderPC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't Email"
+                                                        message:@"Looks like your device isn't setup to send emails."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (IBAction)printButtonPress:(UIBarButtonItem *)sender {
+}
+
+- (IBAction)deleteButtonPress:(UIBarButtonItem *)sender {
+    SCConfirmDeleteVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
+    self.deleteOrderPC = [[UIPopoverController alloc] initWithContentViewController:deleteOrderVC];
+    deleteOrderVC.delegate = self;
+    [self.deleteOrderPC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (IBAction)editButtonPress:(UIBarButtonItem *)sender {
+    //only visible in look mode and when not synced
+    UINavigationController *masterNC = self.splitViewController.viewControllers[0];
+    SCLookMasterVC *masterVC = (SCLookMasterVC *)masterNC.topViewController;
+    [masterVC startOrderModeWithOrder:self.order];
+}
+
+- (IBAction)actionButtonPress:(UIBarButtonItem *)sender {
+    //us action sheet.  Activity controller is for iOS 6+
+
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share Order" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    for (NSString *string in self.actionButtonStrings) {
+        [actionSheet addButtonWithTitle:string];
+    }
+    [actionSheet showFromBarButtonItem:sender animated:YES];
+    
+}
+
 @end
