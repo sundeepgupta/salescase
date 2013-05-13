@@ -149,8 +149,6 @@
     NSDictionary *companyInfo = [defaults objectForKey:USER_COMPANY_INFO];
     NSString *userCompanyName = companyInfo[USER_COMPANY_NAME];
     
-    
-    
     NSString *subject = [NSString stringWithFormat:@"Order #%@ from %@", self.order.scOrderId, userCompanyName];
     NSString *fileName = [NSString stringWithFormat:@"Order %@", self.order.scOrderId];
     NSString *body = [NSString stringWithFormat:@"Dear %@,\n\nA copy of your order is attached to this email. We appreciate your business, thank you.\n\n", self.order.customer.dbaName];
@@ -168,6 +166,48 @@
     [mailer setBccRecipients:bCCRecipients];
     [mailer setMessageBody:body isHTML:NO];
     [self presentViewController:mailer animated:YES completion:nil];
+}
+
+- (void)emailOrder
+{
+    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+    mailer.mailComposeDelegate = self;
+    
+    //Get the user's company name
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *companyInfo = [defaults objectForKey:USER_COMPANY_INFO];
+    NSString *userCompanyName = companyInfo[USER_COMPANY_NAME];
+    
+    NSString *subject = [NSString stringWithFormat:@"Order #%@ from %@", self.order.scOrderId, userCompanyName];
+    NSString *fileName = [NSString stringWithFormat:@"Order %@", self.order.scOrderId];
+    NSString *body = [NSString stringWithFormat:@"Dear %@,\n\nA copy of your order is attached to this email. We appreciate your business, thank you.\n\n", self.order.customer.dbaName];
+    
+    NSString *pdfPath = [self pathForFileName:PDF_FILENAME withFileNameExtension:PDF_FILENAME_EXTENSION];
+    if (pdfPath) {
+        NSData *pdfData = [NSData dataWithContentsOfFile:pdfPath];
+        [self.webView loadData:pdfData MIMEType:PDF_MIME_TYPE textEncodingName:PDF_TEXT_ENCODING baseURL:nil];
+        [mailer addAttachmentData:pdfData mimeType:PDF_MIME_TYPE fileName:fileName];
+    }
+    
+    [mailer setSubject:subject];
+    
+    [mailer setToRecipients:self.order.customer.emailList.allObjects];
+    if ([companyInfo objectForKey:USER_COMPANY_EMAIL]) {
+        NSArray *ccArray = [NSArray arrayWithObject:[companyInfo objectForKey:USER_COMPANY_EMAIL]];
+        [mailer setCcRecipients:ccArray];
+    }
+    
+    [mailer setMessageBody:body isHTML:NO];
+    [self presentViewController:mailer animated:YES completion:nil];
+}
+
+- (void)viewPDFDocumentNamed:(NSString *)name
+{
+    NSString *pdfPath = [self pathForFileName:name withFileNameExtension:@"pdf"];
+    if (pdfPath) {
+        NSData *pdfData = [NSData dataWithContentsOfFile:pdfPath];
+        [self.webView loadData:pdfData MIMEType:@"application/pdf" textEncodingName:@"utf-8" baseURL:nil];
+    }
 }
 
 #pragma mark - DeleteOrder delegate
@@ -216,26 +256,20 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)viewPDFDocumentNamed:(NSString *)name
-{
-    NSString *pdfPath = [self pathForFileName:name withFileNameExtension:@"pdf"];
-    if (pdfPath) {
-        NSData *pdfData = [NSData dataWithContentsOfFile:pdfPath];
-        [self.webView loadData:pdfData MIMEType:@"application/pdf" textEncodingName:@"utf-8" baseURL:nil];
-    }
-}
-
 #pragma mark - UIActionSheet Delegats
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) { //email
         if ([MFMailComposeViewController canSendMail]) {
-            SCEmailOrderVC *emailOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCEmailOrderVC"];
-            self.emailOrderPC = [[UIPopoverController alloc] initWithContentViewController:emailOrderVC];
-            self.emailOrderPC.delegate = self; 
-            emailOrderVC.delegate = self;
-            [self.emailOrderPC presentPopoverFromBarButtonItem:self.actionButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-            self.emailPopoverIsShowing = YES;
+            
+            [self emailOrder];
+            
+//            SCEmailOrderVC *emailOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCEmailOrderVC"];
+//            self.emailOrderPC = [[UIPopoverController alloc] initWithContentViewController:emailOrderVC];
+//            self.emailOrderPC.delegate = self; 
+//            emailOrderVC.delegate = self;
+//            [self.emailOrderPC presentPopoverFromBarButtonItem:self.actionButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//            self.emailPopoverIsShowing = YES;
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't Email"
                                                             message:@"Looks like your device isn't setup to send emails."
