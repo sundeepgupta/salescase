@@ -11,5 +11,6 @@
 @interface SCOrdersVC : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSString *searchBarText;
 
 @end

@@ -30,6 +30,7 @@
 @property (strong, nonatomic) NSString *defaultName;
 @property (strong, nonatomic) UIAlertView *validateCompanyNameAlert;
 @property (strong, nonatomic) UIPopoverController *confirmDeletePC;
+@property CGSize keyboardSize;
 
 @property (strong, nonatomic) NSArray *billToTextFields;
 @property (strong, nonatomic) NSArray *shipToTextFields;
@@ -151,10 +152,12 @@
             self.navigationItem.rightBarButtonItem.title = @"Start Order With Customer";
             
             if ([self.customer.status isEqualToString:NEW_STATUS]) {
-                toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.editButton, nil];
+                toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.editButton, self.spacer1, self.ordersButton, nil];
             } else {
                 toolbarItems.array = [NSArray arrayWithObjects: self.spacer1, self.ordersButton, nil];
             }
+            
+            if (self.customer.orderList.count == 0) self.ordersButton.enabled = NO;
         }
 
     } else { //must be in modal view for create or update view state
@@ -300,6 +303,10 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.activeCell = (UITableViewCell*) [textField.superview superview];
+    
+    //This actually works for all the cells except for the bottom ones.  If there is not enough space to scroll up, then the cells will remain hidden behind the keyboard.  So go back to using custom implementation.
+//    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)textField.superview.superview];
+//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -388,6 +395,37 @@
     
 //    [self.dataObject saveContext];
     self.activeCell = nil; //to manage scrolling for the keyboard
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    //Handle when return button is pressed on keyboard.
+    if ([textField isEqual:self.nameTextField]) [self.dbaNameTextField becomeFirstResponder];
+    if ([textField isEqual:self.dbaNameTextField]) [self.firstNameTextField becomeFirstResponder];
+    if ([textField isEqual:self.firstNameTextField]) [self.lastNameTextField becomeFirstResponder];
+    if ([textField isEqual:self.lastNameTextField]) [self.phoneTextField becomeFirstResponder];
+    if ([textField isEqual:self.phoneTextField]) [self.faxTextField becomeFirstResponder];
+    if ([textField isEqual:self.faxTextField]) [self.emailTextField becomeFirstResponder];
+    if ([textField isEqual:self.emailTextField]) [self.billTo1TextField becomeFirstResponder];
+    if ([textField isEqual:self.billTo1TextField]) [self.billTo2TextField becomeFirstResponder];
+    if ([textField isEqual:self.billTo2TextField]) [self.billTo3TextField becomeFirstResponder];
+    if ([textField isEqual:self.billTo3TextField]) [self.billToCityTextField becomeFirstResponder];
+    if ([textField isEqual:self.billToCityTextField]) [self.billToStateTextField becomeFirstResponder];
+    if ([textField isEqual:self.billToStateTextField]) [self.billToPostalTextField becomeFirstResponder];
+    if ([textField isEqual:self.billToPostalTextField]) [self.billToCountryTextField becomeFirstResponder];
+    if ([textField isEqual:self.billToCountryTextField]) [self.shipTo1TextField becomeFirstResponder];
+    if ([textField isEqual:self.shipTo1TextField]) [self.shipTo2TextField becomeFirstResponder];
+    if ([textField isEqual:self.shipTo2TextField]) [self.shipTo3TextField becomeFirstResponder];
+    if ([textField isEqual:self.shipTo3TextField]) [self.shipToCityTextField becomeFirstResponder];
+    if ([textField isEqual:self.shipToCityTextField]) [self.shipToStateTextField becomeFirstResponder];
+    if ([textField isEqual:self.shipToStateTextField]) [self.shipToPostalTextField becomeFirstResponder];
+    if ([textField isEqual:self.shipToPostalTextField]) [self.shipToCountryTextField becomeFirstResponder];
+    if ([textField isEqual:self.shipToCountryTextField]) [self.view endEditing:YES];
+    
+    //Since keyboard will remain up in this case, may need to scroll the cell up if its below the keyboard    
+    [self keyboardWasShown:nil];
+    
+    return YES;
 }
 
 #pragma mark - UIAlertView Delegates
@@ -499,10 +537,11 @@
 
 - (void)keyboardWasShown:(NSNotification*)notification
 {
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    if (notification) self.keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    //else the keyboard is already up, so no need to get teh size again (this is likely called from textFieldShouldReturn method
     
     CGFloat insetsPadding = 5; //some extra padding to lift the cell up a bit higher
-    CGFloat insetsHeight = keyboardSize.width + insetsPadding; //Good for iPad landscape always mode.  Otherwise need to check orientations and get the height accordingly.
+    CGFloat insetsHeight = self.keyboardSize.width + insetsPadding; //Good for iPad landscape always mode.  Otherwise need to check orientations and get the height accordingly.
         
     if (self.navigationController.toolbar) { //adjust for the toolbar because keyboard overlays it
         CGFloat toolbarHeight = self.navigationController.toolbar.frame.size.height;
@@ -726,7 +765,7 @@
     
     //setup OrdersVC
     SCOrdersVC *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:ordersVCString];
-     detailVC.searchBar.text = @"bla";
+    detailVC.searchBarText = self.customer.dbaName;
     
     //Get indexPath of menu item and reset the menu item's stack so we always get OrdersVC, not OrderDetailVC
     NSInteger rowNumber = 0;

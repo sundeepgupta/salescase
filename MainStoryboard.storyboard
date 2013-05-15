@@ -165,7 +165,7 @@
                         <rect key="frame" x="0.0" y="64" width="703" height="660"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="1Ge-0k-xs9">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="1Ge-0k-xs9">
                                 <rect key="frame" x="0.0" y="0.0" width="703" height="660"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3153,7 +3153,7 @@ TURN INTO POPUP AFTER</string>
                                                     <rect key="frame" x="157" y="7" width="440" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="exW-dP-DF4" id="WUJ-0Z-4XE"/>
                                                     </connections>
@@ -3170,7 +3170,7 @@ TURN INTO POPUP AFTER</string>
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Delete" id="uJq-j0-ajW">
+                        <barButtonItem systemItem="trash" id="uJq-j0-ajW">
                             <connections>
                                 <action selector="deleteButtonPress:" destination="exW-dP-DF4" id="940-U1-Fkh"/>
                             </connections>
@@ -3191,7 +3191,7 @@ TURN INTO POPUP AFTER</string>
                                 <action selector="selectCustomerButtonPress:" destination="exW-dP-DF4" id="SY9-ba-BZm"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Photo" id="UaQ-0Q-H7d">
+                        <barButtonItem systemItem="camera" id="UaQ-0Q-H7d">
                             <connections>
                                 <action selector="captureButtonPress:" destination="exW-dP-DF4" id="LhX-yd-Ixp"/>
                             </connections>

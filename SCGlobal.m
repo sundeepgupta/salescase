@@ -113,5 +113,9 @@
     return @"?";
 }
 
++ (NSArray *)alphabetIndex
+{
+    return [NSArray arrayWithObjects:@"#", @"A", @"B", nil];
+}
 
 @end

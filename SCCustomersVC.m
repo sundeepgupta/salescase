@@ -22,6 +22,8 @@
 @property (strong) NSMutableArray *filteredCells;
 @property BOOL isFiltered;
 
+@property (strong, nonatomic) NSMutableArray *sections;
+
 //IB stuff
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -49,6 +51,25 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.customers = [self.global.dataObject fetchCustomersInContext];
+    
+    
+    //Making an index list.  Come back to this as we need to think about UI with search bar.  See Apple's Contacts app.  http://developer.apple.com/library/ios/#documentation/UserExperience/Conceptual/TableView_iPhone/CreateConfigureTableView/CreateConfigureTableView.html
+//    NSArray *indexTitles = [SCGlobal alphabetIndex];
+//    self.sections = [[NSMutableArray alloc] init];
+//    for (NSInteger i = 0; i < indexTitles.count; i++) {
+//        //create and fill the child array with all the customers beginning with the same letter
+//        NSMutableArray *rows = [[NSMutableArray alloc] init];
+//        for (SCCustomer *customer in self.customers) {
+//            NSString *customerFirstChar = [customer.dbaName substringToIndex:1];
+//            if ([customerFirstChar isEqualToString:indexTitles[i]]) {
+//                [rows addObject:customer];
+//            }
+//        }
+//        [self.sections addObject:rows];
+//    }
+
+    
+    
     [self.tableView reloadData];
     
     if (self.global.dataObject.openOrder) {
@@ -96,6 +117,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
+//    return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

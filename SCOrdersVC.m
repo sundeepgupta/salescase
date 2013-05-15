@@ -55,6 +55,9 @@
         NSLog(@"%@: Error fetching orders: %@", self.class, error);
     }
     
+    if (self.searchBarText.length > 0) {
+        self.searchBar.text = self.searchBarText;
+    }
     
     [self searchBar:self.searchBar selectedScopeButtonIndexDidChange:self.searchBar.selectedScopeButtonIndex]; //this method reloads the data too.
 //    [self.tableView reloadData];
