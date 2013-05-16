@@ -297,8 +297,8 @@
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         mailer.mailComposeDelegate = self;
-        [mailer setSubject:@"SalesCase Bug"];
-        NSArray *toRecipients = [NSArray arrayWithObjects:@"sgupta@enhancetrade.com", nil];
+        [mailer setSubject:@"SalesCase Feedback"];
+        NSArray *toRecipients = [NSArray arrayWithObjects:@"help@salescaseapp.com", nil];
         [mailer setToRecipients:toRecipients];
         [self presentViewController:mailer animated:YES completion:nil];
         
