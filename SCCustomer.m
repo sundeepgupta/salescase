@@ -38,6 +38,7 @@
 @dynamic salesTerms;
 @dynamic status;
 @dynamic image;
+@dynamic syncToken; 
 
 -(NSString *)mainEmail
 { // For now only show Business/Main email

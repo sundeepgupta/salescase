@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSNumber * quantityOnSalesOrder;
 @property (nonatomic, strong) NSNumber * quantityOnPurchase;
 @property (nonatomic, strong) NSSet *owningLines;
+
 @end
 
 @interface SCItem (CoreDataGeneratedAccessors)

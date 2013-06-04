@@ -115,8 +115,6 @@
     
     self.billToTextFields = [NSArray arrayWithObjects:self.billTo1TextField, self.billTo2TextField, self.billTo3TextField, self.billToCityTextField, self.billToStateTextField, self.billToPostalTextField, self.billToCountryTextField, nil];
     self.shipToTextFields = [NSArray arrayWithObjects:self.shipTo1TextField, self.shipTo2TextField, self.shipTo3TextField, self.shipToCityTextField, self.shipToStateTextField, self.shipToPostalTextField, self.shipToCountryTextField, nil];
-    
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -127,6 +125,13 @@
     if (self.viewState == READ_VIEW_STATE) {
 
         [self readOnlyState];
+        
+        if ([self.customer.status isEqual:SYNCED_STATUS]) {
+            //hide the address titles due to messed upness of QB addresses
+            for (UIView *view in self.addressTitles) {
+                view.hidden = YES;
+            }
+        }
         
         if (self.dataObject.openOrder) {
             
@@ -146,6 +151,7 @@
             }
             
             
+            
         } else {
             self.title = [NSString stringWithFormat:@"%@ (%@)", self.customer.name, [SCGlobal singleCharacterStringForStatus:self.customer.status]];
             
@@ -154,7 +160,7 @@
             if ([self.customer.status isEqualToString:NEW_STATUS]) {
                 toolbarItems.array = [NSArray arrayWithObjects:self.deleteButton, self.editButton, self.spacer1, self.ordersButton, nil];
             } else {
-                toolbarItems.array = [NSArray arrayWithObjects: self.spacer1, self.ordersButton, nil];
+                toolbarItems.array = [NSArray arrayWithObjects: self.editButton, self.spacer1, self.ordersButton, nil];
             }
             
             if (self.customer.orderList.count == 0) self.ordersButton.enabled = NO;
@@ -172,15 +178,15 @@
                 [alert show];
             }
             
-            //Setup the default customer.name and set it as the placeholder text
-            NSDate *date = [NSDate date];
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            dateFormatter.dateFormat = @"yyyyMMddHHmmss";
-            NSString *dateString = [dateFormatter stringFromDate:date];
-            self.defaultName = [dateString substringFromIndex:3];
-            self.nameTextField.placeholder = self.defaultName;
-            self.customer.name = self.defaultName;
-            [self.dataObject saveContext];
+            //Setup the default customer.name and set it as the placeholder text.  Now we're not letting user set/change name.
+//            NSDate *date = [NSDate date];
+//            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//            dateFormatter.dateFormat = @"yyyyMMddHHmmss";
+//            NSString *dateString = [dateFormatter stringFromDate:date];
+//            self.defaultName = [dateString substringFromIndex:3];
+//            self.nameTextField.placeholder = self.defaultName;
+//            self.customer.name = self.defaultName;
+//            [self.dataObject saveContext];
             
             //Setup bar button items
             toolbarItems.array = [NSArray arrayWithObjects:self.cancelButton, self.spacer1, self.captureImageButton, self.spacer2, self.doneButton, nil];
@@ -194,15 +200,7 @@
         }
     }
 
-    if ([self.customer.status isEqual:SYNCED_STATUS]) {
-        //hide the address titles due to messed upness of QB addresses
-        for (UIView *view in self.addressTitles) {
-            view.hidden = YES;
-        }
-        
-        //disable the edit button
-        self.editButton.enabled = NO;
-    }
+    
     
     self.toolbarItems = toolbarItems;
     [self loadData];
@@ -334,7 +332,6 @@
     return allowChange;
 }
 
-
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     BOOL returnValue = YES;
@@ -393,7 +390,6 @@
     if ([textField isEqual:self.shipToCountryTextField]) self.customer.primaryShippingAddress.country = textField.text;
     if ([textField isEqual:self.shipToPostalTextField]) self.customer.primaryShippingAddress.postalCode = textField.text;
     
-//    [self.dataObject saveContext];
     self.activeCell = nil; //to manage scrolling for the keyboard
 }
 
@@ -514,7 +510,7 @@
 - (void)passSavedCustomer:(SCCustomer *)customer
 { //only getting called when updating a new customer that started from this view
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self loadData];
+    [self viewWillAppear:YES];
 }
 
 - (void)passAddOrderWithCustomer:(SCCustomer *)customer
@@ -567,7 +563,8 @@
 
 - (void)loadData
 {
-    if (self.viewState != CREATE_VIEW_STATE) self.nameTextField.text = self.customer.name;
+//    if (self.viewState != CREATE_VIEW_STATE)
+        self.nameTextField.text = self.customer.name;
     
     self.dbaNameTextField.text = self.customer.dbaName;
     self.firstNameTextField.text = self.customer.givenName;
@@ -733,14 +730,16 @@
 
 - (IBAction)doneButtonPress:(UIBarButtonItem *)sender {
     if ([self companyNameIsValid]) {
+        
+        if ([self.customer.status isEqual:SYNCED_STATUS]) { //loop through to check?  Or just make updated?
+            self.customer.status = UPDATED_STATUS;
+        }
         [self.dataObject saveContext];
         [self.delegate passSavedCustomer:self.customer];
     }
 }
 
 - (IBAction)editButtonPress:(UIBarButtonItem *)sender {
-//    self.global.dataObject.openCustomer = self.customer;
-    
     UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"CustomerDetailNC"];
     SCCustomerDetailVC *vc = (SCCustomerDetailVC *)nc.topViewController;
     vc.viewState = UPDATE_VIEW_STATE;

@@ -35,6 +35,7 @@
         <attribute name="qbId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shipVia" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="syncToken" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="addressList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCAddress" inverseName="owningCustomer" inverseEntity="SCAddress" syncable="YES"/>
         <relationship name="emailList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SCEmail" inverseName="owningCustomer" inverseEntity="SCEmail" syncable="YES"/>
@@ -114,7 +115,7 @@
     <elements>
         <element name="Event" positionX="0" positionY="0" width="128" height="60"/>
         <element name="SCAddress" positionX="0" positionY="0" width="128" height="255"/>
-        <element name="SCCustomer" positionX="0" positionY="0" width="128" height="360"/>
+        <element name="SCCustomer" positionX="0" positionY="0" width="128" height="375"/>
         <element name="SCEmail" positionX="0" positionY="0" width="128" height="105"/>
         <element name="SCItem" positionX="0" positionY="0" width="128" height="180"/>
         <element name="SCLine" positionX="0" positionY="0" width="128" height="120"/>

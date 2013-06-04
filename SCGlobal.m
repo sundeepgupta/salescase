@@ -95,6 +95,8 @@
         return @"D";
     } else if ([status isEqualToString:NEW_STATUS]) {
         return @"N";
+    } else if ([status isEqualToString:UPDATED_STATUS]) {
+        return @"U";
     }
     return @"?";
 }
@@ -109,6 +111,8 @@
         return @"Draft";
     } else if ([status isEqualToString:NEW_STATUS]) {
         return @"New";
+    } else if ([status isEqualToString:UPDATED_STATUS]) {
+        return @"Updated";
     }
     return @"?";
 }

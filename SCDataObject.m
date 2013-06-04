@@ -46,13 +46,13 @@
     customer.primaryShippingAddress = [self newAddress];
 
     
-    //Default customer name
-//    NSDate *date = [NSDate date];
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    dateFormatter.dateFormat = @"yyyyMMddHHmmss";
-//    NSString *dateString = [dateFormatter stringFromDate:date];
-//    NSString *nameString = [dateString substringFromIndex:3];
-//    customer.name = nameString;
+    //Default customer name - this can't be set or changed by user anymore.  Force them to do it in QB.
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    NSString *defaultName = [dateString substringFromIndex:3];
+    customer.name = defaultName;
     
     [self saveContext];
     return customer;

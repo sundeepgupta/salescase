@@ -72,6 +72,7 @@ int const WEB_APP_MAX_PAGES = 200;
 NSString *const VALIDATE_TENANT_URL_EXT = @"validateTenant.php";
 NSString *const DISCONNECT_OAUTH_URL_EXT = @"OAuthDisconnect.php";
 NSString *const SEND_CUSTOMER_URL_EXT = @"sendCustomer.php";
+NSString *const UPDATE_CUSTOMER_URL_EXT = @"updateCustomer.php";
 
 // Core Data managed object entity type names
 NSString *const ENTITY_SCCUSTOMER = @"SCCustomer";
@@ -91,6 +92,7 @@ NSString *const DRAFT_STATUS = @"Draft";
 NSString *const CONFIRMED_STATUS = @"Confirmed";
 NSString *const SYNCED_STATUS = @"Synced";
 NSString *const NEW_STATUS = @"New";
+NSString *const UPDATED_STATUS = @"Updated";
 
 
 //Style constants

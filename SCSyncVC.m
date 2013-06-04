@@ -344,11 +344,22 @@
     NSError *oAuthError = nil;
     NSError *customersError = nil;
     NSError *newCustomersError = nil;
+    NSError *updatedCustomersError = nil;
     NSDictionary *oAuthResponseError;
     NSDictionary *newCustomersResponseError;
+    NSDictionary *updatedCustomersResponseError;
     BOOL hadSyncError = NO;
     NSMutableString *syncErrorString = [NSMutableString stringWithString:@""];
     if ([self.webApp oAuthTokenIsValid:&oAuthError responseError:&oAuthResponseError]) {
+        
+        if (![self uploadUpdatedCustomers:&updatedCustomersError responseError:&updatedCustomersResponseError]) {
+            if (syncErrorString.length != 0) {
+                [syncErrorString appendString:@"\n\n"];
+            }
+            [syncErrorString appendFormat:@"Failed to update customers. Error: %@\nResponse Error: %@\nMessage: %@\nErrorDetail: %@\nCustomer Name: %@", updatedCustomersError, updatedCustomersResponseError[@"error"], updatedCustomersResponseError[@"msg"], updatedCustomersResponseError[@"errorDetail"], updatedCustomersResponseError[@"name"]];
+            hadSyncError = YES;
+        }
+        
         if (![self uploadNewCustomers:&newCustomersError responseError:&newCustomersResponseError]) {
             if (syncErrorString.length != 0) {
                 [syncErrorString appendString:@"\n\n"];
@@ -604,6 +615,10 @@
         objectToSave.title = [self.dataObject dictionaryData:ippObjectDict forKey:@"Title"];
         objectToSave.customerId = [ippObjectDict valueForKey:@"Id"];
         objectToSave.qbId = [ippObjectDict valueForKey:@"ExternalKey"];
+
+        NSString *syncToken = (NSString *)[ippObjectDict valueForKey:@"SyncToken"];
+        if ([ [syncToken class] isSubclassOfClass:[NSString class]])  objectToSave.syncToken = @(syncToken.integerValue);
+        
         objectToSave.status = SYNCED_STATUS;
         
         NSDictionary *addresses = [ippObjectDict valueForKey:@"Address"];
@@ -744,38 +759,7 @@
     NSURL *url = [self.webApp urlFromUrlExtension:SEND_CUSTOMER_URL_EXT];
     
     for (SCCustomer *customer in customers) {
-        //Handle required fields first (which are validated during user input)
-        NSMutableString *postString = [NSMutableString stringWithFormat:@"Name=%@", [customer.name urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        //BillTo1 is required, but being handled by web app for better UX
-        
-        
-        //OPtional fields (dbaName is pretending to be required in the app for PDF purposes)
-        if (customer.dbaName) [postString appendFormat:@"&DBAName=%@", [customer.dbaName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.givenName) [postString appendFormat:@"&GivenName=%@", [customer.givenName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.familyName) [postString appendFormat:@"&FamilyName=%@", [customer.familyName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        
-        if ([customer phoneForTag:MAIN_PHONE_TAG].length != 0) [postString appendFormat:@"&BusinessPhone=%@", [[customer phoneForTag:MAIN_PHONE_TAG] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if ([customer phoneForTag:FAX_PHONE_TAG].length != 0) [postString appendFormat:@"&FaxPhone=%@", [[customer phoneForTag:FAX_PHONE_TAG] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if ([customer mainEmail].length != 0) [postString appendFormat:@"&BusinessEmail=%@", [[customer mainEmail] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-
-        if (customer.primaryBillingAddress.line1) [postString appendFormat:@"&BillTo1=%@", [customer.primaryBillingAddress.line1 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryBillingAddress.line2) [postString appendFormat:@"&BillTo2=%@", [customer.primaryBillingAddress.line2 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryBillingAddress.line3) [postString appendFormat:@"&BillTo3=%@", [customer.primaryBillingAddress.line3 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryBillingAddress.city) [postString appendFormat:@"&BillToCity=%@", [customer.primaryBillingAddress.city urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryBillingAddress.country) [postString appendFormat:@"&BillToCountry=%@", [customer.primaryBillingAddress.country urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryBillingAddress.countrySubDivisionCode) [postString appendFormat:@"&BillToCountrySubDivisionCode=%@", [customer.primaryBillingAddress.countrySubDivisionCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryBillingAddress.postalCode) [postString appendFormat:@"&BillToPostalCode=%@", [customer.primaryBillingAddress.postalCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        
-        if (customer.primaryShippingAddress.line1) [postString appendFormat:@"&ShipTo1=%@", [customer.primaryShippingAddress.line1 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryShippingAddress.line2) [postString appendFormat:@"&ShipTo2=%@", [customer.primaryShippingAddress.line2 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryShippingAddress.line3) [postString appendFormat:@"&ShipTo3=%@", [customer.primaryShippingAddress.line3 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryShippingAddress.city) [postString appendFormat:@"&ShipToCity=%@", [customer.primaryShippingAddress.city urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryShippingAddress.country) [postString appendFormat:@"&ShipToCountry=%@", [customer.primaryShippingAddress.country urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryShippingAddress.countrySubDivisionCode) [postString appendFormat:@"&ShipToCountrySubDivisionCode=%@", [customer.primaryShippingAddress.countrySubDivisionCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        if (customer.primaryShippingAddress.postalCode) [postString appendFormat:@"&ShipToPostalCode=%@", [customer.primaryShippingAddress.postalCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
-        
-        if (customer.salesRep.repId) [postString appendFormat:@"&SalesRepId=%@", customer.salesRep.repId];
-        if (customer.salesTerms.termId) [postString appendFormat:@"&SalesTermId=%@", customer.salesTerms.termId];
+                NSString *postString = [self postStringFromCustomer:customer];
         
         NSURLRequest *request = [self.webApp requestFromUrl:url withPostString:postString];
         
@@ -815,6 +799,46 @@
                 }
             }
             
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (BOOL)uploadUpdatedCustomers:(NSError **)error responseError:(NSDictionary **)responseError
+{
+    NSArray *customers = [self.dataObject objectsOfType:ENTITY_SCCUSTOMER withStatus:UPDATED_STATUS withError:error];
+    if (!customers) {
+        return NO;
+    }
+    
+    NSURL *url = [self.webApp urlFromUrlExtension:UPDATE_CUSTOMER_URL_EXT];
+    
+    for (SCCustomer *customer in customers) {
+        
+        NSMutableString *postString = [self postStringFromCustomer:customer];
+        //updating customers needs id and synctoken
+        [postString appendFormat:@"&Id=%@", customer.customerId];
+        [postString appendFormat:@"&SyncToken=%@", customer.syncToken];
+        NSURLRequest *request = [self.webApp requestFromUrl:url withPostString:postString];
+        
+        //DEBUG
+        NSLog(@"request: %@\npost string: %@", request, postString);
+        
+        NSDictionary *responseDictionary = [self.webApp dictionaryFromRequest:request error:error];
+        if (!responseDictionary) {
+            [*responseError setValue:customer.name forKey:@"name"];
+            return NO;
+        }
+        
+        if ([(NSString *)responseDictionary[@"result"] isEqualToString:@"Success"] ) {
+            customer.status = SYNCED_STATUS;
+            
+            // Consider moving this outside the loop if performance appears bad
+            [self.dataObject saveContext];
+        } else {
+            *responseError = responseDictionary.mutableCopy;
+            [*responseError setValue:customer.name forKey:@"name"];
             return NO;
         }
     }
@@ -900,6 +924,45 @@
         }
     }
     return YES;
+}
+
+
+- (NSMutableString *)postStringFromCustomer:(SCCustomer *)customer
+{
+    //Handle required fields first (which are validated during user input)
+    NSMutableString *postString = [NSMutableString stringWithFormat:@"Name=%@", [customer.name urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    //BillTo1 is required, but being handled by web app for better UX
+    
+    
+    //OPtional fields (dbaName is pretending to be required in the app for PDF purposes)
+    if (customer.dbaName) [postString appendFormat:@"&DBAName=%@", [customer.dbaName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.givenName) [postString appendFormat:@"&GivenName=%@", [customer.givenName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.familyName) [postString appendFormat:@"&FamilyName=%@", [customer.familyName urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    
+    if ([customer phoneForTag:MAIN_PHONE_TAG].length != 0) [postString appendFormat:@"&BusinessPhone=%@", [[customer phoneForTag:MAIN_PHONE_TAG] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if ([customer phoneForTag:FAX_PHONE_TAG].length != 0) [postString appendFormat:@"&FaxPhone=%@", [[customer phoneForTag:FAX_PHONE_TAG] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if ([customer mainEmail].length != 0) [postString appendFormat:@"&BusinessEmail=%@", [[customer mainEmail] urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    
+    if (customer.primaryBillingAddress.line1) [postString appendFormat:@"&BillTo1=%@", [customer.primaryBillingAddress.line1 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryBillingAddress.line2) [postString appendFormat:@"&BillTo2=%@", [customer.primaryBillingAddress.line2 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryBillingAddress.line3) [postString appendFormat:@"&BillTo3=%@", [customer.primaryBillingAddress.line3 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryBillingAddress.city) [postString appendFormat:@"&BillToCity=%@", [customer.primaryBillingAddress.city urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryBillingAddress.country) [postString appendFormat:@"&BillToCountry=%@", [customer.primaryBillingAddress.country urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryBillingAddress.countrySubDivisionCode) [postString appendFormat:@"&BillToCountrySubDivisionCode=%@", [customer.primaryBillingAddress.countrySubDivisionCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryBillingAddress.postalCode) [postString appendFormat:@"&BillToPostalCode=%@", [customer.primaryBillingAddress.postalCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    
+    if (customer.primaryShippingAddress.line1) [postString appendFormat:@"&ShipTo1=%@", [customer.primaryShippingAddress.line1 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryShippingAddress.line2) [postString appendFormat:@"&ShipTo2=%@", [customer.primaryShippingAddress.line2 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryShippingAddress.line3) [postString appendFormat:@"&ShipTo3=%@", [customer.primaryShippingAddress.line3 urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryShippingAddress.city) [postString appendFormat:@"&ShipToCity=%@", [customer.primaryShippingAddress.city urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryShippingAddress.country) [postString appendFormat:@"&ShipToCountry=%@", [customer.primaryShippingAddress.country urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryShippingAddress.countrySubDivisionCode) [postString appendFormat:@"&ShipToCountrySubDivisionCode=%@", [customer.primaryShippingAddress.countrySubDivisionCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    if (customer.primaryShippingAddress.postalCode) [postString appendFormat:@"&ShipToPostalCode=%@", [customer.primaryShippingAddress.postalCode urlEncodeUsingEncoding:NSUTF8StringEncoding]];
+    
+    if (customer.salesRep.repId) [postString appendFormat:@"&SalesRepId=%@", customer.salesRep.repId];
+    if (customer.salesTerms.termId) [postString appendFormat:@"&SalesTermId=%@", customer.salesTerms.termId];
+    
+    return postString;
 }
 
 -(NSString *)addressAsRequestString:(SCAddress *)address withPrefix:(NSString *)prefix

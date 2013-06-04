@@ -35,6 +35,7 @@
 
 @property (nonatomic, strong) NSString * status;
 @property (nonatomic, strong) id image;
+@property (strong, nonatomic) NSNumber *syncToken;
 @end
 
 
