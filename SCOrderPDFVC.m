@@ -191,7 +191,7 @@
     
     [mailer setSubject:subject];
     
-    [mailer setToRecipients:self.order.customer.emailList.allObjects];
+//    [mailer setToRecipients:self.order.customer.emailList.allObjects];
     if ([companyInfo objectForKey:USER_COMPANY_EMAIL]) {
         NSArray *ccArray = [NSArray arrayWithObject:[companyInfo objectForKey:USER_COMPANY_EMAIL]];
         [mailer setCcRecipients:ccArray];
