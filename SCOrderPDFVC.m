@@ -170,35 +170,79 @@
 
 - (void)emailOrder
 {
+    MFMailComposeViewController *mailer = [self setupMailer];
+    [self presentViewController:mailer animated:YES completion:nil];
+}
+
+- (MFMailComposeViewController *)setupMailer
+{
     MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+    [self setupPropertiesforMailer:mailer];
+    return mailer;
+}
+
+- (void)setupPropertiesforMailer:(MFMailComposeViewController *)mailer
+{
     mailer.mailComposeDelegate = self;
-    
-    //Get the user's company name
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *companyInfo = [defaults objectForKey:USER_COMPANY_INFO];
-    NSString *userCompanyName = companyInfo[USER_COMPANY_NAME];
-    
+    [self setupRecipientsForMailer:mailer];
+    [self setupSubjectForMailer:mailer];
+    [self setupBodyForMailer:mailer];
+    [self setupAttachmentForMailer:mailer];
+}
+
+- (void)setupRecipientsForMailer:(MFMailComposeViewController *)mailer
+{
+    [self setupToRecipientsForMailer:mailer];
+    [self setupCcRecipientsForMailer:mailer];
+}
+
+- (void)setupToRecipientsForMailer:(MFMailComposeViewController *)mailer
+{
+    NSMutableArray *emailStrings = [[NSMutableArray alloc] init];
+    for (SCEmail *email in self.order.customer.emailList.allObjects) {
+        [emailStrings addObject:email.address];
+    }
+    [mailer setToRecipients:emailStrings];
+}
+
+- (void)setupCcRecipientsForMailer:(MFMailComposeViewController *)mailer
+{
+    NSDictionary *userCompanyInfo = [self fetchUserCompanyInfo];
+    if ([userCompanyInfo objectForKey:USER_COMPANY_EMAIL]) {
+        NSArray *ccArray = [NSArray arrayWithObject:[userCompanyInfo objectForKey:USER_COMPANY_EMAIL]];
+        [mailer setCcRecipients:ccArray];
+    }
+}
+
+- (void)setupSubjectForMailer:(MFMailComposeViewController *)mailer
+{
+    NSDictionary *userCompanyInfo = [self fetchUserCompanyInfo];
+    NSString *userCompanyName = userCompanyInfo[USER_COMPANY_NAME];
     NSString *subject = [NSString stringWithFormat:@"Order #%@ from %@", self.order.scOrderId, userCompanyName];
-    NSString *fileName = [NSString stringWithFormat:@"Order %@", self.order.scOrderId];
+    [mailer setSubject:subject];
+}
+
+- (void)setupBodyForMailer:(MFMailComposeViewController *)mailer
+{
     NSString *body = [NSString stringWithFormat:@"Dear %@,\n\nA copy of your order is attached to this email. We appreciate your business, thank you.\n\n", self.order.customer.dbaName];
-    
+    [mailer setMessageBody:body isHTML:NO];
+}
+
+- (void)setupAttachmentForMailer:(MFMailComposeViewController *)mailer
+{
+    NSString *fileName = [NSString stringWithFormat:@"Order %@", self.order.scOrderId];
     NSString *pdfPath = [self pathForFileName:PDF_FILENAME withFileNameExtension:PDF_FILENAME_EXTENSION];
     if (pdfPath) {
         NSData *pdfData = [NSData dataWithContentsOfFile:pdfPath];
         [self.webView loadData:pdfData MIMEType:PDF_MIME_TYPE textEncodingName:PDF_TEXT_ENCODING baseURL:nil];
         [mailer addAttachmentData:pdfData mimeType:PDF_MIME_TYPE fileName:fileName];
     }
-    
-    [mailer setSubject:subject];
-    
-//    [mailer setToRecipients:self.order.customer.emailList.allObjects];
-    if ([companyInfo objectForKey:USER_COMPANY_EMAIL]) {
-        NSArray *ccArray = [NSArray arrayWithObject:[companyInfo objectForKey:USER_COMPANY_EMAIL]];
-        [mailer setCcRecipients:ccArray];
-    }
-    
-    [mailer setMessageBody:body isHTML:NO];
-    [self presentViewController:mailer animated:YES completion:nil];
+}
+
+- (NSDictionary *)fetchUserCompanyInfo
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:USER_COMPANY_INFO];
 }
 
 - (void)viewPDFDocumentNamed:(NSString *)name
