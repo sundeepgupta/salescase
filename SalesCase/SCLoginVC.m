@@ -39,10 +39,10 @@
     [self.emailTextField selectAll:self.emailTextField];
     
     //Disable the login button if textField is empty
-    if (self.emailTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
-        self.loginButton.enabled = NO;
-        self.loginButton.alpha = 0.5;
-    }
+//    if (self.emailTextField.text.length == 0 || self.passwordTextField.text.length == 0) {
+//        self.loginButton.enabled = NO;
+//        self.loginButton.alpha = 0.5;
+//    }
 
 }
 

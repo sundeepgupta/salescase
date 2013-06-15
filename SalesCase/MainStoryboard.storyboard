@@ -117,11 +117,6 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="T51-zX-a7y">
-                        <barButtonItem key="leftBarButtonItem" title="Dev" id="bon-2C-yzS">
-                            <connections>
-                                <action selector="devButtonPress:" destination="Iql-ub-0gb" id="F1X-xM-ceF"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="I7h-R6-BjH">
                             <connections>
                                 <action selector="newOrderButtonPress:" destination="Iql-ub-0gb" id="9fc-9O-YNW"/>
@@ -256,288 +251,6 @@
             </objects>
             <point key="canvasLocation" x="1136" y="-4075"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Aso-of-Zdd">
-            <objects>
-                <viewController storyboardIdentifier="" id="ejH-tG-Uap" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QfK-A8-LyT">
-                        <rect key="frame" x="0.0" y="64" width="703" height="660"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EmZ-4Y-9ZU">
-                                <rect key="frame" x="30" y="33" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Customer Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="29X-lm-VPB">
-                                <rect key="frame" x="20" y="18" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xn9-TK-Jk0">
-                                <rect key="frame" x="30" y="75" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Company Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SXV-vj-yQi">
-                                <rect key="frame" x="20" y="60" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jdq-q5-jy8">
-                                <rect key="frame" x="30" y="162" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aIO-QJ-Vib">
-                                <rect key="frame" x="30" y="179" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wUR-BN-3wZ">
-                                <rect key="frame" x="30" y="195" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UoK-PB-L85">
-                                <rect key="frame" x="30" y="212" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hyh-hJ-HTy">
-                                <rect key="frame" x="30" y="229" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="s6v-zX-WbD">
-                                <rect key="frame" x="20" y="147" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="exq-0w-6Up">
-                                <rect key="frame" x="382" y="33" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yqd-He-jOa">
-                                <rect key="frame" x="382" y="50" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I4d-Yf-RYA">
-                                <rect key="frame" x="382" y="67" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qKF-ql-uF3">
-                                <rect key="frame" x="382" y="84" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Line 5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mbl-A1-7jf">
-                                <rect key="frame" x="382" y="101" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Ship To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QUZ-Br-djf">
-                                <rect key="frame" x="372" y="18" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yGC-fA-lak">
-                                <rect key="frame" x="30" y="118" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Contact Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LPU-9P-fiC">
-                                <rect key="frame" x="20" y="103" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Not supported by IPP?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QJe-Xx-xkt">
-                                <rect key="frame" x="452" y="520" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Contact Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SUc-Rq-Xsu">
-                                <rect key="frame" x="442" y="505" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cs8-zG-avQ">
-                                <rect key="frame" x="30" y="271" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3St-cK-Mj3">
-                                <rect key="frame" x="20" y="256" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6J1-11-rXw">
-                                <rect key="frame" x="452" y="468" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mobile Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OWU-Vo-AMu">
-                                <rect key="frame" x="442" y="453" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3f5-F2-nf9">
-                                <rect key="frame" x="30" y="315" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Fax" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7nS-wL-jiu">
-                                <rect key="frame" x="20" y="300" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7ZB-yT-1Bp">
-                                <rect key="frame" x="30" y="357" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="68P-Lo-4vr">
-                                <rect key="frame" x="20" y="343" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NTr-Fn-kBb">
-                                <rect key="frame" x="30" y="400" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sales Rep" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P0C-I2-seA">
-                                <rect key="frame" x="20" y="385" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E8G-A7-Wdn">
-                                <rect key="frame" x="30" y="442" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Terms" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OhC-29-9PF">
-                                <rect key="frame" x="20" y="427" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1lG-px-ht7">
-                                <rect key="frame" x="472" y="597" width="211" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="New Order With Customer">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextButtonPress:" destination="ejH-tG-Uap" eventType="touchUpInside" id="PQ6-VY-mZo"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="G5m-er-9TI">
-                                <rect key="frame" x="274" y="598" width="154" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Edit Customer">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="0.5" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cVP-b5-Tfy">
-                                <rect key="frame" x="20" y="598" width="154" height="44"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Change Customer">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="changeCustomerButtonPress:" destination="ejH-tG-Uap" eventType="touchUpInside" id="sSZ-f8-BQa"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="zd8-M1-rB0">
-                        <barButtonItem key="backBarButtonItem" title="Customer" id="vTM-48-7w1"/>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <outlet property="address1Label" destination="jdq-q5-jy8" id="4jx-8k-pR1"/>
-                        <outlet property="address2Label" destination="aIO-QJ-Vib" id="70H-Rx-Vm8"/>
-                        <outlet property="address3Label" destination="wUR-BN-3wZ" id="5Ko-nX-fd3"/>
-                        <outlet property="address4Label" destination="UoK-PB-L85" id="qdl-LK-jbs"/>
-                        <outlet property="address5Label" destination="hyh-hJ-HTy" id="rVd-tE-xAA"/>
-                        <outlet property="changeCustomerButton" destination="cVP-b5-Tfy" id="oVU-SR-ibT"/>
-                        <outlet property="companyNameLabel" destination="xn9-TK-Jk0" id="vPE-bQ-apy"/>
-                        <outlet property="contactNameLabel" destination="yGC-fA-lak" id="Z4h-lf-jJn"/>
-                        <outlet property="contactTitleLabel" destination="QJe-Xx-xkt" id="ZEc-E1-JlV"/>
-                        <outlet property="customerNameLabel" destination="EmZ-4Y-9ZU" id="GIf-7H-RPZ"/>
-                        <outlet property="emailLabel" destination="7ZB-yT-1Bp" id="dCo-VE-DLm"/>
-                        <outlet property="faxLabel" destination="3f5-F2-nf9" id="32l-Kj-ejR"/>
-                        <outlet property="mainPhoneLabel" destination="cs8-zG-avQ" id="hmW-Ae-KbI"/>
-                        <outlet property="mobilePhoneLabel" destination="6J1-11-rXw" id="KnS-z1-Q14"/>
-                        <outlet property="nextButton" destination="1lG-px-ht7" id="X52-W8-DpW"/>
-                        <outlet property="repLabel" destination="NTr-Fn-kBb" id="iXE-jG-dKS"/>
-                        <outlet property="shipTo1Label" destination="exq-0w-6Up" id="Fhw-ZA-Rer"/>
-                        <outlet property="shipTo2Label" destination="Yqd-He-jOa" id="vV4-sP-mFc"/>
-                        <outlet property="shipTo3Label" destination="I4d-Yf-RYA" id="wGa-hF-3FK"/>
-                        <outlet property="shipTo4Label" destination="qKF-ql-uF3" id="SyX-X9-H3Z"/>
-                        <outlet property="shipTo5Label" destination="Mbl-A1-7jf" id="M44-Pn-2EQ"/>
-                        <outlet property="termsLabel" destination="E8G-A7-Wdn" id="0X1-gX-7hH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HWM-Vj-E6W" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3358" y="-4115"/>
-        </scene>
         <!--OrderPDFVC-->
         <scene sceneID="bjY-WW-hhB">
             <objects>
@@ -609,7 +322,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zoP-TM-YkM">
                                 <rect key="frame" x="412" y="198" width="200" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Login">
+                                <state key="normal" title="Login To Demo">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -620,7 +333,7 @@
                                     <action selector="loginButtonPress:" destination="347-je-Q2u" eventType="touchUpInside" id="EWs-xR-Hca"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="always" id="Gd6-2B-bBu">
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="always" id="Gd6-2B-bBu">
                                 <rect key="frame" x="412" y="95" width="200" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -629,7 +342,7 @@
                                     <outlet property="delegate" destination="347-je-Q2u" id="NA4-Gg-Qwl"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="always" id="h1s-8Q-rHL">
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="always" id="h1s-8Q-rHL">
                                 <rect key="frame" x="412" y="146" width="200" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -831,132 +544,6 @@ or 1-888-680-1480</string>
                 <searchDisplayController id="grA-fd-l3q"/>
             </objects>
             <point key="canvasLocation" x="1174" y="-3179"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="9e4-90-eS7">
-            <objects>
-                <viewController storyboardIdentifier="" id="ZBK-GF-1rA" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="csS-OH-JLI">
-                        <rect key="frame" x="0.0" y="64" width="703" height="660"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5By-qf-ePd">
-                                <rect key="frame" x="20" y="18" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rcL-r0-eBJ">
-                                <rect key="frame" x="30" y="33" width="653" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jr2-Ms-Bjm">
-                                <rect key="frame" x="20" y="18" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6yA-12-AJV">
-                                <rect key="frame" x="20" y="62" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uHb-2c-dHx">
-                                <rect key="frame" x="30" y="229" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xvx-I5-0rX">
-                                <rect key="frame" x="20" y="214" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Quantity Ordered" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xzA-V0-0mE">
-                                <rect key="frame" x="282" y="276" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0bt-G4-m9D">
-                                <rect key="frame" x="171" y="229" width="301" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Quantity On Hand" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="C8m-nq-0gQ">
-                                <rect key="frame" x="161" y="214" width="311" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" id="161-OW-pon">
-                                <rect key="frame" x="20" y="72" width="663" height="127"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-
-Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat pretium libero. Cras id dui. Aenean ut eros et nisl sagittis vestibulum.
-
-Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Sed lectus. Donec mollis hendrerit risus. Phasellus nec sem in justo pellentesque facilisis. Etiam imperdiet imperdiet orci. Nunc nec neque. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu. Phasellus accumsan cursus velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Phasellus consectetuer vestibulum elit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulum fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis. Nullam sagittis. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Ut varius tincidunt libero. Phasellus dolor. Maecenas vestibulum mollis diam. Pellentesque ut neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In dui magna, posuere eget, vestibulum et, tempor auctor, justo. In ac felis quis tortor malesuada pretium. Pellentesque auctor neque nec urna. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Aenean viverra rhoncus pede. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut non enim eleifend felis pretium feugiat. Vivamus quis mi. Phasellus a est. Phasellus magna. In hac habitasse platea dictumst. Curabitur at lacus ac velit ornare lobortis. Cura
-
-</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5J0-fq-ASv">
-                                <rect key="frame" x="483" y="597" width="200" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="New Order With Item">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="startOrderButtonPress:" destination="ZBK-GF-1rA" eventType="touchUpInside" id="1h5-fc-5Av"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter Quantity" textAlignment="right" minimumFontSize="17" clearButtonMode="always" id="Du7-dT-UFL">
-                                <rect key="frame" x="292" y="298" width="185" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="ZBK-GF-1rA" id="fuP-nT-CNL"/>
-                                </connections>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="wOr-BJ-2Xb"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <outlet property="deleteButton" destination="nTU-1m-gFn" id="vf2-hA-Aaf"/>
-                        <outlet property="descriptionTextView" destination="161-OW-pon" id="TJl-R6-jJo"/>
-                        <outlet property="nameLabel" destination="rcL-r0-eBJ" id="AVM-98-mdc"/>
-                        <outlet property="priceLabel" destination="uHb-2c-dHx" id="kjX-My-IgQ"/>
-                        <outlet property="quantityOnHandLabel" destination="0bt-G4-m9D" id="f8s-kO-ZqH"/>
-                        <outlet property="quantityOrderedTextField" destination="Du7-dT-UFL" id="NHs-Lr-ScD"/>
-                        <outlet property="quantityOrderedTitleLabel" destination="xzA-V0-0mE" id="b9H-OL-6zm"/>
-                        <outlet property="saveToOrderButton" destination="EvK-gI-9q7" id="XsW-9I-pzO"/>
-                        <outlet property="startOrderButton" destination="5J0-fq-ASv" id="tbw-0B-TvM"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PvL-gS-VHe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2663" y="-3179"/>
         </scene>
         <!--OrdersVC-->
         <scene sceneID="OuT-QO-xA8">
@@ -1692,7 +1279,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Add Items" systemItem="add" id="8Xo-9O-hHG">
+                        <barButtonItem systemItem="add" id="8Xo-9O-hHG">
                             <connections>
                                 <action selector="addItemsButtonPress:" destination="vLY-N8-Wo5" id="qvI-Xc-ouC"/>
                             </connections>
@@ -1741,12 +1328,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="9JM-U6-baU" kind="relationship" relationship="rootViewController" id="5DI-aE-eKt"/>
+                        <segue destination="347-je-Q2u" kind="relationship" relationship="rootViewController" id="7iI-m9-oqV"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dWV-ZR-VNw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1347" y="-3083"/>
+            <point key="canvasLocation" x="-1323" y="-3095"/>
         </scene>
         <!--SyncVC-->
         <scene sceneID="jUT-p9-AVw">
@@ -3738,7 +3325,6 @@ TURN INTO POPUP AFTER</string>
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="saveToOrderButtonPress:" destination="ZBK-GF-1rA" eventType="touchUpInside" id="1ig-h8-RFl"/>
                                                         <action selector="saveToOrderButtonPress:" destination="2Sp-1o-SWI" eventType="touchUpInside" id="nT4-bf-7pd"/>
                                                     </connections>
                                                 </button>
@@ -3755,7 +3341,6 @@ TURN INTO POPUP AFTER</string>
                                                     </state>
                                                     <connections>
                                                         <action selector="deleteButtonPress:" destination="2Sp-1o-SWI" eventType="touchUpInside" id="4kn-Lr-cBh"/>
-                                                        <action selector="deleteButtonPress:" destination="ZBK-GF-1rA" eventType="touchUpInside" id="oIu-3b-8ra"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -3997,7 +3582,7 @@ TURN INTO POPUP AFTER</string>
                                     <action selector="ordersButtonPress:" destination="u11-Kr-rLu" eventType="touchUpInside" id="Vag-tU-Wfq"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" textAlignment="center" id="Yxt-25-lVR">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="center" id="Yxt-25-lVR">
                                 <rect key="frame" x="20" y="188" width="500" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -4026,6 +3611,341 @@ TURN INTO POPUP AFTER</string>
             <point key="canvasLocation" x="-846" y="-1378"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="SCConfirmDeleteVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCConfirmDeleteVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="SCCustomerDetailVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerDetailVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addOrderButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="billTo1TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="billTo2TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="billTo3TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="billToCityTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="billToCountryTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="billToPostalCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="billToPostalTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="billToStateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="captureImageButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="dbaNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="faxTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nextButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="ordersButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="phoneTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="repCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectCustomerButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="shipTo1TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="shipTo2TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="shipTo3TextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="shipToCityTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="shipToCountryTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="shipToPostalTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="shipToStateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="spacer1" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="spacer2" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="termsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
+                <relationship kind="outletCollection" name="addressTitles" candidateClass="UILabel"/>
+                <relationship kind="outletCollection" name="cells" candidateClass="UITableViewCell"/>
+                <relationship kind="outletCollection" name="popoverCells" candidateClass="UITableViewCell"/>
+                <relationship kind="outletCollection" name="textFields" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SCCustomerTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cityLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="companyLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="customerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="phoneLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="zipLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SCCustomersVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomersVC.h"/>
+            <relationships>
+                <relationship kind="action" name="closeModalButtonPress:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="newCustomerButtonPress:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="SCDatePicker" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDatePicker.h"/>
+            <relationships>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+            </relationships>
+        </class>
+        <class className="SCDevVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCDevVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="message" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="SCEmailOrderVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCEmailOrderVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="sendToCustomer" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="sendToMe" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="sendToOffice" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="SCFirstLaunchVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCFirstLaunchVC.h"/>
+        </class>
+        <class className="SCIntuitLoginPopoverVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginPopoverVC.h"/>
+        </class>
+        <class className="SCIntuitLoginVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="finishedIntuitLoginButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="SCItemCartTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCartTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SCItemCartVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemCartVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="orderTotal" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="SCItemDetailVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemDetailVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="priceTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="quantityOrderedCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="quantityOrderedTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="saveToOrderButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="startOrderButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="SCItemTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="quantityOnHandLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SCItemsVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemsVC.h"/>
+            <relationships>
+                <relationship kind="action" name="closeModalButtonPress:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="SCKeepOrderVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCKeepOrderVC.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteButtonPress:" candidateClass="UIButton"/>
+                <relationship kind="action" name="keepButtonPress:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="SCLoginVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLoginVC.h"/>
+            <relationships>
+                <relationship kind="action" name="loginButtonPress:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SCLookMasterVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLookMasterVC.h"/>
+            <relationships>
+                <relationship kind="action" name="bugButtonPress:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="devButtonPress:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="newOrderButtonPress:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="syncButtonPress:" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="SCNoDataVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCNoDataVC.h"/>
+        </class>
+        <class className="SCOrderDetailTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderDetailTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="amountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="quantityLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SCOrderDetailVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderDetailVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="companyNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="contactNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="customerNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="orderDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="orderTotalLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="poNumberLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipViaLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SCOrderMasterVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderMasterVC.h"/>
+        </class>
+        <class className="SCOrderOptionsVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="notesTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="poNumberTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="repCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="repLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipDateCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="shipDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipViaCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="shipViaLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="termsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
+                <relationship kind="outletCollection" name="popoverCells" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="SCOrderPDFRenderer" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFRenderer.h"/>
+            <relationships>
+                <relationship kind="outlet" name="address1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="address2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="address3" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="address4" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="address5" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="billToTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemAmountHeader" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemDescriptionHeader" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemNameHeader" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemPriceHeader" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemQuantityHeader" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="notes" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="orderDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="orderDateTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pageNumber" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="poNumber" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="poNumberTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="printDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="printDateTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rep" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="repTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipDateTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipTo1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipTo2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipTo3" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipTo4" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipTo5" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipToTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipVia" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shipViaTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="terms" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="termsTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="total" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userAddress1" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userAddress2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userAddress3" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userAddress4" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userAddress5" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userCompanyName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userFax" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userPhone" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userWebsite" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SCOrderPDFVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="actionButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="SCOrderTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="total" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SCOrdersVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrdersVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="SCPopoverTableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverTableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SCPopoverTableVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCPopoverTableVC.h"/>
+        </class>
+        <class className="SCSelectSyncVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSelectSyncVC.h"/>
+        </class>
+        <class className="SCSyncVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSyncVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="closeButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
