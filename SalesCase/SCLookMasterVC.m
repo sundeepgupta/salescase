@@ -21,6 +21,7 @@
 #import "SCItemCartVC.h"
 #import "SCCustomer.h"
 #import "SCSelectSyncVC.h"
+#import "SCDesignHelpers.h"
 
 @interface SCLookMasterVC ()
 @property (strong, nonatomic) SCGlobal *global;
@@ -47,8 +48,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+
+    [SCDesignHelpers customizeTableView:self.tableView];
+    
     self.title = @"SalesCase";
     
     self.global = [SCGlobal sharedGlobal];

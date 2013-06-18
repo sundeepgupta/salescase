@@ -111,6 +111,8 @@
     self.global = [SCGlobal sharedGlobal];
     self.dataObject = self.global.dataObject;
     
+    [SCDesignHelpers customizeTableView:self.tableView];
+    
     [self registerForKeyboardNotifications];
     
     self.billToTextFields = [NSArray arrayWithObjects:self.billTo1TextField, self.billTo2TextField, self.billTo3TextField, self.billToCityTextField, self.billToStateTextField, self.billToPostalTextField, self.billToCountryTextField, nil];

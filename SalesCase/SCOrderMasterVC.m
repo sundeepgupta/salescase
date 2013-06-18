@@ -45,6 +45,8 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     self.global = [SCGlobal sharedGlobal];
     self.dataObject = self.global.dataObject;
+    
+    [SCDesignHelpers customizeTableView:self.tableView];
 
     self.navigationItem.hidesBackButton = YES;
     self.detailNC = self.splitViewController.viewControllers.lastObject;

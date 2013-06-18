@@ -50,6 +50,9 @@
     [super viewDidLoad];
     self.global = [SCGlobal sharedGlobal];
     self.dataObject = self.global.dataObject;
+    
+    [SCDesignHelpers customizeTableView:self.tableView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

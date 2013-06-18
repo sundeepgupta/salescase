@@ -7,4 +7,3 @@ Opening and running the project will allow you to play around and sync with demo
 
 Sundeep Gupta
 @sguptaet
-sgupta@enhancetrade.com

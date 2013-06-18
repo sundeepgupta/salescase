@@ -15,6 +15,7 @@
 #import "SCCustomer.h"
 #import "SCOrderPDFVC.h"
 #import "SCOrderMasterVC.h"
+#import "SCDesignHelpers.h"
 
 
 @interface SCOrdersVC ()
@@ -44,6 +45,9 @@
 {
     [super viewDidLoad];
     self.global = [SCGlobal sharedGlobal];
+    
+    [SCDesignHelpers customizeTableView:self.tableView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

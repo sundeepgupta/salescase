@@ -13,5 +13,5 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import "SCConstants.h"
-    #import "TestFlight.h"
+    #import "SCDesignHelpers.h"
 #endif

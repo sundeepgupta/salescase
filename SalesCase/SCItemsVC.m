@@ -41,6 +41,8 @@
 {
     [super viewDidLoad];
     self.global = [SCGlobal sharedGlobal];
+    
+    [SCDesignHelpers customizeTableView:self.tableView];
 
 }
 

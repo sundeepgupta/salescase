@@ -32,6 +32,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.title = @"Login";
+    
+    [SCDesignHelpers addBackgroundToView:self.view];
+    [SCDesignHelpers addTopShadowToView:self.view];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

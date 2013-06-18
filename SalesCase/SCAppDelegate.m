@@ -9,6 +9,7 @@
 #import "SCAppDelegate.h"
 #import "SCDataObject.h"
 #import "SCGlobal.h"
+#import "SCDesignHelpers.h"
 
 @interface SCAppDelegate ()
 @property (strong, nonatomic) SCGlobal *global;
@@ -24,39 +25,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    //TestFlight SDK.  Don't sent unique identifier for production
-    #define TESTING 1
-    #ifdef TESTING
         
-        //pragma clang to silence the deprcated method warning
-        #pragma clang diagnostic push
-        #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
-        #pragma clang diagnostic pop
-        
-    #endif
-    [TestFlight takeOff:@"409d3982-166f-4f37-943b-4d13ad78cb9d"];
-    
     self.global = [SCGlobal sharedGlobal];
     self.global.dataObject.managedObjectContext = self.managedObjectContext;
     
+    [SCDesignHelpers customizeiPadTheme];
     
-    //Setup the undo manager - http://stackoverflow.com/questions/2214343/core-data-reset-to-the-initial-state
-//    NSUndoManager *undoManager = [[NSUndoManager alloc] init];
-//    self.managedObjectContext.undoManager = undoManager;
-    
-    
-    //    [webApp verifyOAuthRegistration];  need to connect to IPP
-    
-    //if you need to reset the store:
-//    [self.global.dataObject resetContextWithModel:self.managedObjectModel inStore:self.persistentStoreCoordinator];
-    
-    // To set unsynced so it'll check for the service first.
-    //    [webApp setUnSynced];
-    //    [webApp tempRemoveAllData];
-    
-    // Override point for customization after application launch.
     return YES;
 }
 
