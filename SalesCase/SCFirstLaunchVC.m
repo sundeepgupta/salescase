@@ -27,6 +27,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    [SCDesignHelpers addBackgroundToView:self.view];
+    [SCDesignHelpers addTopShadowToView:self.view];
+
 }
 
 - (void)didReceiveMemoryWarning

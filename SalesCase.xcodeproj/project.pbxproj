@@ -137,6 +137,8 @@
 		AE50580C176D131E00373C9F /* SalesCaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE50580B176D131E00373C9F /* SalesCaseTests.m */; };
 		AE50580E176D134500373C9F /* SalesCaseTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE50580D176D134500373C9F /* SalesCaseTests-Info.plist */; };
 		AE505810176D145500373C9F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928581714FFBB0094BE0F /* libTestFlight.a */; };
+		AEC020511771564400FAD77F /* SCMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC020501771564400FAD77F /* SCMasterCell.m */; };
+		AEC020521771564400FAD77F /* SCMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC020501771564400FAD77F /* SCMasterCell.m */; };
 		AEEA9C7617710659007AE699 /* SCDesignHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AEEA9C7517710659007AE699 /* SCDesignHelpers.m */; };
 		AEEA9C7717710659007AE699 /* SCDesignHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AEEA9C7517710659007AE699 /* SCDesignHelpers.m */; };
 		AEEA9D1B17712556007AE699 /* alert-bg-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = AEEA9C7817712555007AE699 /* alert-bg-pattern.png */; };
@@ -612,6 +614,8 @@
 		AE50580A176D131E00373C9F /* SalesCaseTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SalesCaseTests.h; path = SalesCase/SalesCaseTests/SalesCaseTests.h; sourceTree = SOURCE_ROOT; };
 		AE50580B176D131E00373C9F /* SalesCaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SalesCaseTests.m; path = SalesCase/SalesCaseTests/SalesCaseTests.m; sourceTree = SOURCE_ROOT; };
 		AE50580D176D134500373C9F /* SalesCaseTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SalesCaseTests-Info.plist"; path = "SalesCase/SalesCaseTests/SalesCaseTests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		AEC0204F1771564400FAD77F /* SCMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCMasterCell.h; path = SalesCase/SCMasterCell.h; sourceTree = "<group>"; };
+		AEC020501771564400FAD77F /* SCMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCMasterCell.m; path = SalesCase/SCMasterCell.m; sourceTree = "<group>"; };
 		AEEA9C7417710659007AE699 /* SCDesignHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCDesignHelpers.h; path = SalesCase/SCDesignHelpers.h; sourceTree = "<group>"; };
 		AEEA9C7517710659007AE699 /* SCDesignHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCDesignHelpers.m; path = SalesCase/SCDesignHelpers.m; sourceTree = "<group>"; };
 		AEEA9C7817712555007AE699 /* alert-bg-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alert-bg-pattern.png"; path = "SalesCase/Images/alert-bg-pattern.png"; sourceTree = "<group>"; };
@@ -1010,6 +1014,8 @@
 		AE29287C171501E40094BE0F /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				AEC0204F1771564400FAD77F /* SCMasterCell.h */,
+				AEC020501771564400FAD77F /* SCMasterCell.m */,
 				AE5057BC176D121900373C9F /* SCNoDataVC.h */,
 				AE5057BD176D121900373C9F /* SCNoDataVC.m */,
 				AE5057B4176D11F700373C9F /* SCLoginVC.h */,
@@ -1776,6 +1782,7 @@
 				AE505806176D12F000373C9F /* SCSalesTerm.m in Sources */,
 				AE505808176D12F000373C9F /* SCShipMethod.m in Sources */,
 				AEEA9C7617710659007AE699 /* SCDesignHelpers.m in Sources */,
+				AEC020511771564400FAD77F /* SCMasterCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1835,6 +1842,7 @@
 				AE505809176D12F000373C9F /* SCShipMethod.m in Sources */,
 				AE50580C176D131E00373C9F /* SalesCaseTests.m in Sources */,
 				AEEA9C7717710659007AE699 /* SCDesignHelpers.m in Sources */,
+				AEC020521771564400FAD77F /* SCMasterCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

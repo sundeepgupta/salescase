@@ -30,6 +30,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [SCDesignHelpers customizeTableView:self.tableView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
