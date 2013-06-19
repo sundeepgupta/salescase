@@ -18,4 +18,10 @@
 + (NSDictionary *)textAttributes;
 
 
++ (void)customizeSelectedCellLabel:(UILabel *)label;
++ (void)customizeUnSelectedCellLabel:(UILabel *)label;
+
++ (void)customizeSelectedCellBackgroundImageView:(UIImageView *)imageView;
++ (void)customizeUnSelectedCellBackgroundImageView:(UIImageView *)imageView;
+
 @end

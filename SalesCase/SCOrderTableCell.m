@@ -20,10 +20,24 @@
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
+{    
+    if(selected)
+    {
+        [SCDesignHelpers customizeSelectedCellBackgroundImageView:self.backgroundImageView];
+        for (UILabel *label in self.labels) {
+            [SCDesignHelpers customizeSelectedCellLabel:label];
+        }
+    }
+    else
+    {
+        [SCDesignHelpers customizeUnSelectedCellBackgroundImageView:self.backgroundImageView];
+        for (UILabel *label in self.labels) {
+            [SCDesignHelpers customizeUnSelectedCellLabel:label];
+        }
+    }
+    
 
-    // Configure the view for the selected state
+    [super setSelected:selected animated:animated];
 }
 
 @end

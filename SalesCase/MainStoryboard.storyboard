@@ -579,6 +579,10 @@ or 1-888-680-1480</string>
                                             <rect key="frame" x="0.0" y="0.0" width="703" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="0N1-sj-IJu">
+                                                    <rect key="frame" x="0.0" y="0.0" width="703" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hk9-pK-LoZ">
                                                     <rect key="frame" x="20" y="11" width="20" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -611,10 +615,15 @@ or 1-888-680-1480</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
+                                            <outlet property="backgroundImageView" destination="0N1-sj-IJu" id="MCg-Pt-Cy1"/>
                                             <outlet property="companyName" destination="SZr-5w-bbB" id="839-ns-zml"/>
                                             <outlet property="orderId" destination="4R8-U5-skK" id="Lgl-DV-I6Y"/>
                                             <outlet property="status" destination="Hk9-pK-LoZ" id="h7t-Px-WjT"/>
                                             <outlet property="total" destination="qMv-qy-khl" id="h7N-Lv-zRw"/>
+                                            <outletCollection property="labels" destination="qMv-qy-khl" id="YAd-cw-aFo"/>
+                                            <outletCollection property="labels" destination="SZr-5w-bbB" id="kaa-uF-bwe"/>
+                                            <outletCollection property="labels" destination="4R8-U5-skK" id="cGA-xZ-w3i"/>
+                                            <outletCollection property="labels" destination="Hk9-pK-LoZ" id="flU-wQ-jl6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3621,15 +3630,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCCustomerDetailVC" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomerDetailVC.h"/>
             <relationships>
-                <relationship kind="action" name="addOrderButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="cancelButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="captureButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="deleteButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="doneButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="editButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="nextButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="ordersButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="selectCustomerButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="addOrderButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="billTo1TextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="billTo2TextField" candidateClass="UITextField"/>
@@ -3687,8 +3687,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCCustomersVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCCustomersVC.h"/>
             <relationships>
-                <relationship kind="action" name="closeModalButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="newCustomerButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -3709,7 +3707,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCEmailOrderVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCEmailOrderVC.h"/>
             <relationships>
-                <relationship kind="action" name="emailOrderButtonPress:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="sendToCustomer" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="sendToMe" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="sendToOffice" candidateClass="UISegmentedControl"/>
@@ -3717,9 +3714,6 @@ TURN INTO POPUP AFTER</string>
         </class>
         <class className="SCFirstLaunchVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCFirstLaunchVC.h"/>
-            <relationships>
-                <relationship kind="action" name="closeButtonPress:" candidateClass="UIBarButtonItem"/>
-            </relationships>
         </class>
         <class className="SCIntuitLoginPopoverVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginPopoverVC.h"/>
@@ -3727,7 +3721,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCIntuitLoginVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCIntuitLoginVC.h"/>
             <relationships>
-                <relationship kind="action" name="finishedIntuitLoginButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="finishedIntuitLoginButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
@@ -3754,10 +3747,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCItemDetailVC" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemDetailVC.h"/>
             <relationships>
-                <relationship kind="action" name="cancelEditLineButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="deleteButtonPress:" candidateClass="UIButton"/>
-                <relationship kind="action" name="saveToOrderButtonPress:" candidateClass="UIButton"/>
-                <relationship kind="action" name="startOrderButtonPress:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
@@ -3782,7 +3771,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCItemsVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCItemsVC.h"/>
             <relationships>
-                <relationship kind="action" name="closeModalButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="closeModalButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -3791,8 +3779,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCKeepOrderVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCKeepOrderVC.h"/>
             <relationships>
-                <relationship kind="action" name="deleteButtonPress:" candidateClass="UIButton"/>
-                <relationship kind="action" name="keepButtonPress:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
             </relationships>
         </class>
@@ -3840,10 +3826,6 @@ TURN INTO POPUP AFTER</string>
         </class>
         <class className="SCOrderMasterVC" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderMasterVC.h"/>
-            <relationships>
-                <relationship kind="action" name="bugButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="closeOrderButtonPress:" candidateClass="UIBarButtonItem"/>
-            </relationships>
         </class>
         <class className="SCOrderOptionsVC" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderOptionsVC.h"/>
@@ -3918,9 +3900,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCOrderPDFVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderPDFVC.h"/>
             <relationships>
-                <relationship kind="action" name="actionButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="deleteButtonPress:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="editButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="actionButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
@@ -3929,10 +3908,12 @@ TURN INTO POPUP AFTER</string>
         <class className="SCOrderTableCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCOrderTableCell.h"/>
             <relationships>
+                <relationship kind="outlet" name="backgroundImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="orderId" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="status" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="total" candidateClass="UILabel"/>
+                <relationship kind="outletCollection" name="labels" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="SCOrdersVC" superclassName="UIViewController">
@@ -3957,7 +3938,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCSyncVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSyncVC.h"/>
             <relationships>
-                <relationship kind="action" name="closeButtonPress:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="closeButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="textView" candidateClass="UITextView"/>

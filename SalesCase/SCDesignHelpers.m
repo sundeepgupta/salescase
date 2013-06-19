@@ -17,7 +17,6 @@
 {
     [SCDesignHelpers customizeBars];
     [SCDesignHelpers customizeBarButtons];
-    [SCDesignHelpers customizeTextViews];
 }
 
 + (void)customizeBars {
@@ -115,8 +114,25 @@
 }
 
 
-+ (void)customizeTextViews {
-//    [[UITextView appearance] setOpacity:0];
+#pragma mark - Table Cells
++ (void)customizeSelectedCellLabel:(UILabel *)label {
+    label.textColor = [UIColor whiteColor];
+    label.shadowColor = [UIColor colorWithRed:25.0/255 green:96.0/255 blue:148.0/255 alpha:1.0];
+    label.shadowOffset = CGSizeMake(0, -1);
 }
++ (void)customizeUnSelectedCellLabel:(UILabel *)label {
+    label.textColor = [UIColor colorWithRed:0.0 green:68.0/255 blue:118.0/255 alpha:1.0];
+    label.shadowColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(0, 1);
+}
+
++ (void)customizeSelectedCellBackgroundImageView:(UIImageView *)imageView {
+    imageView.image = [UIImage imageNamed:@"ipad-list-item-selected.png"];
+}
++ (void)customizeUnSelectedCellBackgroundImageView:(UIImageView *)imageView {
+    imageView.image = [UIImage imageNamed:@"ipad-list-element.png"];
+}
+
+
 
 @end

@@ -14,7 +14,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *status;
 @property (strong, nonatomic) IBOutlet UILabel *companyName;
 @property (strong, nonatomic) IBOutlet UILabel *total;
-
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 
 
