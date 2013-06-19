@@ -55,7 +55,9 @@
 	// Do any additional setup after loading the view.
     self.global = [SCGlobal sharedGlobal];
     self.dataObject = self.global.dataObject;
-    
+
+    [SCDesignHelpers addTopShadowToView:self.view];
+
     self.actionButtonStrings = @[@"Email", @"Print"];
 }
 

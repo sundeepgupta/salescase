@@ -17,6 +17,7 @@
 {
     [SCDesignHelpers customizeBars];
     [SCDesignHelpers customizeBarButtons];
+    [SCDesignHelpers customizeTextViews];
 }
 
 + (void)customizeBars {
@@ -28,9 +29,6 @@
     
     [SCDesignHelpers customizeViewClass:[UIToolbar class] withImage:image];
 }
-
-
-
 
 + (void)customizeViewClass:(Class)viewClass withImage:(UIImage *)image {
     if (viewClass == [UINavigationBar class]) {
@@ -114,6 +112,11 @@
 
 + (void)removeBackgroundViewFromTableView:(UITableView *)tableView {
     tableView.backgroundView = nil;
+}
+
+
++ (void)customizeTextViews {
+//    [[UITextView appearance] setOpacity:0];
 }
 
 @end

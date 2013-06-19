@@ -36,6 +36,10 @@
     self.title = @"Select Sync";
     SCGlobal *global = [SCGlobal sharedGlobal];
     self.dataObject = global.dataObject;
+    
+    [SCDesignHelpers addBackgroundToView:self.view];
+    [SCDesignHelpers addTopShadowToView:self.view];
+
 }
 
 - (void)didReceiveMemoryWarning

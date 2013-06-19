@@ -51,6 +51,10 @@
     self.global = [SCGlobal sharedGlobal];
     self.webApp = self.global.webApp;
     self.dataObject = self.global.dataObject;
+    
+    [SCDesignHelpers addBackgroundToView:self.view];
+    [SCDesignHelpers addTopShadowToView:self.view];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

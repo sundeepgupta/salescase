@@ -15,6 +15,7 @@
 + (void)customizeTableView:(UITableView *)tableView;
 + (void)addBackgroundToView:(UIView *)view;
 + (void)addTopShadowToView:(UIView *)tableView;
++ (NSDictionary *)textAttributes;
 
 
 @end

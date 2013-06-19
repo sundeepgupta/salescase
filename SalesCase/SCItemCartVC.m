@@ -50,7 +50,8 @@
     self.dataObject = self.global.dataObject;
     
     [SCDesignHelpers customizeTableView:self.tableView];
-
+    NSDictionary *textAttributes = [SCDesignHelpers textAttributes];
+    [self.orderTotal setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -185,6 +186,7 @@
     
     NSString *orderTotalString = [NSString stringWithFormat:@"Total %@", [SCGlobal stringFromDollarAmount:[self.dataObject.openOrder totalAmount]]];
     [self.orderTotal setTitle:orderTotalString];
+    
 }
 
 - (void)presentItemList
