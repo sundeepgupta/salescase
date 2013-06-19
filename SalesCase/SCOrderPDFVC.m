@@ -16,6 +16,7 @@
 #import "SCLookMasterVC.h"
 #import "SCEmailOrderVC.h"
 #import "SCCustomer.h"
+#import "KSCustomPopoverBackgroundView.h"
 
 @interface SCOrderPDFVC ()
 
@@ -376,6 +377,7 @@
 - (IBAction)deleteButtonPress:(UIBarButtonItem *)sender {
     SCConfirmDeleteVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
     self.deleteOrderPC = [[UIPopoverController alloc] initWithContentViewController:deleteOrderVC];
+    self.deleteOrderPC.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
     deleteOrderVC.delegate = self;
     [self.deleteOrderPC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }

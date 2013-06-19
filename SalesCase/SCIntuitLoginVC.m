@@ -9,8 +9,8 @@
 #import "SCIntuitLoginVC.h"
 #import "SCGlobal.h"
 #import "SCWebApp.h"
-
 #import "SCIntuitLoginPopoverVC.h"
+#import "KSCustomPopoverBackgroundView.h"
 
 @interface SCIntuitLoginVC ()
 
@@ -120,6 +120,8 @@
         } else {
             UIViewController *intuitLoginPopoverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCIntuitLoginPopoverVC"];
             self.pc = [[UIPopoverController alloc] initWithContentViewController:intuitLoginPopoverVC];
+            self.pc.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
+
             self.pc.delegate = self;
             [self.pc presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }

@@ -13,9 +13,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SCPopoverTableVC.h"
 #import "SCDatePicker.h"
-
 #import "SCCustomer.h"
 #import "SCOrder.h"
+#import "KSCustomPopoverBackgroundView.h"
 
 
 @interface SCOrderOptionsVC ()
@@ -132,6 +132,8 @@
     } else if ([cell isEqual:self.shipDateCell]) {
         SCDatePicker *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCDatePicker"];
         self.datePickerPC = [[UIPopoverController alloc] initWithContentViewController:vC];
+        self.datePickerPC.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
+
         self.datePickerPC.delegate = self;
         vC.myPC = self.datePickerPC;
         vC.delegate = self;
@@ -176,8 +178,10 @@
     vC.objectType = objectType;
     vC.delegate = self;
     
-    self.popoverTablePC = [[UIPopoverController alloc] initWithContentViewController:vC]; 
-    self.popoverTablePC.delegate = self;  
+    self.popoverTablePC = [[UIPopoverController alloc] initWithContentViewController:vC];
+    self.popoverTablePC.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
+
+    self.popoverTablePC.delegate = self;
     [self.popoverTablePC presentPopoverFromRect:cell.bounds inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 

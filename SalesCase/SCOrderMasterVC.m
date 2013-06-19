@@ -13,6 +13,7 @@
 #import "SCOrderPDFVC.h"
 #import "SCKeepOrderVC.h"
 #import "SCLookMasterVC.h"
+#import "KSCustomPopoverBackgroundView.h"
 
 @interface SCOrderMasterVC ()
 @property (strong, nonatomic) SCGlobal *global;
@@ -227,6 +228,8 @@
     if (!self.dataObject.openOrder.customer || self.dataObject.openOrder.lines.count == 0) {
         SCKeepOrderVC *vC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCKeepOrderVC"];
         self.keepOrderPC = [[UIPopoverController alloc] initWithContentViewController:vC];
+        self.keepOrderPC.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
+
         vC.delegate = self;
         if (!self.dataObject.openOrder.customer && self.dataObject.openOrder.lines.count == 0) {
             vC.textView.text = @"No customer or items saved for this order.";

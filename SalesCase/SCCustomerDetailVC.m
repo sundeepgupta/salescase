@@ -20,6 +20,7 @@
 #import "SCLookMasterVC.h"
 #import "SCConfirmDeleteVC.h"
 #import "SCOrdersVC.h"
+#import "KSCustomPopoverBackgroundView.h"
 
 @interface SCCustomerDetailVC ()
 @property (strong, nonatomic) SCGlobal *global;
@@ -614,6 +615,8 @@
 //    vC.parentCell = cell;
     
     self.popoverTablePC = [[UIPopoverController alloc] initWithContentViewController:vC];
+    self.popoverTablePC.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
+
     self.popoverTablePC.delegate = self;
     [self.popoverTablePC presentPopoverFromRect:cell.bounds inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -725,6 +728,9 @@
 - (IBAction)deleteButtonPress:(UIBarButtonItem *)sender {
     SCConfirmDeleteVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
     self.confirmDeletePC = [[UIPopoverController alloc] initWithContentViewController:vc];
+    self.confirmDeletePC.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
+
+    
     vc.delegate = self;
     vc.textView.text = @"This customer's orders will be set to Draft status with no customer.";
     [self.confirmDeletePC presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];

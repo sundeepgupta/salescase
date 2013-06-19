@@ -23,6 +23,7 @@
 #import "SCItemCartVC.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SCOrderPDFVC.h"
+#import "KSCustomPopoverBackgroundView.h"
 
 
 @interface SCOrderDetailVC ()
@@ -219,6 +220,8 @@
 - (IBAction)deleteButtonPress:(UIButton *)sender {
     SCConfirmDeleteVC *deleteOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([SCConfirmDeleteVC class])];
     self.deleteOrderPC = [[UIPopoverController alloc] initWithContentViewController:deleteOrderVC];
+    self.deleteOrderPC.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
+
     deleteOrderVC.delegate = self;
     [self.deleteOrderPC presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -233,6 +236,8 @@
 - (IBAction)emailButtonPress:(UIButton *)sender {
     SCEmailOrderVC *emailOrderVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SCEmailOrderVC"];
     self.emailOrderPC = [[UIPopoverController alloc] initWithContentViewController:emailOrderVC];
+    self.emailOrderPC.popoverBackgroundViewClass = [KSCustomPopoverBackgroundView class];
+
 //    emailOrderVC.myPC = self.emailOrderPC;
 //    emailOrderVC.order = self.order;
     [self.emailOrderPC presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
