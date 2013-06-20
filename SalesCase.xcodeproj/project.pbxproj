@@ -44,6 +44,8 @@
 		AE36E7551772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */; };
 		AE36E75A1772178E00FEAD0F /* STSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7591772178E00FEAD0F /* STSegmentedControl.m */; };
 		AE36E75B1772178E00FEAD0F /* STSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7591772178E00FEAD0F /* STSegmentedControl.m */; };
+		AE392148177370AB00545DDA /* SCMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE392147177370AB00545DDA /* SCMasterCell.m */; };
+		AE392149177370AB00545DDA /* SCMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE392147177370AB00545DDA /* SCMasterCell.m */; };
 		AE505748176D0F2E00373C9F /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = AE505747176D0F2E00373C9F /* NSString+URLEncoding.m */; };
 		AE505749176D0F2E00373C9F /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = AE505747176D0F2E00373C9F /* NSString+URLEncoding.m */; };
 		AE50574C176D0FB000373C9F /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE50574B176D0FB000373C9F /* SCAppDelegate.m */; };
@@ -100,8 +102,6 @@
 		AE5057B9176D11F700373C9F /* SCLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057B5176D11F700373C9F /* SCLoginVC.m */; };
 		AE5057BA176D11F700373C9F /* SCLookMasterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057B7176D11F700373C9F /* SCLookMasterVC.m */; };
 		AE5057BB176D11F700373C9F /* SCLookMasterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057B7176D11F700373C9F /* SCLookMasterVC.m */; };
-		AE5057BE176D121900373C9F /* SCNoDataVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057BD176D121900373C9F /* SCNoDataVC.m */; };
-		AE5057BF176D121900373C9F /* SCNoDataVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057BD176D121900373C9F /* SCNoDataVC.m */; };
 		AE5057C2176D122900373C9F /* SCOrderOptionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057C1176D122900373C9F /* SCOrderOptionsVC.m */; };
 		AE5057C3176D122900373C9F /* SCOrderOptionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057C1176D122900373C9F /* SCOrderOptionsVC.m */; };
 		AE5057C8176D123900373C9F /* SCOrderPDFRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057C5176D123900373C9F /* SCOrderPDFRenderer.m */; };
@@ -110,8 +110,6 @@
 		AE5057CB176D123900373C9F /* SCOrderPDFVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057C7176D123900373C9F /* SCOrderPDFVC.m */; };
 		AE5057D6176D126700373C9F /* SCOrderDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057CD176D126700373C9F /* SCOrderDetailTableCell.m */; };
 		AE5057D7176D126700373C9F /* SCOrderDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057CD176D126700373C9F /* SCOrderDetailTableCell.m */; };
-		AE5057D8176D126700373C9F /* SCOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057CF176D126700373C9F /* SCOrderDetailVC.m */; };
-		AE5057D9176D126700373C9F /* SCOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057CF176D126700373C9F /* SCOrderDetailVC.m */; };
 		AE5057DA176D126700373C9F /* SCOrderMasterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057D1176D126700373C9F /* SCOrderMasterVC.m */; };
 		AE5057DB176D126700373C9F /* SCOrderMasterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057D1176D126700373C9F /* SCOrderMasterVC.m */; };
 		AE5057DC176D126700373C9F /* SCOrdersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5057D3176D126700373C9F /* SCOrdersVC.m */; };
@@ -515,6 +513,8 @@
 		AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSCustomPopoverBackgroundView.m; sourceTree = "<group>"; };
 		AE36E7581772178E00FEAD0F /* STSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSegmentedControl.h; sourceTree = "<group>"; };
 		AE36E7591772178E00FEAD0F /* STSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSegmentedControl.m; sourceTree = "<group>"; };
+		AE392146177370AB00545DDA /* SCMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCMasterCell.h; path = SalesCase/SCMasterCell.h; sourceTree = "<group>"; };
+		AE392147177370AB00545DDA /* SCMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCMasterCell.m; path = SalesCase/SCMasterCell.m; sourceTree = "<group>"; };
 		AE505746176D0F2E00373C9F /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncoding.h"; path = "SalesCase/NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		AE505747176D0F2E00373C9F /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+URLEncoding.m"; path = "SalesCase/NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		AE50574A176D0FB000373C9F /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCAppDelegate.h; path = SalesCase/SCAppDelegate.h; sourceTree = "<group>"; };
@@ -577,8 +577,6 @@
 		AE5057B5176D11F700373C9F /* SCLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLoginVC.m; path = SalesCase/SCLoginVC.m; sourceTree = "<group>"; };
 		AE5057B6176D11F700373C9F /* SCLookMasterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLookMasterVC.h; path = SalesCase/SCLookMasterVC.h; sourceTree = "<group>"; };
 		AE5057B7176D11F700373C9F /* SCLookMasterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCLookMasterVC.m; path = SalesCase/SCLookMasterVC.m; sourceTree = "<group>"; };
-		AE5057BC176D121900373C9F /* SCNoDataVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCNoDataVC.h; path = SalesCase/SCNoDataVC.h; sourceTree = "<group>"; };
-		AE5057BD176D121900373C9F /* SCNoDataVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCNoDataVC.m; path = SalesCase/SCNoDataVC.m; sourceTree = "<group>"; };
 		AE5057C0176D122900373C9F /* SCOrderOptionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCOrderOptionsVC.h; path = SalesCase/SCOrderOptionsVC.h; sourceTree = "<group>"; };
 		AE5057C1176D122900373C9F /* SCOrderOptionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCOrderOptionsVC.m; path = SalesCase/SCOrderOptionsVC.m; sourceTree = "<group>"; };
 		AE5057C4176D123900373C9F /* SCOrderPDFRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCOrderPDFRenderer.h; path = SalesCase/SCOrderPDFRenderer.h; sourceTree = "<group>"; };
@@ -587,8 +585,6 @@
 		AE5057C7176D123900373C9F /* SCOrderPDFVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCOrderPDFVC.m; path = SalesCase/SCOrderPDFVC.m; sourceTree = "<group>"; };
 		AE5057CC176D126700373C9F /* SCOrderDetailTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCOrderDetailTableCell.h; path = SalesCase/SCOrderDetailTableCell.h; sourceTree = "<group>"; };
 		AE5057CD176D126700373C9F /* SCOrderDetailTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCOrderDetailTableCell.m; path = SalesCase/SCOrderDetailTableCell.m; sourceTree = "<group>"; };
-		AE5057CE176D126700373C9F /* SCOrderDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCOrderDetailVC.h; path = SalesCase/SCOrderDetailVC.h; sourceTree = "<group>"; };
-		AE5057CF176D126700373C9F /* SCOrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCOrderDetailVC.m; path = SalesCase/SCOrderDetailVC.m; sourceTree = "<group>"; };
 		AE5057D0176D126700373C9F /* SCOrderMasterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCOrderMasterVC.h; path = SalesCase/SCOrderMasterVC.h; sourceTree = "<group>"; };
 		AE5057D1176D126700373C9F /* SCOrderMasterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCOrderMasterVC.m; path = SalesCase/SCOrderMasterVC.m; sourceTree = "<group>"; };
 		AE5057D2176D126700373C9F /* SCOrdersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCOrdersVC.h; path = SalesCase/SCOrdersVC.h; sourceTree = "<group>"; };
@@ -1017,8 +1013,6 @@
 		AE29287C171501E40094BE0F /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				AE5057BC176D121900373C9F /* SCNoDataVC.h */,
-				AE5057BD176D121900373C9F /* SCNoDataVC.m */,
 				AE5057B4176D11F700373C9F /* SCLoginVC.h */,
 				AE5057B5176D11F700373C9F /* SCLoginVC.m */,
 				AE5057B6176D11F700373C9F /* SCLookMasterVC.h */,
@@ -1029,6 +1023,8 @@
 				AE50578C176D115800373C9F /* SCIntuitLoginPopoverVC.m */,
 				AE50578D176D115800373C9F /* SCIntuitLoginVC.h */,
 				AE50578E176D115800373C9F /* SCIntuitLoginVC.m */,
+				AE392146177370AB00545DDA /* SCMasterCell.h */,
+				AE392147177370AB00545DDA /* SCMasterCell.m */,
 			);
 			name = Launch;
 			sourceTree = "<group>";
@@ -1080,8 +1076,6 @@
 				AE5057B1176D11E500373C9F /* SCKeepOrderVC.m */,
 				AE5057CC176D126700373C9F /* SCOrderDetailTableCell.h */,
 				AE5057CD176D126700373C9F /* SCOrderDetailTableCell.m */,
-				AE5057CE176D126700373C9F /* SCOrderDetailVC.h */,
-				AE5057CF176D126700373C9F /* SCOrderDetailVC.m */,
 				AE5057D0176D126700373C9F /* SCOrderMasterVC.h */,
 				AE5057D1176D126700373C9F /* SCOrderMasterVC.m */,
 				AE5057D2176D126700373C9F /* SCOrdersVC.h */,
@@ -1794,12 +1788,10 @@
 				AE5057B2176D11E500373C9F /* SCKeepOrderVC.m in Sources */,
 				AE5057B8176D11F700373C9F /* SCLoginVC.m in Sources */,
 				AE5057BA176D11F700373C9F /* SCLookMasterVC.m in Sources */,
-				AE5057BE176D121900373C9F /* SCNoDataVC.m in Sources */,
 				AE5057C2176D122900373C9F /* SCOrderOptionsVC.m in Sources */,
 				AE5057C8176D123900373C9F /* SCOrderPDFRenderer.m in Sources */,
 				AE5057CA176D123900373C9F /* SCOrderPDFVC.m in Sources */,
 				AE5057D6176D126700373C9F /* SCOrderDetailTableCell.m in Sources */,
-				AE5057D8176D126700373C9F /* SCOrderDetailVC.m in Sources */,
 				AE5057DA176D126700373C9F /* SCOrderMasterVC.m in Sources */,
 				AE5057DC176D126700373C9F /* SCOrdersVC.m in Sources */,
 				AE5057DE176D126700373C9F /* SCOrderTableCell.m in Sources */,
@@ -1816,6 +1808,7 @@
 				AEEA9C7617710659007AE699 /* SCDesignHelpers.m in Sources */,
 				AE36E7541772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */,
 				AE36E75A1772178E00FEAD0F /* STSegmentedControl.m in Sources */,
+				AE392148177370AB00545DDA /* SCMasterCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1854,12 +1847,10 @@
 				AE5057B3176D11E500373C9F /* SCKeepOrderVC.m in Sources */,
 				AE5057B9176D11F700373C9F /* SCLoginVC.m in Sources */,
 				AE5057BB176D11F700373C9F /* SCLookMasterVC.m in Sources */,
-				AE5057BF176D121900373C9F /* SCNoDataVC.m in Sources */,
 				AE5057C3176D122900373C9F /* SCOrderOptionsVC.m in Sources */,
 				AE5057C9176D123900373C9F /* SCOrderPDFRenderer.m in Sources */,
 				AE5057CB176D123900373C9F /* SCOrderPDFVC.m in Sources */,
 				AE5057D7176D126700373C9F /* SCOrderDetailTableCell.m in Sources */,
-				AE5057D9176D126700373C9F /* SCOrderDetailVC.m in Sources */,
 				AE5057DB176D126700373C9F /* SCOrderMasterVC.m in Sources */,
 				AE5057DD176D126700373C9F /* SCOrdersVC.m in Sources */,
 				AE5057DF176D126700373C9F /* SCOrderTableCell.m in Sources */,
@@ -1877,6 +1868,7 @@
 				AEEA9C7717710659007AE699 /* SCDesignHelpers.m in Sources */,
 				AE36E7551772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */,
 				AE36E75B1772178E00FEAD0F /* STSegmentedControl.m in Sources */,
+				AE392149177370AB00545DDA /* SCMasterCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

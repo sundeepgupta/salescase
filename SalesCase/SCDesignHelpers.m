@@ -124,6 +124,7 @@
     UIImage *image = [UIImage imageNamed:@"ipad-list-element.png"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     cell.backgroundView = imageView;
+    cell.backgroundView.opaque = YES;
 }
 
 + (void)customizeSelectedCellLabel:(UILabel *)label {

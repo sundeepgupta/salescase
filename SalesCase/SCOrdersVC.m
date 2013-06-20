@@ -119,6 +119,16 @@
     cell.companyName.text = order.customer.dbaName;
     cell.total.text = [SCGlobal stringFromDollarAmount:[order totalAmount]];
 
+    [SCDesignHelpers customizeBackgroundForSelectedCell:cell];
+    for (UILabel *label in cell.labels) {
+        [SCDesignHelpers customizeSelectedCellLabel:label];
+    }
+    
+    [SCDesignHelpers customizeBackgroundForUnSelectedCell:cell];
+    for (UILabel *label in cell.labels) {
+        [SCDesignHelpers customizeUnSelectedCellLabel:label];
+    }
+    
     return cell;
 }
 

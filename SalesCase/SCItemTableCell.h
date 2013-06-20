@@ -16,5 +16,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *quantityOnHandLabel;
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;
+
 
 @end

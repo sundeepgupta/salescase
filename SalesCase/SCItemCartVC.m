@@ -127,7 +127,17 @@
     cell.priceLabel.text = [SCGlobal stringFromDollarAmount:[line.price floatValue]];
     cell.amountLabel.text = [SCGlobal stringFromDollarAmount:[line amount]];
 
-    return cell; 
+    [SCDesignHelpers customizeBackgroundForSelectedCell:cell];
+    for (UILabel *label in cell.labels) {
+        [SCDesignHelpers customizeSelectedCellLabel:label];
+    }
+    
+    [SCDesignHelpers customizeBackgroundForUnSelectedCell:cell];
+    for (UILabel *label in cell.labels) {
+        [SCDesignHelpers customizeUnSelectedCellLabel:label];
+    }
+
+    return cell;
 }
 
 #pragma mark - Table view delegate

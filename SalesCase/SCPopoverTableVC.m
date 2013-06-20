@@ -81,6 +81,17 @@
             cell.label.text = @"Error - see log";
             NSLog(@"Object's class type at the row selected is not being handled for in cellForRowAtIndexPath method.");
         }
+
+        [SCDesignHelpers customizeBackgroundForSelectedCell:cell];
+        for (UILabel *label in cell.labels) {
+            [SCDesignHelpers customizeSelectedCellLabel:label];
+        }
+        
+        [SCDesignHelpers customizeBackgroundForUnSelectedCell:cell];
+        for (UILabel *label in cell.labels) {
+            [SCDesignHelpers customizeUnSelectedCellLabel:label];
+        }
+
         return cell;
     }
 

@@ -11,4 +11,7 @@
 @interface SCPopoverTableCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *label;
+
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;
+
 @end

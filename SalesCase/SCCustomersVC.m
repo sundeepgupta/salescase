@@ -135,8 +135,6 @@
 {
     SCCustomer *customer = [self customerAtIndexPath:indexPath];
     static NSString *CellIdentifier = @"SCCustomerTableCell";
-
-    //    [self.customersTable registerClass:[SCCustomerTableCell class] forCellReuseIdentifier:CellIdentifier];  Don't need this because the custom cell is made in IB.  And if we did need it, it can be put in viewDidLoad so its only called once.
     
     SCCustomerTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -146,19 +144,16 @@
     cell.customerLabel.text = customer.name;
     cell.phoneLabel.text = [customer phoneForTag:MAIN_PHONE_TAG]; 
     
-    //UNTIL FIGURE OUT QB CRAZY ADDRESS ALOGORITHM, DON'T USE THESE
-//    NSMutableString *locationString = (NSMutableString *) @"";
-//    SCAddress *address = customer.primaryBillingAddress;
-//    if ([address.city isKindOfClass:[NSString class]] ) {
-//        locationString = (NSMutableString *) address.city;
-//    }
-//    cell.cityLabel.text = locationString;
-//    
-//    NSMutableString *zipString = (NSMutableString *) @"";
-//    if ([address.postalCode isKindOfClass:[NSString class]]) {
-//        zipString = (NSMutableString *) address.postalCode;
-//    }
-//    cell.zipLabel.text = zipString;
+    [SCDesignHelpers customizeBackgroundForSelectedCell:cell];
+    for (UILabel *label in cell.labels) {
+        [SCDesignHelpers customizeSelectedCellLabel:label];
+    }
+    
+    [SCDesignHelpers customizeBackgroundForUnSelectedCell:cell];
+    for (UILabel *label in cell.labels) {
+        [SCDesignHelpers customizeUnSelectedCellLabel:label];
+    }
+
     
     return cell;
 }

@@ -97,9 +97,7 @@
 {
     SCItem *item = [self itemAtIndexPath:indexPath];
     static NSString *CellIdentifier = @"SCItemTableCell";
-    
-    //    [self.customersTable registerClass:[SCCustomerTableCell class] forCellReuseIdentifier:CellIdentifier];  Don't need this because the custom cell is made in IB.  And it can be put in viewDidLoad so its only called once.
-    
+        
     SCItemTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     //don't need to alloc init the labels since they're built in IB and have outlets to the class.
@@ -108,6 +106,16 @@
     cell.priceLabel.text = [SCGlobal stringFromDollarAmount:item.price.floatValue];
     cell.quantityOnHandLabel.text = [NSString stringWithFormat:@"%@", item.quantityOnHand.stringValue];
     
+    [SCDesignHelpers customizeBackgroundForSelectedCell:cell];
+    for (UILabel *label in cell.labels) {
+        [SCDesignHelpers customizeSelectedCellLabel:label];
+    }
+    
+    [SCDesignHelpers customizeBackgroundForUnSelectedCell:cell];
+    for (UILabel *label in cell.labels) {
+        [SCDesignHelpers customizeUnSelectedCellLabel:label];
+    }
+
     return cell;
 }
 
