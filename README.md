@@ -5,5 +5,5 @@ iPad sales and order entry app for wholesalers, distributors and manufacturers t
 
 For more information and screens, visit http://www.enhancetrade.com/ipad-sales-order-entry/
 
-Sundeep Gupta
+Sundeep Gupta  
 @sguptaet
