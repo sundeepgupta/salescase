@@ -79,31 +79,23 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LookMasterTableCell" rowHeight="88" id="cgj-jJ-mV0" customClass="SCMasterCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LookMasterTableCell" textLabel="pkw-dZ-not" rowHeight="88" style="IBUITableViewCellStyleDefault" id="cgj-jJ-mV0">
                                 <rect key="frame" x="0.0" y="22" width="320" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="dbS-QU-5Qv">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9jY-ov-g43">
-                                            <rect key="frame" x="20" y="20" width="280" height="47"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pkw-dZ-not">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="87"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <outlet property="imageView" destination="dbS-QU-5Qv" id="g8i-Io-U07"/>
-                                    <outlet property="label" destination="9jY-ov-g43" id="Yjc-Eb-466"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -3788,13 +3780,6 @@ TURN INTO POPUP AFTER</string>
         <class className="SCLookMasterVC" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCLookMasterVC.h"/>
         </class>
-        <class className="SCMasterCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCMasterCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
-            </relationships>
-        </class>
         <class className="SCNoDataVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SCNoDataVC.h"/>
         </class>
@@ -3841,7 +3826,6 @@ TURN INTO POPUP AFTER</string>
                 <relationship kind="outlet" name="shipViaCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="shipViaLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="statusCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="statusControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="termsCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="termsLabel" candidateClass="UILabel"/>
                 <relationship kind="outletCollection" name="popoverCells" candidateClass="UITableViewCell"/>

@@ -22,7 +22,6 @@
 #import "SCCustomer.h"
 #import "SCSelectSyncVC.h"
 #import "SCDesignHelpers.h"
-#import "SCMasterCell.h"
 
 @interface SCLookMasterVC ()
 @property (strong, nonatomic) SCGlobal *global;
@@ -134,13 +133,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"LookMasterTableCell";
-    SCMasterCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     NSDictionary *dictAtIndex = self.menu[indexPath.row];
 
-    cell.label.text = [dictAtIndex objectForKey:self.menuItemLabel];
+    cell.textLabel.text = [dictAtIndex objectForKey:self.menuItemLabel];
     
-    
-    
+    [SCDesignHelpers customizeBackgroundForSelectedCell:cell];
+    [SCDesignHelpers customizeSelectedCellLabel:cell.textLabel];
+    [SCDesignHelpers customizeBackgroundForUnSelectedCell:cell];
+    [SCDesignHelpers customizeUnSelectedCellLabel:cell.textLabel];
+
     return cell;
 }
 

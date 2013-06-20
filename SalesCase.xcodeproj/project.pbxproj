@@ -40,8 +40,6 @@
 		AE2E4F46173583720028A972 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928821715054F0094BE0F /* MessageUI.framework */; };
 		AE2E4F471735A1EF0028A972 /* SalesCase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE29274E1714DCF00094BE0F /* SalesCase.xcdatamodeld */; };
 		AE349682171CF1FF0017AD6E /* capture.png in Resources */ = {isa = PBXBuildFile; fileRef = AE349681171CF1FF0017AD6E /* capture.png */; };
-		AE36E7521772114200FEAD0F /* CustomPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E74F1772114200FEAD0F /* CustomPopoverBackgroundView.m */; };
-		AE36E7531772114200FEAD0F /* CustomPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E74F1772114200FEAD0F /* CustomPopoverBackgroundView.m */; };
 		AE36E7541772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */; };
 		AE36E7551772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */; };
 		AE36E75A1772178E00FEAD0F /* STSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7591772178E00FEAD0F /* STSegmentedControl.m */; };
@@ -143,8 +141,6 @@
 		AE50580C176D131E00373C9F /* SalesCaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE50580B176D131E00373C9F /* SalesCaseTests.m */; };
 		AE50580E176D134500373C9F /* SalesCaseTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE50580D176D134500373C9F /* SalesCaseTests-Info.plist */; };
 		AE505810176D145500373C9F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2928581714FFBB0094BE0F /* libTestFlight.a */; };
-		AEC020511771564400FAD77F /* SCMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC020501771564400FAD77F /* SCMasterCell.m */; };
-		AEC020521771564400FAD77F /* SCMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC020501771564400FAD77F /* SCMasterCell.m */; };
 		AEEA9C7617710659007AE699 /* SCDesignHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AEEA9C7517710659007AE699 /* SCDesignHelpers.m */; };
 		AEEA9C7717710659007AE699 /* SCDesignHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = AEEA9C7517710659007AE699 /* SCDesignHelpers.m */; };
 		AEEA9D1B17712556007AE699 /* alert-bg-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = AEEA9C7817712555007AE699 /* alert-bg-pattern.png */; };
@@ -515,8 +511,6 @@
 		AE2928841715055A0094BE0F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AE2928861715059B0094BE0F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		AE349681171CF1FF0017AD6E /* capture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = capture.png; path = SalesCase/capture.png; sourceTree = "<group>"; };
-		AE36E74E1772114200FEAD0F /* CustomPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopoverBackgroundView.h; sourceTree = "<group>"; };
-		AE36E74F1772114200FEAD0F /* CustomPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopoverBackgroundView.m; sourceTree = "<group>"; };
 		AE36E7501772114200FEAD0F /* KSCustomPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSCustomPopoverBackgroundView.h; sourceTree = "<group>"; };
 		AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSCustomPopoverBackgroundView.m; sourceTree = "<group>"; };
 		AE36E7581772178E00FEAD0F /* STSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSegmentedControl.h; sourceTree = "<group>"; };
@@ -626,8 +620,6 @@
 		AE50580A176D131E00373C9F /* SalesCaseTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SalesCaseTests.h; path = SalesCase/SalesCaseTests/SalesCaseTests.h; sourceTree = SOURCE_ROOT; };
 		AE50580B176D131E00373C9F /* SalesCaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SalesCaseTests.m; path = SalesCase/SalesCaseTests/SalesCaseTests.m; sourceTree = SOURCE_ROOT; };
 		AE50580D176D134500373C9F /* SalesCaseTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SalesCaseTests-Info.plist"; path = "SalesCase/SalesCaseTests/SalesCaseTests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		AEC0204F1771564400FAD77F /* SCMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCMasterCell.h; path = SalesCase/SCMasterCell.h; sourceTree = "<group>"; };
-		AEC020501771564400FAD77F /* SCMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCMasterCell.m; path = SalesCase/SCMasterCell.m; sourceTree = "<group>"; };
 		AEEA9C7417710659007AE699 /* SCDesignHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCDesignHelpers.h; path = SalesCase/SCDesignHelpers.h; sourceTree = "<group>"; };
 		AEEA9C7517710659007AE699 /* SCDesignHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCDesignHelpers.m; path = SalesCase/SCDesignHelpers.m; sourceTree = "<group>"; };
 		AEEA9C7817712555007AE699 /* alert-bg-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alert-bg-pattern.png"; path = "SalesCase/Images/alert-bg-pattern.png"; sourceTree = "<group>"; };
@@ -1025,8 +1017,6 @@
 		AE29287C171501E40094BE0F /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				AEC0204F1771564400FAD77F /* SCMasterCell.h */,
-				AEC020501771564400FAD77F /* SCMasterCell.m */,
 				AE5057BC176D121900373C9F /* SCNoDataVC.h */,
 				AE5057BD176D121900373C9F /* SCNoDataVC.m */,
 				AE5057B4176D11F700373C9F /* SCLoginVC.h */,
@@ -1129,8 +1119,6 @@
 		AE36E74D1772114200FEAD0F /* CustomPopover */ = {
 			isa = PBXGroup;
 			children = (
-				AE36E74E1772114200FEAD0F /* CustomPopoverBackgroundView.h */,
-				AE36E74F1772114200FEAD0F /* CustomPopoverBackgroundView.m */,
 				AE36E7501772114200FEAD0F /* KSCustomPopoverBackgroundView.h */,
 				AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */,
 			);
@@ -1142,9 +1130,9 @@
 			isa = PBXGroup;
 			children = (
 				AE36E7571772178E00FEAD0F /* STSegmentedControl */,
+				AE36E74D1772114200FEAD0F /* CustomPopover */,
 				AEEA9C7417710659007AE699 /* SCDesignHelpers.h */,
 				AEEA9C7517710659007AE699 /* SCDesignHelpers.m */,
-				AE36E74D1772114200FEAD0F /* CustomPopover */,
 			);
 			name = Design;
 			sourceTree = "<group>";
@@ -1826,8 +1814,6 @@
 				AE505806176D12F000373C9F /* SCSalesTerm.m in Sources */,
 				AE505808176D12F000373C9F /* SCShipMethod.m in Sources */,
 				AEEA9C7617710659007AE699 /* SCDesignHelpers.m in Sources */,
-				AEC020511771564400FAD77F /* SCMasterCell.m in Sources */,
-				AE36E7521772114200FEAD0F /* CustomPopoverBackgroundView.m in Sources */,
 				AE36E7541772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */,
 				AE36E75A1772178E00FEAD0F /* STSegmentedControl.m in Sources */,
 			);
@@ -1889,8 +1875,6 @@
 				AE505809176D12F000373C9F /* SCShipMethod.m in Sources */,
 				AE50580C176D131E00373C9F /* SalesCaseTests.m in Sources */,
 				AEEA9C7717710659007AE699 /* SCDesignHelpers.m in Sources */,
-				AEC020521771564400FAD77F /* SCMasterCell.m in Sources */,
-				AE36E7531772114200FEAD0F /* CustomPopoverBackgroundView.m in Sources */,
 				AE36E7551772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */,
 				AE36E75B1772178E00FEAD0F /* STSegmentedControl.m in Sources */,
 			);

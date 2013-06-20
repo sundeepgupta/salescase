@@ -115,6 +115,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     NSDictionary *dictAtIndex = self.menu[indexPath.row];
     cell.textLabel.text = [dictAtIndex objectForKey:self.menuItemLabel];
+    
+    [SCDesignHelpers customizeBackgroundForSelectedCell:cell];
+    [SCDesignHelpers customizeSelectedCellLabel:cell.textLabel];
+    [SCDesignHelpers customizeBackgroundForUnSelectedCell:cell];
+    [SCDesignHelpers customizeUnSelectedCellLabel:cell.textLabel];
+
     return cell;
 }
 
