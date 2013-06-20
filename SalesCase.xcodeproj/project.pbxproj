@@ -44,6 +44,8 @@
 		AE36E7531772114200FEAD0F /* CustomPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E74F1772114200FEAD0F /* CustomPopoverBackgroundView.m */; };
 		AE36E7541772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */; };
 		AE36E7551772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */; };
+		AE36E75A1772178E00FEAD0F /* STSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7591772178E00FEAD0F /* STSegmentedControl.m */; };
+		AE36E75B1772178E00FEAD0F /* STSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36E7591772178E00FEAD0F /* STSegmentedControl.m */; };
 		AE505748176D0F2E00373C9F /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = AE505747176D0F2E00373C9F /* NSString+URLEncoding.m */; };
 		AE505749176D0F2E00373C9F /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = AE505747176D0F2E00373C9F /* NSString+URLEncoding.m */; };
 		AE50574C176D0FB000373C9F /* SCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE50574B176D0FB000373C9F /* SCAppDelegate.m */; };
@@ -517,6 +519,8 @@
 		AE36E74F1772114200FEAD0F /* CustomPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopoverBackgroundView.m; sourceTree = "<group>"; };
 		AE36E7501772114200FEAD0F /* KSCustomPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSCustomPopoverBackgroundView.h; sourceTree = "<group>"; };
 		AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSCustomPopoverBackgroundView.m; sourceTree = "<group>"; };
+		AE36E7581772178E00FEAD0F /* STSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSegmentedControl.h; sourceTree = "<group>"; };
+		AE36E7591772178E00FEAD0F /* STSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSegmentedControl.m; sourceTree = "<group>"; };
 		AE505746176D0F2E00373C9F /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncoding.h"; path = "SalesCase/NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		AE505747176D0F2E00373C9F /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+URLEncoding.m"; path = "SalesCase/NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		AE50574A176D0FB000373C9F /* SCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCAppDelegate.h; path = SalesCase/SCAppDelegate.h; sourceTree = "<group>"; };
@@ -847,6 +851,7 @@
 		AE2927251714DCF00094BE0F = {
 			isa = PBXGroup;
 			children = (
+				AE36E7561772177700FEAD0F /* Design */,
 				AE02F8AE172F05770001C760 /* Helpers */,
 				AE292872171500C20094BE0F /* Application Control */,
 				AE29287C171501E40094BE0F /* Launch */,
@@ -975,13 +980,10 @@
 		AE292872171500C20094BE0F /* Application Control */ = {
 			isa = PBXGroup;
 			children = (
-				AE36E74D1772114200FEAD0F /* CustomPopover */,
 				AE2927941714FE590094BE0F /* MainStoryboard.storyboard */,
 				AE29274E1714DCF00094BE0F /* SalesCase.xcdatamodeld */,
 				AE50574A176D0FB000373C9F /* SCAppDelegate.h */,
 				AE50574B176D0FB000373C9F /* SCAppDelegate.m */,
-				AEEA9C7417710659007AE699 /* SCDesignHelpers.h */,
-				AEEA9C7517710659007AE699 /* SCDesignHelpers.m */,
 				AE505752176D104A00373C9F /* SCConstants.h */,
 				AE505753176D104A00373C9F /* SCConstants.m */,
 				AE505776176D10DE00373C9F /* SCDevVC.h */,
@@ -1132,7 +1134,29 @@
 				AE36E7501772114200FEAD0F /* KSCustomPopoverBackgroundView.h */,
 				AE36E7511772114200FEAD0F /* KSCustomPopoverBackgroundView.m */,
 			);
-			path = CustomPopover;
+			name = CustomPopover;
+			path = SalesCase/CustomPopover;
+			sourceTree = "<group>";
+		};
+		AE36E7561772177700FEAD0F /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				AE36E7571772178E00FEAD0F /* STSegmentedControl */,
+				AEEA9C7417710659007AE699 /* SCDesignHelpers.h */,
+				AEEA9C7517710659007AE699 /* SCDesignHelpers.m */,
+				AE36E74D1772114200FEAD0F /* CustomPopover */,
+			);
+			name = Design;
+			sourceTree = "<group>";
+		};
+		AE36E7571772178E00FEAD0F /* STSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				AE36E7581772178E00FEAD0F /* STSegmentedControl.h */,
+				AE36E7591772178E00FEAD0F /* STSegmentedControl.m */,
+			);
+			name = STSegmentedControl;
+			path = SalesCase/STSegmentedControl;
 			sourceTree = "<group>";
 		};
 		AEEA9A8A1770CC39007AE699 /* Images */ = {
@@ -1805,6 +1829,7 @@
 				AEC020511771564400FAD77F /* SCMasterCell.m in Sources */,
 				AE36E7521772114200FEAD0F /* CustomPopoverBackgroundView.m in Sources */,
 				AE36E7541772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */,
+				AE36E75A1772178E00FEAD0F /* STSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1867,6 +1892,7 @@
 				AEC020521771564400FAD77F /* SCMasterCell.m in Sources */,
 				AE36E7531772114200FEAD0F /* CustomPopoverBackgroundView.m in Sources */,
 				AE36E7551772114200FEAD0F /* KSCustomPopoverBackgroundView.m in Sources */,
+				AE36E75B1772178E00FEAD0F /* STSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

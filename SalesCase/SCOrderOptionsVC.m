@@ -16,12 +16,15 @@
 #import "SCCustomer.h"
 #import "SCOrder.h"
 #import "KSCustomPopoverBackgroundView.h"
+#import "STSegmentedControl.h"
 
 
 @interface SCOrderOptionsVC ()
 
 @property (strong, nonatomic) SCGlobal *global;
 @property (strong, nonatomic) SCDataObject *dataObject;
+
+@property (strong, nonatomic) STSegmentedControl *stStatusControl;
 
 
 //Popover Controllers
@@ -36,13 +39,14 @@
 @property (strong, nonatomic) IBOutlet UILabel *shipDateLabel;
 @property (strong, nonatomic) IBOutlet UITextField *poNumberTextField;
 @property (strong, nonatomic) IBOutlet UITextView *notesTextView;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *statusControl;
+
 
 //Cells
 @property (strong, nonatomic) IBOutlet UITableViewCell *repCell;
 @property (strong, nonatomic) IBOutlet UITableViewCell *termsCell;
 @property (strong, nonatomic) IBOutlet UITableViewCell *shipViaCell;
 @property (strong, nonatomic) IBOutlet UITableViewCell *shipDateCell;
+@property (strong, nonatomic) IBOutlet UITableViewCell *statusCell;
 
 //Collections
 @property (nonatomic, strong) IBOutletCollection(UITableViewCell) NSArray *popoverCells;
@@ -67,6 +71,19 @@
     self.dataObject = self.global.dataObject;
     
     [SCDesignHelpers customizeTableView:self.tableView];
+    
+    
+    //Setup custom segmented control
+    NSArray *objects = [NSArray arrayWithObjects:@"Draft", @"Confirmed", nil];
+	self.stStatusControl = [[STSegmentedControl alloc] initWithItems:objects];
+    CGRect statusCellFrame = self.statusCell.frame;
+    CGPoint statusCellPoint = statusCellFrame.origin;
+	self.stStatusControl.frame = CGRectMake(statusCellPoint.x + 230, statusCellPoint.y + 10, 280, 44);
+	self.stStatusControl.selectedSegmentIndex = 0;
+	self.stStatusControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	[self.view addSubview:self.stStatusControl];
+    [self.stStatusControl addTarget:self action:@selector(stStatusControlValueChanged) forControlEvents:UIControlEventValueChanged];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -78,11 +95,13 @@
     
     //Disable the status control if no items or no customer set
     if (!self.dataObject.openOrder.customer || self.dataObject.openOrder.lines.count == 0) {
-        self.statusControl.enabled = NO;
-        self.statusControl.alpha = UI_DISABLED_ALPHA;
+        self.stStatusControl.enabled = NO;
+        self.stStatusControl.alpha = UI_DISABLED_ALPHA;
     }
     
     [self loadData];
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -108,6 +127,7 @@
 - (void)viewDidUnload {
     [self setPoNumberTextField:nil];
     [self setNotesTextView:nil];
+    [self setStatusCell:nil];
     [super viewDidUnload];
 }
 
@@ -252,9 +272,9 @@
     if (self.dataObject.openOrder.orderDescription)
         self.notesTextView.text = self.dataObject.openOrder.orderDescription;
     if ([self.dataObject.openOrder.status isEqualToString:CONFIRMED_STATUS])
-        self.statusControl.selectedSegmentIndex = 1;
+        self.stStatusControl.selectedSegmentIndex = 1;
     else //no need to check for synced status, as we can't edit it
-        self.statusControl.selectedSegmentIndex = 0;
+        self.stStatusControl.selectedSegmentIndex = 0;
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
@@ -274,12 +294,14 @@
     [self.navigationController pushViewController:vC animated:YES];
 }
 
-- (IBAction)statusControlValueChanged:(UISegmentedControl *)sender {
-    if (self.statusControl.selectedSegmentIndex == 1) {
+
+
+- (void)stStatusControlValueChanged {
+    if (self.stStatusControl.selectedSegmentIndex == 1) {
         
         //Validate if order ok to mark confirmed (need customer and at least 1 line).  Don't need to anymore, its being disabled in ViewWillAppear.  Just saving this code in case we need it later.
 //        if (!self.dataObject.openOrder.customer || self.dataObject.openOrder.lines.count == 0) {
-//            self.statusControl.selectedSegmentIndex = 0;
+//            self.stStatusControl.selectedSegmentIndex = 0;
 //            if (!self.dataObject.openOrder.customer && self.dataObject.openOrder.lines.count == 0) {
 //                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Customer Or Items" message:@"Please add a customer and items to this order before changing the status." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 //                [alert show];

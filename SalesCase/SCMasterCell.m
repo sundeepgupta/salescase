@@ -15,32 +15,29 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        
+       
+
+        
     }
     return self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+    [super setSelected:selected animated:animated];
+    // Configure the view for the selected state
+
     if(selected)
     {
-        [SCDesignHelpers customizeSelectedCellBackgroundImageView:self.imageView];
-
+        [SCDesignHelpers customizeBackgroundForSelectedCell:self];
         [SCDesignHelpers customizeSelectedCellLabel:self.label];
-        
     }
     else
     {
-        [SCDesignHelpers customizeUnSelectedCellBackgroundImageView:self.imageView];
-
+        [SCDesignHelpers customizeBackgroundForUnSelectedCell:self];
         [SCDesignHelpers customizeUnSelectedCellLabel:self.label];
-        
     }
-
-    
-    
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

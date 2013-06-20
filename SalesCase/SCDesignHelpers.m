@@ -115,6 +115,17 @@
 
 
 #pragma mark - Table Cells
++ (void)customizeBackgroundForSelectedCell:(UITableViewCell *)cell {
+    UIImage *image = [UIImage imageNamed:@"ipad-list-item-selected.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    cell.selectedBackgroundView = imageView;
+}
++ (void)customizeBackgroundForUnSelectedCell:(UITableViewCell *)cell {
+    UIImage *image = [UIImage imageNamed:@"ipad-list-element.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    cell.backgroundView = imageView;
+}
+
 + (void)customizeSelectedCellLabel:(UILabel *)label {
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor colorWithRed:25.0/255 green:96.0/255 blue:148.0/255 alpha:1.0];
@@ -124,13 +135,6 @@
     label.textColor = [UIColor colorWithRed:0.0 green:68.0/255 blue:118.0/255 alpha:1.0];
     label.shadowColor = [UIColor whiteColor];
     label.shadowOffset = CGSizeMake(0, 1);
-}
-
-+ (void)customizeSelectedCellBackgroundImageView:(UIImageView *)imageView {
-    imageView.image = [UIImage imageNamed:@"ipad-list-item-selected.png"];
-}
-+ (void)customizeUnSelectedCellBackgroundImageView:(UIImageView *)imageView {
-    imageView.image = [UIImage imageNamed:@"ipad-list-element.png"];
 }
 
 

@@ -23,14 +23,14 @@
 {    
     if(selected)
     {
-        [SCDesignHelpers customizeSelectedCellBackgroundImageView:self.backgroundImageView];
+        [SCDesignHelpers customizeBackgroundForSelectedCell:self];
         for (UILabel *label in self.labels) {
             [SCDesignHelpers customizeSelectedCellLabel:label];
         }
     }
     else
     {
-        [SCDesignHelpers customizeUnSelectedCellBackgroundImageView:self.backgroundImageView];
+        [SCDesignHelpers customizeBackgroundForUnSelectedCell:self];
         for (UILabel *label in self.labels) {
             [SCDesignHelpers customizeUnSelectedCellLabel:label];
         }
