@@ -23,5 +23,11 @@
 + (void)customizeSelectedCellLabel:(UILabel *)label;
 + (void)customizeUnSelectedCellLabel:(UILabel *)label;
 
++ (void)customizeTextColorForLabel:(UILabel *)label;
++ (void)customizeTextColorForTextField:(UITextField *)textField;
++ (void)customizeTextColorForTextView:(UITextView *)textView;
+
+
+
 
 @end

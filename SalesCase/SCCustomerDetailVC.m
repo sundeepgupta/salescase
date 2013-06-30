@@ -114,14 +114,17 @@
     
     [SCDesignHelpers customizeTableView:self.tableView];
     
+    
     [self registerForKeyboardNotifications];
     
     self.billToTextFields = [NSArray arrayWithObjects:self.billTo1TextField, self.billTo2TextField, self.billTo3TextField, self.billToCityTextField, self.billToStateTextField, self.billToPostalTextField, self.billToCountryTextField, nil];
     self.shipToTextFields = [NSArray arrayWithObjects:self.shipTo1TextField, self.shipTo2TextField, self.shipTo3TextField, self.shipToCityTextField, self.shipToStateTextField, self.shipToPostalTextField, self.shipToCountryTextField, nil];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
-{
+{   
+    
     NSMutableArray *toolbarItems = [[NSMutableArray alloc] init];
     
     

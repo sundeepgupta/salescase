@@ -46,7 +46,7 @@
 }
 
 + (NSDictionary *)textAttributes {
-    UIColor *textColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
+    UIColor *textColor = [self textColor];
     UIColor *shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
     NSValue *shadowOffset = [NSValue valueWithUIOffset:UIOffsetMake(0, -1)];
     
@@ -138,6 +138,19 @@
     label.shadowOffset = CGSizeMake(0, 1);
 }
 
++ (UIColor *)textColor {
+    return [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
+}
+
++ (void)customizeTextColorForLabel:(UILabel *)label {
+    label.textColor = [self textColor];
+}
++ (void)customizeTextColorForTextField:(UITextField *)textField {
+    textField.textColor = [self textColor];
+}
++ (void)customizeTextColorForTextView:(UITextView *)textView {
+    textView.textColor = [self textColor];
+}
 
 
 @end
