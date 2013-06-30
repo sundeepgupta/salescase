@@ -1,9 +1,9 @@
-salescase
+SalesCase
 =========
 
-iPad sales and order entry app for wholesalers, distributors and manufacturers that can sync with a web server.  Currently, this is setup to use my own webserver, so any syncing will not work without setting up a web app. 
+A native iPad sales and order entry app for wholesalers, distributors and manufacturers that can sync with a web server. Currently, this is syncing with a demo Quickbooks data account via the SalesCase web server via the [Intuit Partner Platform](https://developer.intuit.com/). 
 
-Opening and running the project will allow you to play around and sync with demo data.
+For screenshots and more details, see http://www.enhancetrade.com/ipad-sales-order-entry/
 
-Sundeep Gupta
+Sundeep Gupta  
 @sguptaet
