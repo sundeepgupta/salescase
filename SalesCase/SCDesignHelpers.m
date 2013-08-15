@@ -68,13 +68,11 @@
     [SCDesignHelpers addTopShadowToView:tableView];
     [SCDesignHelpers addBackgroundToView:tableView];
 }
-
 + (void)addTopShadowToView:(UIView *)view {
     CGRect shadowFrame = [SCDesignHelpers shadowFrameFromView:view];
     CALayer *shadow = [SCDesignHelpers shadowFromFrame:shadowFrame];
     [view.layer addSublayer:shadow];
 }
-
 + (CGRect)shadowFrameFromView:(UIView *)view {
     CGFloat frameWidth;
     
@@ -86,7 +84,6 @@
     CGFloat frameHeight = 5;
     return CGRectMake(0, 0, frameWidth, frameHeight);
 }
-
 + (CALayer *)shadowFromFrame:(CGRect)frame
 {
     CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -108,7 +105,6 @@
         [SCDesignHelpers removeBackgroundViewFromTableView:(UITableView *)view];
     }
 }
-
 + (void)removeBackgroundViewFromTableView:(UITableView *)tableView {
     tableView.backgroundView = nil;
 }
