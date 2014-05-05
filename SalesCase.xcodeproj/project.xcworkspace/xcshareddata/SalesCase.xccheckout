@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3E41F261-48F4-409C-87F7-99AB5E14F228</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SalesCase</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E3D725D4-7A12-4181-A639-E80D614D0715</key>
+		<string>http://git.evermight.com/salescasepad</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SalesCase.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E3D725D4-7A12-4181-A639-E80D614D0715</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://git.evermight.com/salescasepad</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E3D725D4-7A12-4181-A639-E80D614D0715</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E3D725D4-7A12-4181-A639-E80D614D0715</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SalesCase</string>
+		</dict>
+	</array>
+</dict>
+</plist>
